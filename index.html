@@ -259,6 +259,7 @@ html{scroll-behavior:smooth}
       <label class="check"><input type="checkbox" id="norm" checked><span data-t="normLabel"></span></label>
       <label class="check"><input type="checkbox" id="gate" checked><span data-t="gateLabel"></span></label>
       <label class="check"><input type="checkbox" id="gateOpen" checked><span data-t="gateOpenLabel"></span></label>
+      <label class="check"><input type="checkbox" id="gateFar" checked><span data-t="gateFarLabel"></span></label>
     </div>
   </details>
 
@@ -572,6 +573,7 @@ en:{brand:'Where should Adriano live?',eyebrow:'Livability atlas · November 202
  normLabel:'Balance factor scales: rescale every factor to the same average and spread before weighting, so a generously scored factor doesn’t quietly count more',
  gateLabel:'Limited freedoms (2 or lower) or active war are dealbreakers: capped at Avoid',
  gateOpenLabel:'The hardest places to make friends (1) are near-dealbreakers: capped at Caution',
+ gateFarLabel:'Trips of more than 18 hours to a home base are near-dealbreakers: capped at Caution',
  presets:{mine:'Adriano’s priorities',quiz:'From your quiz',career:'Career first',balance:'Balance and wellbeing',equal:'Everything equal',custom:'Custom'},
  colorOpts:{tier:'Overall verdict',score:'Overall score',limit:'Main drawback',conf:'How much is data-backed',vs:'You vs Adriano'},
  styles:{classic:'Classic',night:'Night',blueprint:'Blueprint',paper:'Field paper',cb:'Colorblind-safe',mono:'Ink monochrome'},
@@ -614,6 +616,7 @@ es:{brand:'¿Dónde debería vivir Adriano?',eyebrow:'Atlas de habitabilidad · 
  normLabel:'Equilibrar escalas: reescalar cada factor al mismo promedio y dispersión antes de ponderar, para que un factor calificado con generosidad no cuente más sin que se note',
  gateLabel:'Las libertades limitadas (2 o menos) o la guerra activa son inaceptables: se limitan a Evitar',
  gateOpenLabel:'Los lugares donde es más difícil hacer amigos (1) casi descartan: se limitan a Con reservas',
+ gateFarLabel:'Los viajes de más de 18 horas a un hogar casi descartan: se limitan a Con reservas',
  presets:{mine:'Prioridades de Adriano',quiz:'Según tu cuestionario',career:'Primero la carrera',balance:'Equilibrio y bienestar',equal:'Todo igual',custom:'Personalizado'},
  colorOpts:{tier:'Veredicto general',score:'Puntaje general',limit:'Principal desventaja',conf:'Cuánto se basa en datos',vs:'Tú vs. Adriano'},
  styles:{classic:'Clásico',night:'Noche',blueprint:'Plano',paper:'Papel de campo',cb:'Apto para daltonismo',mono:'Tinta monocromo'},
@@ -655,7 +658,7 @@ const QSTR={
   lang:['¿En qué idiomas puedes vivir?',['Inglés y español','Solo inglés','Inglés regular, sin fluidez','Solo español','Español, con algo de inglés','Aprendo lo que haga falta']],
   perm:['¿Qué pasaporte tienes?',['Estadounidense y mexicano, como Adriano','Solo estadounidense','Solo mexicano','Otro (ignorar esto)']]}};
 const HOW={
-en:`<p>Each place gets 1 to 5 on fourteen factors. A 0 means no data, and that factor is left out of that place's average instead of guessed. With scale balancing on, every factor is first rescaled to the same average and spread across all places; then the weighted average becomes 0 to 100. Verdicts: Strong fit at 70 and up, Workable at 60, Caution at 48, Avoid below that, plus the dealbreaker rules.</p>
+en:`<p>Each place gets 1 to 5 on fourteen factors. A 0 means no data, and that factor is left out of that place's average instead of guessed. With scale balancing on, every factor is first rescaled to the same average and spread across all places; then the weighted average becomes 0 to 100. Verdicts: Strong fit at 70 and up, Workable at 60, Caution at 48, Avoid below that, plus the dealbreaker rules. Trip times are rough: straight-line distance at airliner speed plus about 45 minutes, plus 2.5 hours for a connection when home is a small airport like Tampico.</p>
 <p>Scores were drafted with an AI assistant and checked against the sources linked below. Each breakdown marks which factors come from published data, from a calculation, or from an estimate. Winter daylight is calculated from the shortest day of the year at that latitude, and closeness to home from rough flight times. Language and work permit change with your quiz answers; climate is tuned to Adriano's taste for mild weather without humid heat. Visa rules, university lists and rankings change every year, so check anything you plan around.</p>
 <h3 style="color:var(--fg)">Bias check</h3>
 <div class="biastable"><table><thead><tr><th>Source or factor</th><th>Known bias</th><th>What was changed</th></tr></thead><tbody>
@@ -667,7 +670,7 @@ en:`<p>Each place gets 1 to 5 on fourteen factors. A 0 means no data, and that f
 <tr><td>Coverage</td><td>Cities were mostly in the US and Europe.</td><td>Added cities in Mexico, Central America, Africa and Southeast Asia, and rewrote notes that only listed negatives.</td></tr>
 <tr><td>Scale use</td><td>Some factors were scored more generously than others, which silently changes their weight.</td><td>The scale balancing option corrects for this.</td></tr>
 </tbody></table></div>`,
-es:`<p>Cada lugar recibe de 1 a 5 en catorce factores. Un 0 significa que no hay datos, y ese factor se excluye del promedio en vez de adivinarse. Con el equilibrio de escalas activado, cada factor se reescala al mismo promedio y dispersión en todos los lugares; luego el promedio ponderado se convierte en 0 a 100. Veredictos: Muy buena opción desde 70, Viable desde 60, Con reservas desde 48, Evitar por debajo, más las reglas de descarte.</p>
+es:`<p>Cada lugar recibe de 1 a 5 en catorce factores. Un 0 significa que no hay datos, y ese factor se excluye del promedio en vez de adivinarse. Con el equilibrio de escalas activado, cada factor se reescala al mismo promedio y dispersión en todos los lugares; luego el promedio ponderado se convierte en 0 a 100. Veredictos: Muy buena opción desde 70, Viable desde 60, Con reservas desde 48, Evitar por debajo, más las reglas de descarte. Los tiempos de viaje son aproximados: distancia en línea recta a velocidad de avión más unos 45 minutos, y 2,5 horas extra por escala cuando el hogar tiene un aeropuerto pequeño, como Tampico.</p>
 <p>Los puntajes se redactaron con un asistente de IA y se contrastaron con las fuentes enlazadas abajo. Cada desglose indica qué factores vienen de datos publicados, de un cálculo o de una estimación. La luz en invierno se calcula con el día más corto del año en esa latitud, y la cercanía a casa con tiempos de vuelo aproximados. El idioma y el permiso de trabajo cambian según tus respuestas; el clima refleja el gusto de Adriano por un clima templado sin calor húmedo. Las reglas de visas, las listas de universidades y los rankings cambian cada año, así que verifica lo que vayas a planear.</p>
 <h3 style="color:var(--fg)">Revisión de sesgos</h3>
 <div class="biastable"><table><thead><tr><th>Fuente o factor</th><th>Sesgo conocido</th><th>Qué se cambió</th></tr></thead><tbody>
@@ -687,12 +690,13 @@ const fmt=(s,o)=>s.replace(/\{(\w+)\}/g,(m,k)=>o[k]);
 const FACTORS=[{k:'move',i:5},{k:'hlth',i:2},{k:'happy',i:11},{k:'cult',i:7},{k:'open',i:9},{k:'pay',i:8},{k:'clim',i:0},{k:'jobs',i:1},{k:'day',calc:true},{k:'free',i:3},{k:'safe',i:4},{k:'perm',i:10},{k:'lang',i:6},{k:'fam',calc:true}];
 const FL=k=>FSTR[LANG][k][0], FD=k=>FSTR[LANG][k][1];
 const PRESETS={
- mine:{move:2.5,hlth:2.25,happy:1,cult:1.5,open:1.5,pay:1.25,clim:1.25,jobs:1.25,day:1,free:1.5,safe:1,perm:1,lang:0.75,fam:0.75},
+ mine:{move:2.5,hlth:2.25,happy:1,cult:1.5,open:1.5,pay:1.25,clim:1.25,jobs:1.25,day:1,free:1.5,safe:1,perm:1,lang:0.75,fam:1.5},
  career:{move:1.5,hlth:1,happy:0.5,cult:1.5,open:1,pay:2.5,clim:0.75,jobs:3,day:0.5,free:1.25,safe:1,perm:2,lang:1,fam:0.5},
  balance:{move:1.5,hlth:3,happy:2,cult:1,open:2,pay:1,clim:1.5,jobs:0.75,day:1.5,free:1.5,safe:1.5,perm:1,lang:1,fam:1},
  equal:Object.fromEntries(FACTORS.map(f=>[f.k,1]))};
 const CALC=new Set(['day','fam']),RULES=new Set(['perm']);
-const TIERS=['fit','ok','caution','avoid'];
+const TIERS=['fit','ok','caution','avoid'];const TR={fit:0,ok:1,caution:2,avoid:3};
+const byRank=(a,b)=>TR[a.tier]-TR[b.tier]||b.score-a.score;const byAdRank=(a,b)=>TR[a.ad.tier]-TR[b.ad.tier]||b.ad.score-a.ad.score;
 const CUT={fit:70,ok:60,caution:48};
 const CATS=[...FACTORS.map(f=>f.k),'none'];
 const CATPAL=['#2a78d6','#cf3f3f','#7a5af0','#e87ba4','#d9a400','#1baf7a','#e57a3c','#0f6d8c','#6b4f2a','#8b1e3f','#a33fbf','#3c8c3c','#c2185b','#5a7d9a','#9aa6af'];
@@ -715,7 +719,9 @@ function km(a,b){const r=Math.PI/180,dl=(b[0]-a[0])*r,dn=(b[1]-a[1])*r;const s=M
 function flightH(a,b){return km(a,b)/830+0.75;}
 function famBand(t){return t<=3.5?5:t<=6?4:t<=8.5?3:t<=12?2:1;}
 function setGeo(e,lat,lon,approx){e.lat0=lat;e.lon0=lon;e.dayH=dayHours(lat);e.sc.day=dayScore(e.dayH);e.geoApprox=approx;e.hasGeo=true;famFor(e);}
-function famFor(e){if(!e.hasGeo)return;e.flights=HOMES.map(h=>flightH([e.lat0,e.lon0],[h.lat0,h.lon0]));e.sc.fam=HOMES.length?Math.round(d3.mean(e.flights.map(famBand))):null;}
+const SMALL_AIRPORT=new Set(['city:Tampico','city:East Hampton','city:Southampton','city:Montauk','city:Riverhead']);
+function tripH(a,h){const d=km([a.lat0,a.lon0],[h.lat0,h.lon0]);return d/830+0.75+(SMALL_AIRPORT.has(h.key)&&d>1500?2.5:0);}
+function famFor(e){if(!e.hasGeo)return;e.flights=HOMES.map(h=>tripH(e,h));e.sc.fam=HOMES.length?Math.round(d3.mean(e.flights.map(famBand))):null;}
 
 /* ---------------- language and passport ---------------- */
 let LANGMODE='both',PERMMODE='usmx';
@@ -751,7 +757,7 @@ function countryOf(c){if(c.countryEnt)return dn(c.countryEnt);return c.iso===702
 const noteOf=e=>LANG==='es'?(e.noteEs||e.note):e.note;
 
 /* ---------------- scoring ---------------- */
-let W={...PRESETS.mine},gate=true,gateOpen=true,norm=true,MODE='adriano',QUIZW=null;
+let gateFar=true,W={...PRESETS.mine},gate=true,gateOpen=true,norm=true,MODE='adriano',QUIZW=null;
 let STATS={};
 function computeStats(){STATS={};FACTORS.forEach(f=>{const v=ents.filter(e=>listable(e)&&e.sc[f.k]!=null).map(e=>e.sc[f.k]);STATS[f.k]={m:d3.mean(v)||3,sd:d3.deviation(v)||1};});}
 function nv(k,v){if(!norm)return v;const s=STATS[k];return Math.max(1,Math.min(5,3+(v-s.m)/s.sd));}
@@ -763,6 +769,7 @@ function evaluate(e){
   let gated=false,lim='none';const war=CONFLICT.has(isoOf(e));
   if(gate&&((sc.free!=null&&sc.free<=2)||war)){tier='avoid';gated=true;lim=war?'safe':'free';}
   else if(gateOpen&&sc.open===1&&(tier==='fit'||tier==='ok')){tier='caution';gated=true;lim='open';}
+  else if(gateFar&&e.flights&&e.flights.some(h=>h>18)&&(tier==='fit'||tier==='ok')){tier='caution';gated=true;lim='fam';}
   else{let worst=-1;FACTORS.forEach(f=>{const v=sc[f.k];if(v==null||W[f.k]<=0||v>2)return;const pen=(5-v)*W[f.k];if(pen>worst){worst=pen;lim=f.k;}});}
   const known=FACTORS.filter(f=>sc[f.k]!=null);const backed=known.filter(f=>CALC.has(f.k)||RULES.has(f.k)||e.src.has(f.k)).length;
   return {score,tier,lim,gated,conf:known.length?backed/known.length:0,known:known.length,backed};
@@ -772,10 +779,10 @@ function applyHomes(){ents.forEach(famFor);}
 function recompute(){applyPersonal();computeStats();ents.forEach(e=>Object.assign(e,evaluate(e)));}
 function homesFromKeys(keys){return (keys||[]).map(k=>byKey[k]||ents.find(x=>x.name===k)).filter(e=>e&&e.hasGeo);}
 function snapshotAdriano(){
-  const save={W,HOMES,LANGMODE,PERMMODE,gate,gateOpen,norm};
-  W={...PRESETS.mine};HOMES=homesFromKeys(ADRIANO_HOMES);LANGMODE='both';PERMMODE='usmx';gate=gateOpen=norm=true;
+  const save={W,HOMES,LANGMODE,PERMMODE,gate,gateOpen,norm,gateFar};
+  W={...PRESETS.mine};HOMES=homesFromKeys(ADRIANO_HOMES);LANGMODE='both';PERMMODE='usmx';gate=gateOpen=norm=gateFar=true;
   applyHomes();recompute();ents.forEach(e=>{e.ad={score:e.score,tier:e.tier};});
-  ({W,HOMES,LANGMODE,PERMMODE,gate,gateOpen,norm}=save);applyHomes();recompute();
+  ({W,HOMES,LANGMODE,PERMMODE,gate,gateOpen,norm,gateFar}=save);applyHomes();recompute();
 }
 HOMES=homesFromKeys(ADRIANO_HOMES);applyHomes();recompute();snapshotAdriano();
 
@@ -831,7 +838,7 @@ function renderVs(){
   const cs=ents.filter(e=>e.type==='city');
   const r=pearson(cs.map(e=>e.score),cs.map(e=>e.ad.score));
   $('matchPct').textContent=Math.max(0,Math.round(r*100))+'%';
-  const yours=[...cs].sort((a,b)=>b.score-a.score).slice(0,5),ad=[...cs].sort((a,b)=>b.ad.score-a.ad.score).slice(0,5);
+  const yours=[...cs].sort(byRank).slice(0,5),ad=[...cs].sort(byAdRank).slice(0,5);
   const both=new Set(yours.filter(e=>ad.includes(e)));
   const li=(e,s,tag)=>`<li><button class="ghost" data-key="${e.key}" style="min-height:0;padding:0;font-size:inherit">${dn(e)}</button><span class="s">${s}</span>${tag&&both.has(e)?`<span class="shared">${L('bothLists')}</span>`:''}</li>`;
   $('vsLists').innerHTML=`<div class="col"><span class="lab" style="color:var(--you)">${L('yourTop')}</span><ol>${yours.map(e=>li(e,e.score,1)).join('')}</ol></div><div class="col"><span class="lab">${L('adTop')}</span><ol>${ad.map(e=>li(e,e.ad.score)).join('')}</ol></div>`;
@@ -848,9 +855,9 @@ function renderVs(){
 }
 
 /* ---------------- take: save, share, load ---------------- */
-function takeState(){return {v:2,w:W,h:HOMES.map(h=>h.key),lm:LANGMODE,pm:PERMMODE,g:gate?1:0,o:gateOpen?1:0,n:norm?1:0,a:ANS};}
+function takeState(){return {v:2,w:W,h:HOMES.map(h=>h.key),lm:LANGMODE,pm:PERMMODE,g:gate?1:0,o:gateOpen?1:0,f:gateFar?1:0,n:norm?1:0,a:ANS};}
 function saveTake(){if(MODE==='yours')store.set('take',JSON.stringify(takeState()));}
-function loadTake(o){W={...PRESETS.mine,...(o.w||{})};HOMES=homesFromKeys(o.h);LANGMODE=o.lm||'en';PERMMODE=o.pm||'us';gate=o.g!==0;gateOpen=o.o!==0;norm=o.n!==0;ANS=o.a||{};QUIZW=Object.keys(ANS).length?weightsFromQuiz(ANS):null;MODE='yours';}
+function loadTake(o){W={...PRESETS.mine,...(o.w||{})};HOMES=homesFromKeys(o.h);LANGMODE=o.lm||'en';PERMMODE=o.pm||'us';gate=o.g!==0;gateOpen=o.o!==0;gateFar=o.f!==0;norm=o.n!==0;ANS=o.a||{};QUIZW=Object.keys(ANS).length?weightsFromQuiz(ANS):null;MODE='yours';}
 const enc=o=>btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
 const dec=s=>JSON.parse(decodeURIComponent(escape(atob(s.replace(/-/g,'+').replace(/_/g,'/')))));
 function toast(msg){$('toast').textContent=msg;clearTimeout(toast.t);toast.t=setTimeout(()=>$('toast').textContent='',4500);}
@@ -985,9 +992,9 @@ function renderCmp(){
 function list(){
   const q=($('search').value||'').trim().toLowerCase();
   const all=ents.filter(e=>e.type===ui.rankType&&listable(e));
-  let rows=all.filter(passes).sort((a,b)=>b.score-a.score||dn(a).localeCompare(dn(b)));
+  let rows=all.filter(passes).sort((a,b)=>byRank(a,b)||dn(a).localeCompare(dn(b)));
   if(q)rows=rows.filter(e=>dn(e).toLowerCase().includes(q)||e.name.toLowerCase().includes(q)||(e.type==='city'&&countryOf(e).toLowerCase().includes(q)));
-  const shown=ui.showAll||q?rows:rows.slice(0,20);const rankOf=e=>all.filter(x=>x.score>e.score).length+1;
+  const shown=ui.showAll||q?rows:rows.slice(0,20);const sortedAll=[...all].sort((a,b)=>byRank(a,b)||dn(a).localeCompare(dn(b)));const rankOf=e=>sortedAll.indexOf(e)+1;
   $('list').innerHTML=shown.map(e=>`<button class="row" data-key="${e.key}"><span class="n">${rankOf(e)}</span><span style="min-width:0"><b style="font-weight:500">${dn(e)}</b>${e.type==='city'?` <span class="muted" style="font-size:12.5px">${countryOf(e)}</span>`:''}${MODE==='yours'?`<span class="ad">${L('adScore')} ${e.ad.score}</span>`:''}</span><span class="sc">${e.score}<span class="track"><span class="fill" style="width:${e.score}%;background:${TIERCOL[e.tier]}"></span></span></span><span class="why">${e.lim==='none'?L('noMajor'):FD(e.lim)}</span></button>`).join('')||`<p class="meta" style="padding:12px 6px">${L('nothing')}</p>`;
   $('more').hidden=ui.showAll||!!q||rows.length<=20;
   $('rankmeta').textContent=fmt(L('rankmeta'),{n:rows.length,t:all.length});
@@ -1002,7 +1009,7 @@ function weightsUI(){
   $('preset').value=MODE==='adriano'?'mine':'custom';
   $('home1').outerHTML=homeSelect('home1',HOMES[0]?HOMES[0].key:'');$('home2').outerHTML=homeSelect('home2',HOMES[1]?HOMES[1].key:'');
   $('home1').onchange=$('home2').onchange=()=>{becomeYours();HOMES=homesFromKeys([$('home1').value,$('home2').value].filter(Boolean));applyHomes();refreshAll();saveTake();};
-  $('norm').checked=norm;$('gate').checked=gate;$('gateOpen').checked=gateOpen;
+  $('norm').checked=norm;$('gate').checked=gate;$('gateOpen').checked=gateOpen;$('gateFar').checked=gateFar;
 }
 function becomeYours(){if(MODE==='yours')return;MODE='yours';LANGMODE='both';PERMMODE='usmx';syncMode();}
 function syncMode(){
@@ -1047,7 +1054,7 @@ function applyLang(){
 $('lEn').onclick=()=>{LANG='en';store.set('lang','en');applyLang();};
 $('lEs').onclick=()=>{LANG='es';store.set('lang','es');applyLang();};
 $('startQuiz').onclick=startQuiz;
-$('skipQuiz').onclick=()=>{$('quizPanel').hidden=true;MODE='adriano';W={...PRESETS.mine};HOMES=homesFromKeys(ADRIANO_HOMES);LANGMODE='both';PERMMODE='usmx';gate=gateOpen=norm=true;applyHomes();weightsUI();refreshAll();showMap();};
+$('skipQuiz').onclick=()=>{$('quizPanel').hidden=true;MODE='adriano';W={...PRESETS.mine};HOMES=homesFromKeys(ADRIANO_HOMES);LANGMODE='both';PERMMODE='usmx';gate=gateOpen=norm=gateFar=true;applyHomes();weightsUI();refreshAll();showMap();};
 $('resumeTake').onclick=()=>{try{loadTake(JSON.parse(store.get('take','null')));applyHomes();weightsUI();refreshAll();$('vsPanel').hidden=false;$('vsPanel').scrollIntoView({block:'start'});}catch(e){}};
 $('retake').onclick=startQuiz;
 $('toMap').onclick=showMap;
@@ -1071,6 +1078,7 @@ $('preset').onchange=e=>{const v=e.target.value;const src=v==='quiz'?QUIZW:PRESE
 $('norm').onchange=e=>{becomeYours();norm=e.target.checked;refreshAll();saveTake();};
 $('gate').onchange=e=>{becomeYours();gate=e.target.checked;refreshAll();saveTake();};
 $('gateOpen').onchange=e=>{becomeYours();gateOpen=e.target.checked;refreshAll();saveTake();};
+$('gateFar').onchange=e=>{becomeYours();gateFar=e.target.checked;refreshAll();saveTake();};
 $('cmpClear').onclick=()=>{ui.cmp=[];renderCmp();detail(ui.sel);pcard();};
 $('search').oninput=()=>list();
 $('search').onchange=e=>{const v=e.target.value.trim().toLowerCase();const hit=ents.find(x=>listable(x)&&(dn(x).toLowerCase()===v||x.name.toLowerCase()===v));if(hit){select(hit,true);}};
