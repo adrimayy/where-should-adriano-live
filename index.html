@@ -1,0 +1,1108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Where Should Adriano Live?</title>
+<meta name="description" content="Every country and 89 cities scored on fourteen factors for Adriano. Take a one-minute quiz to get your own map and see how you compare.">
+<meta property="og:title" content="Where Should Adriano Live?">
+<meta property="og:description" content="Take a one-minute quiz, get your own map, and see how you compare with Adriano.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single column flow. Start card -> optional step quiz -> you vs Adriano -> map with place card -> ranking -> detail and compare -> collapsible weights and methods. */
+:root{
+  --bg:#f5f7f8; --panel:#ffffff; --fg:#14202b; --muted:#5a6873; --line:#dde3e8; --accent:#0f6d8c; --accent-fg:#ffffff;
+  --ocean:#dbe7ef; --land-stroke:#ffffff; --grat:#c9d8e3; --chip-bg:#eef2f5; --off:#e4e9ed; --you:#7a5af0;
+  --display:"Space Grotesk",ui-sans-serif,system-ui,sans-serif;
+  --body:"IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f151b; --panel:#161f27; --fg:#e6edf2; --muted:#94a3ae; --line:#26323d; --accent:#4fb3d4; --accent-fg:#0b1218;
+  --ocean:#13212d; --land-stroke:#0f151b; --grat:#1c2d3b; --chip-bg:#1d2a35; --off:#1f2a33; --you:#a08cff; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f151b; --panel:#161f27; --fg:#e6edf2; --muted:#94a3ae; --line:#26323d; --accent:#4fb3d4; --accent-fg:#0b1218;
+  --ocean:#13212d; --land-stroke:#0f151b; --grat:#1c2d3b; --chip-bg:#1d2a35; --off:#1f2a33; --you:#a08cff; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.55;
+  padding-left:max(14px,env(safe-area-inset-left,0px));padding-right:max(14px,env(safe-area-inset-right,0px));padding-block:0 48px}
+.wrap{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+h1,h2,h3{font-family:var(--display);font-weight:600;margin:0;text-wrap:balance;letter-spacing:-0.01em}
+h1{font-size:clamp(28px,6vw,40px);line-height:1.1} h2{font-size:clamp(18px,4vw,21px)} h3{font-size:15px}
+p{margin:0}
+a{color:var(--accent)}
+.topbar{position:sticky;top:0;z-index:20;background:var(--bg);display:flex;justify-content:space-between;align-items:center;gap:10px;padding-block:10px;padding-top:max(10px,env(safe-area-inset-top,0px));border-bottom:1px solid var(--line);margin-inline:calc(-1 * max(14px,env(safe-area-inset-left,0px)));padding-inline:max(14px,env(safe-area-inset-left,0px))}
+.brand{font-family:var(--display);font-weight:600;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.lab{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)} .meta{color:var(--muted);font-size:13.5px} .mono{font-family:var(--mono);font-size:12.5px}
+button{font:inherit;font-size:14px;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer;min-height:40px}
+button:hover{border-color:var(--muted)}
+button.primary{background:var(--accent);color:var(--accent-fg);border-color:var(--accent);font-weight:500}
+button.ghost{background:transparent;border-color:transparent;color:var(--accent);padding-inline:6px}
+button.chipbtn{min-height:36px;padding:6px 12px;font-size:13.5px}
+button.chipbtn[aria-pressed="false"]{color:var(--muted);background:transparent;border-style:dashed}
+button.chipbtn[aria-pressed="true"]{border-color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+select,input[type=search]{font:inherit;font-size:15px;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 10px;min-height:40px;max-width:100%}
+input[type=range]{accent-color:var(--accent)}
+.toggles{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;padding:3px;background:var(--panel);gap:3px}
+.seg button{border:0;min-height:34px;padding:5px 12px;border-radius:7px;background:transparent;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-fg)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.hero{padding:22px 20px;gap:16px}
+.hero .lede{color:var(--muted);max-width:66ch;font-size:16px}
+.cta{display:flex;gap:10px;flex-wrap:wrap}
+.cta button{min-height:46px;font-size:15px;padding-inline:18px}
+.prio{display:flex;flex-wrap:wrap;gap:6px}
+.prio span{font-size:12.5px;background:var(--chip-bg);border-radius:999px;padding:4px 10px}
+.prio b{font-family:var(--mono);font-weight:500;color:var(--accent);margin-right:5px}
+/* quiz */
+.qwrap{display:flex;flex-direction:column;gap:16px}
+.progress{height:6px;border-radius:3px;background:var(--chip-bg);overflow:hidden}
+.progress span{display:block;height:100%;background:var(--accent);transition:width .25s}
+.qtitle{font-family:var(--display);font-size:clamp(20px,5vw,26px);font-weight:600;line-height:1.2}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.opt{text-align:left;min-height:54px;padding:12px 14px;font-size:15px;border-radius:12px;display:flex;align-items:center;gap:10px}
+.opt[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.opt .dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--line);flex:none}
+.opt[aria-pressed="true"] .dot{border-color:var(--accent);background:var(--accent)}
+.qnav{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+/* compare with Adriano */
+.vs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.vs .col{display:flex;flex-direction:column;gap:6px;min-width:0}
+.vs ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:4px}
+.vs li{font-size:14.5px}
+.vs li .s{font-family:var(--mono);font-size:12px;color:var(--muted);margin-left:6px}
+.shared{font-size:11px;font-family:var(--mono);color:var(--accent);margin-left:6px;text-transform:uppercase;letter-spacing:.04em}
+.match{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.match .big{font-family:var(--display);font-size:44px;line-height:1;font-variant-numeric:tabular-nums}
+.diffs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.diffs ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:3px;font-size:14px}
+/* map */
+.mapctl{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:end}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+details.box{background:var(--panel);border:1px solid var(--line);border-radius:14px}
+details.box>summary{list-style:none;cursor:pointer;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:500;min-height:46px}
+details.box>summary::-webkit-details-marker{display:none}
+details.box>summary::after{content:"+";font-family:var(--mono);color:var(--muted);font-size:18px}
+details.box[open]>summary::after{content:"−"}
+details.box>.inner{padding:0 16px 16px;display:flex;flex-direction:column;gap:14px}
+.range{display:flex;align-items:center;gap:8px}
+.range input{width:160px;max-width:50vw}
+.range output{font-family:var(--mono);font-size:13px;min-width:24px}
+.mapbox{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--ocean)}
+.mapbox svg{display:block;width:100%;height:auto;touch-action:pan-y;cursor:grab}
+.zoombtns{position:absolute;right:10px;top:10px;display:flex;flex-direction:column;gap:6px}
+.zoombtns button{width:40px;padding:0;font-size:18px;line-height:1}
+.maphint{position:absolute;left:10px;top:10px;font-size:12px;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:4px 8px;opacity:.92}
+.tip{position:absolute;pointer-events:none;background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:13px;line-height:1.4;max-width:250px;opacity:0;transition:opacity .12s}
+.pcard{position:absolute;left:10px;right:10px;bottom:10px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.pcard .nm{font-family:var(--display);font-weight:600;font-size:16px}
+.pcard .sc2{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.pcard .acts{margin-left:auto;display:flex;gap:6px}
+.pcard .acts button{min-height:36px;padding:5px 10px;font-size:13px}
+.maperr{position:absolute;left:16px;right:16px;top:16px;color:var(--muted);font-size:13.5px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted);align-items:center}
+.sw{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.ramp{display:inline-flex;align-items:center;gap:8px}
+.ramp span.bar{display:inline-block;width:130px;height:10px;border-radius:5px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:500;padding:3px 9px;border-radius:999px;background:var(--chip-bg);white-space:nowrap}
+.chip i{width:8px;height:8px;border-radius:50%;display:inline-block}
+/* detail */
+.grid2{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:16px}
+@media (max-width:820px){.grid2{grid-template-columns:minmax(0,1fr)}}
+.dhead{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}
+.big{font-family:var(--display);font-size:40px;line-height:1;font-variant-numeric:tabular-nums}
+.big small{font-size:15px;color:var(--muted);margin-left:2px}
+.bars{display:flex;flex-direction:column;gap:6px}
+.brow{display:grid;grid-template-columns:170px minmax(0,1fr) 54px;gap:10px;align-items:center;font-size:13.5px}
+.track{height:8px;border-radius:4px;background:var(--chip-bg);overflow:hidden;position:relative}
+.fill{display:block;height:100%;border-radius:4px}
+.brow .v{font-family:var(--mono);font-size:12px;text-align:right;color:var(--muted);white-space:nowrap}
+.brow.weak .lbl{font-weight:500}
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);margin-left:6px}
+.wrow{display:grid;grid-template-columns:170px minmax(0,1fr) 44px;gap:10px;align-items:center;font-size:13.5px}
+.wrow input{width:100%}
+.wrow output{font-family:var(--mono);font-size:12.5px;text-align:right;color:var(--muted)}
+.wrow .adw{position:absolute}
+.check{display:flex;gap:8px;align-items:flex-start;font-size:13.5px}
+.check input{margin-top:3px;accent-color:var(--accent);width:18px;height:18px;flex:none}
+.mustgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:6px 16px}
+.cmp{overflow-x:auto}
+.cmpgrid{display:grid;gap:6px 14px;align-items:center;font-size:13.5px;min-width:480px}
+.cmpgrid .h{font-weight:600;font-family:var(--display);font-size:15px;display:flex;justify-content:space-between;gap:6px;align-items:center}
+.cmpgrid .h button{min-height:28px;padding:0 8px;font-size:12px}
+.cell{display:flex;align-items:center;gap:8px}
+.cell .track{flex:1}
+/* ranking */
+.rankhead{display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:10px}
+.list{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:34px minmax(0,1.3fr) 120px minmax(0,1.5fr);gap:12px;align-items:center;padding:10px 6px;border-bottom:1px solid var(--line);cursor:pointer;font-size:14.5px;background:none;border-left:0;border-right:0;border-top:0;border-radius:0;text-align:left;min-height:0;width:100%}
+.row:hover{background:var(--chip-bg)}
+.row .n{font-family:var(--mono);color:var(--muted);font-size:12.5px}
+.row .why{color:var(--muted);font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .ad{font-family:var(--mono);font-size:11.5px;color:var(--muted);display:block}
+.sc{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12.5px;font-variant-numeric:tabular-nums}
+.sc .track{flex:1}
+@media (max-width:600px){
+  .row{grid-template-columns:28px minmax(0,1fr) 96px}.row .why{grid-column:2 / 4;white-space:normal}
+  .brow,.wrow{grid-template-columns:120px minmax(0,1fr) 46px}
+  .pcard{position:relative;left:auto;right:auto;bottom:auto;margin:0 8px 8px}
+  .pcard .acts{margin-left:0;width:100%}.pcard .acts button{flex:1}.pcard .acts #pcX{flex:0 0 44px}
+  .hero{padding:18px 16px}
+}
+.foot{color:var(--muted);font-size:13.5px;display:flex;flex-direction:column;gap:10px}
+.foot p{max-width:85ch}
+.biastable{overflow-x:auto}
+.biastable table{border-collapse:collapse;min-width:620px;font-size:13px;width:100%}
+.biastable th,.biastable td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.biastable th{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.biastable td:first-child{color:var(--fg);font-weight:500}
+.toast{font-size:13.5px;color:var(--accent);min-height:1.2em}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <span class="brand" data-t="brand"></span>
+    <div class="seg" role="group" aria-label="Language"><button id="lEn" aria-pressed="true">EN</button><button id="lEs" aria-pressed="false">ES</button></div>
+  </div>
+
+  <section class="panel hero" id="start">
+    <span class="eyebrow" data-t="eyebrow"></span>
+    <h1 data-t="h1"></h1>
+    <p class="lede" data-th="intro1"></p>
+    <p class="lede" data-th="intro2"></p>
+    <div style="display:flex;flex-direction:column;gap:6px"><span class="lab" data-t="prioTitle"></span><div class="prio" id="prio"></div></div>
+    <div class="cta"><button class="primary" id="startQuiz" data-t="startQuiz"></button><button id="skipQuiz" data-t="skipQuiz"></button><button class="ghost" id="resumeTake" hidden data-t="resume"></button></div>
+    <p class="meta" data-t="startNote"></p>
+  </section>
+
+  <section class="panel" id="quizPanel" hidden aria-live="polite">
+    <div class="qwrap" id="qwrap"></div>
+  </section>
+
+  <section class="panel" id="vsPanel" hidden>
+    <div class="dhead">
+      <div style="display:flex;flex-direction:column;gap:4px"><span class="eyebrow" data-t="vsEyebrow"></span><h2 data-t="vsTitle"></h2></div>
+      <div class="match"><span class="big" id="matchPct">0%</span><span class="meta" data-t="matchLabel"></span></div>
+    </div>
+    <div class="vs" id="vsLists"></div>
+    <div class="diffs" id="vsDiffs"></div>
+    <div class="toast" id="toast" role="status"></div>
+    <div class="toggles"><button class="primary" id="shareTake" data-t="share"></button><button id="retake" data-t="retake"></button><button class="ghost" id="toMap" data-t="toMap"></button></div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:12px" id="mapSec">
+    <div class="rankhead">
+      <div style="display:flex;flex-direction:column;gap:4px"><h2 data-t="mapTitle"></h2><p class="meta" id="modeNote"></p></div>
+      <div class="seg" role="group" aria-label="Whose take"><button id="mAdriano" aria-pressed="true" data-t="adTake"></button><button id="mYours" aria-pressed="false" data-t="yourTake"></button></div>
+    </div>
+    <details class="box" id="mapOpts">
+      <summary><span data-t="optsTitle"></span><span class="meta" id="fsum" style="font-weight:400;margin-left:auto"></span></summary>
+      <div class="inner">
+        <div class="mapctl">
+          <div class="field"><label class="lab" for="colorBy" data-t="colorBy"></label><select id="colorBy"></select></div>
+          <div class="field"><label class="lab" for="styleSel" data-t="mapStyle"></label><select id="styleSel"></select></div>
+          <div class="field"><label class="lab" for="projSel" data-t="projection"></label><select id="projSel"></select></div>
+          <div class="field"><label class="lab" for="search" data-t="find"></label><input id="search" type="search" list="names" autocomplete="off"><datalist id="names"></datalist></div>
+        </div>
+        <div class="field"><span class="lab" data-t="layers"></span><div class="toggles"><button class="chipbtn" id="tCountries" aria-pressed="true" data-t="countries"></button><button class="chipbtn" id="tCities" aria-pressed="true" data-t="cities"></button><button class="chipbtn" id="tLabels" aria-pressed="false" data-t="cityNames"></button></div></div>
+        <div class="field"><span class="lab" data-t="verdicts"></span><div class="toggles" id="tierFilters"></div></div>
+        <div class="field"><label class="lab" for="minScore" data-t="minScore"></label><div class="range"><input type="range" id="minScore" min="0" max="90" step="5" value="0"><output id="minOut">0</output></div></div>
+        <div class="field"><span class="lab" data-t="mustHave"></span><div class="mustgrid" id="mustMenu"></div></div>
+        <div><button id="freset" data-t="resetFilters"></button></div>
+      </div>
+    </details>
+    <div class="mapbox" id="mapbox">
+      <svg id="map" role="img" aria-label="World map"></svg>
+      <span class="maphint" id="maphint"></span>
+      <div class="zoombtns"><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">−</button><button id="zreset" aria-label="Reset view" style="font-size:14px">⟲</button></div>
+      <div class="tip" id="tip"></div>
+      <div class="pcard" id="pcard" hidden></div>
+    </div>
+    <div class="legend" id="legend"></div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:12px">
+    <div class="rankhead">
+      <div style="display:flex;flex-direction:column;gap:4px"><h2 data-t="ranking"></h2><p class="meta" id="rankmeta"></p></div>
+      <div class="seg" role="group"><button id="rCities" aria-pressed="true" data-t="cities"></button><button id="rCountries" aria-pressed="false" data-t="countries"></button></div>
+    </div>
+    <div class="list" id="list"></div>
+    <div><button id="more" data-t="showAll"></button></div>
+  </section>
+
+  <div class="grid2" id="detailSec">
+    <section class="panel" id="detail" aria-live="polite"></section>
+    <section class="panel" id="cmpPanel">
+      <div style="display:flex;justify-content:space-between;align-items:end;gap:10px;flex-wrap:wrap"><h2 data-t="compare"></h2><button id="cmpClear" data-t="clear"></button></div>
+      <div class="cmp"><div class="cmpgrid" id="cmp"></div></div>
+    </section>
+  </div>
+
+  <details class="box" id="weightsBox">
+    <summary><span data-t="weightsTitle"></span></summary>
+    <div class="inner">
+      <p class="meta" data-t="weightsNote"></p>
+      <div class="field"><label class="lab" for="preset" data-t="preset"></label><select id="preset"></select></div>
+      <div id="weights" style="display:flex;flex-direction:column;gap:8px"></div>
+      <div class="field"><span class="lab" data-t="homeBases"></span><div class="toggles"><select id="home1" aria-label="Home base 1"></select><select id="home2" aria-label="Home base 2"></select></div></div>
+      <label class="check"><input type="checkbox" id="norm" checked><span data-t="normLabel"></span></label>
+      <label class="check"><input type="checkbox" id="gate" checked><span data-t="gateLabel"></span></label>
+      <label class="check"><input type="checkbox" id="gateOpen" checked><span data-t="gateOpenLabel"></span></label>
+    </div>
+  </details>
+
+  <details class="box">
+    <summary><span data-t="howTitle"></span></summary>
+    <div class="inner foot" id="howInner"></div>
+  </details>
+</div>
+
+<script id="data" type="application/json">
+{"countries":{"840":["United States","351432554554","Highest tech pay anywhere and Adriano's top two cities, but it varies more by region than any other country. Healthcare is tied to your job and vacation is short.","safe,happy","El mejor salario tech del mundo y las dos ciudades favoritas de Adriano, pero varía muchísimo por región. El seguro médico depende del trabajo y las vacaciones son cortas.","US"],
+"124":["Canada","344543543344","Public healthcare, English, close to the US. Cold winters and lower pay than the US.","safe,open,happy","Salud pública, inglés y cerca de EE. UU. Inviernos fríos y sueldos más bajos que en EE. UU.","CA"],
+"484":["Mexico","323313542554","Expats rate it the easiest country in the world to settle in, and Guadalajara is a real tech hub. National homicide rate is high, though it varies a lot by city.","safe,open,happy","Los expatriados lo califican como el país más fácil del mundo para adaptarse, y Guadalajara es un polo tech real. La tasa nacional de homicidios es alta, aunque varía mucho por ciudad.","MX"],
+"320":["Guatemala","412312521023","Mild highlands, very few tech jobs, safety concerns.","safe","Tierras altas templadas, muy pocos empleos tech, problemas de seguridad.","GT"],
+"084":["Belize","212421521022","Hot and humid, tiny job market.","","Caluroso y húmedo, mercado laboral diminuto.","BZ"],
+"340":["Honduras","212312521022","High crime, hot, few jobs.","safe","Mucha delincuencia, calor y pocos empleos.","HN"],
+"222":["El Salvador","212332521023","Safer than before, but democratic checks have weakened. Few tech jobs.","safe","Más seguro que antes, pero los contrapesos democráticos se han debilitado. Pocos empleos tech.","SV"],
+"558":["Nicaragua","212122521023","Authoritarian government.","","Gobierno autoritario.","NI"],
+"188":["Costa Rica","324522532435","Stable and green, but few tech jobs and car-dependent.","safe,happy","Estable y verde, pero con pocos empleos tech y dependencia del auto.","CR"],
+"591":["Panama","223423531533","Stable hub, hot and humid.","safe,open","Centro regional estable, caluroso y húmedo.","PA"],
+"192":["Cuba","212132531022","Authoritarian government, economic hardship.","","Gobierno autoritario y dificultades económicas.","CU"],
+"388":["Jamaica","212412531022","Hot, high crime, small market.","safe","Calor, mucha delincuencia, mercado pequeño.","JM"],
+"332":["Haiti","211211221021","Severe instability.","","Inestabilidad grave.","HT"],
+"214":["Dominican Rep.","212322531022","Hot and humid, few tech jobs.","safe","Caluroso y húmedo, pocos empleos tech.","DO"],
+"630":["Puerto Rico","222532531022","US territory, Spanish and English, but hot, humid, and hurricane-prone.","","Territorio de EE. UU., español e inglés, pero caluroso, húmedo y con huracanes.","PR"],
+"044":["Bahamas","212531521022","Hot, humid, hurricanes, tiny market.","","Calor, humedad, huracanes y mercado diminuto.","BS"],
+"780":["Trinidad and Tobago","212422531022","Hot, high crime, small market.","","Calor, mucha delincuencia, mercado pequeño.","TT"],
+"170":["Colombia","423313542532","Among the easiest countries to settle in, with spring-like Bogota and Medellin. High homicide rate nationally.","safe,open","De los países más fáciles para adaptarse, con Bogotá y Medellín de clima primaveral. Tasa nacional de homicidios alta.","CO"],
+"862":["Venezuela","311112521022","Economic collapse and authoritarian government.","","Colapso económico y gobierno autoritario.","VE"],
+"328":["Guyana","212421511022","Hot, small, few jobs.","","Caluroso, pequeño, pocos empleos.","GY"],
+"740":["Suriname","212431211022","Hot, small, Dutch-speaking.","","Caluroso, pequeño, de habla neerlandesa.","SR"],
+"218":["Ecuador","413312521432","Mild Andean climate, but rising crime and few tech jobs.","safe","Clima andino templado, pero con aumento de la delincuencia y pocos empleos tech.","EC"],
+"604":["Peru","422323532432","Lima is mild and gray. Few tech jobs.","safe","Lima es templada y gris. Pocos empleos tech.","PE"],
+"076":["Brazil","323413242423","Sao Paulo is Latin America's tech capital and very social. High homicide rate nationally, Portuguese.","safe,open","São Paulo es la capital tech de América Latina y muy sociable. Tasa nacional de homicidios alta, portugués.","BR"],
+"068":["Bolivia","312432521022","Rated Free again in 2026. High altitude, few tech jobs.","","De nuevo calificada como Libre en 2026. Mucha altitud, pocos empleos tech.","BO"],
+"600":["Paraguay","212332521022","Hot, small market.","","Caluroso, mercado pequeño.","PY"],
+"858":["Uruguay","424523532433","Stable, progressive, Spanish-speaking. Small market.","safe","Estable, progresista, de habla hispana. Mercado pequeño.","UY"],
+"032":["Argentina","424434542433","Buenos Aires is cultural and walkable. Unstable economy.","safe","Buenos Aires es cultural y caminable. Economía inestable.","AR"],
+"152":["Chile","524533532333","Mediterranean climate, stable, Spanish-speaking. Smaller tech market, earthquakes.","safe","Clima mediterráneo, estable, de habla hispana. Mercado tech más pequeño, sismos.","CL"],
+"238":["Falkland Is.","213551511022","Remote, tiny.","","Remoto y diminuto.","FK"],
+"304":["Greenland","114551211022","Arctic, tiny population.","","Ártico, muy poca población.","GL"],
+"352":["Iceland","225552432225","Safe and beautiful, dark winters, tiny market.","happy","Seguro y hermoso, inviernos oscuros, mercado diminuto.","IS"],
+"372":["Ireland","544553543434","English-speaking EU hub where most big tech runs its European operations. Mild, never hot. Housing is scarce.","happy","Centro europeo de habla inglesa donde casi todas las grandes tech tienen su sede en Europa. Templado, nunca hace calor. Escasea la vivienda.","IE"],
+"826":["United Kingdom","444554553343","English, huge music scene, big tech and finance, public healthcare. Gray winters, lower pay than US.","safe","Inglés, enorme escena musical, grandes tech y finanzas, salud pública. Inviernos grises, sueldos más bajos que en EE. UU.","GB"],
+"578":["Norway","235554433125","High wages and balance, very dark winters.","open,happy","Sueldos altos y buen equilibrio, inviernos muy oscuros.","NO"],
+"752":["Sweden","235554443125","Stockholm is a startup hub. Very dark winters.","open,happy","Estocolmo es un polo de startups. Inviernos muy oscuros.","SE"],
+"246":["Finland","235554433125","Often ranked happiest country. Long dark winters.","open,happy","Suele ser el país más feliz del ranking. Inviernos largos y oscuros.","FI"],
+"208":["Denmark","335555443125","Top work-life balance and bikeability. Small tech market.","open,happy","Excelente equilibrio vida-trabajo y ciudades para la bici. Mercado tech pequeño.","DK"],
+"233":["Estonia","234553433223","Digital government, startup-friendly, cold and small.","","Gobierno digital, amigable con startups, frío y pequeño.","EE"],
+"428":["Latvia","223543332023","Affordable, cold, small market.","","Accesible, frío, mercado pequeño.","LV"],
+"440":["Lithuania","223543332023","Growing tech, cold, small.","","Sector tech en crecimiento, frío, pequeño.","LT"],
+"616":["Poland","333454343224","Warsaw and Krakow have growing tech. Lower pay, Polish.","happy","Varsovia y Cracovia tienen tech en crecimiento. Sueldos más bajos, polaco.","PL"],
+"276":["Germany","345554343134","Berlin startups and Munich big tech, strong worker protections. German helps a lot.","open,happy","Startups en Berlín y grandes tech en Múnich, buena protección laboral. El alemán ayuda mucho.","DE"],
+"528":["Netherlands","345555443335","Bikeable, English widely spoken, strong balance. Expensive housing.","happy","Para la bici, se habla mucho inglés, buen equilibrio. Vivienda cara.","NL"],
+"056":["Belgium","335554333224","EU institutions, good healthcare, gray.","happy","Instituciones de la UE, buena salud, gris.","BE"],
+"442":["Luxembourg","335553324225","Wealthy and safe, very small.","happy","Rico y seguro, muy pequeño.","LU"],
+"250":["France","435554253223","Paris has a strong AI scene and huge culture. French needed day to day.","","París tiene una fuerte escena de IA y muchísima cultura. Se necesita francés en el día a día.","FR"],
+"724":["Spain","425554552433","Spanish removes the isolation risk for Adriano. Walkable, social, public healthcare. Low tech pay.","safe,open","Para Adriano, el español elimina el riesgo de aislamiento. Caminable, sociable, salud pública. Sueldos tech bajos.","ES"],
+"620":["Portugal","524553342432","Mild, safe, startup-friendly Lisbon. Low local salaries.","","Templado, seguro, Lisboa amigable con startups. Sueldos locales bajos.","PT"],
+"756":["Switzerland","345555234115","Efficient, safe, high pay. Expensive, hard to make local friends, Swiss German.","open,happy","Eficiente, seguro, sueldos altos. Caro, difícil hacer amigos locales, alemán suizo.","CH"],
+"040":["Austria","335555343124","Vienna is among the most livable cities anywhere. Smaller tech market, German.","open,happy","Viena está entre las ciudades más habitables del mundo. Mercado tech más pequeño, alemán.","AT"],
+"380":["Italy","424553252323","Beautiful and cultural, but slow job market and low tech pay.","","Bello y cultural, pero mercado laboral lento y sueldos tech bajos.","IT"],
+"203":["Czechia","324554243224","Prague is affordable and walkable. Czech, lower pay.","open,happy","Praga es accesible y caminable. Checo, sueldos más bajos.","CZ"],
+"703":["Slovakia","323453232023","Small market, Slovak.","","Mercado pequeño, eslovaco.","SK"],
+"348":["Hungary","323354242322","Budapest is affordable, but rule of law and press freedom have weakened.","open","Budapest es accesible, pero el Estado de derecho y la libertad de prensa se han debilitado.","HU"],
+"705":["Slovenia","324553232024","Safe and green, small.","happy","Seguro y verde, pequeño.","SI"],
+"191":["Croatia","414453332022","Beautiful coast, few tech jobs.","","Costa hermosa, pocos empleos tech.","HR"],
+"070":["Bosnia and Herz.","312342221022","Few jobs, slow economy.","","Pocos empleos, economía lenta.","BA"],
+"688":["Serbia","323343232023","Belgrade has some tech outsourcing. Democratic backsliding.","","Belgrado tiene algo de tercerización tech. Retroceso democrático.","RS"],
+"499":["Montenegro","413342221022","Small, few jobs.","","Pequeño, pocos empleos.","ME"],
+"008":["Albania","412342221022","Mild, few jobs.","","Templado, pocos empleos.","AL"],
+"807":["North Macedonia","313342221022","Small, few jobs.","","Pequeño, pocos empleos.","MK"],
+"300":["Greece","324553342422","Hot summers, slow economy, great lifestyle.","open","Veranos calurosos, economía lenta, gran estilo de vida.","GR"],
+"100":["Bulgaria","323443232022","Affordable Sofia, lower pay.","","Sofía es accesible, sueldos más bajos.","BG"],
+"642":["Romania","323443232023","Some tech outsourcing, lower pay.","","Algo de tercerización tech, sueldos más bajos.","RO"],
+"498":["Moldova","312332221022","Poor, small market.","","Pobre, mercado pequeño.","MD"],
+"804":["Ukraine","322313231021","Active war.","","Guerra activa.","UA"],
+"112":["Belarus","213133121022","Authoritarian government.","","Gobierno autoritario.","BY"],
+"643":["Russia","123114141022","Restrictions on speech and press, war, sanctions.","safe","Restricciones a la expresión y la prensa, guerra, sanciones.","RU"],
+"196":["Cyprus","224552432422","Hot summers, English common, small.","open","Veranos calurosos, se habla inglés, pequeño.","CY"],
+"792":["Turkey","323244242322","Istanbul is dynamic, but press freedom is restricted and inflation is high.","safe","Estambul es dinámica, pero la libertad de prensa está restringida y la inflación es alta.","TR"],
+"268":["Georgia","313343231022","Affordable, political tension.","","Accesible, tensión política.","GE"],
+"051":["Armenia","323333231022","Growing tech, regional tension.","","Tech en crecimiento, tensión regional.","AM"],
+"031":["Azerbaijan","312133121022","Authoritarian government.","","Gobierno autoritario.","AZ"],
+"760":["Syria","211112121022","War and instability.","","Guerra e inestabilidad.","SY"],
+"422":["Lebanon","312312331021","Economic collapse and conflict risk.","","Colapso económico y riesgo de conflicto.","LB"],
+"376":["Israel","244423443325","World-class startups in Tel Aviv. Ongoing conflict and security concerns.","safe,happy","Startups de primer nivel en Tel Aviv. Conflicto en curso y problemas de seguridad.","IL"],
+"275":["Palestine","211212221022","Conflict.","","Conflicto.","PS"],
+"400":["Jordan","213242321022","Stable but limited freedoms and few tech jobs.","","Estable, pero con libertades limitadas y pocos empleos tech.","JO"],
+"368":["Iraq","111212121022","Instability, extreme heat.","","Inestabilidad, calor extremo.","IQ"],
+"364":["Iran","213123131022","Severe restrictions on freedoms and internet.","","Restricciones graves a las libertades y a internet.","IR"],
+"682":["Saudi Arabia","133142324224","Extreme heat, major limits on personal freedoms.","happy","Calor extremo, grandes límites a las libertades personales.","SA"],
+"414":["Kuwait","123341323123","Extreme heat, car-dependent.","open","Calor extremo, dependencia del auto.","KW"],
+"634":["Qatar","124152424222","Extreme heat, limited freedoms.","","Calor extremo, libertades limitadas.","QA"],
+"784":["United Arab Emirates","134153534324","Dubai pays well with no income tax, but extreme heat and limits on speech.","happy","Dubái paga bien y sin impuesto sobre la renta, pero calor extremo y límites a la expresión.","AE"],
+"512":["Oman","113151321422","Extreme heat, limited freedoms.","open","Calor extremo, libertades limitadas.","OM"],
+"887":["Yemen","111111111021","War.","","Guerra.","YE"],
+"398":["Kazakhstan","123143121023","Harsh climate, authoritarian.","","Clima duro, autoritario.","KZ"],
+"860":["Uzbekistan","212143121023","Authoritarian, few jobs.","","Autoritario, pocos empleos.","UZ"],
+"795":["Turkmenistan","112132111022","Closed authoritarian state.","","Estado autoritario y cerrado.","TM"],
+"417":["Kyrgyzstan","212232121022","Few jobs, democratic backsliding.","","Pocos empleos, retroceso democrático.","KG"],
+"762":["Tajikistan","212132111022","Authoritarian, poor.","","Autoritario, pobre.","TJ"],
+"004":["Afghanistan","211111111021","Severe restrictions and instability.","","Restricciones graves e inestabilidad.","AF"],
+"586":["Pakistan","122222331021","Extreme heat, instability.","","Calor extremo, inestabilidad.","PK"],
+"356":["India","132342442321","Bengaluru is a huge tech hub, but heat, humidity, and infrastructure strain.","safe","Bengaluru es un gran polo tech, pero calor, humedad e infraestructura saturada.","IN"],
+"524":["Nepal","312332221022","Few jobs.","","Pocos empleos.","NP"],
+"064":["Bhutan","313351211022","Tiny, isolated.","","Diminuto, aislado.","BT"],
+"050":["Bangladesh","112222221021","Hot, humid, flood-prone.","","Calor, humedad, inundaciones.","BD"],
+"144":["Sri Lanka","213332321021","Hot and humid, few jobs.","","Caluroso y húmedo, pocos empleos.","LK"],
+"156":["China","343145243222","Big tech in Shenzhen and Shanghai, but censorship and limits on speech hit Adriano's dealbreaker.","","Grandes tech en Shenzhen y Shanghái, pero la censura y los límites a la expresión chocan con lo que Adriano considera inaceptable.","CN"],
+"496":["Mongolia","112442121022","Extreme cold, small market.","","Frío extremo, mercado pequeño.","MN"],
+"408":["North Korea","211111111022","No freedoms.","","Sin libertades.","KP"],
+"410":["South Korea","244455153222","Seoul is fast and high-tech. Intense work culture, Korean.","open","Seúl es rápida y muy tecnológica. Cultura laboral intensa, coreano.","KR"],
+"392":["Japan","234555153132","Efficient and safe. Humid summers, demanding work culture, Japanese.","safe","Eficiente y seguro. Veranos húmedos, cultura laboral exigente, japonés.","JP"],
+"158":["Taiwan","235554243433","Democracy, Mandarin with traditional characters, excellent healthcare. Very hot and humid.","","Democracia, mandarín con caracteres tradicionales, salud excelente. Muy caluroso y húmedo.","TW"],
+"104":["Myanmar","111112121022","Military rule and conflict.","","Régimen militar y conflicto.","MM"],
+"764":["Thailand","123233241422","Hot and humid year-round, military influence in politics.","open","Calor y humedad todo el año, influencia militar en la política.","TH"],
+"418":["Laos","112141111022","One-party state, hot.","","Partido único, caluroso.","LA"],
+"116":["Cambodia","112131221022","Authoritarian, hot.","","Autoritario, caluroso.","KH"],
+"704":["Vietnam","122142131422","Fast-growing tech outsourcing, welcoming and cheap. One-party state, hot and humid.","","Tercerización tech en rápido crecimiento, acogedor y barato. Partido único, calor y humedad.","VN"],
+"458":["Malaysia","134343432422","Kuala Lumpur is modern, English-friendly, and affordable. Hot and humid all year.","","Kuala Lumpur es moderna, se habla inglés y es accesible. Calor y humedad todo el año.","MY"],
+"096":["Brunei","114251411022","Tiny, limited freedoms.","","Diminuto, libertades limitadas.","BN"],
+"360":["Indonesia","122332231522","Expats rate it among the easiest places to settle in. Hot, humid, low pay.","open","Los expatriados lo califican entre los lugares más fáciles para adaptarse. Calor, humedad, sueldos bajos.","ID"],
+"608":["Philippines","122332531522","English-speaking and very welcoming to newcomers. Hot, humid, typhoons, low pay.","safe,open","Se habla inglés y es muy acogedor con los recién llegados. Calor, humedad, tifones, sueldos bajos.","PH"],
+"626":["Timor-Leste","111431211022","Small and poor.","","Pequeño y pobre.","TL"],
+"598":["Papua New Guinea","111311411022","High crime, few jobs.","","Mucha delincuencia, pocos empleos.","PG"],
+"036":["Australia","435553543444","English, public healthcare, good vacation. Very far from the Americas.","happy","Inglés, salud pública, buenas vacaciones. Muy lejos de las Américas.","AU"],
+"554":["New Zealand","524553532444","Mild and beautiful, small tech market, very far away.","happy","Templado y hermoso, mercado tech pequeño, muy lejos.","NZ"],
+"242":["Fiji","212431421022","Tropical, tiny market.","","Tropical, mercado diminuto.","FJ"],
+"090":["Solomon Is.","111431311022","Remote, few jobs.","","Remoto, pocos empleos.","SB"],
+"548":["Vanuatu","211431311022","Remote, few jobs.","","Remoto, pocos empleos.","VU"],
+"540":["New Caledonia","314442221022","French territory, remote.","","Territorio francés, remoto.","NC"],
+"504":["Morocco","312343231022","Welcoming, cheap, close to Spain, some tech outsourcing. Limited political freedoms.","","Acogedor, barato, cerca de España, algo de tercerización tech. Libertades políticas limitadas.","MA"],
+"732":["W. Sahara","111121211022","Disputed territory.","","Territorio en disputa.","EH"],
+"012":["Algeria","212232221022","Limited freedoms, few jobs.","","Libertades limitadas, pocos empleos.","DZ"],
+"788":["Tunisia","313332221022","Democratic backsliding, few jobs.","","Retroceso democrático, pocos empleos.","TN"],
+"434":["Libya","111111111022","Conflict.","","Conflicto.","LY"],
+"818":["Egypt","122132231022","Authoritarian, extreme heat.","","Autoritario, calor extremo.","EG"],
+"478":["Mauritania","111321111022","Desert, few jobs.","","Desierto, pocos empleos.","MR"],
+"466":["Mali","111111121022","Conflict, military rule.","","Conflicto, régimen militar.","ML"],
+"562":["Niger","111111111022","Military rule, instability.","","Régimen militar, inestabilidad.","NE"],
+"148":["Chad","111111111022","Instability.","","Inestabilidad.","TD"],
+"729":["Sudan","111111211022","War.","","Guerra.","SD"],
+"728":["South Sudan","111111311022","Conflict.","","Conflicto.","SS"],
+"232":["Eritrea","111131111022","Closed authoritarian state.","","Estado autoritario y cerrado.","ER"],
+"262":["Djibouti","111231111022","Extreme heat, limited freedoms.","","Calor extremo, libertades limitadas.","DJ"],
+"231":["Ethiopia","311212121021","Internal conflict.","","Conflicto interno.","ET"],
+"706":["Somalia","111111111022","Conflict.","","Conflicto.","SO"],
+"686":["Senegal","212342131022","Stable, French-speaking, with a growing Dakar startup scene. Few tech jobs, hot.","","Estable, francófono, con una escena de startups creciente en Dakar. Pocos empleos tech, caluroso.","SN"],
+"270":["Gambia","111331421022","Small, few jobs.","","Pequeño, pocos empleos.","GM"],
+"624":["Guinea-Bissau","111221111022","Instability.","","Inestabilidad.","GW"],
+"324":["Guinea","111221121022","Military rule.","","Régimen militar.","GN"],
+"694":["Sierra Leone","111331421021","Poor, few jobs.","","Pobre, pocos empleos.","SL"],
+"430":["Liberia","111331411021","Poor, few jobs.","","Pobre, pocos empleos.","LR"],
+"384":["Côte d'Ivoire","112332131022","Growing Abidjan, hot, French.","","Abiyán en crecimiento, calor, francés.","CI"],
+"854":["Burkina Faso","111111121022","Military rule, conflict.","","Régimen militar, conflicto.","BF"],
+"288":["Ghana","122442531022","Stable democracy, English-speaking, with Accra's tech scene growing. Hot and humid, lower pay.","","Democracia estable, de habla inglesa, con una escena tech creciente en Acra. Calor y humedad, sueldos más bajos.","GH"],
+"768":["Togo","111231121021","Limited freedoms.","","Libertades limitadas.","TG"],
+"204":["Benin","111231121022","Democratic backsliding.","","Retroceso democrático.","BJ"],
+"566":["Nigeria","121322541022","Lagos has Africa's biggest startup scene and huge music culture. Infrastructure and security problems.","safe","Lagos tiene la mayor escena de startups de África y una enorme cultura musical. Problemas de infraestructura y seguridad.","NG"],
+"120":["Cameroon","211121221022","Authoritarian, conflict in some regions.","","Autoritario, conflicto en algunas regiones.","CM"],
+"140":["Central African Rep.","111111111022","Conflict.","","Conflicto.","CF"],
+"226":["Eq. Guinea","111131311022","Spanish-speaking but authoritarian.","","De habla hispana, pero autoritario.","GQ"],
+"266":["Gabon","112231111022","Military transition.","","Transición militar.","GA"],
+"178":["Congo","111121121022","Authoritarian.","","Autoritario.","CG"],
+"180":["Dem. Rep. Congo","111111121021","Conflict.","","Conflicto.","CD"],
+"800":["Uganda","311231421021","Mild, but authoritarian.","","Templado, pero autoritario.","UG"],
+"404":["Kenya","422332531522","Nairobi has a growing tech scene, mild weather, and English. Homicide is lower than most of Latin America, but petty crime and politics are concerns.","safe,open","Nairobi tiene una escena tech creciente, buen clima e inglés. Menos homicidios que gran parte de América Latina, pero preocupan los robos y la política.","KE"],
+"646":["Rwanda","312142321022","Kigali is very safe and orderly with fast internet, but political freedoms are limited.","","Kigali es muy segura y ordenada, con internet rápido, pero las libertades políticas son limitadas.","RW"],
+"108":["Burundi","211121111022","Authoritarian, poor.","","Autoritario, pobre.","BI"],
+"834":["Tanzania","211331321021","Hot, few jobs.","","Caluroso, pocos empleos.","TZ"],
+"024":["Angola","211221121022","Expensive, limited freedoms.","","Caro, libertades limitadas.","AO"],
+"894":["Zambia","311331421021","Few jobs.","","Pocos empleos.","ZM"],
+"454":["Malawi","211431411021","Rated Free in 2026 after strong elections. Poor, few tech jobs.","","Calificado como Libre en 2026 tras elecciones sólidas. Pobre, pocos empleos tech.","MW"],
+"508":["Mozambique","111221121022","Insurgency in the north.","","Insurgencia en el norte.","MZ"],
+"716":["Zimbabwe","311231421021","Authoritarian, economic troubles.","","Autoritario, problemas económicos.","ZW"],
+"072":["Botswana","213441411021","Stable, small market.","","Estable, mercado pequeño.","BW"],
+"516":["Namibia","213531411022","Stable, small market.","","Estable, mercado pequeño.","NA"],
+"710":["South Africa","523412541022","Cape Town has a great climate and tech scene, but very high crime.","safe","Ciudad del Cabo tiene gran clima y escena tech, pero la delincuencia es muy alta.","ZA"],
+"426":["Lesotho","211321411021","Poor, small.","","Pobre, pequeño.","LS"],
+"748":["eSwatini","312131411021","Absolute monarchy.","","Monarquía absoluta.","SZ"],
+"450":["Madagascar","211321121021","Poor, few jobs.","","Pobre, pocos empleos.","MG"],
+"010":["Antarctica","111511111022","Research stations only.","","Solo estaciones de investigación.","AQ"],
+"260":["Fr. S. Antarctic Lands","111511111022","No permanent population.","","Sin población permanente.","TF"]},"byName":{"Kosovo":["Kosovo","313442222034","Small, few jobs.","happy","Pequeño, pocos empleos.","XK"],
+"N. Cyprus":["Northern Cyprus","213342322022","Unrecognized state, hot.","","Estado no reconocido, caluroso.",""],
+"Somaliland":["Somaliland","111211111021","Unrecognized, poor.","","No reconocido, pobre.",""]},"cities":[["New York City",40.71,-74.01,"840","351545553554","Where Adriano lives now, so this one is based on experience, not a visit. Humid summers, cold winters, US healthcare.","happy","Donde vive Adriano, así que esta nota se basa en experiencia, no en una visita. Veranos húmedos, inviernos fríos, salud al estilo de EE. UU.","Nueva York"],
+["San Francisco",37.77,-122.42,"840","551534543554","Near-perfect weather for Adriano and the center of tech. Quieter than NYC, and many jobs are an hour south.","happy","Clima casi perfecto para Adriano y el centro del mundo tech. Más tranquila que NYC, y muchos empleos están a una hora al sur.","San Francisco"],
+["Seattle",47.61,-122.33,"840","451533544554","Amazon and Microsoft, mild. Gray winters.","happy","Amazon y Microsoft, templada. Inviernos grises.","Seattle"],
+["Boston",42.36,-71.06,"840","342544543554","Tech and research, walkable, better state healthcare. Harsh winters.","happy","Tech e investigación, caminable, mejor salud estatal. Inviernos duros.","Boston"],
+["Washington DC",38.91,-77.04,"840","341524543554","Walkable, policy and government tech. Humid summers.","happy","Caminable, empleos de políticas públicas y tech de gobierno. Veranos húmedos.","Washington D. C."],
+["Chicago",41.88,-87.63,"840","241524554554","Big-city energy and transit, cheaper than NYC. Brutal winters.","happy","Energía de gran ciudad y transporte público, más barata que NYC. Inviernos brutales.","Chicago"],
+["Pittsburgh",40.44,-79.99,"840","331523534554","Cheap, strong in robotics and AI research. Small.","happy","Barata, fuerte en robótica e investigación en IA. Pequeña.","Pittsburgh"],
+["Denver",39.74,-104.99,"840","431522534554","Sunny with mountains. More car-dependent.","happy","Soleada y con montañas. Más dependiente del auto.","Denver"],
+["Los Angeles",34.05,-118.24,"840","441531552554","Coastal weather, music and entertainment. Car-dependent, long commutes.","happy","Clima costero, música y entretenimiento. Dependiente del auto, trayectos largos.","Los Ángeles"],
+["San Diego",32.72,-117.16,"840","531542533554","Best weather in the US. Smaller tech scene, car-dependent.","happy","El mejor clima de EE. UU. Escena tech más pequeña, dependiente del auto.","San Diego"],
+["Austin",30.27,-97.74,"840","241432544554","Big tech and live music. Hot, car-dependent.","happy","Grandes tech y música en vivo. Calor, dependiente del auto.","Austin"],
+["Atlanta",33.75,-84.39,"840","231422544554","Growing tech, diverse. Humid, car-dependent.","happy","Tech en crecimiento, diversa. Húmeda, dependiente del auto.","Atlanta"],
+["Raleigh",35.78,-78.64,"840","231431524554","Research Triangle jobs. Humid, car-dependent.","happy","Empleos del Research Triangle. Húmeda, dependiente del auto.","Raleigh"],
+["Houston",29.76,-95.37,"840","131421544554","Energy and space jobs, but humid heat, hurricanes, sprawl.","happy","Empleos en energía y espacio, pero calor húmedo, huracanes y expansión urbana.","Houston"],
+["Miami",25.76,-80.19,"840","131432543554","Growing startups, but year-round humidity and hurricanes.","happy","Startups en crecimiento, pero humedad todo el año y huracanes.","Miami"],
+["Phoenix",33.45,-112.07,"840","131421524554","Chip manufacturing jobs, but extreme heat.","happy","Empleos en fabricación de chips, pero calor extremo.","Phoenix"],
+["East Hampton",40.96,-72.18,"840","411551521554","Weather Adriano already likes, and family nearby. Very quiet outside summer, almost no tech jobs, needs a car, and Manhattan is about three hours away.","happy","Un clima que a Adriano ya le gusta y familia cerca. Muy tranquilo fuera del verano, casi sin empleos tech, se necesita auto y Manhattan queda a unas tres horas.","East Hampton"],
+["Southampton",40.88,-72.39,"840","411551521554","Beaches and summer energy, very quiet the rest of the year. Expensive, car-dependent, about 2.5 hours to Manhattan.","happy","Playas y ambiente de verano, muy tranquilo el resto del año. Caro, dependiente del auto, a unas 2,5 horas de Manhattan.","Southampton"],
+["Montauk",41.04,-71.95,"840","411551521554","Ocean, sunsets, and trails at the tip of the island. Seasonal town, no tech jobs, about three hours to Manhattan.","happy","Océano, atardeceres y senderos en la punta de la isla. Pueblo de temporada, sin empleos tech, a unas tres horas de Manhattan.","Montauk"],
+["Riverhead",40.92,-72.66,"840","411551512554","More affordable East End hub. Car-dependent, few jobs, about two hours to Manhattan.","happy","Centro más accesible del East End. Dependiente del auto, pocos empleos, a unas dos horas de Manhattan.","Riverhead"],
+["Stony Brook",40.91,-73.12,"840","421551522554","SUNY Stony Brook and nearby Brookhaven National Lab mean real research jobs. Car-dependent, about 1h40 to Manhattan.","happy","SUNY Stony Brook y el cercano Laboratorio Nacional de Brookhaven ofrecen empleos de investigación reales. Dependiente del auto, a 1 h 40 de Manhattan.","Stony Brook"],
+["Port Jefferson",40.95,-73.07,"840","411552522554","Walkable harbor village with a train line. Small, about 1h45 to Manhattan.","happy","Pueblo portuario caminable con tren. Pequeño, a 1 h 45 de Manhattan.","Port Jefferson"],
+["Patchogue",40.77,-73.02,"840","411552532554","Revived walkable downtown with bars and a music venue. About 1h30 to Manhattan by train.","happy","Centro renovado y caminable con bares y una sala de conciertos. A 1 h 30 de Manhattan en tren.","Patchogue"],
+["Huntington",40.87,-73.43,"840","421552532554","Lively downtown and a well-known theater and concert venue. About an hour to Manhattan by train.","happy","Centro animado y un teatro y sala de conciertos conocidos. A una hora de Manhattan en tren.","Huntington"],
+["Long Beach",40.59,-73.66,"840","421553532554","Walkable beach city with a boardwalk. About 55 minutes to Manhattan by train.","happy","Ciudad playera caminable con malecón. A 55 minutos de Manhattan en tren.","Long Beach"],
+["Garden City",40.73,-73.63,"840","321553522554","Leafy, safe suburb with a fast train. About 45 minutes to Manhattan, quiet at night.","happy","Suburbio arbolado y seguro con tren rápido. A 45 minutos de Manhattan, tranquilo de noche.","Garden City"],
+["Toronto",43.65,-79.38,"124","344544542344","Canada's biggest tech hub. Cold winters, pricey housing.","open,happy","El mayor polo tech de Canadá. Inviernos fríos, vivienda cara.","Toronto"],
+["Vancouver",49.28,-123.12,"124","434544531344","Mild, mountains and ocean. Very expensive, rainy winters.","open,happy","Templada, con montañas y océano. Muy cara, inviernos lluviosos.","Vancouver"],
+["Montreal",45.5,-73.57,"124","234544343344","AI research hub, fun and affordable. Cold, French.","open,happy","Polo de investigación en IA, divertida y accesible. Fría, francés.","Montreal"],
+["Mexico City",19.43,-99.13,"484","523324552554","Mild all year, huge culture, rising tech. Lower pay, safety.","open,happy","Templada todo el año, enorme vida cultural, tech en ascenso. Sueldos más bajos, seguridad.","Ciudad de México"],
+["Tampico",22.26,-97.86,"484","112322511554","Hot, humid, limited opportunity.","open,happy","Calor, humedad, oportunidades limitadas.","Tampico"],
+["Bogotá",4.71,-74.07,"170","423423532532","Spring-like weather, growing tech. Safety concerns.","open","Clima primaveral, tech en crecimiento. Problemas de seguridad.","Bogotá"],
+["São Paulo",-23.55,-46.63,"076","433433242423","Latin America's tech capital. Safety, Portuguese.","open","Capital tech de América Latina. Seguridad, portugués.","São Paulo"],
+["Buenos Aires",-34.6,-58.38,"032","424534552433","Walkable and cultural. Unstable economy.","","Caminable y cultural. Economía inestable.","Buenos Aires"],
+["Santiago",-33.45,-70.67,"152","524534532333","Mild, stable, Spanish. Smaller tech market.","","Templada, estable, en español. Mercado tech más pequeño.","Santiago"],
+["Montevideo",-34.9,-56.16,"858","414523532433","Calm and progressive. Small.","","Tranquila y progresista. Pequeña.","Montevideo"],
+["London",51.51,-0.13,"826","454555552343","The most NYC-like city abroad: huge, English, music everywhere. Gray winters.","","La ciudad más parecida a NYC fuera de EE. UU.: enorme, en inglés y con música en todas partes. Inviernos grises.","Londres"],
+["Cambridge UK",52.21,0.12,"826","444554532343","Deep tech and research. Small-town feel.","","Deep tech e investigación. Ambiente de pueblo.","Cambridge (Reino Unido)"],
+["Edinburgh",55.95,-3.19,"826","334554543343","Beautiful and cultural. Cold, dark winters.","","Bella y cultural. Inviernos fríos y oscuros.","Edimburgo"],
+["Dublin",53.35,-6.26,"372","544553542434","European base for big tech, English, mild. Tight housing.","happy","Sede europea de las grandes tech, inglés, templada. Vivienda escasa.","Dublin"],
+["Amsterdam",52.37,4.9,"528","345555442335","English-friendly tech. Expensive housing, gray winters.","happy","Tech amigable con el inglés. Vivienda cara, inviernos grises.","Ámsterdam"],
+["Berlin",52.52,13.4,"276","345555353134","Startups, music, nightlife. Gray winters.","open,happy","Startups, música, vida nocturna. Inviernos grises.","Berlín"],
+["Munich",48.14,11.58,"276","345555343134","Big tech offices, high quality of life. Expensive, German.","open,happy","Oficinas de grandes tech, alta calidad de vida. Cara, alemán.","Múnich"],
+["Paris",48.86,2.35,"250","445555252223","AI startups and endless culture. French needed.","","Startups de IA y cultura sin fin. Se necesita francés.","París"],
+["Zurich",47.37,8.54,"756","345555234115","Google's big engineering office, high pay. Socially reserved, expensive.","open,happy","La gran oficina de ingeniería de Google, sueldos altos. Socialmente reservada, cara.","Zúrich"],
+["Bern",46.95,7.45,"756","325555224115","Lovely to visit. As a resident: small, quiet evenings, Swiss German, few tech jobs.","open,happy","Encantadora para visitar. Para vivir: pequeña, noches tranquilas, alemán suizo, pocos empleos tech.","Berna"],
+["Geneva",46.2,6.14,"756","335554233115","International organizations. French, expensive.","open,happy","Organismos internacionales. Francés, cara.","Ginebra"],
+["Vienna",48.21,16.37,"040","335555343124","Among the most livable cities. Smaller tech market.","open,happy","Entre las ciudades más habitables. Mercado tech más pequeño.","Viena"],
+["Copenhagen",55.68,12.57,"208","335555443125","Bikeable and balanced. Dark winters.","open,happy","Para la bici y equilibrada. Inviernos oscuros.","Copenhague"],
+["Stockholm",59.33,18.07,"752","245545443125","Startup hub (Spotify, Klarna). Very dark winters.","open,happy","Polo de startups (Spotify, Klarna). Inviernos muy oscuros.","Estocolmo"],
+["Oslo",59.91,10.75,"578","235554433125","High wages, expensive, dark.","open,happy","Sueldos altos, cara, oscura.","Oslo"],
+["Helsinki",60.17,24.94,"246","235554433125","Calm and happy. Long dark winters.","open,happy","Tranquila y feliz. Inviernos largos y oscuros.","Helsinki"],
+["Tallinn",59.44,24.75,"233","234553433223","Digital-first and startup-friendly. Cold and small.","","Digital y amigable con startups. Fría y pequeña.","Tallinn"],
+["Prague",50.08,14.44,"203","334555243224","Affordable and beautiful. Lower pay.","open,happy","Accesible y bella. Sueldos más bajos.","Praga"],
+["Warsaw",52.23,21.01,"616","233454333224","Growing tech. Cold, lower pay.","happy","Tech en crecimiento. Fría, sueldos más bajos.","Varsovia"],
+["Madrid",40.42,-3.7,"724","435555552433","Big, social, Spanish-speaking. Low tech pay, hot dry summers.","open","Grande, sociable y en español. Sueldos tech bajos, veranos calurosos y secos.","Madrid"],
+["Barcelona",41.39,2.17,"724","335555452433","Startups, beach and city. Humid summers, low pay.","open","Startups, playa y ciudad. Veranos húmedos, sueldos bajos.","Barcelona"],
+["Lisbon",38.72,-9.14,"620","534554342432","Mild, startup-friendly. Low local salaries.","","Templada, amigable con startups. Sueldos locales bajos.","Lisboa"],
+["Milan",45.46,9.19,"380","334554242323","Italy's business capital. Italian, humid summers.","","Capital de negocios de Italia. Italiano, veranos húmedos.","Milán"],
+["Rome",41.9,12.5,"380","324553252323","Beautiful, slow job market.","","Bella, mercado laboral lento.","Roma"],
+["Athens",37.98,23.73,"300","224553342422","Hot summers, slow economy.","open","Veranos calurosos, economía lenta.","Atenas"],
+["Istanbul",41.01,28.98,"792","333244252322","Dynamic megacity. Press freedom restricted, inflation.","","Megaciudad dinámica. Libertad de prensa restringida, inflación.","Estambul"],
+["Tel Aviv",32.09,34.78,"376","254423443325","World-class startups. Security concerns.","happy","Startups de primer nivel. Problemas de seguridad.","Tel Aviv"],
+["Dubai",25.2,55.27,"784","144153534324","High pay, no income tax. Extreme heat, speech limits.","happy","Sueldos altos, sin impuesto sobre la renta. Calor extremo, límites a la expresión.","Dubái"],
+["Taipei",25.03,121.57,"158","235555243433","Mandarin, democracy, great healthcare and metro. Hot and humid.","","Mandarín, democracia, gran salud y metro. Calor y humedad.","Taipéi"],
+["Tokyo",35.68,139.69,"392","244555153132","Efficient and safe. Humid summers, work culture, Japanese.","","Eficiente y segura. Veranos húmedos, cultura laboral, japonés.","Tokio"],
+["Seoul",37.57,126.98,"410","244555153222","Fast and high-tech. Intense work culture, Korean.","open","Rápida y muy tecnológica. Cultura laboral intensa, coreano.","Seúl"],
+["Singapore",1.35,103.82,"702","154355544333","High pay, English, Asia hub. Humid all year, speech limits.","","Sueldos altos, inglés, centro de Asia. Humedad todo el año, límites a la expresión.","Singapur"],
+["Hong Kong",22.32,114.17,"156","144255443022","Finance hub. Humid, reduced freedoms.","","Centro financiero. Humedad, menos libertades.","Hong Kong"],
+["Shanghai",31.23,121.47,"156","243145243222","Big tech, great transit. Censorship.","","Grandes tech, gran transporte. Censura.","Shanghái"],
+["Shenzhen",22.54,114.06,"156","153145233222","Hardware capital of the world. Censorship, humid.","","Capital mundial del hardware. Censura, humedad.","Shenzhen"],
+["Beijing",39.9,116.41,"156","243145243222","Big tech. Censorship and speech limits.","","Grandes tech. Censura y límites a la expresión.","Pekín"],
+["Bengaluru",12.97,77.59,"356","342342433321","India's tech capital, milder than most of India. Traffic.","","Capital tech de India, más templada que casi todo el país. Tráfico.","Bengaluru"],
+["Sydney",-33.87,151.21,"036","445554542444","English, healthcare, beaches. Very far away, pricey.","happy","Inglés, salud, playas. Muy lejos, cara.","Sídney"],
+["Melbourne",-37.81,144.96,"036","435554553444","Culture and music, mild. Very far away.","happy","Cultura y música, templada. Muy lejos.","Melbourne"],
+["Auckland",-36.85,174.76,"554","524553532444","Mild and green. Small market, very far.","happy","Templada y verde. Mercado pequeño, muy lejos.","Auckland"],
+["Cape Town",-33.92,18.42,"710","523412542022","Great climate and scenery. Very high crime.","","Gran clima y paisajes. Delincuencia muy alta.","Ciudad del Cabo"],
+["Nairobi",-1.29,36.82,"404","522322532522","Mild, growing tech. Safety concerns.","open","Templada, tech en crecimiento. Problemas de seguridad.","Nairobi"],
+["Medellín",6.24,-75.58,"170","523423532532","Eternal-spring weather, digital nomad hub. Safety, small tech market.","open","Eterna primavera, polo de nómadas digitales. Seguridad, mercado tech pequeño.","Medellín"],
+["Moscow",55.76,37.62,"643","223125142022","Restrictions on speech, war, sanctions.","","Restricciones a la expresión, guerra, sanciones.","Moscú"],
+["Guadalajara",20.67,-103.35,"484","533323543554","Mexico's main tech hub with mild, dry winters, lower costs, and a big music scene. Safety varies by neighborhood.","open,happy","El principal polo tech de México, con inviernos templados y secos, costos más bajos y gran escena musical. La seguridad varía según la colonia.","Guadalajara"],
+["Querétaro",20.59,-100.39,"484","523332533554","Fast-growing, safer than most Mexican cities, mild climate. Smaller and quieter.","open,happy","En rápido crecimiento, más segura que la mayoría de las ciudades mexicanas, clima templado. Más pequeña y tranquila.","Querétaro"],
+["San José (Costa Rica)",9.93,-84.08,"188","424522532435","Mild highland weather, very happy country, Spanish-speaking. Few tech jobs, car-dependent.","happy","Clima templado de montaña, país muy feliz, de habla hispana. Pocos empleos tech, dependiente del auto.","San José (Costa Rica)"],
+["Panama City",8.98,-79.52,"591","123423533533","Easy to settle in, uses the US dollar, good flights. Hot and humid all year.","open","Fácil para adaptarse, usa el dólar, buenas conexiones aéreas. Calor y humedad todo el año.","Ciudad de Panamá"],
+["Kuala Lumpur",3.14,101.69,"458","134344443422","Modern, English-friendly, affordable, good transit. Hot and humid all year.","","Moderna, se habla inglés, accesible, buen transporte. Calor y humedad todo el año.","Kuala Lumpur"],
+["Accra",5.6,-0.19,"288","122432542022","English-speaking, stable, growing tech and music scene. Hot and humid, low pay.","","De habla inglesa, estable, con escena tech y musical en crecimiento. Calor y humedad, sueldos bajos.","Acra"],
+["Kigali",-1.94,30.06,"646","423152322021","Mild, very safe and clean. Political freedoms are limited.","","Templada, muy segura y limpia. Libertades políticas limitadas.","Kigali"],
+["Lagos",6.52,3.38,"566","131321552022","Africa's biggest startup and music scene. Traffic, infrastructure, and security problems.","","La mayor escena de startups y música de África. Tráfico, infraestructura y seguridad.","Lagos"],
+["Ho Chi Minh City",10.82,106.63,"704","132142143422","Energetic, cheap, growing tech. One-party state, hot and humid.","","Enérgica, barata, tech en crecimiento. Partido único, calor y humedad.","Ciudad Ho Chi Minh"]],
+"conflict":[804,760,887,434,729,728,706,4,104,466,854,562,148,140,180,332,368,231,275,422,643]}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script>
+(function(){
+"use strict";
+const DATA=JSON.parse(document.getElementById('data').textContent);
+const $=id=>document.getElementById(id);
+const store={get(k,d){try{const v=localStorage.getItem('atlas.'+k);return v==null?d:v;}catch(e){return d;}},set(k,v){try{localStorage.setItem('atlas.'+k,v);}catch(e){}},del(k){try{localStorage.removeItem('atlas.'+k);}catch(e){}}};
+
+/* ---------------- strings ---------------- */
+const STR={
+en:{brand:'Where should Adriano live?',eyebrow:'Livability atlas · November 2026',h1:'Where should Adriano live?',
+ intro1:'I’m Adriano, a computer science student at Columbia in New York. I built this to figure out where I’d be happiest after I graduate: every country and 89 cities, scored 1 to 5 on the same fourteen factors.',
+ intro2:'Take the one-minute quiz to get <b>your own map</b> and see how your picks compare with mine, or skip straight to my results.',
+ prioTitle:'My top priorities',prio:['Efficiency and walkability','Healthcare that doesn’t depend on my job','Being happy day to day','Things going on','Affordability'],
+ startQuiz:'Take the 1-minute quiz',skipQuiz:'Skip to Adriano’s map',resume:'Continue with my saved take',
+ startNote:'Nothing is sent anywhere. Your answers stay in this browser unless you share a link.',
+ qOf:'Question {n} of {t}',back:'Back',skip:'Skip the quiz',next:'Next',finish:'See my results',
+ homeQ:'Where is home for you?',homeSub:'Used to estimate flight times back home. Optional.',home1:'Home base',home2:'Second home base (optional)',none:'None',
+ vsEyebrow:'Your results',vsTitle:'You vs Adriano',matchLabel:'how closely your ranking of cities matches Adriano’s',
+ yourTop:'Your top 5 cities',adTop:'Adriano’s top 5 cities',bothLists:'on both lists',
+ youMore:'You rate these much higher',adMore:'Adriano rates these much higher',weighDiff:'Where your priorities differ most',
+ youMoreW:'You care more about',adMoreW:'Adriano cares more about',noneBig:'No big differences.',
+ share:'Copy link to my results',retake:'Retake the quiz',toMap:'Explore your map ↓',copied:'Link copied. Anyone who opens it sees your take.',
+ sharedView:'You’re viewing a shared take. Retake the quiz to make your own.',
+ mapTitle:'The map',adTake:'Adriano’s take',yourTake:'Your take',
+ modeAd:'Showing Adriano’s priorities.',modeYou:'Showing your priorities. Tap any place to compare with Adriano.',
+ optsTitle:'Map options and filters',colorBy:'Color by',mapStyle:'Map style',projection:'Projection',find:'Find a place',findPh:'Guadalajara',
+ layers:'Show',countries:'Countries',cities:'Cities',cityNames:'City names',verdicts:'Verdicts shown',minScore:'Minimum score',mustHave:'Must score 4 or 5 in',resetFilters:'Reset filters',
+ fsum:'{c} of {ct} countries · {d} of {dt} cities',
+ hintTouch:'Two fingers to move the map',hintMouse:'Ctrl or ⌘ + scroll to zoom',
+ ranking:'Ranking',showAll:'Show all',rankmeta:'{n} of {t} match your filters',nothing:'Nothing matches these filters.',
+ compare:'Compare',clear:'Clear',cmpEmpty:'Add up to three places with the Compare button to see them side by side.',overall:'Overall',
+ weightsTitle:'Fine-tune the weights',weightsNote:'How much each factor counts. Moving a slider switches to your take.',preset:'Preset',homeBases:'Home bases',
+ normLabel:'Balance factor scales: rescale every factor to the same average and spread before weighting, so a generously scored factor doesn’t quietly count more',
+ gateLabel:'Limited freedoms (2 or lower) or active war are dealbreakers: capped at Avoid',
+ gateOpenLabel:'The hardest places to make friends (1) are near-dealbreakers: capped at Caution',
+ presets:{mine:'Adriano’s priorities',quiz:'From your quiz',career:'Career first',balance:'Balance and wellbeing',equal:'Everything equal',custom:'Custom'},
+ colorOpts:{tier:'Overall verdict',score:'Overall score',limit:'Main drawback',conf:'How much is data-backed',vs:'You vs Adriano'},
+ styles:{classic:'Classic',night:'Night',blueprint:'Blueprint',paper:'Field paper',cb:'Colorblind-safe',mono:'Ink monochrome'},
+ projs:{natural:'Natural Earth',equal:'Equal Earth',mercator:'Mercator',globe:'Globe'},
+ tiers:{fit:'Strong fit',ok:'Workable',caution:'Caution',avoid:'Avoid'},
+ pick:'Pick a place',pickNote:'Tap a country or city on the map, or a row in the ranking, to see its fourteen scores and the main reason behind its verdict.',
+ city:'City',country:'Country',estimated:'estimated',details:'Details',addCmp:'Compare',removeCmp:'Remove',
+ drag:'Main drawback: {x}',noDrag:'No major drawback for these priorities',dealRule:' (dealbreaker rule)',
+ shortest:'Shortest day {h}h {m}m',flightTo:'about {h}h to {p}',fromCenter:' (from the country center)',
+ backed:'{b} of {k} scored factors come from data or a calculation; the rest are informed estimates.',
+ youScore:'You',adScore:'Adriano',noData:'no data',filteredOut:'filtered out',noMajor:'No major drawback',
+ legendAll:'all estimate',legendData:'all data',legendNoData:'No data',legendFiltered:'Filtered out',poor:'1 poor',great:'5 great',
+ vsLegendLow:'Adriano higher',vsLegendHigh:'you higher',
+ howTitle:'How the scores work, sources, and bias check',
+ copyPrompt:'Copy this link:',
+ tagData:'data',tagCalc:'calc'},
+es:{brand:'¿Dónde debería vivir Adriano?',eyebrow:'Atlas de habitabilidad · noviembre de 2026',h1:'¿Dónde debería vivir Adriano?',
+ intro1:'Soy Adriano, estudiante de ciencias de la computación en Columbia, en Nueva York. Hice esto para descubrir dónde sería más feliz al graduarme: todos los países y 89 ciudades, calificados del 1 al 5 en los mismos catorce factores.',
+ intro2:'Haz el cuestionario de un minuto para obtener <b>tu propio mapa</b> y ver cómo se comparan tus elecciones con las mías, o salta directamente a mis resultados.',
+ prioTitle:'Mis prioridades principales',prio:['Eficiencia y poder caminar a todo','Salud que no dependa de mi trabajo','Ser feliz en el día a día','Que pasen cosas','Que sea asequible'],
+ startQuiz:'Hacer el cuestionario (1 minuto)',skipQuiz:'Ir al mapa de Adriano',resume:'Seguir con mi versión guardada',
+ startNote:'No se envía nada. Tus respuestas se quedan en este navegador a menos que compartas un enlace.',
+ qOf:'Pregunta {n} de {t}',back:'Atrás',skip:'Saltar el cuestionario',next:'Siguiente',finish:'Ver mis resultados',
+ homeQ:'¿Dónde está tu hogar?',homeSub:'Se usa para estimar el tiempo de vuelo a casa. Opcional.',home1:'Hogar',home2:'Segundo hogar (opcional)',none:'Ninguno',
+ vsEyebrow:'Tus resultados',vsTitle:'Tú vs. Adriano',matchLabel:'qué tanto se parece tu ranking de ciudades al de Adriano',
+ yourTop:'Tus 5 ciudades principales',adTop:'Las 5 de Adriano',bothLists:'en ambas listas',
+ youMore:'Tú calificas mucho más alto',adMore:'Adriano califica mucho más alto',weighDiff:'Donde más difieren sus prioridades',
+ youMoreW:'A ti te importa más',adMoreW:'A Adriano le importa más',noneBig:'Sin grandes diferencias.',
+ share:'Copiar enlace a mis resultados',retake:'Repetir el cuestionario',toMap:'Explora tu mapa ↓',copied:'Enlace copiado. Quien lo abra verá tu versión.',
+ sharedView:'Estás viendo una versión compartida. Repite el cuestionario para hacer la tuya.',
+ mapTitle:'El mapa',adTake:'Versión de Adriano',yourTake:'Tu versión',
+ modeAd:'Con las prioridades de Adriano.',modeYou:'Con tus prioridades. Toca cualquier lugar para compararlo con Adriano.',
+ optsTitle:'Opciones del mapa y filtros',colorBy:'Colorear por',mapStyle:'Estilo del mapa',projection:'Proyección',find:'Buscar un lugar',findPh:'Guadalajara',
+ layers:'Mostrar',countries:'Países',cities:'Ciudades',cityNames:'Nombres de ciudades',verdicts:'Veredictos visibles',minScore:'Puntaje mínimo',mustHave:'Debe tener 4 o 5 en',resetFilters:'Quitar filtros',
+ fsum:'{c} de {ct} países · {d} de {dt} ciudades',
+ hintTouch:'Usa dos dedos para mover el mapa',hintMouse:'Ctrl o ⌘ + rueda para hacer zoom',
+ ranking:'Ranking',showAll:'Ver todos',rankmeta:'{n} de {t} cumplen tus filtros',nothing:'Nada cumple estos filtros.',
+ compare:'Comparar',clear:'Borrar',cmpEmpty:'Agrega hasta tres lugares con el botón Comparar para verlos lado a lado.',overall:'General',
+ weightsTitle:'Ajustar los pesos',weightsNote:'Cuánto cuenta cada factor. Mover un control cambia a tu versión.',preset:'Plantilla',homeBases:'Hogares',
+ normLabel:'Equilibrar escalas: reescalar cada factor al mismo promedio y dispersión antes de ponderar, para que un factor calificado con generosidad no cuente más sin que se note',
+ gateLabel:'Las libertades limitadas (2 o menos) o la guerra activa son inaceptables: se limitan a Evitar',
+ gateOpenLabel:'Los lugares donde es más difícil hacer amigos (1) casi descartan: se limitan a Con reservas',
+ presets:{mine:'Prioridades de Adriano',quiz:'Según tu cuestionario',career:'Primero la carrera',balance:'Equilibrio y bienestar',equal:'Todo igual',custom:'Personalizado'},
+ colorOpts:{tier:'Veredicto general',score:'Puntaje general',limit:'Principal desventaja',conf:'Cuánto se basa en datos',vs:'Tú vs. Adriano'},
+ styles:{classic:'Clásico',night:'Noche',blueprint:'Plano',paper:'Papel de campo',cb:'Apto para daltonismo',mono:'Tinta monocromo'},
+ projs:{natural:'Natural Earth',equal:'Equal Earth',mercator:'Mercator',globe:'Globo'},
+ tiers:{fit:'Muy buena opción',ok:'Viable',caution:'Con reservas',avoid:'Evitar'},
+ pick:'Elige un lugar',pickNote:'Toca un país o una ciudad en el mapa, o una fila del ranking, para ver sus catorce puntajes y la razón principal de su veredicto.',
+ city:'Ciudad',country:'País',estimated:'estimado',details:'Detalles',addCmp:'Comparar',removeCmp:'Quitar',
+ drag:'Principal desventaja: {x}',noDrag:'Sin desventajas importantes para estas prioridades',dealRule:' (regla de descarte)',
+ shortest:'Día más corto: {h} h {m} min',flightTo:'unas {h} h a {p}',fromCenter:' (desde el centro del país)',
+ backed:'{b} de {k} factores calificados vienen de datos o de un cálculo; el resto son estimaciones informadas.',
+ youScore:'Tú',adScore:'Adriano',noData:'sin datos',filteredOut:'filtrado',noMajor:'Sin desventaja importante',
+ legendAll:'todo estimado',legendData:'todo con datos',legendNoData:'Sin datos',legendFiltered:'Filtrado',poor:'1 malo',great:'5 excelente',
+ vsLegendLow:'Adriano más alto',vsLegendHigh:'tú más alto',
+ howTitle:'Cómo funcionan los puntajes, fuentes y revisión de sesgos',
+ copyPrompt:'Copia este enlace:',
+ tagData:'datos',tagCalc:'cálculo'}};
+const FSTR={
+ en:{move:['Walkable and efficient','Car-dependent or inefficient'],hlth:['Healthcare and balance','Healthcare tied to your job, or poor balance'],happy:['Reported life satisfaction','Lower reported life satisfaction'],cult:['Things happening','Little going on'],open:['Easy to make friends','Hard to make friends'],pay:['Money left after rent','Little left after rent'],clim:['Climate fit','Heat, humidity, or harsh cold'],jobs:['Tech jobs','Few tech jobs'],day:['Winter daylight','Short winter days'],free:['Freedom','Limited freedoms'],safe:['Safety','High crime or conflict'],perm:['Work permit','Hard to get permission to work'],lang:['Language','Language barrier'],fam:['Close to home','Far from home']},
+ es:{move:['Caminable y eficiente','Depende del auto o es ineficiente'],hlth:['Salud y equilibrio','Salud ligada al trabajo o poco equilibrio'],happy:['Satisfacción con la vida','Menor satisfacción con la vida'],cult:['Que pasen cosas','Pasa poco'],open:['Fácil hacer amigos','Difícil hacer amigos'],pay:['Dinero tras pagar renta','Queda poco tras la renta'],clim:['Clima','Calor, humedad o frío intenso'],jobs:['Empleos tech','Pocos empleos tech'],day:['Luz en invierno','Días de invierno cortos'],free:['Libertad','Libertades limitadas'],safe:['Seguridad','Delincuencia alta o conflicto'],perm:['Permiso de trabajo','Difícil obtener permiso de trabajo'],lang:['Idioma','Barrera del idioma'],fam:['Cerca de casa','Lejos de casa']}};
+const QSTR={
+ en:{move:['How do you want to get around?',['A car is fine','A mix of transit and driving','No car, everything walkable']],
+  hlth:['How much do healthcare and work-life balance matter?',['My job’s plan is enough','It matters a lot','It has to cover me no matter what']],
+  career:['Career or lifestyle right now?',['Building my career fast','Balanced','Lifestyle first']],
+  clim:['What weather do you want?',['Mild, no humid heat','Lots of winter daylight','I don’t care much']],
+  open:['How easily do you make friends in a new place?',['Easily, anywhere','It takes a while','I need a welcoming culture']],
+  cult:['How much needs to be going on?',['Quiet is fine','Some nightlife and culture','Big-city energy']],
+  fam:['How important is being close to home?',['Not important','Somewhat','Very important']],
+  safe:['Safety and stability?',['Some risk is fine','Normal concern','Top priority']],
+  lang:['Which languages can you live in?',['English and Spanish','English only','Okay English, not fluent','Spanish only','Spanish, plus okay English','I’ll learn whatever is needed']],
+  perm:['Which passport do you hold?',['US and Mexican, like Adriano','US only','Mexican only','Something else (ignore this)']]},
+ es:{move:['¿Cómo quieres moverte?',['El auto está bien','Una mezcla de transporte público y auto','Sin auto, todo a pie']],
+  hlth:['¿Qué tanto importan la salud y el equilibrio vida-trabajo?',['El seguro de mi trabajo basta','Importan mucho','Tiene que cubrirme pase lo que pase']],
+  career:['¿Carrera o estilo de vida por ahora?',['Crecer rápido en mi carrera','Equilibrado','Primero el estilo de vida']],
+  clim:['¿Qué clima quieres?',['Templado, sin calor húmedo','Mucha luz en invierno','No me importa mucho']],
+  open:['¿Qué tan fácil haces amigos en un lugar nuevo?',['Fácil, en cualquier lado','Me toma tiempo','Necesito una cultura acogedora']],
+  cult:['¿Cuánto tiene que estar pasando?',['Lo tranquilo está bien','Algo de vida nocturna y cultura','Energía de gran ciudad']],
+  fam:['¿Qué tan importante es estar cerca de casa?',['No es importante','Algo','Muy importante']],
+  safe:['¿Seguridad y estabilidad?',['Un poco de riesgo está bien','Preocupación normal','Prioridad máxima']],
+  lang:['¿En qué idiomas puedes vivir?',['Inglés y español','Solo inglés','Inglés regular, sin fluidez','Solo español','Español, con algo de inglés','Aprendo lo que haga falta']],
+  perm:['¿Qué pasaporte tienes?',['Estadounidense y mexicano, como Adriano','Solo estadounidense','Solo mexicano','Otro (ignorar esto)']]}};
+const HOW={
+en:`<p>Each place gets 1 to 5 on fourteen factors. A 0 means no data, and that factor is left out of that place's average instead of guessed. With scale balancing on, every factor is first rescaled to the same average and spread across all places; then the weighted average becomes 0 to 100. Verdicts: Strong fit at 70 and up, Workable at 60, Caution at 48, Avoid below that, plus the dealbreaker rules.</p>
+<p>Scores were drafted with an AI assistant and checked against the sources linked below. Each breakdown marks which factors come from published data, from a calculation, or from an estimate. Winter daylight is calculated from the shortest day of the year at that latitude, and closeness to home from rough flight times. Language and work permit change with your quiz answers; climate is tuned to Adriano's taste for mild weather without humid heat. Visa rules, university lists and rankings change every year, so check anything you plan around.</p>
+<h3 style="color:var(--fg)">Bias check</h3>
+<div class="biastable"><table><thead><tr><th>Source or factor</th><th>Known bias</th><th>What was changed</th></tr></thead><tbody>
+<tr><td>Safety</td><td>An earlier version was kinder to US cities and harsher on European tourist cities than the numbers justify.</td><td>Country safety follows <a href="https://www.factsinstitute.com/ranking/countries-by-murder-rate/" target="_blank" rel="noopener">UNODC homicide rates</a> on one fixed scale (under 1.5 per 100,000 is a 5; 20 or more is a 1), and city scores were realigned to it. Homicide is only one kind of risk, and national rates hide big city differences.</td></tr>
+<tr><td>Freedom</td><td>A few scores were off from published ratings.</td><td>Aligned to <a href="https://humanrightsdefenders.blog/2026/03/21/freedom-house-report-freedom-in-the-world-2026-the-growing-shadow-of-autocracy" target="_blank" rel="noopener">Freedom House 2026</a> statuses. It is US-funded and sometimes criticized for a Western framing, so only the broad status is used.</td></tr>
+<tr><td>War as a dealbreaker</td><td>Using any safety score of 1 would put high-crime but peaceful countries like Mexico in the same bucket as war zones.</td><td>The dealbreaker uses an explicit list of countries at war or in collapse. Crime lowers the score but doesn't cap it.</td></tr>
+<tr><td>Life satisfaction</td><td>The <a href="https://www.fox5ny.com/news/worlds-happiest-countries-2026-revealed-where-us-ranks" target="_blank" rel="noopener">World Happiness Report</a> uses a 0 to 10 ladder that critics say favors wealth and depends on translation.</td><td>Lower default weight, and labeled as a national average rather than a prediction of anyone's happiness.</td></tr>
+<tr><td>Making friends</td><td>The <a href="https://assets.in-cdn.net/expat-insider/2025/country-ranking-factors-2025" target="_blank" rel="noopener">Expat Insider 2025</a> survey is self-selected (about 10,000 people, at least 50 per country), skews toward professionals, and covers 46 places.</td><td>Only its published rankings count as data; other values are marked as estimates, and uncovered countries show no data.</td></tr>
+<tr><td>Coverage</td><td>Cities were mostly in the US and Europe.</td><td>Added cities in Mexico, Central America, Africa and Southeast Asia, and rewrote notes that only listed negatives.</td></tr>
+<tr><td>Scale use</td><td>Some factors were scored more generously than others, which silently changes their weight.</td><td>The scale balancing option corrects for this.</td></tr>
+</tbody></table></div>`,
+es:`<p>Cada lugar recibe de 1 a 5 en catorce factores. Un 0 significa que no hay datos, y ese factor se excluye del promedio en vez de adivinarse. Con el equilibrio de escalas activado, cada factor se reescala al mismo promedio y dispersión en todos los lugares; luego el promedio ponderado se convierte en 0 a 100. Veredictos: Muy buena opción desde 70, Viable desde 60, Con reservas desde 48, Evitar por debajo, más las reglas de descarte.</p>
+<p>Los puntajes se redactaron con un asistente de IA y se contrastaron con las fuentes enlazadas abajo. Cada desglose indica qué factores vienen de datos publicados, de un cálculo o de una estimación. La luz en invierno se calcula con el día más corto del año en esa latitud, y la cercanía a casa con tiempos de vuelo aproximados. El idioma y el permiso de trabajo cambian según tus respuestas; el clima refleja el gusto de Adriano por un clima templado sin calor húmedo. Las reglas de visas, las listas de universidades y los rankings cambian cada año, así que verifica lo que vayas a planear.</p>
+<h3 style="color:var(--fg)">Revisión de sesgos</h3>
+<div class="biastable"><table><thead><tr><th>Fuente o factor</th><th>Sesgo conocido</th><th>Qué se cambió</th></tr></thead><tbody>
+<tr><td>Seguridad</td><td>Una versión anterior era más indulgente con las ciudades de EE. UU. y más dura con las ciudades turísticas europeas de lo que justifican los números.</td><td>La seguridad por país sigue las <a href="https://www.factsinstitute.com/ranking/countries-by-murder-rate/" target="_blank" rel="noopener">tasas de homicidio de la UNODC</a> en una escala fija (menos de 1,5 por 100.000 es un 5; 20 o más es un 1), y las ciudades se ajustaron a la misma escala. El homicidio es solo un tipo de riesgo, y las tasas nacionales esconden grandes diferencias entre ciudades.</td></tr>
+<tr><td>Libertad</td><td>Algunos puntajes no coincidían con las calificaciones publicadas.</td><td>Alineados con los estatus de <a href="https://humanrightsdefenders.blog/2026/03/21/freedom-house-report-freedom-in-the-world-2026-the-growing-shadow-of-autocracy" target="_blank" rel="noopener">Freedom House 2026</a>. Está financiada por EE. UU. y a veces se le critica un enfoque occidental, así que solo se usa el estatus general.</td></tr>
+<tr><td>La guerra como descarte</td><td>Usar cualquier seguridad de 1 pondría a países con mucha delincuencia pero en paz, como México, junto a zonas de guerra.</td><td>El descarte usa una lista explícita de países en guerra o colapso. La delincuencia baja el puntaje pero no lo limita.</td></tr>
+<tr><td>Satisfacción con la vida</td><td>El <a href="https://www.fox5ny.com/news/worlds-happiest-countries-2026-revealed-where-us-ranks" target="_blank" rel="noopener">Informe Mundial de la Felicidad</a> usa una escalera de 0 a 10 que, según sus críticos, favorece la riqueza y depende de la traducción.</td><td>Menor peso por defecto, y se presenta como promedio nacional, no como predicción de la felicidad de nadie.</td></tr>
+<tr><td>Hacer amigos</td><td>La encuesta <a href="https://assets.in-cdn.net/expat-insider/2025/country-ranking-factors-2025" target="_blank" rel="noopener">Expat Insider 2025</a> es autoseleccionada (unas 10.000 personas, al menos 50 por país), se inclina hacia profesionales y cubre 46 lugares.</td><td>Solo sus rankings publicados cuentan como datos; los demás valores se marcan como estimaciones, y los países sin cobertura muestran «sin datos».</td></tr>
+<tr><td>Cobertura</td><td>Las ciudades estaban sobre todo en EE. UU. y Europa.</td><td>Se agregaron ciudades de México, Centroamérica, África y el Sudeste Asiático, y se reescribieron notas que solo listaban aspectos negativos.</td></tr>
+<tr><td>Uso de la escala</td><td>Algunos factores se calificaron con más generosidad que otros, lo que cambia su peso sin que se note.</td><td>La opción de equilibrar escalas lo corrige.</td></tr>
+</tbody></table></div>`};
+let LANG=store.get('lang',(navigator.language||'en').toLowerCase().startsWith('es')?'es':'en');
+const L=k=>{const v=STR[LANG][k];return v===undefined?STR.en[k]:v;};
+const fmt=(s,o)=>s.replace(/\{(\w+)\}/g,(m,k)=>o[k]);
+
+/* ---------------- factors, presets, styles ---------------- */
+const FACTORS=[{k:'move',i:5},{k:'hlth',i:2},{k:'happy',i:11},{k:'cult',i:7},{k:'open',i:9},{k:'pay',i:8},{k:'clim',i:0},{k:'jobs',i:1},{k:'day',calc:true},{k:'free',i:3},{k:'safe',i:4},{k:'perm',i:10},{k:'lang',i:6},{k:'fam',calc:true}];
+const FL=k=>FSTR[LANG][k][0], FD=k=>FSTR[LANG][k][1];
+const PRESETS={
+ mine:{move:2.5,hlth:2.25,happy:1,cult:1.5,open:1.5,pay:1.25,clim:1.25,jobs:1.25,day:1,free:1.5,safe:1,perm:1,lang:0.75,fam:0.75},
+ career:{move:1.5,hlth:1,happy:0.5,cult:1.5,open:1,pay:2.5,clim:0.75,jobs:3,day:0.5,free:1.25,safe:1,perm:2,lang:1,fam:0.5},
+ balance:{move:1.5,hlth:3,happy:2,cult:1,open:2,pay:1,clim:1.5,jobs:0.75,day:1.5,free:1.5,safe:1.5,perm:1,lang:1,fam:1},
+ equal:Object.fromEntries(FACTORS.map(f=>[f.k,1]))};
+const CALC=new Set(['day','fam']),RULES=new Set(['perm']);
+const TIERS=['fit','ok','caution','avoid'];
+const CUT={fit:70,ok:60,caution:48};
+const CATS=[...FACTORS.map(f=>f.k),'none'];
+const CATPAL=['#2a78d6','#cf3f3f','#7a5af0','#e87ba4','#d9a400','#1baf7a','#e57a3c','#0f6d8c','#6b4f2a','#8b1e3f','#a33fbf','#3c8c3c','#c2185b','#5a7d9a','#9aa6af'];
+const STYLES={
+ classic:{ocean:'var(--ocean)',stroke:'var(--land-stroke)',grat:'var(--grat)',dot:'var(--panel)',text:'var(--fg)',off:'var(--off)',tiers:{fit:'#2f9e5b',ok:'#e9b02b',caution:'#e57a3c',avoid:'#cf3f3f'},seq:['#e6f0f5','#0f6d8c']},
+ night:{ocean:'#0b1622',stroke:'#0b1622',grat:'#15283a',dot:'#0b1622',text:'#e6edf2',off:'#18242f',tiers:{fit:'#3fcf7f',ok:'#f4c64e',caution:'#f58f4f',avoid:'#ef5a5a'},seq:['#1a2c3d','#6fd3f5']},
+ blueprint:{ocean:'#1c4a7e',stroke:'#cfe2f7',grat:'rgba(255,255,255,.16)',dot:'#1c4a7e',text:'#ffffff',off:'#2a5a8f',tiers:{fit:'#bff0cf',ok:'#fbe7a6',caution:'#f8c19c',avoid:'#f39a9a'},seq:['#2e5f95','#eaf4ff']},
+ paper:{ocean:'#e6ebee',stroke:'#fbfcfc',grat:'#d3dce2',dot:'#fbfcfc',text:'#24303a',off:'#f1f3f4',tiers:{fit:'#5f8f5c',ok:'#c9a447',caution:'#c47a48',avoid:'#9e4a44'},seq:['#eef1ed','#3e6b55']},
+ cb:{ocean:'var(--ocean)',stroke:'var(--land-stroke)',grat:'var(--grat)',dot:'var(--panel)',text:'var(--fg)',off:'var(--off)',tiers:{fit:'#1f6fb2',ok:'#8cc0e6',caution:'#f2b06b',avoid:'#b5461b'},seq:['#f0f4f8','#1f4e8c']},
+ mono:{mono:true,ocean:'var(--ocean)',stroke:'var(--land-stroke)',grat:'var(--grat)',dot:'var(--panel)',text:'var(--fg)',off:'var(--off)',tiers:{fit:'#16232e',ok:'#4f606d',caution:'#94a3ae',avoid:'#d3dbe1'},seq:['#e9eef1','#16232e']}};
+const TIERCOL=STYLES.classic.tiers;
+function catColor(st,i){return st.mono?d3.interpolateRgb(st.seq[1],st.seq[0])(i/(CATS.length-1)):CATPAL[i];}
+
+/* ---------------- geography ---------------- */
+let HOMES=[];
+const ADRIANO_HOMES=['city:New York City','city:Tampico'];
+function dayHours(lat){const r=Math.PI/180,phi=Math.abs(lat)*r,d=23.44*r,h0=-0.833*r;let c=(Math.sin(h0)+Math.sin(phi)*Math.sin(d))/(Math.cos(phi)*Math.cos(d));c=Math.max(-1,Math.min(1,c));return 2*Math.acos(c)/r/15;}
+function dayScore(h){return h>=10.25?5:h>=9.1?4:h>=8.4?3:h>=7.6?2:1;}
+function km(a,b){const r=Math.PI/180,dl=(b[0]-a[0])*r,dn=(b[1]-a[1])*r;const s=Math.sin(dl/2)**2+Math.cos(a[0]*r)*Math.cos(b[0]*r)*Math.sin(dn/2)**2;return 12742*Math.asin(Math.sqrt(s));}
+function flightH(a,b){return km(a,b)/830+0.75;}
+function famBand(t){return t<=3.5?5:t<=6?4:t<=8.5?3:t<=12?2:1;}
+function setGeo(e,lat,lon,approx){e.lat0=lat;e.lon0=lon;e.dayH=dayHours(lat);e.sc.day=dayScore(e.dayH);e.geoApprox=approx;e.hasGeo=true;famFor(e);}
+function famFor(e){if(!e.hasGeo)return;e.flights=HOMES.map(h=>flightH([e.lat0,e.lon0],[h.lat0,h.lon0]));e.sc.fam=HOMES.length?Math.round(d3.mean(e.flights.map(famBand))):null;}
+
+/* ---------------- language and passport ---------------- */
+let LANGMODE='both',PERMMODE='usmx';
+const ES_COUNTRIES=new Set([724,484,320,340,222,558,188,591,192,214,630,170,862,218,604,68,600,858,32,152,226]);
+const EN_IN_ES={724:3,32:3,188:3,591:3,630:5};
+const EN_CITY={'Madrid':3,'Barcelona':3,'Mexico City':3,'Buenos Aires':3,'Santiago':3,'San José (Costa Rica)':3,'Panama City':3,'Tampico':1};
+const ES_US_CITY={'Miami':5,'Houston':4,'Los Angeles':4,'New York City':4,'San Diego':4,'Phoenix':3,'Chicago':3,'Austin':3};
+const ES_NEAR={620:2,76:2,380:2};
+const PERM_US={484:3,724:2,36:4,554:4,372:3,124:4,826:4};
+const PERM_MX={840:2,36:2,372:2,554:3,124:4,826:4,484:5,724:3};
+const isoOf=e=>e.type==='city'?e.iso:e.id;
+function engScore(e){const n=isoOf(e);if(ES_COUNTRIES.has(n))return (e.type==='city'&&EN_CITY[e.name])||EN_IN_ES[n]||2;return e.base.lang;}
+function spaScore(e){const n=isoOf(e);if(ES_COUNTRIES.has(n))return n===226?4:5;if(n===840)return e.type==='city'?(ES_US_CITY[e.name]||2):3;return ES_NEAR[n]||1;}
+function okayEng(s){return s>=5?4:s>=4?3:Math.max(1,s-1);}
+function langFor(e,m){if(e.base.lang==null)return null;switch(m){case 'en':return engScore(e);case 'enok':return okayEng(engScore(e));case 'es':return spaScore(e);case 'esen':return Math.max(spaScore(e),okayEng(engScore(e)));default:return e.base.lang;}}
+function permFor(e,m){const b=e.base.perm;if(b==null)return null;const n=isoOf(e);if(m==='us')return PERM_US[n]??b;if(m==='mx')return PERM_MX[n]??b;return b;}
+
+/* ---------------- entities ---------------- */
+const CONFLICT=new Set(DATA.conflict||[]);
+function factorsOf(s){const o={};FACTORS.forEach(f=>{if(f.calc)return;const v=+s[f.i];o[f.k]=v>0?v:null;});o.day=null;o.fam=null;return o;}
+const srcSet=s=>new Set((s||'').split(',').filter(Boolean));
+const ents=[],byIso={},byName={},byKey={};
+Object.entries(DATA.countries).forEach(([id,[name,s,note,src,noteEs,a2]])=>{const e={type:'country',id:+id,key:'country:'+(+id),name,a2,sc:factorsOf(s),note,noteEs,src:srcSet(src),polar:+id===10||+id===260};ents.push(e);byIso[+id]=e;byKey[e.key]=e;});
+Object.entries(DATA.byName).forEach(([k,[name,s,note,src,noteEs,a2]])=>{const e={type:'country',id:k,key:'country:'+k,name,a2,sc:factorsOf(s),note,noteEs,src:srcSet(src)};ents.push(e);byName[k]=e;byKey[e.key]=e;});
+const cities=DATA.cities.map(([name,lat,lon,iso,s,note,src,noteEs,nameEs])=>({type:'city',key:'city:'+name,name,nameEs,lat,lon,iso:+iso,sc:factorsOf(s),note,noteEs,src:srcSet(src)}));
+cities.forEach(c=>{c.countryEnt=byIso[c.iso];setGeo(c,c.lat,c.lon,false);ents.push(c);byKey[c.key]=c;const ce=c.countryEnt;if(ce&&!ce.hasGeo)setGeo(ce,c.lat,c.lon,false);});
+ents.forEach(e=>{e.base={lang:e.sc.lang,perm:e.sc.perm};});
+const listable=e=>!e.est&&!e.polar;
+let DN={};
+function regionName(a2){if(!a2)return null;try{if(!DN[LANG])DN[LANG]=new Intl.DisplayNames([LANG],{type:'region'});const n=DN[LANG].of(a2);return n&&n!==a2?n:null;}catch(e){return null;}}
+function dn(e){if(e.type==='city')return LANG==='es'?(e.nameEs||e.name):e.name;return regionName(e.a2)||e.name;}
+function countryOf(c){if(c.countryEnt)return dn(c.countryEnt);return c.iso===702?(LANG==='es'?'Singapur':'Singapore'):'';}
+const noteOf=e=>LANG==='es'?(e.noteEs||e.note):e.note;
+
+/* ---------------- scoring ---------------- */
+let W={...PRESETS.mine},gate=true,gateOpen=true,norm=true,MODE='adriano',QUIZW=null;
+let STATS={};
+function computeStats(){STATS={};FACTORS.forEach(f=>{const v=ents.filter(e=>listable(e)&&e.sc[f.k]!=null).map(e=>e.sc[f.k]);STATS[f.k]={m:d3.mean(v)||3,sd:d3.deviation(v)||1};});}
+function nv(k,v){if(!norm)return v;const s=STATS[k];return Math.max(1,Math.min(5,3+(v-s.m)/s.sd));}
+function evaluate(e){
+  const sc=e.sc;let tot=0,sw=0;
+  FACTORS.forEach(f=>{const v=sc[f.k];if(v==null||W[f.k]<=0)return;tot+=W[f.k]*(nv(f.k,v)-1)/4;sw+=W[f.k];});
+  const score=sw?Math.round(tot/sw*100):0;
+  let tier=score>=CUT.fit?'fit':score>=CUT.ok?'ok':score>=CUT.caution?'caution':'avoid';
+  let gated=false,lim='none';const war=CONFLICT.has(isoOf(e));
+  if(gate&&((sc.free!=null&&sc.free<=2)||war)){tier='avoid';gated=true;lim=war?'safe':'free';}
+  else if(gateOpen&&sc.open===1&&(tier==='fit'||tier==='ok')){tier='caution';gated=true;lim='open';}
+  else{let worst=-1;FACTORS.forEach(f=>{const v=sc[f.k];if(v==null||W[f.k]<=0||v>2)return;const pen=(5-v)*W[f.k];if(pen>worst){worst=pen;lim=f.k;}});}
+  const known=FACTORS.filter(f=>sc[f.k]!=null);const backed=known.filter(f=>CALC.has(f.k)||RULES.has(f.k)||e.src.has(f.k)).length;
+  return {score,tier,lim,gated,conf:known.length?backed/known.length:0,known:known.length,backed};
+}
+function applyPersonal(){ents.forEach(e=>{if(!e.base)e.base={lang:e.sc.lang,perm:e.sc.perm};e.sc.lang=langFor(e,LANGMODE);e.sc.perm=permFor(e,PERMMODE);});}
+function applyHomes(){ents.forEach(famFor);}
+function recompute(){applyPersonal();computeStats();ents.forEach(e=>Object.assign(e,evaluate(e)));}
+function homesFromKeys(keys){return (keys||[]).map(k=>byKey[k]||ents.find(x=>x.name===k)).filter(e=>e&&e.hasGeo);}
+function snapshotAdriano(){
+  const save={W,HOMES,LANGMODE,PERMMODE,gate,gateOpen,norm};
+  W={...PRESETS.mine};HOMES=homesFromKeys(ADRIANO_HOMES);LANGMODE='both';PERMMODE='usmx';gate=gateOpen=norm=true;
+  applyHomes();recompute();ents.forEach(e=>{e.ad={score:e.score,tier:e.tier};});
+  ({W,HOMES,LANGMODE,PERMMODE,gate,gateOpen,norm}=save);applyHomes();recompute();
+}
+HOMES=homesFromKeys(ADRIANO_HOMES);applyHomes();recompute();snapshotAdriano();
+
+/* ---------------- quiz ---------------- */
+const QUIZ=[
+ {id:'move',w:[{move:0.75},{move:1.5},{move:2.5}]},
+ {id:'hlth',w:[{hlth:1},{hlth:2},{hlth:3}]},
+ {id:'career',w:[{jobs:2.5,pay:2},{jobs:1.25,pay:1.25},{jobs:0.5,pay:1}]},
+ {id:'clim',w:[{clim:1.5,day:1},{clim:1,day:2},{clim:0.25,day:0.25}]},
+ {id:'open',w:[{open:0.5},{open:1.5},{open:2.5}]},
+ {id:'cult',w:[{cult:0.5},{cult:1.25},{cult:2}]},
+ {id:'fam',w:[{fam:0},{fam:0.75},{fam:2}]},
+ {id:'safe',w:[{safe:0.5,free:1},{safe:1,free:1.5},{safe:2.5,free:2}]},
+ {id:'lang',w:[{lang:0.75},{lang:1.25},{lang:1.5},{lang:1.5},{lang:1.25},{lang:0.25}],m:['both','en','enok','es','esen','both']},
+ {id:'perm',w:[{perm:1},{perm:1},{perm:1},{perm:0}],m:['usmx','us','mx','usmx']}];
+let ANS={},QSTEP=0,HOMEKEYS=[];
+const qText=id=>QSTR[LANG][id];
+function weightsFromQuiz(a){const w={...PRESETS.equal,happy:1};QUIZ.forEach(q=>{if(a[q.id]!=null)Object.assign(w,q.w[a[q.id]]);});return w;}
+function modesFromQuiz(a){const q8=QUIZ.find(q=>q.id==='lang'),q9=QUIZ.find(q=>q.id==='perm');return {lang:a.lang!=null?q8.m[a.lang]:'en',perm:a.perm!=null?q9.m[a.perm]:'us'};}
+function homeSelect(id,val){
+  const opts=ents.filter(e=>listable(e)&&e.hasGeo).sort((a,b)=>dn(a).localeCompare(dn(b),LANG));
+  return `<select id="${id}"><option value="">${L('none')}</option>${opts.map(e=>`<option value="${e.key}" ${val===e.key?'selected':''}>${dn(e)}${e.type==='city'&&countryOf(e)?' ('+countryOf(e)+')':''}</option>`).join('')}</select>`;
+}
+function renderQuiz(){
+  const total=QUIZ.length+1,n=QSTEP+1;const Q=$('qwrap');
+  let body;
+  if(QSTEP<QUIZ.length){const q=QUIZ[QSTEP],[title,opts]=qText(q.id);
+    body=`<div class="qtitle">${title}</div><div class="opts">${opts.map((o,i)=>`<button class="opt" data-i="${i}" aria-pressed="${ANS[q.id]===i}"><span class="dot"></span><span>${o}</span></button>`).join('')}</div>`;}
+  else body=`<div class="qtitle">${L('homeQ')}</div><p class="meta">${L('homeSub')}</p><div style="display:flex;flex-wrap:wrap;gap:12px"><div class="field"><label class="lab" for="qh1">${L('home1')}</label>${homeSelect('qh1',HOMEKEYS[0]||'')}</div><div class="field"><label class="lab" for="qh2">${L('home2')}</label>${homeSelect('qh2',HOMEKEYS[1]||'')}</div></div>`;
+  Q.innerHTML=`<div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><span class="lab">${fmt(L('qOf'),{n,t:total})}</span><button class="ghost" id="qSkip">${L('skip')}</button></div>
+  <div class="progress"><span style="width:${Math.round(n/total*100)}%"></span></div>${body}
+  <div class="qnav"><button id="qBack" ${QSTEP===0?'hidden':''}>${L('back')}</button>${QSTEP<QUIZ.length?(ANS[QUIZ[QSTEP].id]!=null?`<button id="qNext">${L('next')}</button>`:'<span></span>'):`<button class="primary" id="qDone">${L('finish')}</button>`}</div>`;
+  Q.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{ANS[QUIZ[QSTEP].id]=+b.dataset.i;Q.querySelectorAll('.opt').forEach(x=>x.setAttribute('aria-pressed',x===b));setTimeout(()=>{QSTEP++;renderQuiz();},180);});
+  if($('qBack'))$('qBack').onclick=()=>{QSTEP=Math.max(0,QSTEP-1);renderQuiz();};
+  if($('qNext'))$('qNext').onclick=()=>{QSTEP++;renderQuiz();};
+  if($('qh1')){$('qh1').onchange=$('qh2').onchange=()=>{HOMEKEYS=[$('qh1').value,$('qh2').value];};}
+  if($('qDone'))$('qDone').onclick=finishQuiz;
+  $('qSkip').onclick=()=>{$('quizPanel').hidden=true;if(MODE!=='yours')showMap();};
+}
+function startQuiz(){ANS={};QSTEP=0;HOMEKEYS=[];$('quizPanel').hidden=false;renderQuiz();$('quizPanel').scrollIntoView({block:'start'});}
+function finishQuiz(){
+  if($('qh1'))HOMEKEYS=[$('qh1').value,$('qh2').value].filter(Boolean);
+  QUIZW=weightsFromQuiz(ANS);W={...QUIZW};const md=modesFromQuiz(ANS);LANGMODE=md.lang;PERMMODE=md.perm;
+  HOMES=homesFromKeys(HOMEKEYS);gate=gateOpen=norm=true;MODE='yours';
+  applyHomes();weightsUI();refreshAll();saveTake();
+  $('quizPanel').hidden=true;$('vsPanel').hidden=false;$('vsPanel').scrollIntoView({block:'start'});
+}
+
+/* ---------------- you vs Adriano ---------------- */
+function pearson(a,b){const n=a.length,ma=d3.mean(a),mb=d3.mean(b);let s=0,sa=0,sb=0;for(let i=0;i<n;i++){const x=a[i]-ma,y=b[i]-mb;s+=x*y;sa+=x*x;sb+=y*y;}return sa&&sb?s/Math.sqrt(sa*sb):1;}
+function renderVs(){
+  if(MODE!=='yours'){$('vsPanel').hidden=true;return;}
+  const cs=ents.filter(e=>e.type==='city');
+  const r=pearson(cs.map(e=>e.score),cs.map(e=>e.ad.score));
+  $('matchPct').textContent=Math.max(0,Math.round(r*100))+'%';
+  const yours=[...cs].sort((a,b)=>b.score-a.score).slice(0,5),ad=[...cs].sort((a,b)=>b.ad.score-a.ad.score).slice(0,5);
+  const both=new Set(yours.filter(e=>ad.includes(e)));
+  const li=(e,s,tag)=>`<li><button class="ghost" data-key="${e.key}" style="min-height:0;padding:0;font-size:inherit">${dn(e)}</button><span class="s">${s}</span>${tag&&both.has(e)?`<span class="shared">${L('bothLists')}</span>`:''}</li>`;
+  $('vsLists').innerHTML=`<div class="col"><span class="lab" style="color:var(--you)">${L('yourTop')}</span><ol>${yours.map(e=>li(e,e.score,1)).join('')}</ol></div><div class="col"><span class="lab">${L('adTop')}</span><ol>${ad.map(e=>li(e,e.ad.score)).join('')}</ol></div>`;
+  const gaps=cs.map(e=>({e,d:e.score-e.ad.score})).sort((a,b)=>b.d-a.d);
+  const up=gaps.filter(g=>g.d>=5).slice(0,3),down=gaps.filter(g=>g.d<=-5).slice(-3).reverse();
+  const wd=FACTORS.map(f=>({k:f.k,d:(W[f.k]||0)-PRESETS.mine[f.k]})).sort((a,b)=>b.d-a.d);
+  const wUp=wd.filter(x=>x.d>=0.5).slice(0,3),wDown=wd.filter(x=>x.d<=-0.5).slice(-3).reverse();
+  const ul=(arr,fn)=>arr.length?`<ul>${arr.map(fn).join('')}</ul>`:`<p class="meta">${L('noneBig')}</p>`;
+  $('vsDiffs').innerHTML=`<div class="col"><span class="lab">${L('youMore')}</span>${ul(up,g=>`<li>${dn(g.e)} <span class="mono muted">${g.e.score} vs ${g.e.ad.score}</span></li>`)}</div>
+   <div class="col"><span class="lab">${L('adMore')}</span>${ul(down,g=>`<li>${dn(g.e)} <span class="mono muted">${g.e.score} vs ${g.e.ad.score}</span></li>`)}</div>
+   <div class="col"><span class="lab">${L('youMoreW')}</span>${ul(wUp,x=>`<li>${FL(x.k)}</li>`)}</div>
+   <div class="col"><span class="lab">${L('adMoreW')}</span>${ul(wDown,x=>`<li>${FL(x.k)}</li>`)}</div>`;
+  $('vsLists').querySelectorAll('button[data-key]').forEach(b=>b.onclick=()=>{select(byKey[b.dataset.key],true);$('mapSec').scrollIntoView({block:'start'});});
+}
+
+/* ---------------- take: save, share, load ---------------- */
+function takeState(){return {v:2,w:W,h:HOMES.map(h=>h.key),lm:LANGMODE,pm:PERMMODE,g:gate?1:0,o:gateOpen?1:0,n:norm?1:0,a:ANS};}
+function saveTake(){if(MODE==='yours')store.set('take',JSON.stringify(takeState()));}
+function loadTake(o){W={...PRESETS.mine,...(o.w||{})};HOMES=homesFromKeys(o.h);LANGMODE=o.lm||'en';PERMMODE=o.pm||'us';gate=o.g!==0;gateOpen=o.o!==0;norm=o.n!==0;ANS=o.a||{};QUIZW=Object.keys(ANS).length?weightsFromQuiz(ANS):null;MODE='yours';}
+const enc=o=>btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+const dec=s=>JSON.parse(decodeURIComponent(escape(atob(s.replace(/-/g,'+').replace(/_/g,'/')))));
+function toast(msg){$('toast').textContent=msg;clearTimeout(toast.t);toast.t=setTimeout(()=>$('toast').textContent='',4500);}
+
+/* ---------------- map ---------------- */
+const ui={colorBy:store.get('colorBy','tier'),style:store.get('style','classic'),proj:store.get('proj','natural'),showC:true,showD:true,labels:false,rankType:'city',tiers:new Set(TIERS),minScore:0,must:new Set(),showAll:false,sel:null,cmp:[]};
+const narrow=matchMedia('(max-width:640px)').matches, touch=matchMedia('(pointer:coarse)').matches;
+const VW=960,VH=narrow?720:500;
+const svg=d3.select('#map').attr('viewBox',`0 0 ${VW} ${VH}`);
+const root=svg.append('g'),gSphere=root.append('path'),gGrat=root.append('path').attr('fill','none').attr('stroke-width',.5),gCountries=root.append('g'),gCities=root.append('g'),gLabels=root.append('g').attr('pointer-events','none');
+let proj,path,features=[],zoomK=1,landFC=null,zoom;
+const tip=$('tip');
+const A3={"AFG":4,"AGO":24,"ALB":8,"ARE":784,"ARG":32,"ARM":51,"ATA":10,"ATF":260,"AUS":36,"AUT":40,"AZE":31,"BDI":108,"BEL":56,"BEN":204,"BFA":854,"BGD":50,"BGR":100,"BHS":44,"BIH":70,"BLR":112,"BLZ":84,"BOL":68,"BRA":76,"BRN":96,"BTN":64,"BWA":72,"CAF":140,"CAN":124,"CHE":756,"CHL":152,"CHN":156,"CIV":384,"CMR":120,"COD":180,"COG":178,"COL":170,"CRI":188,"CUB":192,"CYP":196,"CZE":203,"DEU":276,"DJI":262,"DNK":208,"DOM":214,"DZA":12,"ECU":218,"EGY":818,"ERI":232,"ESH":732,"ESP":724,"EST":233,"ETH":231,"FIN":246,"FJI":242,"FLK":238,"FRA":250,"GAB":266,"GBR":826,"GEO":268,"GHA":288,"GIN":324,"GMB":270,"GNB":624,"GNQ":226,"GRC":300,"GRL":304,"GTM":320,"GUY":328,"HND":340,"HRV":191,"HTI":332,"HUN":348,"IDN":360,"IND":356,"IRL":372,"IRN":364,"IRQ":368,"ISL":352,"ISR":376,"ITA":380,"JAM":388,"JOR":400,"JPN":392,"KAZ":398,"KEN":404,"KGZ":417,"KHM":116,"KOR":410,"KWT":414,"LAO":418,"LBN":422,"LBR":430,"LBY":434,"LKA":144,"LSO":426,"LTU":440,"LUX":442,"LVA":428,"MAR":504,"MDA":498,"MDG":450,"MEX":484,"MKD":807,"MLI":466,"MMR":104,"MNE":499,"MNG":496,"MOZ":508,"MRT":478,"MWI":454,"MYS":458,"NAM":516,"NCL":540,"NER":562,"NGA":566,"NIC":558,"NLD":528,"NOR":578,"NPL":524,"NZL":554,"OMN":512,"PAK":586,"PAN":591,"PER":604,"PHL":608,"PNG":598,"POL":616,"PRI":630,"PRK":408,"PRT":620,"PRY":600,"PSE":275,"PSX":275,"QAT":634,"ROU":642,"RUS":643,"RWA":646,"SAU":682,"SDN":729,"SSD":728,"SDS":728,"SEN":686,"SLB":90,"SLE":694,"SLV":222,"SOM":706,"SRB":688,"SUR":740,"SVK":703,"SVN":705,"SWE":752,"SWZ":748,"SYR":760,"TCD":148,"TGO":768,"THA":764,"TJK":762,"TKM":795,"TLS":626,"TTO":780,"TUN":788,"TUR":792,"TWN":158,"TZA":834,"UGA":800,"UKR":804,"URY":858,"USA":840,"UZB":860,"VEN":862,"VNM":704,"VUT":548,"YEM":887,"ZAF":710,"ZMB":894,"ZWE":716};
+const NAME_ALIAS={'Kosovo':'Kosovo','Republic of Kosovo':'Kosovo','N. Cyprus':'N. Cyprus','Northern Cyprus':'N. Cyprus','Somaliland':'Somaliland'};
+function entOfFeature(d){const nm=d.properties&&d.properties.name;return byIso[A3[d.id]]||(isFinite(+d.id)&&byIso[+d.id])||byName[NAME_ALIAS[nm]]||null;}
+function fallbackEnt(d){const nm=(d.properties&&d.properties.name)||'?';const e={type:'country',id:'est-'+nm,key:'country:est-'+nm,name:nm,sc:factorsOf('222322220222'),note:'Not individually scored. Shown with a cautious default estimate.',noteEs:'Sin calificación individual. Se muestra con una estimación prudente.',src:new Set(),est:true};e.base={lang:e.sc.lang,perm:e.sc.perm};ents.push(e);return e;}
+function loadScript(src){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
+async function getWorld(){
+  const srcs=['https://cdnjs.cloudflare.com/ajax/libs/datamaps/0.5.9/datamaps.world.min.js','https://cdn.jsdelivr.net/npm/datamaps@0.5.10/dist/datamaps.world.min.js','https://unpkg.com/datamaps@0.5.10/dist/datamaps.world.min.js'];
+  for(const s of srcs){if(window.Datamap&&window.Datamap.prototype.worldTopo)break;try{await loadScript(s);}catch(e){}}
+  const t=window.Datamap&&window.Datamap.prototype.worldTopo;if(!t||!t.objects)throw new Error('no map data');
+  return topojson.feature(t,t.objects.world||Object.values(t.objects)[0]).features;
+}
+function fixWinding(f){if(!f.geometry)return f;if(d3.geoArea(f)>2*Math.PI){const g=f.geometry,rev=r=>r.slice().reverse();if(g.type==='Polygon')g.coordinates=g.coordinates.map(rev);else if(g.type==='MultiPolygon')g.coordinates=g.coordinates.map(p=>p.map(rev));}return f;}
+function passes(e){if(!ui.tiers.has(e.tier)||e.score<ui.minScore)return false;for(const k of ui.must){const v=e.sc[k];if(v!=null&&v<4)return false;}return true;}
+function colorFor(e){
+  const st=STYLES[ui.style];const ramp=t=>d3.interpolateRgb(st.seq[0],st.seq[1])(Math.max(0,Math.min(1,t)));
+  if(ui.colorBy==='tier')return st.tiers[e.tier];
+  if(ui.colorBy==='score')return ramp(e.score/100);
+  if(ui.colorBy==='conf')return ramp(e.conf);
+  if(ui.colorBy==='limit')return catColor(st,CATS.indexOf(e.lim));
+  if(ui.colorBy==='vs'){const d=Math.max(-15,Math.min(15,e.score-e.ad.score))/15;return d<0?d3.interpolateRgb('#c9d1d7','#cf3f3f')(-d):d3.interpolateRgb('#c9d1d7','#7a5af0')(d);}
+  const v=e.sc[ui.colorBy.slice(2)];return v==null?st.off:ramp((v-1)/4);
+}
+function makeProj(){
+  const p={natural:d3.geoNaturalEarth1(),equal:d3.geoEqualEarth(),mercator:d3.geoMercator(),globe:d3.geoOrthographic()}[ui.proj];
+  if(ui.proj==='mercator'&&landFC)p.fitExtent([[10,10],[VW-10,VH-10]],landFC);
+  else if(ui.proj==='globe')p.fitExtent([[20,20],[VW-20,VH-20]],{type:'Sphere'}).rotate([74,-25]).clipAngle(90);
+  else p.fitExtent([[10,10],[VW-10,VH-10]],{type:'Sphere'});
+  proj=p;path=d3.geoPath(p);proj._base=p.scale();
+}
+function visible(c){if(ui.proj!=='globe')return true;const r=proj.rotate();return d3.geoDistance([c.lon,c.lat],[-r[0],-r[1]])<Math.PI/2-0.02;}
+function drawGeo(){const st=STYLES[ui.style];$('mapbox').style.background=st.ocean;
+  gSphere.attr('d',path({type:'Sphere'})).attr('fill',ui.proj==='globe'?st.ocean:'none').attr('stroke',ui.proj==='globe'?st.grat:'none');
+  gGrat.attr('d',path(d3.geoGraticule10())).attr('stroke',st.grat);gCountries.selectAll('path').attr('d',path);placeCities();}
+function placeCities(){
+  gCities.selectAll('circle').each(function(d){const p=proj([d.lon,d.lat]);d3.select(this).attr('cx',p[0]).attr('cy',p[1]);});
+  gLabels.selectAll('text').each(function(d){const p=proj([d.lon,d.lat]);d3.select(this).attr('x',p[0]+7/zoomK).attr('y',p[1]+3.5/zoomK).attr('font-size',(narrow?15:10.5)/zoomK).attr('stroke-width',2.5/zoomK);});
+  vis();
+}
+function vis(){gCities.selectAll('circle').attr('display',d=>ui.showD&&passes(d)&&visible(d)?null:'none');gLabels.selectAll('text').attr('display',d=>ui.showD&&ui.labels&&passes(d)&&visible(d)?null:'none');}
+function paint(){
+  const st=STYLES[ui.style],R=narrow?7:4.6;
+  gCountries.selectAll('path').attr('fill',d=>ui.showC&&passes(d._e)?colorFor(d._e):st.off).attr('fill-opacity',d=>ui.showC&&!passes(d._e)?0.55:1)
+    .attr('stroke',d=>ui.sel===d._e?st.text:st.stroke).attr('stroke-width',d=>(ui.sel===d._e?1.6:.5)/zoomK);
+  gCities.selectAll('circle').attr('fill',d=>colorFor(d)).attr('stroke',d=>ui.sel===d?st.text:st.dot).attr('stroke-width',d=>(ui.sel===d?2.2:1.3)/zoomK).attr('r',d=>(ui.sel===d?R*1.4:R)/zoomK);
+  gLabels.selectAll('text').attr('fill',st.text).attr('stroke',st.ocean).text(d=>dn(d));
+  gGrat.attr('stroke',st.grat);$('mapbox').style.background=st.ocean;vis();legend();summary();pcard();
+}
+function legend(){
+  const st=STYLES[ui.style];let h='';const pool=ents.filter(e=>listable(e)&&e.type===ui.rankType);
+  if(ui.colorBy==='tier')h=TIERS.map(t=>`<span><span class="sw" style="background:${st.tiers[t]}"></span>${L('tiers')[t]} <span class="muted">(${pool.filter(e=>e.tier===t).length})</span></span>`).join('');
+  else if(ui.colorBy==='limit')h=CATS.map((c,i)=>`<span><span class="sw" style="background:${catColor(st,i)}"></span>${c==='none'?L('noMajor'):FD(c)}</span>`).join('');
+  else if(ui.colorBy==='vs')h=`<span class="ramp">${L('vsLegendLow')}<span class="bar" style="background:linear-gradient(90deg,#cf3f3f,#c9d1d7,#7a5af0)"></span>${L('vsLegendHigh')}</span>`;
+  else{const lab=ui.colorBy==='score'?['0','100']:ui.colorBy==='conf'?[L('legendAll'),L('legendData')]:[L('poor'),L('great')];
+    h=`<span class="ramp">${lab[0]}<span class="bar" style="background:linear-gradient(90deg,${st.seq[0]},${st.seq[1]})"></span>${lab[1]}</span>`+(ui.colorBy.startsWith('f:')?`<span><span class="sw" style="background:${st.off}"></span>${L('legendNoData')}</span>`:'');}
+  $('legend').innerHTML=h+`<span><span class="sw" style="background:${st.off};opacity:.55"></span>${L('legendFiltered')}</span>`;
+}
+function summary(){const c=ents.filter(e=>listable(e)&&e.type==='country'),d=ents.filter(e=>e.type==='city');
+  $('fsum').textContent=fmt(L('fsum'),{c:c.filter(passes).length,ct:c.length,d:d.filter(passes).length,dt:d.length});
+  $('freset').hidden=!(ui.tiers.size<4||ui.minScore>0||ui.must.size>0);}
+const chip=(tier)=>`<span class="chip"><i style="background:${TIERCOL[tier]}"></i>${L('tiers')[tier]}</span>`;
+function pcard(){
+  const P=$('pcard'),e=ui.sel;if(!e){P.hidden=true;return;}P.hidden=false;
+  const vs=MODE==='yours'?`<span class="sc2">${L('youScore')} ${e.score} · ${L('adScore')} ${e.ad.score}</span>`:`<span class="sc2">${e.score}/100</span>`;
+  P.innerHTML=`<span class="nm">${dn(e)}</span>${chip(e.tier)}${vs}<div class="acts"><button id="pcDet">${L('details')}</button><button id="pcCmp">${ui.cmp.includes(e)?L('removeCmp'):L('addCmp')}</button><button id="pcX" aria-label="Close">✕</button></div>`;
+  $('pcDet').onclick=()=>$('detailSec').scrollIntoView({block:'start'});
+  $('pcCmp').onclick=()=>toggleCmp(e);$('pcX').onclick=()=>{ui.sel=null;paint();detail(null);};
+}
+function showTip(ev,e){if(touch)return;const box=$('mapbox').getBoundingClientRect();
+  tip.innerHTML=`<b>${dn(e)}</b>${e.type==='city'?' · '+countryOf(e):''}<br>${L('tiers')[e.tier]} · ${e.score}/100${MODE==='yours'?` · ${L('adScore')} ${e.ad.score}`:''}${passes(e)?'':` · <span class="muted">${L('filteredOut')}</span>`}<br><span class="muted">${e.lim==='none'?L('noMajor'):FD(e.lim)}</span>`;
+  let x=ev.clientX-box.left+14,y=ev.clientY-box.top+14;if(x>box.width-260)x=ev.clientX-box.left-260;if(y>box.height-90)y=ev.clientY-box.top-90;tip.style.left=Math.max(6,x)+'px';tip.style.top=Math.max(6,y)+'px';tip.style.opacity=1;}
+function hideTip(){tip.style.opacity=0;}
+function zoomFilter(ev){if(ev.type==='wheel')return ev.ctrlKey||ev.metaKey;if(ev.type.startsWith('touch'))return ev.touches&&ev.touches.length>1;return !ev.button;}
+function setupZoom(){
+  svg.on('.zoom',null).on('.drag',null);zoomK=1;root.attr('transform',null);
+  if(ui.proj==='globe'){
+    zoom=d3.zoom().filter(zoomFilter).scaleExtent([1,6]).on('zoom',ev=>{proj.scale(proj._base*ev.transform.k);drawGeo();paint();});
+    svg.call(zoom).on('mousedown.zoom',null);
+    svg.call(d3.drag().filter(ev=>!ev.touches||ev.touches.length===1).on('drag',ev=>{const r=proj.rotate(),k=75/proj.scale();proj.rotate([r[0]+ev.dx*k,Math.max(-80,Math.min(80,r[1]-ev.dy*k))]);drawGeo();}));
+  }else{
+    zoom=d3.zoom().filter(zoomFilter).scaleExtent([1,12]).translateExtent([[0,0],[VW,VH]]).on('zoom',ev=>{zoomK=ev.transform.k;root.attr('transform',ev.transform);placeCities();paint();});
+    svg.call(zoom);
+    if(narrow){const k=1.7,c=proj([-40,28]);svg.call(zoom.transform,d3.zoomIdentity.translate(VW/2-k*c[0],VH/2-k*c[1]).scale(k));}
+  }
+  $('maphint').textContent=touch?L('hintTouch'):L('hintMouse');
+}
+function rebuild(){makeProj();setupZoom();drawGeo();paint();}
+function focusOn(e){if(!proj||!zoom)return;let ll;if(e.type==='city')ll=[e.lon,e.lat];else{const f=features.find(d=>d._e===e);if(!f)return;ll=d3.geoCentroid(f);}
+  if(ui.proj==='globe'){const r0=proj.rotate(),r1=[-ll[0],-ll[1]];d3.transition().duration(700).tween('r',()=>{const i=d3.interpolate(r0,r1);return t=>{proj.rotate(i(t));drawGeo();};});return;}
+  const p=proj(ll),k=Math.max(zoomK,e.type==='city'?4:2.5);svg.transition().duration(650).call(zoom.transform,d3.zoomIdentity.translate(VW/2-k*p[0],VH/2-k*p[1]).scale(k));}
+
+/* ---------------- panels ---------------- */
+function srcTag(e,k){if(CALC.has(k))return `<span class="tag">${L('tagCalc')}</span>`;if(RULES.has(k)||e.src.has(k))return `<span class="tag">${L('tagData')}</span>`;return '';}
+const barCol=v=>v>=4?'#2f9e5b':v===3?'#e9b02b':v===2?'#e57a3c':'#cf3f3f';
+function detail(e){
+  const D=$('detail');
+  if(!e){D.innerHTML=`<h2>${L('pick')}</h2><p class="meta">${L('pickNote')}</p>`;return;}
+  const drag=e.lim==='none'?L('noDrag'):fmt(L('drag'),{x:FD(e.lim).toLowerCase()});
+  const big=MODE==='yours'?`<div style="display:flex;gap:16px;align-items:flex-end"><div><span class="lab" style="color:var(--you)">${L('youScore')}</span><div class="big">${e.score}</div></div><div><span class="lab">${L('adScore')}</span><div class="big" style="font-size:28px;color:var(--muted)">${e.ad.score}</div></div></div>`:`<div class="big">${e.score}<small>/100</small></div>`;
+  const mins=Math.round((e.dayH%1)*60);
+  D.innerHTML=`<div class="dhead"><div style="display:flex;flex-direction:column;gap:6px;min-width:0"><span class="eyebrow">${e.type==='city'?L('city')+' · '+countryOf(e):L('country')}${e.est?' · '+L('estimated'):''}</span><h2 style="font-size:24px">${dn(e)}</h2><div class="toggles">${chip(e.tier)}<button class="chipbtn" id="cmpBtn">${ui.cmp.includes(e)?L('removeCmp'):L('addCmp')}</button></div></div>${big}</div>
+  <p style="font-weight:500">${drag}${e.gated?L('dealRule'):''}</p><p class="meta">${noteOf(e)||''}</p>
+  ${e.hasGeo?`<p class="mono muted">${fmt(L('shortest'),{h:Math.floor(e.dayH),m:String(mins).padStart(2,'0')})}${HOMES.length?' · '+HOMES.map((h,i)=>fmt(L('flightTo'),{h:Math.round(e.flights[i]),p:dn(h)})).join(', '):''}${e.geoApprox?L('fromCenter'):''}</p>`:''}
+  <div class="bars">${FACTORS.map(f=>{const v=e.sc[f.k];if(v==null)return `<div class="brow"><span class="lbl">${FL(f.k)}${srcTag(e,f.k)}</span><span class="track"></span><span class="v">${L('noData')}</span></div>`;
+    return `<div class="brow${v<=2?' weak':''}"><span class="lbl">${FL(f.k)}${srcTag(e,f.k)}</span><span class="track"><span class="fill" style="width:${v*20}%;background:${barCol(v)}"></span></span><span class="v">${v}/5</span></div>`;}).join('')}</div>
+  <p class="meta">${fmt(L('backed'),{b:e.backed,k:e.known})}</p>`;
+  $('cmpBtn').onclick=()=>toggleCmp(e);
+}
+function toggleCmp(e){const i=ui.cmp.indexOf(e);if(i>=0)ui.cmp.splice(i,1);else{if(ui.cmp.length>=3)ui.cmp.shift();ui.cmp.push(e);}renderCmp();detail(ui.sel);pcard();}
+function renderCmp(){
+  const G=$('cmp');$('cmpClear').hidden=!ui.cmp.length;
+  if(!ui.cmp.length){G.style.gridTemplateColumns='1fr';G.style.minWidth='0';G.innerHTML=`<p class="meta">${L('cmpEmpty')}</p>`;return;}
+  G.style.minWidth='';G.style.gridTemplateColumns=`140px repeat(${ui.cmp.length},minmax(120px,1fr))`;
+  let h='<span></span>'+ui.cmp.map((e,i)=>`<span class="h"><span>${dn(e)}</span><button data-i="${i}" aria-label="${L('removeCmp')}">✕</button></span>`).join('');
+  h+=`<span class="meta">${L('overall')}</span>`+ui.cmp.map(e=>`<span class="cell">${chip(e.tier)}<b class="mono" style="font-size:14px">${e.score}</b></span>`).join('');
+  if(MODE==='yours')h+=`<span class="meta">${L('adScore')}</span>`+ui.cmp.map(e=>`<span class="cell mono muted">${e.ad.score}</span>`).join('');
+  FACTORS.forEach(f=>{const vals=ui.cmp.map(e=>e.sc[f.k]),best=Math.max(...vals.map(v=>v==null?-1:v));
+    h+=`<span class="meta">${FL(f.k)}</span>`+vals.map(v=>v==null?`<span class="cell muted mono">${L('noData')}</span>`:`<span class="cell"><span class="track"><span class="fill" style="width:${v*20}%;background:${barCol(v)}"></span></span><span class="mono" style="${v===best&&ui.cmp.length>1?'font-weight:600;color:var(--fg)':'color:var(--muted)'}">${v}</span></span>`).join('');});
+  G.innerHTML=h;G.querySelectorAll('button[data-i]').forEach(b=>b.onclick=()=>{ui.cmp.splice(+b.dataset.i,1);renderCmp();detail(ui.sel);pcard();});
+}
+function list(){
+  const q=($('search').value||'').trim().toLowerCase();
+  const all=ents.filter(e=>e.type===ui.rankType&&listable(e));
+  let rows=all.filter(passes).sort((a,b)=>b.score-a.score||dn(a).localeCompare(dn(b)));
+  if(q)rows=rows.filter(e=>dn(e).toLowerCase().includes(q)||e.name.toLowerCase().includes(q)||(e.type==='city'&&countryOf(e).toLowerCase().includes(q)));
+  const shown=ui.showAll||q?rows:rows.slice(0,20);const rankOf=e=>all.filter(x=>x.score>e.score).length+1;
+  $('list').innerHTML=shown.map(e=>`<button class="row" data-key="${e.key}"><span class="n">${rankOf(e)}</span><span style="min-width:0"><b style="font-weight:500">${dn(e)}</b>${e.type==='city'?` <span class="muted" style="font-size:12.5px">${countryOf(e)}</span>`:''}${MODE==='yours'?`<span class="ad">${L('adScore')} ${e.ad.score}</span>`:''}</span><span class="sc">${e.score}<span class="track"><span class="fill" style="width:${e.score}%;background:${TIERCOL[e.tier]}"></span></span></span><span class="why">${e.lim==='none'?L('noMajor'):FD(e.lim)}</span></button>`).join('')||`<p class="meta" style="padding:12px 6px">${L('nothing')}</p>`;
+  $('more').hidden=ui.showAll||!!q||rows.length<=20;
+  $('rankmeta').textContent=fmt(L('rankmeta'),{n:rows.length,t:all.length});
+  $('list').querySelectorAll('.row').forEach(b=>b.onclick=()=>{select(byKey[b.dataset.key],true);$('mapSec').scrollIntoView({block:'start'});});
+}
+function select(e,focus){ui.sel=e;detail(e);paint();if(focus&&e)focusOn(e);}
+const fmtW=v=>(+v).toFixed(2).replace(/\.?0+$/,'')+'×';
+function weightsUI(){
+  $('weights').innerHTML=FACTORS.map(f=>`<div class="wrow"><label for="w-${f.k}">${FL(f.k)}</label><input type="range" id="w-${f.k}" min="0" max="3" step="0.25" value="${W[f.k]??0}"><output id="o-${f.k}">${fmtW(W[f.k]??0)}</output></div>`).join('');
+  FACTORS.forEach(f=>{$('w-'+f.k).oninput=ev=>{becomeYours();W[f.k]=+ev.target.value;$('o-'+f.k).textContent=fmtW(W[f.k]);$('preset').value='custom';refreshAll();saveTake();};});
+  $('preset').innerHTML=Object.entries(L('presets')).filter(([k])=>k!=='quiz'||QUIZW).map(([k,v])=>`<option value="${k}" ${k==='custom'?'hidden':''}>${v}</option>`).join('');
+  $('preset').value=MODE==='adriano'?'mine':'custom';
+  $('home1').outerHTML=homeSelect('home1',HOMES[0]?HOMES[0].key:'');$('home2').outerHTML=homeSelect('home2',HOMES[1]?HOMES[1].key:'');
+  $('home1').onchange=$('home2').onchange=()=>{becomeYours();HOMES=homesFromKeys([$('home1').value,$('home2').value].filter(Boolean));applyHomes();refreshAll();saveTake();};
+  $('norm').checked=norm;$('gate').checked=gate;$('gateOpen').checked=gateOpen;
+}
+function becomeYours(){if(MODE==='yours')return;MODE='yours';LANGMODE='both';PERMMODE='usmx';syncMode();}
+function syncMode(){
+  $('mAdriano').setAttribute('aria-pressed',MODE==='adriano');$('mYours').setAttribute('aria-pressed',MODE==='yours');
+  $('modeNote').textContent=MODE==='adriano'?L('modeAd'):L('modeYou');
+  const vsOpt=$('colorBy').querySelector('option[value="vs"]');if(vsOpt)vsOpt.hidden=MODE!=='yours';
+  if(MODE!=='yours'&&ui.colorBy==='vs'){ui.colorBy='tier';$('colorBy').value='tier';}
+}
+function refreshAll(){recompute();syncMode();paint();list();detail(ui.sel);renderCmp();renderVs();}
+function showMap(){$('mapSec').scrollIntoView({block:'start'});}
+function tierFilters(){
+  $('tierFilters').innerHTML=TIERS.map(t=>`<button class="chipbtn" data-t="${t}" aria-pressed="${ui.tiers.has(t)}"><span class="sw" style="background:${TIERCOL[t]}"></span>${L('tiers')[t]}</button>`).join('');
+  $('tierFilters').querySelectorAll('button').forEach(b=>b.onclick=()=>{const t=b.dataset.t;ui.tiers.has(t)?ui.tiers.delete(t):ui.tiers.add(t);b.setAttribute('aria-pressed',ui.tiers.has(t));filtersChanged();});
+}
+function mustUI(){
+  $('mustMenu').innerHTML=FACTORS.map(f=>`<label class="check"><input type="checkbox" data-k="${f.k}" ${ui.must.has(f.k)?'checked':''}><span>${FL(f.k)}</span></label>`).join('');
+  $('mustMenu').querySelectorAll('input').forEach(c=>c.onchange=()=>{c.checked?ui.must.add(c.dataset.k):ui.must.delete(c.dataset.k);filtersChanged();});
+}
+function filtersChanged(){ui.showAll=false;paint();list();}
+function selectsUI(){
+  const co=$('colorBy');co.innerHTML=Object.entries(L('colorOpts')).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')+FACTORS.map(f=>`<option value="f:${f.k}">${FL(f.k)}</option>`).join('');
+  if(![...co.options].some(o=>o.value===ui.colorBy))ui.colorBy='tier';co.value=ui.colorBy;
+  $('styleSel').innerHTML=Object.entries(L('styles')).map(([k,v])=>`<option value="${k}">${v}</option>`).join('');$('styleSel').value=ui.style;
+  $('projSel').innerHTML=Object.entries(L('projs')).map(([k,v])=>`<option value="${k}">${v}</option>`).join('');$('projSel').value=ui.proj;
+  $('search').placeholder=L('findPh');
+  $('names').innerHTML=ents.filter(listable).map(e=>`<option value="${dn(e)}">`).join('');
+}
+function applyLang(){
+  document.documentElement.lang=LANG;document.title=STR[LANG].brand.replace(/^¿/,'¿');
+  $('lEn').setAttribute('aria-pressed',LANG==='en');$('lEs').setAttribute('aria-pressed',LANG==='es');
+  document.querySelectorAll('[data-t]').forEach(el=>{el.textContent=L(el.dataset.t);});
+  document.querySelectorAll('[data-th]').forEach(el=>{el.innerHTML=L(el.dataset.th);});
+  $('prio').innerHTML=L('prio').map((p,i)=>`<span><b>${i+1}</b>${p}</span>`).join('');
+  $('howInner').innerHTML=HOW[LANG];
+  selectsUI();weightsUI();tierFilters();mustUI();syncMode();
+  if(!$('quizPanel').hidden)renderQuiz();
+  paint();list();detail(ui.sel);renderCmp();renderVs();
+  if(zoom)$('maphint').textContent=touch?L('hintTouch'):L('hintMouse');
+}
+
+/* ---------------- events ---------------- */
+$('lEn').onclick=()=>{LANG='en';store.set('lang','en');applyLang();};
+$('lEs').onclick=()=>{LANG='es';store.set('lang','es');applyLang();};
+$('startQuiz').onclick=startQuiz;
+$('skipQuiz').onclick=()=>{$('quizPanel').hidden=true;MODE='adriano';W={...PRESETS.mine};HOMES=homesFromKeys(ADRIANO_HOMES);LANGMODE='both';PERMMODE='usmx';gate=gateOpen=norm=true;applyHomes();weightsUI();refreshAll();showMap();};
+$('resumeTake').onclick=()=>{try{loadTake(JSON.parse(store.get('take','null')));applyHomes();weightsUI();refreshAll();$('vsPanel').hidden=false;$('vsPanel').scrollIntoView({block:'start'});}catch(e){}};
+$('retake').onclick=startQuiz;
+$('toMap').onclick=showMap;
+$('mAdriano').onclick=()=>{$('skipQuiz').onclick();$('vsPanel').hidden=true;};
+$('mYours').onclick=()=>{const s=store.get('take',null);if(s){$('resumeTake').onclick();}else startQuiz();};
+$('shareTake').onclick=()=>{const url=location.href.split('#')[0]+'#t='+enc(takeState())+(LANG==='es'?'&l=es':'');
+  const ok=()=>toast(L('copied'));if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(url).then(ok,()=>window.prompt(L('copyPrompt'),url));else window.prompt(L('copyPrompt'),url);};
+$('colorBy').onchange=e=>{ui.colorBy=e.target.value;store.set('colorBy',ui.colorBy);paint();};
+$('styleSel').onchange=e=>{ui.style=e.target.value;store.set('style',ui.style);drawGeo();paint();};
+$('projSel').onchange=e=>{ui.proj=e.target.value;store.set('proj',ui.proj);rebuild();};
+const press=(id,v)=>$(id).setAttribute('aria-pressed',v);
+$('tCountries').onclick=()=>{ui.showC=!ui.showC;press('tCountries',ui.showC);paint();};
+$('tCities').onclick=()=>{ui.showD=!ui.showD;press('tCities',ui.showD);paint();};
+$('tLabels').onclick=()=>{ui.labels=!ui.labels;press('tLabels',ui.labels);paint();};
+$('rCities').onclick=()=>{ui.rankType='city';press('rCities',true);press('rCountries',false);ui.showAll=false;list();legend();};
+$('rCountries').onclick=()=>{ui.rankType='country';press('rCountries',true);press('rCities',false);ui.showAll=false;list();legend();};
+$('more').onclick=()=>{ui.showAll=true;list();};
+$('minScore').oninput=e=>{ui.minScore=+e.target.value;$('minOut').textContent=ui.minScore;filtersChanged();};
+$('freset').onclick=()=>{ui.tiers=new Set(TIERS);ui.minScore=0;ui.must.clear();$('minScore').value=0;$('minOut').textContent='0';tierFilters();mustUI();filtersChanged();};
+$('preset').onchange=e=>{const v=e.target.value;const src=v==='quiz'?QUIZW:PRESETS[v];if(!src)return;if(v!=='mine'||MODE==='yours')becomeYours();W={...src};weightsUI();$('preset').value=MODE==='adriano'?'mine':v;refreshAll();saveTake();};
+$('norm').onchange=e=>{becomeYours();norm=e.target.checked;refreshAll();saveTake();};
+$('gate').onchange=e=>{becomeYours();gate=e.target.checked;refreshAll();saveTake();};
+$('gateOpen').onchange=e=>{becomeYours();gateOpen=e.target.checked;refreshAll();saveTake();};
+$('cmpClear').onclick=()=>{ui.cmp=[];renderCmp();detail(ui.sel);pcard();};
+$('search').oninput=()=>list();
+$('search').onchange=e=>{const v=e.target.value.trim().toLowerCase();const hit=ents.find(x=>listable(x)&&(dn(x).toLowerCase()===v||x.name.toLowerCase()===v));if(hit){select(hit,true);}};
+$('zin').onclick=()=>zoom&&svg.transition().duration(300).call(zoom.scaleBy,1.6);
+$('zout').onclick=()=>zoom&&svg.transition().duration(300).call(zoom.scaleBy,1/1.6);
+$('zreset').onclick=()=>{if(!zoom)return;if(ui.proj==='globe')proj.rotate([74,-25]);setupZoom();drawGeo();paint();};
+
+
+/* ---------------- startup ---------------- */
+(function init(){
+  const h=location.hash.slice(1),params=new URLSearchParams(h.replace(/^#/,''));
+  if(params.get('l')==='es'||params.get('l')==='en')LANG=params.get('l');
+  if(store.get('take',null))$('resumeTake').hidden=false;
+  if(params.get('t')){try{loadTake(dec(params.get('t')));applyHomes();recompute();$('vsPanel').hidden=false;setTimeout(()=>toast(L('sharedView')),60);}catch(e){}}
+  applyLang();refreshAll();
+})();
+
+getWorld().then(fs=>{
+  features=fs.filter(f=>f.geometry).map(fixWinding);
+  features.forEach(d=>{d._e=entOfFeature(d)||fallbackEnt(d);if(!d._e.hasGeo){const c=d3.geoCentroid(d);setGeo(d._e,c[1],c[0],true);}});
+  snapshotAdriano();
+  landFC={type:'FeatureCollection',features:features.filter(d=>d.id!=='ATA'&&+d.id!==10)};
+  gCountries.selectAll('path').data(features).join('path')
+    .on('mousemove',(ev,d)=>{if(ui.showC)showTip(ev,d._e);}).on('mouseleave',hideTip)
+    .on('click',(ev,d)=>{if(ui.showC)select(d._e,false);});
+  gCities.selectAll('circle').data(cities).join('circle').style('cursor','pointer')
+    .on('mousemove',(ev,d)=>showTip(ev,d)).on('mouseleave',hideTip)
+    .on('click',(ev,d)=>{ev.stopPropagation();select(d,false);});
+  gLabels.selectAll('text').data(cities).join('text').attr('font-family','IBM Plex Sans, system-ui, sans-serif').attr('paint-order','stroke').attr('stroke-linejoin','round');
+  selectsUI();rebuild();refreshAll();
+}).catch(()=>{$('mapbox').insertAdjacentHTML('beforeend',`<p class="maperr">${LANG==='es'?'No se pudo cargar el contorno del mapa. Los filtros, puntajes, comparaciones y el ranking siguen funcionando.':'The map outlines couldn’t load. Filters, scores, compare and the ranking still work.'}</p>`);});
+})();
+</script>
+</body>
+</html>
