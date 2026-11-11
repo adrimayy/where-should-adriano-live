@@ -1,3 +1,4 @@
+"use strict";
 /* ---------------- startup ---------------- */
 (function init(){
   const h=location.hash.slice(1),params=new URLSearchParams(h.replace(/^#/,''));

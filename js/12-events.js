@@ -1,3 +1,4 @@
+"use strict";
 /* ---------------- events ---------------- */
 $('lEn').onclick=()=>{LANG='en';store.set('lang','en');applyLang();};
 $('lEs').onclick=()=>{LANG='es';store.set('lang','es');applyLang();};

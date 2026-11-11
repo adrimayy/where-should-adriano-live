@@ -1,4 +1,6 @@
-# Data files
+# Pipeline inputs
+
+Hand-curated inputs to `build.py`. The page never reads these; it reads `data/atlas.js`, which `build.py` makes from these and `pipeline/sources/`.
 
 | File | What it holds |
 |---|---|

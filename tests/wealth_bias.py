@@ -1,6 +1,6 @@
 """How much of the ranking is just national wealth? (O'Neil.) Correlates every city's score with its country's GDP per person
 (World Bank PPP, pipeline/sources/economy.py), for Adriano's take and for equal weights, and reports the share of the ranking that
-wealth explains (R squared of score on log GDP per person). Run after build.py: python3 tests/wealth_bias.py"""
+wealth explains (R squared of score on log GDP per person). Run after changing data or code: python3 tests/wealth_bias.py"""
 import sys, math, pathlib, numpy as np
 from harness import sync_playwright, route, PAGE, CHROME
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent / 'pipeline'))

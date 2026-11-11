@@ -1,5 +1,5 @@
 """Step 1 of the build: turn published numbers into 1-5 scores for every country and city.
-Reads data/base.json and data/cities_added.json, writes build/published.json. Usage: score_published.py BASE ADDED OUT
+Reads pipeline/input/base.json and pipeline/input/cities_added.json, writes build/published.json. Usage: score_published.py BASE ADDED OUT
 The numbers live in sources/, the 1-5 thresholds in bands.py; this file only combines them."""
 import json, sys, unicodedata, statistics, math, re, os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -17,7 +17,7 @@ from sources.getting_around import *
 from sources.economy import *
 IN, ADD, OUT = sys.argv[1], sys.argv[2], sys.argv[3]
 D = json.load(open(IN, encoding='utf8'))
-# merge cities added later (data/cities_added.json)
+# merge cities added later (pipeline/input/cities_added.json)
 _have = {c[0] for c in D['cities']}
 for name, lat, lon, iso_, lang, jobs, cult, fields, en, es, nes in json.load(open(ADD, encoding='utf8')):
     if name in _have: continue

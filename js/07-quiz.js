@@ -1,3 +1,4 @@
+"use strict";
 /* ---------------- quiz ---------------- */
 // Krosnick: one thing per question; scale questions all run low to high with the same three answers;
 // options without a natural order (nominal) are shuffled, keeping "other / doesn't matter" answers last.

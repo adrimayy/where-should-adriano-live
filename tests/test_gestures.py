@@ -1,5 +1,5 @@
 """Map gestures: a two-finger pinch that also drifts sideways must keep the map under the fingers (no jitter, no jumps),
-both during the gesture and after release. Run after build.py: python3 tests/test_gestures.py"""
+both during the gesture and after release. Run after changing data or code: python3 tests/test_gestures.py"""
 import sys
 from harness import sync_playwright, route, CHROME, PAGE
 with sync_playwright() as p:

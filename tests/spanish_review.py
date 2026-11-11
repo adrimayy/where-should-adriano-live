@@ -1,6 +1,6 @@
 """Writes docs/SPANISH_REVIEW.md: every Spanish verdict label, factor name, quiz question and option, side by side with the
 English, so a native speaker can review them. Style: Mexican Spanish (rentar, auto, departamento, computadora; decimals with a
-point: 2.5 horas). Run after build.py: python3 tests/spanish_review.py"""
+point: 2.5 horas). Run after changing data or code: python3 tests/spanish_review.py"""
 import pathlib
 from harness import sync_playwright, route, PAGE, CHROME
 ROOT = pathlib.Path(__file__).resolve().parent.parent

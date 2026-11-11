@@ -1,4 +1,4 @@
-"""Checks that specific numbers come out right, not just that the page renders (Beck). Run after build.py:
+"""Checks that specific numbers come out right, not just that the page renders (Beck). Run after changing data or code:
 python3 tests/test_numbers.py   -- prints each check and exits 1 if any fails."""
 import sys, json, pathlib
 from harness import sync_playwright, route, PAGE, CHROME

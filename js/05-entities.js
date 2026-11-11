@@ -1,3 +1,4 @@
+"use strict";
 /* ---------------- entities ---------------- */
 const CONFLICT=new Set(DATA.conflict||[]);
 const RAWD=DATA.raw||{};

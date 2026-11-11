@@ -1,6 +1,6 @@
 """Do any two factors measure the same thing? (Saltelli & Saisana.) Correlations between every pair of factors, across cities and
 across countries, using published values only (exact within-band values where available); a principal-components analysis; and
-every pair above 0.7 flagged. Writes docs/OVERLAP.md. Run after build.py: python3 tests/overlap.py"""
+every pair above 0.7 flagged. Writes docs/OVERLAP.md. Run after changing data or code: python3 tests/overlap.py"""
 import json, pathlib, numpy as np
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 D = json.load(open(ROOT / 'build' / 'final.json', encoding='utf8'))

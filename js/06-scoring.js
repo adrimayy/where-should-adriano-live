@@ -1,3 +1,4 @@
+"use strict";
 /* ---------------- scoring ---------------- */
 let gateHot=true,gateFar=true,W={...PRESETS.mine},gate=true,gateOpen=true,norm=true,MODE='adriano',QUIZW=null;
 let STATS={};

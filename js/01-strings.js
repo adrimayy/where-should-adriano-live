@@ -1,7 +1,8 @@
+"use strict";
 /* ---------------- strings ---------------- */
 const STR={
 en:{brand:'Where should Adriano live?',eyebrow:'Livability atlas · November 2026',h1:'Where should Adriano live?',
- intro1:'I’m Adriano, a computer science student at Columbia in New York. I built this to figure out where I’d be happiest after I graduate: every country and __NCITIES__ cities, scored 1 to 5 on the same nineteen factors.',
+ intro1:'I’m Adriano, a computer science student at Columbia in New York. I built this to figure out where I’d be happiest after I graduate: every country and '+DATA.cities.length+' cities, scored 1 to 5 on the same nineteen factors.',
  intro2:'Take the quiz to get <b>your own map</b>. It adapts to your field of work, the weather you like, your passport and languages, and whether women\u2019s safety or LGBTQ+ acceptance should count. Then see how your picks compare with mine, or skip straight to my results.',
  prioTitle:'My top priorities',prio:['Efficiency and walkability','Healthcare that doesn’t depend on my job','Being happy day to day','Things going on','Affordability'],
  startQuiz:'Take the 1-minute quiz (5 questions)',skipQuiz:'See Adriano’s take',resume:'Continue with my saved take',
@@ -80,7 +81,7 @@ en:{brand:'Where should Adriano live?',eyebrow:'Livability atlas · November 202
  choicesTitle:'Choices I made (and you can change)',
  choicesBody:'<ul><li>Verdict lines: Strong fit at 70, Workable at 60, Caution at 48. They are judgment calls, not facts.</li><li>Dealbreakers: limited freedoms or war cap a place at Poor match; the highest crime, the hardest places to make friends, trips home over 18 hours and hot summers cap it at Caution. Each is a switch in the weights panel.</li><li>A Strong fit needs published figures for housing, jobs, healthcare, safety, freedom and money, and less than a fifth of its score filled in.</li><li>My own weights, heaviest first: car dependence, healthcare, job market, climate, commute, money after rent.</li><li>Scores show rounded to 5, because a 1-point gap is inside the measurement error.</li><li>The page opens on equal weights, so my priorities aren’t the default for you.</li></ul>'},
 es:{brand:'¿Dónde debería vivir Adriano?',eyebrow:'Atlas de habitabilidad · noviembre de 2026',h1:'¿Dónde debería vivir Adriano?',
- intro1:'Soy Adriano, estudiante de ciencias de la computación en Columbia, en Nueva York. Hice esto para descubrir dónde sería más feliz al graduarme: todos los países y __NCITIES__ ciudades, calificados del 1 al 5 en los mismos diecinueve factores.',
+ intro1:'Soy Adriano, estudiante de ciencias de la computación en Columbia, en Nueva York. Hice esto para descubrir dónde sería más feliz al graduarme: todos los países y '+DATA.cities.length+' ciudades, calificados del 1 al 5 en los mismos diecinueve factores.',
  intro2:'Haz el cuestionario para obtener <b>tu propio mapa</b>. Se adapta a tu campo de trabajo, el clima que te gusta, tu pasaporte e idiomas, y a si deben contar la seguridad de las mujeres o la aceptación LGBTQ+. Luego compara tus elecciones con las mías, o salta directamente a mis resultados.',
  prioTitle:'Mis prioridades principales',prio:['Eficiencia y poder caminar a todo','Salud que no dependa de mi trabajo','Ser feliz en el día a día','Que pasen cosas','Que sea asequible'],
  startQuiz:'Hacer el cuestionario de 1 minuto (5 preguntas)',skipQuiz:'Ver la versión de Adriano',resume:'Seguir con mi versión guardada',

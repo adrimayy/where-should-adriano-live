@@ -1,3 +1,4 @@
+"use strict";
 /* ---------------- you vs Adriano ---------------- */
 function pearson(a,b){const n=a.length,ma=d3.mean(a),mb=d3.mean(b);let s=0,sa=0,sb=0;for(let i=0;i<n;i++){const x=a[i]-ma,y=b[i]-mb;s+=x*y;sa+=x*x;sb+=y*y;}return sa&&sb?s/Math.sqrt(sa*sb):1;}
 function renderVs(){

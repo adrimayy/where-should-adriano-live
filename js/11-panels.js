@@ -1,3 +1,4 @@
+"use strict";
 /* ---------------- panels ---------------- */
 function whyLine(e){
   if(e.tier==='nodata')return L('whyNoData');
@@ -222,7 +223,7 @@ function applyLang(){
   document.querySelectorAll('[data-t]').forEach(el=>{el.textContent=L(el.dataset.t);});
   document.querySelectorAll('[data-th]').forEach(el=>{el.innerHTML=L(el.dataset.th);});
   $('prio').innerHTML=L('prio').map((p,i)=>`<span><b>${i+1}</b>${p}</span>`).join('');
-  $('howInner').innerHTML=HOW[LANG]+impSection()+`<p class="stamp" style="color:var(--muted);font-size:12px">${LANG==='es'?'Datos actualizados':'Data updated'} __BUILD_DATE__ · ${__NCITIES__} ${LANG==='es'?'ciudades':'cities'}</p>`+(FEEDBACK_URL?`<p><a href="${FEEDBACK_URL}" target="_blank" rel="noopener">${L('feedback')}</a></p>`:'');
+  $('howInner').innerHTML=HOW[LANG]+impSection()+`<p class="stamp" style="color:var(--muted);font-size:12px">${LANG==='es'?'Datos actualizados':'Data updated'} ${DATA.built} · ${DATA.cities.length} ${LANG==='es'?'ciudades':'cities'}</p>`+(FEEDBACK_URL?`<p><a href="${FEEDBACK_URL}" target="_blank" rel="noopener">${L('feedback')}</a></p>`:'');
   selectsUI();weightsUI();tierFilters();mustUI();syncMode();offersUI();renderDefaults();
   if(!$('quizPanel').hidden)renderQuiz();
   $('zin').innerHTML=IC('plus',16);$('zout').innerHTML=IC('minus',16);$('zreset').innerHTML=IC('reset',16);animLabel(!!animT);

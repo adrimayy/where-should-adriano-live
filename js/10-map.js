@@ -1,3 +1,4 @@
+"use strict";
 /* ---------------- map ---------------- */
 const ui={opac:false,view:'score',mins:{},colorBy:store.get('colorBy','tier'),style:store.get('style','cb'),proj:store.get('proj2','winkel'),region:store.get('region','atlantic'),showC:true,showD:true,labels:true,rankType:'city',tiers:new Set(TIERS),minScore:0,must:new Set(),showAll:false,sel:null,cmp:[]};
 const narrow=matchMedia('(max-width:640px)').matches, touch=matchMedia('(pointer:coarse)').matches;
@@ -8,7 +9,7 @@ const svg=d3.select('#map'),cv=svg.node(),ctx=cv.getContext('2d');cv.style.aspec
 const osvg=d3.select('#overlay').attr('viewBox',`0 0 ${VW} ${VH}`),oroot=osvg.append('g'),gPlaceNames=oroot.append('g').attr('pointer-events','none'),gCities=oroot.append('g'),gLabels=oroot.append('g').attr('pointer-events','none'),gClusters=oroot.append('g').attr('pointer-events','none');
 let proj,path,features=[],zoomK=1,landFC=null,zoom,MESH=null,HIRES=false,LAND=null;
 const tip=$('tip');
-const A3=__A3__;
+const A3=DATA.a3;
 const NAME_ALIAS={'Kosovo':'Kosovo','Republic of Kosovo':'Kosovo','N. Cyprus':'N. Cyprus','Northern Cyprus':'N. Cyprus','Somaliland':'Somaliland'};
 function entOfFeature(d){const nm=d.properties&&d.properties.name;return byIso[A3[d.id]]||(isFinite(+d.id)&&byIso[+d.id])||byName[NAME_ALIAS[nm]]||ents.find(x=>x.type==='city'&&x.name===nm&&(nm==='Singapore'||nm==='Hong Kong'))||null;}
 const FALLBACK={};function fallbackEnt(d){const nm=(d.properties&&d.properties.name)||'?';if(FALLBACK[nm])return FALLBACK[nm];const e=FALLBACK[nm]={type:'country',id:'est-'+nm,key:'country:est-'+nm,name:nm,sc:factorsOf('2223222202220240'),note:'Not individually scored. Shown with a cautious default estimate.',noteEs:'Sin calificación individual. Se muestra con una estimación prudente.',src:new Set(),est:true};e.base={lang:e.sc.lang,perm:e.sc.perm,jobs:e.sc.jobs,clim:e.sc.clim,pay:e.sc.pay};e.cost=4;ents.push(e);return e;}

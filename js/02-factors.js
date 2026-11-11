@@ -1,3 +1,4 @@
+"use strict";
 /* ---------------- factors, presets, styles ---------------- */
 const FACTORS=[{k:'home',i:16},{k:'jobs',i:1},{k:'hlth',i:2},{k:'commute',i:15},{k:'move',i:5},{k:'happy',i:11},{k:'cult',i:7},{k:'open',i:9},{k:'pay',i:8},{k:'clim',i:0},{k:'day',calc:true},{k:'free',i:3},{k:'safe',i:4},{k:'women',i:12},{k:'lgbt',i:13},{k:'pol',calc:true},{k:'perm',i:10},{k:'lang',i:6},{k:'fam',calc:true}];
 const TECHL={en:['Tech job market','Weak tech job market'],es:['Mercado laboral tech','Mercado laboral tech débil']};

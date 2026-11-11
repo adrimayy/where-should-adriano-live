@@ -1,4 +1,4 @@
-"""Shared test setup: opens index.html in headless Chrome with every CDN stubbed, so tests run offline.
+"""Shared test setup: opens index.html (which loads css/, data/atlas.js and js/) in headless Chrome with every CDN stubbed, so tests run offline.
 The world map is replaced by a few boxes; D3 comes from the local npm copy."""
 import os, json, pathlib
 from playwright.sync_api import sync_playwright  # noqa: F401  (re-exported for the tests)

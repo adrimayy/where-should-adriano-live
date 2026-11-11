@@ -1,3 +1,4 @@
+"use strict";
 /* ---------------- language and passport ---------------- */
 let LANGMODE='both',PERMMODE='usmx',FIELD='tech',CLIMMODE='mild',POLMODE='d';
 const POLM=DATA.pol||{},TMEAN=DATA.tmean||{},THOT=DATA.thot||{};

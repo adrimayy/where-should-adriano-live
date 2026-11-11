@@ -1,3 +1,4 @@
+"use strict";
 /* ---------------- take: save, share, load ---------------- */
 function takeState(){return {v:3,rc:REACH?1:0,w:W,h:HOMES.map(h=>h.key),lm:LANGMODE,pm:PERMMODE,pl:POLMODE,fd:FIELD,cm:CLIMMODE,g:gate?1:0,o:gateOpen?1:0,f:gateFar?1:0,ht:gateHot?1:0,n:norm?1:0,e:useEst?1:0,m:useImp?1:0,tr:TRIPS,a:ANS};}
 function saveTake(){if(MODE==='yours')store.set('take',JSON.stringify(takeState()));}
