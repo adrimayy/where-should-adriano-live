@@ -1,5 +1,5 @@
-"""Datasets added Nov 2026: jobs, housing for a solo renter, things happening, friend-making.
-Every number here is copied from the source named next to it. Bands convert them to the 1-5 scale."""
+"""Jobs: metro GDP and population, ILO unemployment (overall, ages 15-24, informal share), StartupBlink 2025 city ranks.
+Every number is copied from the source named in its comment."""
 
 # ---------- metro economies (Wikipedia "List of cities by GDP", March 2026 snapshot; nominal US$ bn, metro population, year) ----------
 METRO = {
@@ -32,82 +32,30 @@ METRO = {
  'Quito': (33.9, 2875000, 2023), 'Córdoba (Argentina)': (60.3, 2156788, 2023), 'Brussels': (211.1, 3348154, 2022), 'Lyon': (115.1, 1899599, 2021),
  'Budapest': (86.2, 3031887, 2022), 'Glasgow': (39.5, 631970, 2023), 'Bristol': (28.3, 482998, 2023), 'Seville': (48.1, 1960919, 2021),
  'Bilbao': (41.9, 1139871, 2021), 'Gothenburg': (104.8, 1734443, 2021), 'Bangkok': (252.1, 19900000, 2022), 'Manila': (162.3, 26400000, 2022),
+ 'Buffalo': (90.7, 1155604, 2023), 'Rochester': (78.5, 1052087, 2023), 'Syracuse': (51.2, 652956, 2023), 'Albany': (84.9, 1238717, 2023), 'Binghamton': (12.9, 243792, 2023),
  'Osaka': (680.3, None, 2019),  # Keihanshin, Cabinet Office prefectural accounts (via Wikipedia list of metros over $100bn)
 }
+
 # Long Island: towns on the commuter rail within ~1 hour of Manhattan share New York's job market; the rest use Suffolk County (BEA via FRED, 2024)
 NYC_COMMUTER = {'Garden City', 'Long Beach', 'Huntington'}
+
 SUFFOLK = {'Stony Brook', 'Port Jefferson', 'Patchogue', 'Riverhead', 'East Hampton', 'Southampton', 'Montauk'}
+
 SUFFOLK_GDP = 139.0
+
 # populations not in the GDP table (rounded official figures; only the band matters: under 0.5M, 0.5-1.5M, 1.5-4M, 4-10M, 10M+)
 POP_EXTRA = {'Osaka': 19300000, 'Cambridge UK': 150000, 'Tampico': 930000, 'Querétaro': 1600000, 'San José (Costa Rica)': 2200000,
              'Panama City': 2000000, 'Accra': 5400000, 'Kigali': 1700000, 'Mérida': 1300000, 'Cancún': 930000}
-for t in SUFFOLK: POP_EXTRA[t] = 70000   # every one of these towns is under 100,000 people (US Census 2020)
 
-def b_gdp(x): return 5 if x >= 700 else 4 if x >= 300 else 3 if x >= 120 else 2 if x >= 40 else 1
-def b_pop(x): return 5 if x >= 10e6 else 4 if x >= 4e6 else 3 if x >= 1.5e6 else 2 if x >= 0.5e6 else 1
+for t in SUFFOLK: POP_EXTRA[t] = 70000   # every one of these towns is under 100,000 people (US Census 2020)
 
 # ---------- unemployment, ILOSTAT via Destatis (as of 19 Nov 2025), mostly 2024 ----------
 UNEMP_T = "Albania: 10.3; Austria: 5.4; Belarus: 3.4; Belgium: 5.5; Bosnia and Herzegovina: 10.7; Bulgaria: 4.1; Croatia: 5.2; Cyprus: 5.6; Czechia: 2.5; Denmark: 5.6; Estonia: 7.8; Finland: 8.3; France: 7.4; Germany: 3.4; Greece: 10.1; Hungary: 4.4; Iceland: 3.1; Ireland: 4.4; Italy: 6.8; Latvia: 6.7; Lithuania: 7.5; Luxembourg: 5.9; Montenegro: 14.1; Netherlands: 3.6; North Macedonia: 13.4; Norway: 4.0; Poland: 2.5; Portugal: 6.4; Moldova: 1.4; Romania: 5.4; Russia: 2.5; Serbia: 7.4; Slovakia: 5.2; Slovenia: 3.4; Spain: 11.4; Sweden: 8.5; Switzerland: 4.1; Turkey: 8.4; Ukraine: 9.8; United Kingdom: 4.1; Algeria: 11.4; Angola: 14.5; Benin: 1.7; Botswana: 23.1; Burkina Faso: 5.2; Burundi: 0.9; Cameroon: 3.5; Central African Republic: 5.9; Chad: 1.1; Republic of the Congo: 19.7; DR Congo: 4.6; Ivory Coast: 2.3; Djibouti: 25.9; Egypt: 7.2; Equatorial Guinea: 7.8; Eritrea: 5.6; Eswatini: 34.4; Ethiopia: 3.4; Gabon: 20.1; Ghana: 3.0; Guinea: 5.2; Guinea-Bissau: 2.6; Kenya: 5.4; Lesotho: 16.1; Liberia: 2.9; Libya: 18.6; Madagascar: 3.0; Malawi: 5.0; Mali: 3.1; Mauritania: 10.4; Morocco: 8.9; Mozambique: 3.5; Namibia: 19.1; Niger: 0.4; Nigeria: 3.0; Rwanda: 12.0; Senegal: 3.0; Sierra Leone: 3.1; Somalia: 18.9; South Africa: 33.2; South Sudan: 12.5; Tanzania: 2.6; Gambia: 6.5; Togo: 1.9; Tunisia: 16.2; Uganda: 2.9; Zambia: 6.0; Zimbabwe: 8.6; Argentina: 7.9; Belize: 7.0; Bolivia: 3.1; Brazil: 7.6; Canada: 6.5; Chile: 9.1; Colombia: 9.6; Costa Rica: 7.8; Cuba: 1.5; Dominican Republic: 5.5; Ecuador: 4.8; El Salvador: 2.8; Guatemala: 2.2; Guyana: 10.2; Haiti: 15.1; Honduras: 6.1; Jamaica: 4.9; Mexico: 2.7; Nicaragua: 4.6; Panama: 6.5; Paraguay: 6.1; Suriname: 7.3; Bahamas: 8.5; Trinidad and Tobago: 4.5; United States: 4.1; Uruguay: 8.4; Venezuela: 5.5; Afghanistan: 13.3; Armenia: 13.3; Azerbaijan: 5.6; Bangladesh: 4.7; Bhutan: 2.9; Brunei: 5.1; Cambodia: 0.3; China: 4.6; Georgia: 11.5; India: 4.2; Indonesia: 3.3; Iran: 9.2; Iraq: 15.5; Israel: 3.2; Japan: 2.6; Jordan: 18.0; Kazakhstan: 4.8; North Korea: 2.9; South Korea: 2.6; Kuwait: 2.1; Kyrgyzstan: 3.3; Laos: 1.2; Lebanon: 11.5; Malaysia: 3.8; Mongolia: 5.4; Myanmar: 3.0; Nepal: 10.7; Oman: 3.2; Pakistan: 5.5; Philippines: 2.2; Qatar: 0.1; Saudi Arabia: 3.9; Singapore: 3.2; Sri Lanka: 5.0; Syria: 13.0; Tajikistan: 11.6; Thailand: 0.7; Timor-Leste: 1.6; Turkmenistan: 4.3; United Arab Emirates: 2.1; Uzbekistan: 4.5; Vietnam: 1.4; Yemen: 17.1; Australia: 4.1; Fiji: 4.3; New Zealand: 4.9; Papua New Guinea: 2.7; Solomon Islands: 1.5; Vanuatu: 5.1"
+
 YOUTH_T = "Albania: 25.1; Austria: 11.7; Belarus: 10.1; Belgium: 16.8; Bosnia and Herzegovina: 27.3; Bulgaria: 12.1; Croatia: 16.6; Cyprus: 15.6; Czechia: 8.4; Denmark: 12.1; Estonia: 20.9; Finland: 19.2; France: 16.6; Germany: 6.7; Greece: 24.7; Hungary: 14.1; Iceland: 7.6; Ireland: 11.1; Italy: 21.8; Latvia: 12.5; Lithuania: 14.1; Luxembourg: 20.2; Montenegro: 25.9; Netherlands: 8.2; North Macedonia: 30.3; Norway: 11.6; Poland: 9.9; Portugal: 21.2; Moldova: 3.3; Romania: 21.3; Russia: 9.3; Serbia: 22.7; Slovakia: 18.2; Slovenia: 9.4; Spain: 27.0; Sweden: 23.8; Switzerland: 7.9; Turkey: 15.6; Ukraine: 19.1; United Kingdom: 12.4; Algeria: 29.8; Angola: 27.9; Benin: 3.3; Botswana: 43.9; Burkina Faso: 8.1; Burundi: 1.6; Cameroon: 6.2; Central African Republic: 9.5; Chad: 1.5; Republic of the Congo: 40.0; DR Congo: 8.5; Ivory Coast: 3.9; Djibouti: 76.3; Egypt: 18.7; Equatorial Guinea: 14.7; Eritrea: 9.4; Eswatini: 58.2; Ethiopia: 5.4; Gabon: 36.0; Ghana: 5.4; Guinea: 7.1; Guinea-Bissau: 2.8; Kenya: 11.9; Lesotho: 24.2; Liberia: 2.1; Libya: 49.5; Madagascar: 5.4; Malawi: 6.8; Mali: 4.0; Mauritania: 23.2; Morocco: 22.1; Mozambique: 7.4; Namibia: 37.3; Niger: 0.3; Nigeria: 5.1; Rwanda: 17.5; Senegal: 4.1; Sierra Leone: 3.6; Somalia: 33.9; South Africa: 60.9; South Sudan: 18.5; Tanzania: 3.3; Gambia: 10.9; Togo: 3.4; Tunisia: 40.1; Uganda: 4.5; Zambia: 9.9; Zimbabwe: 14.0; Argentina: 21.2; Belize: 16.3; Bolivia: 5.2; Brazil: 18.0; Canada: 13.0; Chile: 22.3; Colombia: 19.8; Costa Rica: 23.0; Cuba: 3.9; Dominican Republic: 11.7; Ecuador: 10.1; El Salvador: 6.7; Guatemala: 4.2; Guyana: 22.3; Haiti: 37.5; Honduras: 10.5; Jamaica: 14.5; Mexico: 5.5; Nicaragua: 9.0; Panama: 16.8; Paraguay: 14.1; Suriname: 24.2; Bahamas: 17.8; Trinidad and Tobago: 11.1; United States: 9.4; Uruguay: 26.4; Venezuela: 10.6; Afghanistan: 16.7; Armenia: 26.2; Azerbaijan: 13.7; Bangladesh: 11.5; Bhutan: 13.8; Brunei: 18.5; Cambodia: 0.8; China: 15.2; Georgia: 29.9; India: 16.0; Indonesia: 13.1; Iran: 22.8; Iraq: 32.1; Israel: 6.1; Japan: 3.9; Jordan: 41.7; Kazakhstan: 3.8; North Korea: 6.8; South Korea: 5.9; Kuwait: 15.4; Kyrgyzstan: 6.8; Laos: 2.2; Lebanon: 23.6; Malaysia: 12.3; Mongolia: 13.8; Myanmar: 10.0; Nepal: 20.8; Oman: 13.9; Pakistan: 9.9; Philippines: 6.6; Qatar: 0.4; Saudi Arabia: 13.8; Singapore: 7.8; Sri Lanka: 22.3; Syria: 31.5; Tajikistan: 27.1; Thailand: 4.3; Timor-Leste: 3.4; Turkmenistan: 9.6; United Arab Emirates: 6.4; Uzbekistan: 10.9; Vietnam: 6.8; Yemen: 32.4; Australia: 9.5; Fiji: 15.5; New Zealand: 14.3; Papua New Guinea: 3.8; Solomon Islands: 3.0; Vanuatu: 11.6"
+
 # informal employment, % of all jobs (ILOSTAT via Wikipedia "List of countries by informal employment rate"): low unemployment means little where most work is informal
 INFORMAL_T = "Niger: 98.49; Burundi: 98.31; Chad: 96.92; DR Congo: 96.76; Benin: 96.35; Madagascar: 96.08; Mozambique: 95.67; Mali: 95.42; Uganda: 95.15; Guinea-Bissau: 94.77; Sudan: 94.41; Burkina Faso: 93.76; Tanzania: 93.58; Nigeria: 93.18; Sierra Leone: 93.11; Togo: 92.34; Angola: 92.21; Ivory Coast: 92.13; Haiti: 91.61; Laos: 90.49; Liberia: 89.66; Cambodia: 89.41; Mauritania: 89.36; Senegal: 89.24; Lesotho: 89.14; India: 88.36; Zimbabwe: 88.07; Cameroon: 87.10; Malawi: 87.08; Kenya: 86.49; Afghanistan: 86.13; Republic of the Congo: 85.28; Ethiopia: 85.21; Pakistan: 84.34; Rwanda: 84.27; Bangladesh: 84.19; Gambia: 84.13; Bolivia: 83.88; Zambia: 83.83; Guatemala: 83.19; Honduras: 82.61; Somalia: 82.49; Nicaragua: 81.79; Nepal: 81.56; Indonesia: 81.19; Myanmar: 80.96; Timor-Leste: 80.59; Ghana: 78.05; Yemen: 77.41; Botswana: 75.58; Vanuatu: 72.40; Peru: 72.07; Egypt: 71.33; Ecuador: 68.64; Vietnam: 67.66; Iraq: 67.64; Paraguay: 67.31; Sri Lanka: 67.04; El Salvador: 66.50; Tajikistan: 64.58; Thailand: 63.33; Kyrgyzstan: 58.76; Panama: 58.69; Venezuela: 58.34; Colombia: 56.14; Namibia: 55.76; Georgia: 55.63; Mexico: 55.53; Lebanon: 55.45; Jordan: 55.12; Dominican Republic: 54.70; Jamaica: 54.64; Eswatini: 53.30; Moldova: 52.22; Suriname: 52.11; Argentina: 51.58; Guyana: 51.17; Djibouti: 50.52; Palestine: 48.48; Armenia: 47.88; Fiji: 45.70; Mongolia: 41.94; Costa Rica: 37.38; Tunisia: 36.91; Brazil: 36.50; South Africa: 34.90; Uruguay: 28.55; Brunei: 28.48; Turkey: 27.71; Chile: 27.46; South Korea: 26.62; Bosnia and Herzegovina: 19.67; Russia: 19.33; Bahamas: 18.36; Serbia: 17.81; North Macedonia: 11.09; Poland: 8.62; United Kingdom: 6.51; Portugal: 4.73; Slovakia: 4.37; Greece: 3.58; Italy: 3.42; Lithuania: 3.20; France: 3.15; Sweden: 2.83; Denmark: 2.82; Netherlands: 2.63; Germany: 2.49; Estonia: 2.40; Czech Republic: 2.26; Romania: 2.21; Spain: 2.20; Finland: 2.19; Latvia: 2.17; Iceland: 1.97; Luxembourg: 1.93; Ireland: 1.90; Cyprus: 1.68; Norway: 1.43; Belgium: 1.37; Austria: 1.33; Hungary: 1.31; Bulgaria: 1.20; Croatia: 1.17; Switzerland: 1.14; Slovenia: 0.70"
-def b_inf(x): return 5 if x <= 5 else 4 if x <= 20 else 3 if x <= 40 else 2 if x <= 60 else 1
-def b_youth(x): return 5 if x <= 7 else 4 if x <= 10 else 3 if x <= 14 else 2 if x <= 20 else 1
-def b_unemp(x): return 5 if x <= 3.5 else 4 if x <= 5 else 3 if x <= 7 else 2 if x <= 10 else 1
-
-# ---------- housing availability: how hard it is to get a place at all ----------
-# kinds: rank (r of n, lower = easier), hard (% of expats who say finding housing is hard, vs global %), easy (% who say it's easy, vs global %), vac (official rental vacancy %)
-AV_CITY = {
- 'New York City': ('vac', 1.4, None, 'nychvs'),          # NYC Housing and Vacancy Survey 2023, net rental vacancy
- 'Panama City': ('rank', 1, 53, 'eicity24'), 'Mexico City': ('rank', 10, 53, 'eicity24'), 'Bangkok': ('rank', 2, 53, 'eicity24'),
- 'Rome': ('rank', 24, 53, 'eicity24'), 'Istanbul': ('rank', 26, 53, 'eicity24'), 'Frankfurt': ('rank', 37, 53, 'eicity24'),
- 'Amsterdam': ('rank', 45, 53, 'eicity24'), 'Barcelona': ('rank', 26, 53, 'eicity24'), 'Vancouver': ('rank', 48, 53, 'eicity24'),
- 'Hamburg': ('rank', 50, 53, 'eicity24'), 'Berlin': ('hard', 79, 34, 'eicity24'),
-}
-AV_COUNTRY = {
- 'Panama': ('rank', 1, 46, 'ei25'), 'Mexico': ('rank', 10, 46, 'ei25'), 'Colombia': ('rank', 10, 46, 'ei25'), 'Singapore': ('rank', 39, 46, 'ei25'),
- 'Germany': ('rank', 43, 46, 'ei25'), 'Netherlands': ('rank', 44, 46, 'ei25'), 'Ireland': ('rank', 46, 46, 'ei25'),
- 'Indonesia': ('rank', 7, 46, 'ei25'), 'United Arab Emirates': ('rank', 8, 46, 'ei25'), 'Malaysia': ('rank', 10, 46, 'ei25'), 'China': ('rank', 12, 46, 'ei25'),
- 'South Korea': ('rank', 38, 46, 'ei25'), 'Japan': ('rank', 39, 46, 'ei25'), 'Canada': ('hard', 43, 36, 'ei25'), 'Turkey': ('hard', 44, 36, 'ei25'),
- 'Vietnam': ('rank', 2, 53, 'ei24'), 'Oman': ('rank', 4, 53, 'ei24'), 'Kenya': ('rank', 11, 53, 'ei24'), 'Finland': ('rank', 31, 53, 'ei24'),
- 'South Africa': ('rank', 7, 53, 'ei24'), 'Italy': ('easy', 29, 45, 'ei24'), 'Thailand': ('rank', 2, 31, 'ei26'),
- 'United States': ('vac', 7.2, None, 'census'),          # Census Housing Vacancy Survey, Q4 2025, national
-}
-# Census Housing Vacancy Survey, rental vacancy by metro area, 2024 (table via DoorLoop's Census dashboard)
-AV_US_MSA = {'San Francisco': 6.3, 'Seattle': 6.5, 'Boston': 3.0, 'Washington DC': 4.7, 'Chicago': 5.1, 'Pittsburgh': 8.9, 'Denver': 4.7, 'Los Angeles': 4.8, 'San Diego': 5.2, 'Austin': 8.2, 'Atlanta': 9.3, 'Raleigh': 8.8, 'Houston': 9.8, 'Miami': 9.5, 'Phoenix': 7.9, 'Philadelphia': 6.3, 'Minneapolis': 5.2, 'Portland': 5.7, 'Dallas': 8.9, 'Nashville': 8.6, 'Salt Lake City': 6.1, 'Baltimore': 6.1, 'Sacramento': 3.9, 'Charlotte': 6.7}
-for _k, _v in AV_US_MSA.items(): AV_CITY[_k] = ('vac', _v, None, 'censusmsa')
-for _k in ['East Hampton', 'Southampton', 'Montauk', 'Riverhead', 'Stony Brook', 'Port Jefferson', 'Patchogue', 'Huntington', 'Long Beach', 'Garden City']: AV_CITY[_k] = ('vac', 4.7, None, 'censusmsa')   # Long Island is part of the New York-Newark-Jersey City metro area
-def b_av(kind, x, n):
-    if kind == 'rank': p = x / n; return 5 if p <= 0.2 else 4 if p <= 0.4 else 3 if p <= 0.6 else 2 if p <= 0.8 else 1
-    if kind == 'hard': r = x / n; return 5 if r <= 0.7 else 4 if r <= 0.9 else 3 if r <= 1.1 else 2 if r <= 1.4 else 1
-    if kind == 'easy': r = x / n; return 5 if r >= 1.4 else 4 if r >= 1.1 else 3 if r >= 0.9 else 2 if r >= 0.7 else 1
-    if kind == 'vac': return 5 if x >= 8 else 4 if x >= 6 else 3 if x >= 4 else 2 if x >= 2 else 1
-def av_text(kind, x, n):
-    return {'rank': f'#{x}/{n}', 'hard': f'{x}% vs {n}%', 'easy': f'{x}% vs {n}%', 'vac': f'{x}%'}[kind]
-
-# rent burden for one person: Numbeo rent index / local salary level, where salary level = purchasing power x cost of living (all relative to New York = 100)
-def burden(rent, col, lpp): return rent / (lpp * col / 100)
-def b_burden(r): return 5 if r <= 0.35 else 4 if r <= 0.5 else 3 if r <= 0.7 else 2 if r <= 0.9 else 1
-
-# ---------- making friends: InterNations Expat Insider (city ranking 2024, n=53; country 2024 n=53) ----------
-OPEN_CITY = {'Valencia': (4, 53), 'Málaga': (1, 53), 'Madrid': (7, 53), 'Barcelona': (24, 53), 'Amsterdam': (30, 53)}
-OPEN_COUNTRY_EXTRA = {'Netherlands': (44, 53)}   # 2024 Finding Friends subcategory (no 2025 rank published)
-def b_rank(r, n): p = r / n; return 5 if p <= 0.2 else 4 if p <= 0.4 else 3 if p <= 0.6 else 2 if p <= 0.8 else 1
-
-# ---------- healthcare that doesn't depend on a job ----------
-# The WHO coverage index measures which services exist, not who is covered. Where a large share of people have no coverage, that is added
-# as a third healthcare figure: US Census (uninsured all of 2025) and Mexico's CONEVAL (no access to health services, 2022).
-UNCOVERED = {'United States': (7.9, 'census_ins'), 'Mexico': (39.1, 'coneval')}
-def b_cover(x): return 5 if x <= 1 else 4 if x <= 3 else 3 if x <= 6 else 2 if x <= 12 else 1
-
-# ---------- getting around without a car, US and Canadian cities: Walk Score city rankings (walk score, transit score) ----------
-WALK = {'New York City': (88.0, 88.6), 'San Francisco': (88.7, 77.1), 'Seattle': (74.4, 59.6), 'Boston': (82.8, 72.4), 'Washington DC': (76.7, 68.7),
-        'Chicago': (77.2, 65.0), 'Pittsburgh': (62.4, 55.2), 'Denver': (61.2, 44.6), 'Los Angeles': (68.6, 52.9), 'San Diego': (53.3, 37.3),
-        'Austin': (41.7, 34.8), 'Atlanta': (47.7, 43.7), 'Raleigh': (31.3, 29.4), 'Houston': (47.5, 36.2), 'Miami': (76.6, 57.0), 'Phoenix': (41.4, 35.6),
-        'Philadelphia': (74.8, 67.0), 'Minneapolis': (71.4, 55.0), 'Portland': (67.3, 49.3), 'Dallas': (46.0, 38.9), 'Nashville': (28.8, 21.7),
-        'Baltimore': (64.3, 53.2), 'Sacramento': (49.0, 33.9), 'Charlotte': (26.4, 27.4), 'Toronto': (61.0, 78.2), 'Vancouver': (79.8, 74.4),
-        'Montreal': (65.4, 67.0), 'Ottawa': (45.1, 49.5), 'Calgary': (39.1, 49.5), 'Quebec City': (44.6, 46.9)}
-def b_walk(w, tr): x = (w + tr) / 2; return 5 if x >= 80 else 4 if x >= 65 else 3 if x >= 50 else 2 if x >= 35 else 1
 
 # ---------- tech job market (used when the field is tech/software): StartupBlink Global Startup Ecosystem Index 2025, global city rank of 1,000 ----------
 # A city outside the top 1,000 gets the lowest band; commuter towns use New York's rank, like the job market.
@@ -124,5 +72,4 @@ SBLINK = {'New York City': 2, 'San Francisco': 1, 'Seattle': 15, 'Boston': 6, 'W
  'Kigali': 461, 'Ho Chi Minh City': 110, 'Porto': 171, 'Utrecht': 172, 'Frankfurt': 133, 'Kraków': 184, 'Ljubljana': 267, 'Brisbane': 111,
  'Monterrey': 183, 'Quebec City': 144, 'Rio de Janeiro': 147, 'Quito': 376, 'Córdoba (Argentina)': 213, 'Budapest': 141, 'Glasgow': 205,
  'Gothenburg': 136, 'Osaka': 146, 'Manila': 112, 'Bern': 289, 'Querétaro': 656, 'San José (Costa Rica)': 388, 'Panama City': 422, 'Málaga': 310,
- 'Wellington': 276, 'Mérida': 995, 'Puebla': 329, 'Cancún': 826, 'Seville': 311, 'Bilbao': 293}
-def b_sblink(r): return 5 if r <= 10 else 4 if r <= 30 else 3 if r <= 75 else 2 if r <= 200 else 1
+ 'Wellington': 276, 'Mérida': 995, 'Buffalo': 201, 'Rochester': 222, 'Syracuse': 335, 'Albany': 350, 'Binghamton': 854, 'Puebla': 329, 'Cancún': 826, 'Seville': 311, 'Bilbao': 293}

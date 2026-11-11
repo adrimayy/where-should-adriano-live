@@ -310,5 +310,70 @@
 "English-speaking and very welcoming. Heat, typhoons, traffic and pollution.",
 "De habla inglesa y muy acogedora. Calor, tifones, tráfico y contaminación.",
 "Manila"
+],
+[
+"Buffalo",
+42.89,
+-78.88,
+"840",
+5,
+2,
+2,
+"2432",
+"Affordable lakefront city with a revived downtown, a big medical campus and easy-to-find rentals. Long snowy winters and a much smaller job market than NYC.",
+"Ciudad asequible junto al lago, con un centro renovado, un gran campus médico y rentas fáciles de encontrar. Inviernos largos con nieve y un mercado laboral mucho menor que el de NY.",
+"Búfalo"
+],
+[
+"Rochester",
+43.16,
+-77.61,
+"840",
+5,
+2,
+2,
+"2433",
+"The University of Rochester and RIT anchor healthcare, optics and tech jobs, and rent is cheap. Snowy winters, quiet, car-dependent outside the center.",
+"La Universidad de Rochester y el RIT impulsan empleos en salud, óptica y tecnología, y la renta es barata. Inviernos con nieve, tranquila, dependiente del auto fuera del centro.",
+"Rochester"
+],
+[
+"Syracuse",
+43.05,
+-76.15,
+"840",
+5,
+2,
+2,
+"1323",
+"Syracuse University and Micron's planned chip plant nearby. Small, very snowy and car-dependent.",
+"La Universidad de Syracuse y la planta de chips que Micron planea cerca. Pequeña, con mucha nieve y dependiente del auto.",
+"Syracuse"
+],
+[
+"Albany",
+42.65,
+-73.76,
+"840",
+5,
+2,
+2,
+"2324",
+"The state capital: government, university and Albany Nanotech research jobs, about 2.5 hours to NYC by train. Small and quiet, with cold winters.",
+"La capital del estado: empleos en gobierno, universidades e investigación en Albany Nanotech, a unas 2.5 horas de NY en tren. Pequeña y tranquila, con inviernos fríos.",
+"Albany"
+],
+[
+"Binghamton",
+42.1,
+-75.91,
+"840",
+5,
+1,
+1,
+"1214",
+"A college town around Binghamton University, and very cheap. Small job market, few flights, about 3.5 hours to NYC.",
+"Una ciudad universitaria en torno a la Universidad de Binghamton, y muy barata. Mercado laboral pequeño, pocos vuelos, a unas 3.5 horas de NY.",
+"Binghamton"
 ]
 ]
