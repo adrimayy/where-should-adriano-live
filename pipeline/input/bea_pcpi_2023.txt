@@ -1,0 +1,387 @@
+# BEA per capita personal income by metropolitan area, 2023, dollars. Release of 14 Nov 2024, Table 2
+# (https://bea.gov/sites/default/files/2024-11/lapi1124msa.xlsx), downloaded 13 Nov 2026.
+# metropolitan area|per capita personal income 2023
+Abilene, TX|56034
+Akron, OH|62904
+Albany, GA|48546
+Albany-Lebanon, OR|57016
+Albany-Schenectady-Troy, NY|71972
+Albuquerque, NM|57278
+Alexandria, LA|53765
+Allentown-Bethlehem-Easton, PA-NJ|66493
+Altoona, PA|57782
+Amarillo, TX|60182
+Ames, IA|55770
+Anchorage, AK|73829
+Ann Arbor, MI|77537
+Anniston-Oxford, AL|44737
+Appleton, WI|64216
+Asheville, NC|62050
+Athens-Clarke County, GA|53221
+Atlanta-Sandy Springs-Alpharetta, GA|68027
+Atlantic City-Hammonton, NJ|60493
+Auburn-Opelika, AL|48511
+Augusta-Richmond County, GA-SC|52069
+Austin-Round Rock-Georgetown, TX|80471
+Bakersfield, CA|47350
+Baltimore-Columbia-Towson, MD|76923
+Bangor, ME|53978
+Barnstable Town, MA|92417
+Baton Rouge, LA|61972
+Battle Creek, MI|47947
+Bay City, MI|52579
+Beaumont-Port Arthur, TX|51459
+Beckley, WV|50178
+Bellingham, WA|62095
+Bend, OR|81025
+Billings, MT|68898
+Binghamton, NY|52659
+Birmingham-Hoover, AL|66502
+Bismarck, ND|72043
+Blacksburg-Christiansburg, VA|50496
+Bloomington, IL|61174
+Bloomington, IN|56651
+Bloomsburg-Berwick, PA|56534
+Boise City, ID|63689
+Boston-Cambridge-Newton, MA-NH|100880
+Boulder, CO|100242
+Bowling Green, KY|47028
+Bremerton-Silverdale-Port Orchard, WA|73841
+Bridgeport-Stamford-Norwalk, CT|139006
+Brownsville-Harlingen, TX|38523
+Brunswick, GA|57595
+Buffalo-Cheektowaga, NY|61106
+Burlington, NC|51405
+Burlington-South Burlington, VT|71933
+California-Lexington Park, MD|70353
+Canton-Massillon, OH|56549
+Cape Coral-Fort Myers, FL|65878
+Cape Girardeau, MO-IL|53822
+Carbondale-Marion, IL|51949
+Carson City, NV|63498
+Casper, WY|79846
+Cedar Rapids, IA|63448
+Chambersburg-Waynesboro, PA|58380
+Champaign-Urbana, IL|59680
+Charleston, WV|56140
+Charleston-North Charleston, SC|68486
+Charlotte-Concord-Gastonia, NC-SC|69588
+Charlottesville, VA|90472
+Chattanooga, TN-GA|58813
+Cheyenne, WY|65150
+Chicago-Naperville-Elgin, IL-IN-WI|77429
+Chico, CA|56847
+Cincinnati, OH-KY-IN|68560
+Clarksville, TN-KY|51007
+Cleveland, TN|48971
+Cleveland-Elyria, OH|67451
+Coeur d'Alene, ID|63893
+College Station-Bryan, TX|51507
+Colorado Springs, CO|65775
+Columbia, MO|59338
+Columbia, SC|57976
+Columbus, GA-AL|49717
+Columbus, IN|65564
+Columbus, OH|65277
+Corpus Christi, TX|56264
+Corvallis, OR|60307
+Crestview-Fort Walton Beach-Destin, FL|69941
+Cumberland, MD-WV|49268
+Dallas-Fort Worth-Arlington, TX|74165
+Dalton, GA|45373
+Danville, IL|51471
+Daphne-Fairhope-Foley, AL|60969
+Davenport-Moline-Rock Island, IA-IL|60134
+Dayton-Kettering, OH|59915
+Decatur, AL|48528
+Decatur, IL|60030
+Deltona-Daytona Beach-Ormond Beach, FL|57280
+Denver-Aurora-Lakewood, CO|89297
+Des Moines-West Des Moines, IA|68420
+Detroit-Warren-Dearborn, MI|66098
+Dothan, AL|52512
+Dover, DE|52494
+Dubuque, IA|63435
+Duluth, MN-WI|57316
+Durham-Chapel Hill, NC|68654
+East Stroudsburg, PA|54716
+Eau Claire, WI|59135
+El Centro, CA|47991
+Elizabethtown-Fort Knox, KY|53708
+Elkhart-Goshen, IN|58662
+Elmira, NY|53850
+El Paso, TX|46732
+Enid, OK|51152
+Erie, PA|54694
+Eugene-Springfield, OR|61634
+Evansville, IN-KY|61605
+Fairbanks, AK|69775
+Fargo, ND-MN|68326
+Farmington, NM|46055
+Fayetteville, NC|47602
+Fayetteville-Springdale-Rogers, AR|89095
+Flagstaff, AZ|62002
+Flint, MI|52520
+Florence, SC|53326
+Florence-Muscle Shoals, AL|47156
+Fond du Lac, WI|60018
+Fort Collins, CO|71359
+Fort Smith, AR-OK|47206
+Fort Wayne, IN|60361
+Fresno, CA|52728
+Gadsden, AL|45062
+Gainesville, FL|54166
+Gainesville, GA|60036
+Gettysburg, PA|58880
+Glens Falls, NY|59040
+Goldsboro, NC|50748
+Grand Forks, ND-MN|62364
+Grand Island, NE|60508
+Grand Junction, CO|57653
+Grand Rapids-Kentwood, MI|65239
+Grants Pass, OR|55038
+Great Falls, MT|60126
+Greeley, CO|62532
+Green Bay, WI|63575
+Greensboro-High Point, NC|56030
+Greenville, NC|56956
+Greenville-Anderson, SC|55747
+Gulfport-Biloxi, MS|48268
+Hagerstown-Martinsburg, MD-WV|55041
+Hammond, LA|50875
+Hanford-Corcoran, CA|43994
+Harrisburg-Carlisle, PA|64066
+Harrisonburg, VA|51573
+Hartford-East Hartford-Middletown, CT|75241
+Hattiesburg, MS|47876
+Hickory-Lenoir-Morganton, NC|52213
+Hilton Head Island-Bluffton, SC|75647
+Hinesville, GA|41210
+Homosassa Springs, FL|47178
+Hot Springs, AR|52506
+Houma-Thibodaux, LA|55657
+Houston-The Woodlands-Sugar Land, TX|72453
+Huntington-Ashland, WV-KY-OH|51286
+Huntsville, AL|64089
+Idaho Falls, ID|57483
+Indianapolis-Carmel-Anderson, IN|72494
+Iowa City, IA|65563
+Ithaca, NY|54159
+Jackson, MI|48818
+Jackson, MS|58104
+Jackson, TN|52273
+Jacksonville, FL|65324
+Jacksonville, NC|53594
+Janesville-Beloit, WI|56319
+Jefferson City, MO|56862
+Johnson City, TN|51590
+Johnstown, PA|50932
+Jonesboro, AR|49153
+Joplin, MO|47609
+Kahului-Wailuku-Lahaina, HI|62816
+Kalamazoo-Portage, MI|63668
+Kankakee, IL|53698
+Kansas City, MO-KS|69865
+Kennewick-Richland, WA|54152
+Killeen-Temple, TX|50292
+Kingsport-Bristol, TN-VA|50922
+Kingston, NY|66314
+Knoxville, TN|62167
+Kokomo, IN|50368
+La Crosse-Onalaska, WI-MN|62497
+Lafayette, LA|57906
+Lafayette-West Lafayette, IN|51180
+Lake Charles, LA|54391
+Lake Havasu City-Kingman, AZ|46777
+Lakeland-Winter Haven, FL|44430
+Lancaster, PA|66876
+Lansing-East Lansing, MI|53806
+Laredo, TX|42757
+Las Cruces, NM|47712
+Las Vegas-Henderson-Paradise, NV|63767
+Lawrence, KS|56846
+Lawton, OK|51510
+Lebanon, PA|58851
+Lewiston, ID-WA|56797
+Lewiston-Auburn, ME|53731
+Lexington-Fayette, KY|63021
+Lima, OH|54010
+Lincoln, NE|66373
+Little Rock-North Little Rock-Conway, AR|59463
+Logan, UT-ID|50139
+Longview, TX|53386
+Longview, WA|57947
+Los Angeles-Long Beach-Anaheim, CA|80898
+Louisville/Jefferson County, KY-IN|65205
+Lubbock, TX|54524
+Lynchburg, VA|51243
+Macon-Bibb County, GA|48529
+Madera, CA|46709
+Madison, WI|75862
+Manchester-Nashua, NH|76187
+Manhattan, KS|56195
+Mankato, MN|56825
+Mansfield, OH|48116
+McAllen-Edinburg-Mission, TX|34373
+Medford, OR|62541
+Memphis, TN-MS-AR|60083
+Merced, CA|46654
+Miami-Fort Lauderdale-Pompano Beach, FL|84302
+Michigan City-La Porte, IN|53144
+Midland, MI|64106
+Midland, TX|143469
+Milwaukee-Waukesha, WI|72316
+Minneapolis-St. Paul-Bloomington, MN-WI|79654
+Missoula, MT|68344
+Mobile, AL|50384
+Modesto, CA|53058
+Monroe, LA|49272
+Monroe, MI|59956
+Montgomery, AL|53266
+Morgantown, WV|55012
+Morristown, TN|48618
+Mount Vernon-Anacortes, WA|67173
+Muncie, IN|47629
+Muskegon, MI|49244
+Myrtle Beach-Conway-North Myrtle Beach, SC-NC|54210
+Napa, CA|94973
+Naples-Marco Island, FL|134527
+Nashville-Davidson--Murfreesboro--Franklin, TN|79453
+New Bern, NC|57334
+New Haven-Milford, CT|68387
+New Orleans-Metairie, LA|66588
+New York-Newark-Jersey City, NY-NJ-PA|91448
+Niles, MI|61127
+North Port-Sarasota-Bradenton, FL|74949
+Norwich-New London, CT|69755
+Ocala, FL|46682
+Ocean City, NJ|78963
+Odessa, TX|58961
+Ogden-Clearfield, UT|59122
+Oklahoma City, OK|64468
+Olympia-Lacey-Tumwater, WA|65892
+Omaha-Council Bluffs, NE-IA|75033
+Orlando-Kissimmee-Sanford, FL|57774
+Oshkosh-Neenah, WI|60180
+Owensboro, KY|53113
+Oxnard-Thousand Oaks-Ventura, CA|78091
+Palm Bay-Melbourne-Titusville, FL|60162
+Panama City, FL|56070
+Parkersburg-Vienna, WV|58164
+Pensacola-Ferry Pass-Brent, FL|56938
+Peoria, IL|60980
+Philadelphia-Camden-Wilmington, PA-NJ-DE-MD|78761
+Phoenix-Mesa-Chandler, AZ|66365
+Pine Bluff, AR|42135
+Pittsburgh, PA|70559
+Pittsfield, MA|70945
+Pocatello, ID|49769
+Portland-South Portland, ME|78085
+Portland-Vancouver-Hillsboro, OR-WA|74992
+Port St. Lucie, FL|73080
+Poughkeepsie-Newburgh-Middletown, NY|65115
+Prescott Valley-Prescott, AZ|55913
+Providence-Warwick, RI-MA|67405
+Provo-Orem, UT|57531
+Pueblo, CO|48891
+Punta Gorda, FL|55332
+Racine, WI|62570
+Raleigh-Cary, NC|75129
+Rapid City, SD|70144
+Reading, PA|61575
+Redding, CA|57637
+Reno, NV|81358
+Richmond, VA|71794
+Riverside-San Bernardino-Ontario, CA|52553
+Roanoke, VA|59820
+Rochester, MN|68561
+Rochester, NY|61762
+Rockford, IL|54249
+Rocky Mount, NC|51308
+Rome, GA|46727
+Sacramento-Roseville-Folsom, CA|70418
+Saginaw, MI|50278
+St. Cloud, MN|61633
+St. George, UT|54405
+St. Joseph, MO-KS|51612
+St. Louis, MO-IL|75577
+Salem, OR|57774
+Salinas, CA|68943
+Salisbury, MD-DE|62081
+Salt Lake City, UT|70395
+San Angelo, TX|65650
+San Antonio-New Braunfels, TX|59477
+San Diego-Chula Vista-Carlsbad, CA|79122
+San Francisco-Oakland-Berkeley, CA|130730
+San Jose-Sunnyvale-Santa Clara, CA|148036
+San Luis Obispo-Paso Robles, CA|72721
+Santa Cruz-Watsonville, CA|88581
+Santa Fe, NM|77717
+Santa Maria-Santa Barbara, CA|82736
+Santa Rosa-Petaluma, CA|83408
+Savannah, GA|58046
+Scranton--Wilkes-Barre, PA|54826
+Seattle-Tacoma-Bellevue, WA|99339
+Sebastian-Vero Beach, FL|105827
+Sebring-Avon Park, FL|44177
+Sheboygan, WI|63878
+Sherman-Denison, TX|55946
+Shreveport-Bossier City, LA|61150
+Sierra Vista-Douglas, AZ|53304
+Sioux City, IA-NE-SD|65153
+Sioux Falls, SD|78354
+South Bend-Mishawaka, IN-MI|57010
+Spartanburg, SC|53700
+Spokane-Spokane Valley, WA|57886
+Springfield, IL|60446
+Springfield, MA|64303
+Springfield, MO|53435
+Springfield, OH|50553
+State College, PA|57800
+Staunton, VA|55929
+Stockton, CA|59361
+Sumter, SC|49418
+Syracuse, NY|60736
+Tallahassee, FL|55363
+Tampa-St. Petersburg-Clearwater, FL|63789
+Terre Haute, IN|48561
+Texarkana, TX-AR|47883
+The Villages, FL|71231
+Toledo, OH|58180
+Topeka, KS|57810
+Trenton-Princeton, NJ|84392
+Tucson, AZ|58232
+Tulsa, OK|69022
+Tuscaloosa, AL|44281
+Twin Falls, ID|50877
+Tyler, TX|66887
+Urban Honolulu, HI|69893
+Utica-Rome, NY|55237
+Valdosta, GA|44231
+Vallejo, CA|64514
+Victoria, TX|59170
+Vineland-Bridgeton, NJ|49367
+Virginia Beach-Norfolk-Newport News, VA-NC|62575
+Visalia, CA|48253
+Waco, TX|53528
+Walla Walla, WA|56420
+Warner Robins, GA|49649
+Washington-Arlington-Alexandria, DC-VA-MD-WV|89396
+Waterloo-Cedar Falls, IA|57114
+Watertown-Fort Drum, NY|54926
+Wausau-Weston, WI|61617
+Weirton-Steubenville, WV-OH|50649
+Wenatchee, WA|62458
+Wheeling, WV-OH|56458
+Wichita, KS|60375
+Wichita Falls, TX|56148
+Williamsport, PA|53630
+Wilmington, NC|62278
+Winchester, VA-WV|62115
+Winston-Salem, NC|57101
+Worcester, MA-CT|67810
+Yakima, WA|51488
+York-Hanover, PA|60915
+Youngstown-Warren-Boardman, OH-PA|51869
+Yuba City, CA|52354
+Yuma, AZ|46441

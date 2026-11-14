@@ -3,28 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Where Should Adriano Live?</title>
-<meta name="description" content="Every country and over 130 cities scored on nineteen factors for Adriano. Take a one-minute quiz to get your own map and see how you compare.">
-<meta property="og:title" content="Where Should Adriano Live?">
-<meta property="og:description" content="Take a one-minute quiz, get your own map, and see how you compare with Adriano.">
+<title>Where Should You Live?</title>
+<meta name="description" content="Every country and hundreds of cities scored on twenty-three factors from published data. Take a one-minute quiz to get your own map.">
+<meta property="og:title" content="Where Should You Live?">
+<meta property="og:description" content="Take a one-minute quiz and get a map of where you’d fit best, from published data.">
 <link rel="stylesheet" href="css/atlas.css">
 </head>
 <body>
 <div class="wrap">
   <div class="topbar">
     <span class="brand" data-t="brand"></span>
-    <div class="seg" role="group" aria-label="Language"><button id="lEn" aria-pressed="true">EN</button><button id="lEs" aria-pressed="false">ES</button></div>
+    <select id="langSel" class="langsel" aria-label="Language / Idioma"></select>
   </div>
 
   <section class="panel hero" id="start">
-    <span class="eyebrow" data-t="eyebrow"></span>
     <h1 data-t="h1"></h1>
     <p class="lede" data-th="intro1"></p>
-    <p class="lede" data-th="intro2"></p>
-    <div style="display:flex;flex-direction:column;gap:6px"><span class="lab" data-t="prioTitle"></span><div class="prio" id="prio"></div></div>
-    <div class="cta"><button class="primary" id="startQuiz" data-t="startQuiz"></button><button class="ghost" id="fullQuiz" data-t="fullQuiz"></button><button id="skipQuiz" data-t="skipQuiz"></button><button class="ghost" id="resumeTake" hidden data-t="resume"></button></div>
-    <p class="meta" data-t="startNote"></p>
-    <details class="box choices"><summary><span data-t="choicesTitle"></span></summary><div class="inner" data-th="choicesBody"></div></details>
+    <!-- one main action: take the quiz, or continue a saved map; one quiet alternative -->
+    <div class="cta"><button class="primary" id="resumeTake" hidden data-t="resume"></button><button class="primary" id="startQuiz" data-t="startQuiz"></button><button class="ghost" id="skipQuiz" data-t="skipQuiz"></button><button class="ghost" id="retakeHero" hidden data-t="retake"></button></div>
+    <p class="meta" id="devNote" data-th="devNote" hidden></p>
+    <p class="now" id="heroNow"></p>
+    <button class="linkbtn" id="knowDev"></button>
   </section>
 
   <section class="panel" id="quizPanel" hidden aria-live="polite">
@@ -33,36 +32,34 @@
 
   <section class="panel" id="vsPanel" hidden>
     <div class="dhead">
-      <div style="display:flex;flex-direction:column;gap:4px"><span class="eyebrow" data-t="vsEyebrow"></span><h2 data-t="vsTitle"></h2></div>
-      <div class="match"><span class="big" id="matchPct">0%</span><span class="meta" data-t="matchLabel"></span></div>
+      <div style="display:flex;flex-direction:column;gap:4px"><span class="eyebrow" data-t="vsEyebrow"></span><h2 id="vsTitle"></h2></div>
+      <div class="match" id="vsMatch"><span class="big" id="matchPct">0%</span><span class="meta" data-t="matchLabel"></span></div>
     </div>
     <div class="vs" id="vsLists"></div>
     <div class="diffs" id="vsDiffs"></div>
     <div id="vsDefaults"></div>
     <div class="toast" id="toast" role="status"></div>
-    <div class="toggles"><button class="primary" id="shareTake" data-t="share"></button><button id="retake" data-t="retake"></button><button class="ghost" id="toMap" data-t="toMap"></button></div>
+    <p class="meta" data-t="startNote"></p>
+    <div class="toggles"><button class="primary" id="shareTake" data-t="share"></button><button id="retake" data-t="retake"></button><button class="ghost" id="fullQuiz" data-t="sharpen"></button><button class="ghost" id="toMap" data-t="toMap"></button></div>
   </section>
 
-  <section class="modebar" id="modeBar">
-    <div class="seg" role="group" aria-label="Whose take"><button id="mEqual" aria-pressed="false" data-t="eqTake"></button><button id="mAdriano" aria-pressed="true" data-t="adTake"></button><button id="mYours" aria-pressed="false" data-t="yourTake"></button></div>
-    <p class="meta" id="modeNote"></p>
+  <section class="modebar" id="modeBar" hidden>
+    <div class="seg" role="group" aria-label="Whose take"><button id="mYours" aria-pressed="true" data-t="yourTake"></button><button id="mAdriano" aria-pressed="false" data-t="adTake"></button></div>
+    <p class="sr" id="modeNote" aria-live="polite"></p>
   </section>
 
   <section style="display:flex;flex-direction:column;gap:12px" id="mapSec">
     <div class="rankhead">
       <div style="display:flex;flex-direction:column;gap:4px"><h2 data-t="mapTitle"></h2></div>
-      <button class="chipbtn" id="tDots" aria-pressed="false" data-t="dotsOnly"></button>
     </div>
     <details class="box" id="mapOpts">
       <summary><span data-t="optsTitle"></span><span class="meta" id="fsum" style="font-weight:400;margin-left:auto"></span></summary>
       <div class="inner">
         <div class="mapctl">
           <div class="field"><label class="lab" for="colorBy" data-t="colorBy"></label><select id="colorBy"></select></div>
-          <div class="field"><label class="lab" for="styleSel" data-t="mapStyle"></label><select id="styleSel"></select></div>
-          <div class="field"><label class="lab" for="projSel" data-t="projection"></label><select id="projSel"></select></div>
           <div class="field"><label class="lab" for="search" data-t="find"></label><input id="search" type="search" list="names" autocomplete="off"><datalist id="names"></datalist></div>
         </div>
-        <div class="field"><span class="lab" data-t="layers"></span><div class="toggles"><button class="chipbtn" id="tCountries" aria-pressed="true" data-t="countries"></button><button class="chipbtn" id="tCities" aria-pressed="true" data-t="cities"></button><button class="chipbtn" id="tLabels" aria-pressed="true" data-t="cityNames"></button><button class="chipbtn" id="tOpac" aria-pressed="false" data-t="shadeOpac"></button></div><p class="meta" data-t="dotsNote"></p></div>
+        <div class="field"><span class="lab" data-t="layers"></span><div class="toggles"><button class="chipbtn" id="tCountries" aria-pressed="true" data-t="countries"></button><button class="chipbtn" id="tDots" aria-pressed="false" data-t="dotsOnly"></button><button class="chipbtn" id="tCities" aria-pressed="true" data-t="cities"></button><button class="chipbtn" id="tLabels" aria-pressed="true" data-t="cityNames"></button><button class="chipbtn" id="tOpac" aria-pressed="false" data-t="shadeOpac"></button></div><p class="meta" data-t="dotsNote"></p></div>
         <div class="field"><span class="lab" data-t="verdicts"></span><div class="toggles" id="tierFilters"></div></div>
         <div class="field"><label class="lab" for="minScore" data-t="minScore"></label><div class="range"><input type="range" id="minScore" min="0" max="90" step="5" value="0"><output id="minOut">0</output></div></div>
         <div class="field"><span class="lab" data-t="mustHave"></span><div class="mustgrid" id="mustMenu"></div></div>
@@ -78,7 +75,7 @@
       <div class="tip" id="tip"></div>
       <div class="pcard" id="pcard" hidden></div>
     </div>
-    <p class="meta" data-t="namesRule"></p>
+    <details class="howread"><summary data-t="howRead"></summary><p class="meta" data-t="namesRule"></p></details>
     <div class="legend" id="legend"></div>
   </section>
 
@@ -87,10 +84,8 @@
       <div style="display:flex;flex-direction:column;gap:4px"><h2 data-t="ranking"></h2><p class="meta" id="rankmeta"></p></div>
       <div class="toggles"><div class="seg" role="group"><button id="rCities" aria-pressed="true" data-t="cities"></button><button id="rCountries" aria-pressed="false" data-t="countries"></button></div>
       <div class="seg" role="group"><button id="vScore" aria-pressed="true" data-t="viewScore"></button><button id="vProfile" aria-pressed="false" data-t="viewProfile"></button></div>
-      <button class="ghost" id="animBtn"></button></div>
+</div>
     </div>
-    <p class="meta" data-t="rangeKey"></p>
-    <div class="anim" id="anim" hidden aria-live="polite"></div>
     <div class="list" id="list"></div>
     <div><button id="more" data-t="showAll"></button></div>
   </section>
@@ -103,11 +98,11 @@
     </section>
   </div>
 
-  <section class="panel after" id="offerPanel">
-    <h2 data-t="offerTitle"></h2><p class="meta" data-t="offerIntro"></p>
+  <details class="box after" id="offerPanel">
+    <summary><span data-t="offerTitle"></span></summary><div class="inner"><p class="meta" data-t="offerIntro"></p>
     <div id="offerRows" style="display:flex;flex-direction:column;gap:8px"></div>
     <div id="offerOut"></div>
-  </section>
+  </div></details>
 
   <details class="box after" id="weightsBox">
     <summary><span data-t="weightsTitle"></span></summary>
@@ -147,6 +142,8 @@
     </div>
   </details>
 
+  <details class="box after"><summary><span data-t="prioTitle"></span></summary><div class="inner"><div class="prio" id="prio"></div></div></details>
+  <details class="box after choices"><summary><span data-t="choicesTitle"></span></summary><div class="inner" data-th="choicesBody"></div></details>
   <details class="box after">
     <summary><span data-t="howTitle"></span></summary>
     <div class="inner foot" id="howInner"></div>
@@ -172,5 +169,6 @@
 <script defer src="js/11-panels.js"></script>
 <script defer src="js/12-events.js"></script>
 <script defer src="js/13-startup.js"></script>
+<dialog id="hpDialog" class="hpdlg" aria-label="Choose a place"><div class="hptop"><input id="hpSearch" type="search" autocomplete="off" enterkeyhint="search"><button type="button" id="hpCancel" class="hpcancel"></button></div><div class="hpbody"><div id="hpList" class="hplist"></div><nav id="hpRail" class="hprail" aria-label="A–Z"></nav></div></dialog>
 </body>
 </html>
