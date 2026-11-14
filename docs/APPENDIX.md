@@ -333,4 +333,8 @@ they miss differences between neighborhoods, workplaces and families. The politi
 - **Map outlines:** world-atlas 50m outlines can't be fetched at runtime (the claude.ai host allows only scripts from CDNs,
   not JSON), so the page loads Datamaps' high-detail outlines (a script, about 130 KB compressed) when you zoom in, and the
   standard ones otherwise; the outline data dates from about 2015. The projection is Web Mercator, as in most map apps.
+  Those outlines come from Natural Earth's country polygons, which count big lakes as land (the Great Lakes, Victoria,
+  Baikal...), so the page paints Natural Earth's lakes on top as water: 1:110m (24 lakes, in `data/atlas.js`) with the
+  standard outlines and 1:50m (288 lakes over 300 km², in `data/lakes-hires.js`) with the detailed ones. Lake shores are
+  outlined from 4× zoom; clicking a lake selects no country (`pipeline/import_lakes.py`).
   Sliders re-score without the 120 recalculations while dragging and run them on release.
