@@ -1088,6 +1088,15 @@ const QSTR = {
   },
 };
 const SRC = {
+  epa: 'https://aqs.epa.gov/aqsweb/airdata/download_files.html',
+  laus: 'https://www.bls.gov/lau/metrossa.htm',
+  eurostat: 'https://ec.europa.eu/eurostat/databrowser/view/lfst_r_lfu3rt/default/table',
+  chrhom: 'https://www.countyhealthrankings.org/health-data/community-conditions/social-and-economic-factors/safety-and-social-support/homicides',
+  sahie: 'https://www.census.gov/programs-surveys/sahie.html',
+  itdp: 'https://atlas.itdp.org/',
+  oecdh: 'https://www.oecd.org/en/publications/oecd-economic-surveys-mexico-2026_8a7c0ac4-en/full-report/basic-statistics-of-mexico-2024_d948ba58.html',
+  iloh: 'https://ilostat.ilo.org/topics/working-time/',
+  acs25: 'https://data.census.gov/table/ACSDT1Y2025.B20002?g=010XX00US$3100000',
   who: 'https://www.who.int/publications/m/item/who-ambient-air-quality-database-(update-jun-2026)',
   wbpm: 'https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3',
   cpi: 'https://www.transparency.org/en/cpi/2025',
@@ -1118,8 +1127,8 @@ const SRC = {
   nqol: 'https://www.numbeo.com/quality-of-life/rankings.jsp',
   nqolc: 'https://www.numbeo.com/quality-of-life/rankings_by_country.jsp',
   eiu: 'https://www.statisticstimes.com/ranking/democracy-index.php',
-  fh: 'https://www.mappr.co/freedom-in-the-world-by-country/',
-  hom: 'https://www.factsinstitute.com/ranking/countries-by-murder-rate/',
+  fh: 'https://ourworldindata.org/grapher/civil-liberties-score-fh',
+  hom: 'https://dataunodc.un.org/dp-intentional-homicide-victims',
   fbi: 'https://wiki.krisyotam.com/content/wikipedia_en_all_nopic_2026-03/United_States_cities_by_crime_rate',
   whr: 'https://www.happierlivesinstitute.org/2026/03/19/world-happiness-report-2026-full-country-rankings-our-favourite-finding/',
   ei: 'https://assets.in-cdn.net/expat-insider/2025/ease-of-settling-in-2025',
@@ -1130,6 +1139,15 @@ const SRC = {
   hpi: 'https://www.gov.uk/government/publications/high-potential-individual-visa-global-universities-list/high-potential-individual-visa-global-universities-list-2026',
 };
 const RAWU = {
+  epa: 'https://aqs.epa.gov/aqsweb/airdata/download_files.html',
+  laus: 'https://www.bls.gov/lau/metrossa.htm',
+  eurostat: 'https://ec.europa.eu/eurostat/databrowser/view/lfst_r_lfu3rt/default/table',
+  chrhom: 'https://www.countyhealthrankings.org/health-data/community-conditions/social-and-economic-factors/safety-and-social-support/homicides',
+  sahie: 'https://www.census.gov/programs-surveys/sahie.html',
+  itdp: 'https://atlas.itdp.org/',
+  oecdh: 'https://www.oecd.org/en/publications/oecd-economic-surveys-mexico-2026_8a7c0ac4-en/full-report/basic-statistics-of-mexico-2024_d948ba58.html',
+  iloh: 'https://ilostat.ilo.org/topics/working-time/',
+  acs25: 'https://data.census.gov/table/ACSDT1Y2025.B20002?g=010XX00US$3100000',
   who: 'https://www.who.int/publications/m/item/who-ambient-air-quality-database-(update-jun-2026)',
   wbpm: 'https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3',
   cpi: 'https://www.transparency.org/en/cpi/2025',
@@ -1155,8 +1173,8 @@ const RAWU = {
   uhc: 'https://data.worldbank.org/indicator/SH.UHC.SRVS.CV.XD',
   nqol: 'https://www.numbeo.com/quality-of-life/rankings.jsp',
   eiu: 'https://www.statisticstimes.com/ranking/democracy-index.php',
-  fh: 'https://www.mappr.co/freedom-in-the-world-by-country/',
-  hom: 'https://www.factsinstitute.com/ranking/countries-by-murder-rate/',
+  fh: 'https://ourworldindata.org/grapher/civil-liberties-score-fh',
+  hom: 'https://dataunodc.un.org/dp-intentional-homicide-victims',
   fbi: 'https://wiki.krisyotam.com/content/wikipedia_en_all_nopic_2026-03/United_States_cities_by_crime_rate',
   ei25: 'https://assets.in-cdn.net/expat-insider/2025/ease-of-settling-in-2025',
   ei25h:
@@ -1185,6 +1203,18 @@ const RAWU = {
   ei26: 'https://www.relocatemagazine.com/where-expats-struggle-where-they-thrive-in-2026-internations-0726',
 };
 const RAWL = {
+  epa: ['EPA monitors within 30 km of the centre: PM2.5, annual mean', 'Monitores de la EPA a menos de 30 km del centro: PM2.5, media anual', 'epa'],
+  laus: ['Unemployment in the metro area (BLS, Nov 2025–Sep 2026)', 'Desempleo del área metropolitana (BLS, nov 2025–sep 2026)', 'laus'],
+  eurostat: ['Unemployment in the region (Eurostat, NUTS 2, mean of the two latest years)', 'Desempleo en la región (Eurostat, NUTS 2, media de los dos últimos años)', 'eurostat'],
+  chrhom: ['Homicides per 100k in the metro’s counties, 2017–2023 (County Health Rankings)', 'Homicidios por 100 mil en los condados del área, 2017–2023 (County Health Rankings)', 'chrhom'],
+  sahie: ['Under-65s without health insurance in the metro (Census SAHIE 2023)', 'Menores de 65 sin seguro médico en el área (Censo, SAHIE 2023)', 'sahie'],
+  itdp: [
+    'ITDP Atlas 2025, % of people near rapid transport / near healthcare and schools / near a protected bike lane / near a car-free place, then city blocks per km²',
+    'Atlas ITDP 2025, % de personas cerca de transporte rápido / de salud y escuelas / de un carril bici protegido / de un lugar sin coches, y manzanas por km²',
+    'itdp',
+  ],
+  oecdh: ['Hours worked a year per worker (OECD; used for Mexico, where PWT 11 disagrees with every other source)', 'Horas trabajadas al año por trabajador (OCDE; para México, donde PWT 11 contradice a las demás fuentes)', 'oecdh'],
+  iloh: ['Hours actually worked a week (ILOSTAT labour force survey; used where PWT has no figure)', 'Horas efectivas a la semana (encuesta de fuerza laboral, ILOSTAT; donde PWT no tiene dato)', 'iloh'],
   who: ['WHO air quality database 2026: PM2.5, annual mean (ground monitors)', 'Base de calidad del aire de la OMS 2026: PM2.5, media anual (monitores)', 'who'],
   wbpm: ['PM2.5 exposure, population-weighted (World Bank / IHME, 2023)', 'Exposición a PM2.5 ponderada por población (Banco Mundial / IHME, 2023)', 'wbpm'],
   cpi: ['Corruption Perceptions Index 2025 (Transparency International, 0–100)', 'Índice de Percepción de la Corrupción 2025 (Transparencia Internacional, 0–100)', 'cpi'],
@@ -1243,8 +1273,8 @@ const RAWL = {
   uhc: ['WHO UHC service coverage 2023', 'Cobertura de servicios OMS 2023', 'uhc'],
   nqolh: ['Numbeo health care index', 'Índice de salud de Numbeo', 'nqol'],
   eiu: ['EIU Democracy Index', 'Índice de Democracia EIU', 'eiu'],
-  fh: ['Freedom House score', 'Puntaje de Freedom House', 'fh'],
-  hom: ['UNODC homicides per 100k', 'Homicidios por 100 mil (UNODC)', 'hom'],
+  fh: ['Freedom House score, 0–100 (Freedom in the World 2026)', 'Puntaje de Freedom House, 0–100 (Freedom in the World 2026)', 'fh'],
+  hom: ['UNODC homicides per 100k (latest year)', 'Homicidios por 100 mil, UNODC (último año)', 'hom'],
   fbi: ['FBI 2024 homicides per 100k', 'Homicidios por 100 mil, FBI 2024', 'fbi'],
   nqols: ['Numbeo safety index', 'Índice de seguridad de Numbeo', 'nqol'],
   ei25s: ['Expat Insider 2025, ease of settling in', 'Expat Insider 2025, facilidad para adaptarse', 'ei25'],
@@ -1339,9 +1369,9 @@ const RAWL = {
     'bearpp',
   ],
   acspay: [
-    'Census median earnings and median rent (ACS 2024) and BEA prices, each converted to the Numbeo scale: (net salary − rent) ÷ prices',
-    'Ingresos y alquiler medianos del Censo (ACS 2024) y precios del BEA, convertidos a la escala de Numbeo: (salario neto − alquiler) ÷ precios',
-    'acs24',
+    'Census median earnings and median rent (ACS 2025) and BEA prices, each converted to the Numbeo scale: (net salary − rent) ÷ prices',
+    'Ingresos y alquiler medianos del Censo (ACS 2025) y precios del BEA, convertidos a la escala de Numbeo: (salario neto − alquiler) ÷ precios',
+    'acs25',
   ],
   acscomm: [
     'Census mean travel time to work (ACS 2024), converted to Numbeo’s one-way minutes',
@@ -1389,15 +1419,15 @@ const ROWS = {
     ],
     [
       'Healthcare access',
-      `${A('uhc', 'WHO UHC Service Coverage Index 2023')} (country) averaged with the ${A('nqol', 'Numbeo Health Care Index 2026')} (city). The WHO index measures which services exist, not who is covered, so where many people have no coverage that is averaged in too: the US (7.9% uninsured all year, Census 2025) and Mexico (39.1% without access to health services, CONEVAL 2022).`,
+      `${A('uhc', 'WHO UHC Service Coverage Index 2023')} (country) averaged with the ${A('nqol', 'Numbeo Health Care Index 2026')} (city). The WHO index measures which services exist, not who is covered, so where many people have no coverage that is averaged in too: US metros use their own share of under-65s without insurance (${A('sahie', 'Census SAHIE 2023')}, via County Health Rankings; 387 metros), other US places the national 7.9% (Census 2025), and Mexico 39.1% without access to health services (CONEVAL 2022).`,
     ],
     [
       'Safety',
-      `${A('hom', 'UNODC homicide rates')} (country) or ${A('fbi', 'FBI 2024 rates')} (US cities), averaged with the ${A('nqol', 'Numbeo Safety Index')} and ${A('gallup', 'Gallup’s Law and Order Index 2025')} (country)`,
+      `${A('hom', 'UNODC homicide rates')} (country, each country’s latest year, 129 countries), ${A('fbi', 'FBI 2024 rates')} (28 US cities) or the ${A('chrhom', 'metro’s own rate, 2017–2023')} (County Health Rankings, 308 more US metros), averaged with the ${A('nqol', 'Numbeo Safety Index')} and ${A('gallup', 'Gallup’s Law and Order Index 2025')} (country)`,
     ],
     [
       'Freedom',
-      `${A('eiu', 'EIU Democracy Index 2023')} averaged with ${A('fh', 'Freedom House 2026')} where its score is published`,
+      `${A('eiu', 'EIU Democracy Index 2023')} averaged with ${A('fh', 'Freedom House 2026')} (civil liberties plus political rights, 0–100, 167 countries)`,
     ],
     [
       'Money left after rent',
@@ -1414,7 +1444,7 @@ const ROWS = {
     ],
     [
       'Job market',
-      `The size of the metro economy (${A('gdp', 'GDP by metro area')}, counted once, since metro size also drives things happening), national ${A('iloy', 'unemployment for ages 15–24')} and the ${A('inf', 'share of informal jobs')}. It measures the general market, not your field. Field-specific numbers are hand estimates, off by default.`,
+      `The size of the metro economy (${A('gdp', 'GDP by metro area')}, counted once, since metro size also drives things happening), the local unemployment rate (${A('laus', 'BLS')} for 390 US metros, ${A('eurostat', 'Eurostat NUTS 2 regions')} for 67 European cities), national ${A('iloy', 'unemployment for ages 15–24')} and the ${A('inf', 'share of informal jobs')}. It measures the general market, not your field. Field-specific numbers are hand estimates, off by default.`,
     ],
     [
       'US politics (optional)',
@@ -1434,7 +1464,7 @@ const ROWS = {
     ],
     [
       'Clean air',
-      `Fine particles (PM2.5) measured by ground monitors in the ${A('who', 'WHO Ambient Air Quality Database 2026')}, for the 451 cities it lists, averaged over the latest three years from 2019 on. Countries use the ${A('wbpm', 'World Bank’s population-weighted exposure')} (modelled by IHME, 2023), and cities WHO doesn’t list are filled in from it. The cut-offs are WHO’s interim targets: up to 10 µg/m³ = 5, 15 = 4, 25 = 3, 35 = 2, more = 1 (WHO’s guideline is 5).`,
+      `Fine particles (PM2.5) measured by ground monitors: for 278 US metros, ${A('epa', 'EPA monitors')} within 30 km of the city centre (2024–2025, wildfire-smoke days included); elsewhere the ${A('who', 'WHO Ambient Air Quality Database 2026')}, for the 222 other cities it lists, averaged over the latest three years from 2019 on. Countries use the ${A('wbpm', 'World Bank’s population-weighted exposure')} (modelled by IHME, 2023), and cities WHO doesn’t list are filled in from it. The cut-offs are WHO’s interim targets: up to 10 µg/m³ = 5, 15 = 4, 25 = 3, 35 = 2, more = 1 (WHO’s guideline is 5).`,
     ],
     [
       'Honest institutions',
@@ -1442,7 +1472,7 @@ const ROWS = {
     ],
     [
       'Time off',
-      `Hours actually worked a year per person in work, ${A('pwt', 'Penn World Table 11.0, as published by Our World in Data')} (129 countries, mostly 2023). Up to 1,500 hours = 5, 1,650 = 4, 1,800 = 3, 2,000 = 2, more = 1. Filling in other countries tested too inaccurate, so they have no value.`,
+      `Hours actually worked a year per person in work, ${A('pwt', 'Penn World Table 11.0, as published by Our World in Data')} (123 countries, mostly 2023). Up to 1,500 hours = 5, 1,650 = 4, 1,800 = 3, 2,000 = 2, more = 1. Mexico uses the ${A('oecdh', 'OECD’s 2,193 hours (2024)')}: PWT 11 gives 1,629, against 2,137 in PWT 10, the OECD and ILO’s 42 hours a week. 35 countries PWT doesn’t cover use ${A('iloh', 'ILOSTAT’s hours actually worked a week')} (up to 30 = 5, 33 = 4, 36 = 3, 40 = 2: the yearly cut-offs divided by 49.6, the median ratio where both exist). A week’s hours leave out holidays, so ILO is never used where PWT exists.`,
     ],
     [
       'Low disaster risk',
@@ -1460,7 +1490,7 @@ const ROWS = {
     ],
     [
       'Low car dependence',
-      `${A('ntr', 'Numbeo Traffic CO2 Emission Index')}, which reflects how much people commute by car versus transit, bike or foot. One measure everywhere: Walk Score and Transit Score exist only for US and Canadian cities, so they are shown on the city page but not scored. No global source for transit frequency or jobs reachable by transit was found.`,
+      `${A('ntr', 'Numbeo Traffic CO2 Emission Index')}, which reflects how much people commute by car versus transit, bike or foot, averaged with the ${A('itdp', 'ITDP Atlas of Sustainable City Transport 2025')} for the 309 cities it covers: the share of people near rapid transport, near healthcare and schools, near a protected bike lane and near a car-free place, plus block density, each banded and averaged into one score so ITDP counts once. ITDP measures the whole built-up area, so suburbs count. Walk Score and Transit Score exist only for US and Canadian cities, so they are shown on the city page but not scored.`,
     ],
     [
       'Tech job market (when your field is tech or software)',
@@ -1478,15 +1508,15 @@ const ROWS = {
     ],
     [
       'Acceso a la salud',
-      `${A('uhc', 'Índice de Cobertura de Servicios de la OMS 2023')} (país) promediado con el ${A('nqol', 'Índice de Atención Médica de Numbeo 2026')} (ciudad). El índice de la OMS mide qué servicios existen, no quién está cubierto, así que donde mucha gente no tiene cobertura también se promedia: EE. UU. (7.9% sin seguro todo el año, Censo 2025) y México (39.1% sin acceso a servicios de salud, CONEVAL 2022).`,
+      `${A('uhc', 'Índice de Cobertura de Servicios de la OMS 2023')} (país) promediado con el ${A('nqol', 'Índice de Atención Médica de Numbeo 2026')} (ciudad). El índice de la OMS mide qué servicios existen, no quién está cubierto, así que donde mucha gente no tiene cobertura también se promedia: las áreas metropolitanas de EE. UU. usan su propia proporción de menores de 65 sin seguro (${A('sahie', 'SAHIE 2023 del Censo')}, vía County Health Rankings; 387 áreas), los demás lugares de EE. UU. el 7.9% nacional (Censo 2025) y México el 39.1% sin acceso a servicios de salud (CONEVAL 2022).`,
     ],
     [
       'Seguridad',
-      `${A('hom', 'Tasas de homicidio de la UNODC')} (país) o ${A('fbi', 'tasas del FBI 2024')} (ciudades de EE. UU.), promediadas con el ${A('nqol', 'Índice de Seguridad de Numbeo')} y el ${A('gallup', 'Índice de Ley y Orden de Gallup 2025')} (país)`,
+      `${A('hom', 'Tasas de homicidio de la UNODC')} (país, último año de cada uno, 129 países), ${A('fbi', 'tasas del FBI 2024')} (28 ciudades de EE. UU.) o la ${A('chrhom', 'tasa propia del área, 2017–2023')} (County Health Rankings, 308 áreas más de EE. UU.), promediadas con el ${A('nqol', 'Índice de Seguridad de Numbeo')} y el ${A('gallup', 'Índice de Ley y Orden de Gallup 2025')} (país)`,
     ],
     [
       'Libertad',
-      `${A('eiu', 'Índice de Democracia de la EIU 2023')} promediado con ${A('fh', 'Freedom House 2026')} donde se publica su puntaje`,
+      `${A('eiu', 'Índice de Democracia de la EIU 2023')} promediado con ${A('fh', 'Freedom House 2026')} (libertades civiles más derechos políticos, 0–100, 167 países)`,
     ],
     [
       'Dinero después de la renta',
@@ -1503,7 +1533,7 @@ const ROWS = {
     ],
     [
       'Mercado laboral',
-      `El tamaño de la economía metropolitana (${A('gdp', 'PIB por área metropolitana')}, cuenta una vez, porque el tamaño también define que pasen cosas), el ${A('iloy', 'desempleo nacional de 15 a 24 años')} y la ${A('inf', 'proporción de empleo informal')}. Mide el mercado en general, no tu campo. Las cifras por campo son estimaciones a mano, apagadas por defecto.`,
+      `El tamaño de la economía metropolitana (${A('gdp', 'PIB por área metropolitana')}, cuenta una vez, porque el tamaño también define que pasen cosas), el desempleo local (${A('laus', 'BLS')} en 390 áreas de EE. UU., ${A('eurostat', 'regiones NUTS 2 de Eurostat')} en 67 ciudades europeas), el ${A('iloy', 'desempleo nacional de 15 a 24 años')} y la ${A('inf', 'proporción de empleo informal')}. Mide el mercado en general, no tu campo. Las cifras por campo son estimaciones a mano, apagadas por defecto.`,
     ],
     [
       'Política en EE. UU. (opcional)',
@@ -1523,7 +1553,7 @@ const ROWS = {
     ],
     [
       'Aire limpio',
-      `Partículas finas (PM2.5) medidas por monitores en tierra en la ${A('who', 'base de calidad del aire de la OMS 2026')}, para las 451 ciudades que registra, promediadas en los últimos tres años desde 2019. Los países usan la ${A('wbpm', 'exposición ponderada por población del Banco Mundial')} (modelada por el IHME, 2023), y las ciudades que la OMS no registra se estiman a partir de ella. Los cortes son las metas intermedias de la OMS: hasta 10 µg/m³ = 5, 15 = 4, 25 = 3, 35 = 2, más = 1 (la guía de la OMS es 5).`,
+      `Partículas finas (PM2.5) medidas por monitores en tierra: en 278 áreas de EE. UU., ${A('epa', 'monitores de la EPA')} a menos de 30 km del centro (2024–2025, con los días de humo de incendios); en el resto, la ${A('who', 'base de calidad del aire de la OMS 2026')}, para las otras 222 ciudades que registra, promediadas en los últimos tres años desde 2019. Los países usan la ${A('wbpm', 'exposición ponderada por población del Banco Mundial')} (modelada por el IHME, 2023), y las ciudades que la OMS no registra se estiman a partir de ella. Los cortes son las metas intermedias de la OMS: hasta 10 µg/m³ = 5, 15 = 4, 25 = 3, 35 = 2, más = 1 (la guía de la OMS es 5).`,
     ],
     [
       'Instituciones honestas',
@@ -1531,7 +1561,7 @@ const ROWS = {
     ],
     [
       'Tiempo libre',
-      `Horas trabajadas de verdad al año por persona con empleo, ${A('pwt', 'Penn World Table 11.0, publicada por Our World in Data')} (129 países, casi todos de 2023). Hasta 1,500 horas = 5, 1,650 = 4, 1,800 = 3, 2,000 = 2, más = 1. Estimar los demás países resultó poco preciso, así que quedan sin valor.`,
+      `Horas trabajadas de verdad al año por persona con empleo, ${A('pwt', 'Penn World Table 11.0, publicada por Our World in Data')} (123 países, casi todos de 2023). Hasta 1,500 horas = 5, 1,650 = 4, 1,800 = 3, 2,000 = 2, más = 1. México usa las ${A('oecdh', '2,193 horas de la OCDE (2024)')}: PWT 11 da 1,629, frente a 2,137 en PWT 10, la OCDE y las 42 horas semanales de la OIT. 35 países que PWT no cubre usan las ${A('iloh', 'horas efectivas a la semana de ILOSTAT')} (hasta 30 = 5, 33 = 4, 36 = 3, 40 = 2: los cortes anuales entre 49.6, la razón mediana donde existen ambas). Las horas de una semana no descuentan vacaciones, así que la OIT nunca se usa donde hay dato de PWT.`,
     ],
     [
       'Poco riesgo de desastres',
@@ -1549,7 +1579,7 @@ const ROWS = {
     ],
     [
       'Poca dependencia del auto',
-      `${A('ntr', 'Índice de CO2 de tráfico de Numbeo')}, que refleja cuánto se viaja en auto frente a transporte público, bici o a pie. Una sola medida en todos lados: Walk Score y Transit Score solo existen en EE. UU. y Canadá, así que se muestran en la página de la ciudad pero no cuentan. No se encontró una fuente global de frecuencia del transporte ni de empleos alcanzables en transporte público.`,
+      `${A('ntr', 'Índice de CO2 de tráfico de Numbeo')}, que refleja cuánto se viaja en auto frente a transporte público, bici o a pie, promediado con el ${A('itdp', 'Atlas de Transporte Urbano Sostenible del ITDP 2025')} en las 309 ciudades que cubre: la proporción de gente cerca de transporte rápido, de salud y escuelas, de un carril bici protegido y de un lugar sin coches, más la densidad de manzanas; cada uno se convierte a 1–5 y se promedian en un solo puntaje, así el ITDP cuenta una vez. El ITDP mide toda la zona urbana, así que los suburbios cuentan. Walk Score y Transit Score solo existen en EE. UU. y Canadá, así que se muestran en la página de la ciudad pero no cuentan.`,
     ],
     [
       'Mercado laboral tech (si tu campo es tecnología o software)',
@@ -1573,11 +1603,11 @@ const HOW = {
 <li>The EIU index is from 2023 and the Gallup migrant index from 2016–2017 surveys, which covered only the most and least accepting countries.</li>
 <li>Housing availability is the thinnest data here. The US has official vacancy rates by metro; most other places only have expat-survey ranks, often for the country rather than the city. Treat availability outside the US as a rough signal and check listings for any city you’re serious about.</li>
 <li>Life satisfaction, women’s rights, LGBTQ+ acceptance, freedom, corruption, working hours and disaster risk are national figures, applied to every city in the country.</li>
-<li>Clean air comes from ground monitors where WHO lists the city (451 of them), averaged over the latest three years from 2019 on; WHO’s figures for many US metros stop in 2021–22. Cities WHO doesn’t list are filled in from their country’s modelled exposure.</li>
-<li>Working hours are published for 129 countries (mostly 2023) and count part-time workers, so they describe how a country works rather than the hours of a particular job. Filling in the rest tested too inaccurate, so other countries are left without a value.</li>
+<li>Clean air comes from ground monitors: EPA monitors within 30 km of the centre for 278 US metros (2024–2025), and WHO’s database for 222 other cities (latest three years from 2019 on, so some are 2019–2021). A metro’s monitors are averaged, so one busy-road monitor can tip a small city. Cities with neither are filled in from their country’s modelled exposure.</li>
+<li>Working hours count part-time workers, so they describe how a country works rather than the hours of a particular job. The Penn World Table covers 123 countries; Mexico uses the OECD figure instead, and 35 more countries use ILO weekly hours, a different measure that leaves out holidays. The rest are filled in.</li>
 <li>Disaster risk is a national average: within a large country it varies a lot (a Gulf Coast city faces more than a Midwestern one), and the index doesn’t yet score heat waves or wildfires.</li>
 <li>The job market is measured in general, not for your field; national unemployment says little about one city.</li>
-<li>Wealth explains a lot: across cities, national GDP per person accounts for about 73% of the variation in Adriano’s scores (tests/wealth_bias.py). Richer places really do score better on most factors, but a ranking this tied to wealth also inherits whatever the sources miss about rich places.</li>
+<li>Wealth explains a lot: across cities, national GDP per person accounts for about 74% of the variation in Adriano’s scores (tests/wealth_bias.py). Richer places really do score better on most factors, but a ranking this tied to wealth also inherits whatever the sources miss about rich places.</li>
 <li>Women’s rights, LGBTQ+ acceptance and politics describe laws and national or county averages. They don’t predict how any one person will be treated, and they miss differences between neighborhoods, workplaces and families.</li>
 <li>Humidity, snowfall and future warming aren’t scored: no consistent source covering every city was found.</li>
 <li>Race and ethnicity, religion, disability, and family needs like schools aren't scored.</li></ul>`,
@@ -1592,11 +1622,11 @@ const HOW = {
 <li>El índice de la EIU es de 2023 y el índice de migrantes de Gallup de encuestas de 2016–2017, que solo cubrieron los países más y menos receptivos.</li>
 <li>La disponibilidad de vivienda es el dato más débil aquí. EE. UU. tiene tasas oficiales de vacantes por área metropolitana; la mayoría de los demás lugares solo tienen lugares en encuestas de expatriados, a menudo del país y no de la ciudad. Tómalo como una señal aproximada y revisa anuncios en cualquier ciudad que te interese en serio.</li>
 <li>La satisfacción con la vida, los derechos de las mujeres, la aceptación LGBTQ+, la libertad, la corrupción, las horas de trabajo y el riesgo de desastres son cifras nacionales, aplicadas a todas las ciudades del país.</li>
-<li>El aire limpio viene de monitores en tierra donde la OMS registra la ciudad (451), promediado en los últimos tres años desde 2019; para muchas áreas metropolitanas de EE. UU. los datos de la OMS terminan en 2021–22. Las ciudades que la OMS no registra se estiman a partir de la exposición modelada de su país.</li>
-<li>Las horas de trabajo están publicadas para 129 países (casi todos de 2023) e incluyen a quienes trabajan a tiempo parcial, así que describen cómo trabaja un país, no las horas de un empleo en particular. Estimar el resto resultó poco preciso, así que los demás países quedan sin valor.</li>
+<li>El aire limpio viene de monitores en tierra: monitores de la EPA a menos de 30 km del centro en 278 áreas de EE. UU. (2024–2025) y la base de la OMS en otras 222 ciudades (últimos tres años desde 2019, así que algunas son 2019–2021). Se promedian los monitores de cada área, así que uno junto a una avenida puede pesar mucho en una ciudad chica. Las ciudades sin ninguno se estiman a partir de la exposición modelada de su país.</li>
+<li>Las horas de trabajo incluyen a quienes trabajan a tiempo parcial, así que describen cómo trabaja un país, no las horas de un empleo en particular. La Penn World Table cubre 123 países; México usa la cifra de la OCDE, y 35 países más usan las horas semanales de la OIT, otra medida que no descuenta vacaciones. El resto se estima.</li>
 <li>El riesgo de desastres es un promedio nacional: dentro de un país grande varía mucho (una ciudad en la costa del Golfo enfrenta más que una del Medio Oeste), y el índice aún no mide olas de calor ni incendios forestales.</li>
 <li>El mercado laboral se mide en general, no para tu campo; el desempleo nacional dice poco de una ciudad.</li>
-<li>La riqueza explica mucho: entre ciudades, el PIB por persona del país explica cerca del 73% de la variación de los puntajes de Adriano (tests/wealth_bias.py). Los lugares ricos sí califican mejor en la mayoría de los factores, pero un ranking tan ligado a la riqueza también hereda lo que las fuentes no ven de los lugares ricos.</li>
+<li>La riqueza explica mucho: entre ciudades, el PIB por persona del país explica cerca del 74% de la variación de los puntajes de Adriano (tests/wealth_bias.py). Los lugares ricos sí califican mejor en la mayoría de los factores, pero un ranking tan ligado a la riqueza también hereda lo que las fuentes no ven de los lugares ricos.</li>
 <li>Los derechos de las mujeres, la aceptación LGBTQ+ y la política describen leyes y promedios nacionales o del condado. No predicen cómo van a tratar a una persona en particular, y no captan diferencias entre colonias, trabajos y familias.</li>
 <li>No se califican la humedad, la nieve ni el calentamiento futuro: no se encontró una fuente consistente para todas las ciudades.</li>
 <li>No se califican la raza y el origen étnico, la religión, la discapacidad ni necesidades familiares como escuelas.</li></ul>`,

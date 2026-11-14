@@ -158,6 +158,14 @@ def check(pts, band, log=False):
 comm = [(ACS[n]['commute'], rawv(n, 'commute', ('nqolt',))) for n in ACS if ACS[n]['commute'] and rawv(n, 'commute', ('nqolt',))]
 car = [(ACS[n]['drove'], rawv(n, 'move', ('ntr',))) for n in ACS if ACS[n]['drove'] and rawv(n, 'move', ('ntr',))]
 vac = [(ACS[n]['vac'], AV_US_MSA[n]) for n in ACS if n in AV_US_MSA and ACS[n]['vac'] is not None]
+# ITDP Atlas (averaged into getting around since Nov 2026): does it agree with how people actually commute, and with Numbeo?
+from sources.itdp import ITDP
+from sources.numbeo import CO2
+from bands import b_itdp
+_r = lambda pts: float(__import__('numpy').corrcoef(*zip(*pts))[0, 1])
+itdp_drove = _r([(b_itdp(*v[:5]).c, ACS[n]['drove']) for n, v in ITDP.items() if n in ACS and ACS[n]['drove']])
+itdp_transit = _r([(b_itdp(*v[:5]).c, ACS[n]['transit']) for n, v in ITDP.items() if n in ACS and ACS[n]['transit']])
+itdp_ntr = [(b_itdp(*v[:5]).c, CO2[n]) for n, v in ITDP.items() if n in CO2]
 MON = json.loads(_txt0[_txt0.index('{'):_txt0.rindex('}') + 1])['money']
 mo = [n for n in ACS if n in MON and MON[n][3] != 'acs' and n in RPPM and ACS[n]['earn'] and ACS[n]['rent']]
 true_m = [(MON[n][0] - MON[n][1]) / (MON[n][2] / 100) for n in mo]
@@ -184,7 +192,7 @@ n_com = sum(1 for P in RAW.values() for r in P.get('commute', []) if r[0] == 'ac
 sal = [(ACS[n]['earn'], MON[n][0]) for n in mo]
 rnt = [(ACS[n]['rent'], MON[n][1]) for n in mo]
 pear = lambda pts: (lambda mx, my_: sum((x - mx) * (y - my_) for x, y in pts) / math.sqrt(sum((x - mx) ** 2 for x, _ in pts) * sum((y - my_) ** 2 for _, y in pts)))(mean([x for x, _ in pts]), mean([y for _, y in pts]))
-out += ['## 4. Census (ACS 2024) figures on the atlas\'s scales', '',
+out += ['## 4. Census ACS figures on the atlas\'s scales (earnings, rent and how people get to work: 2025; commute time and vacancy: 2024)', '',
         'Inside one country the gap-filling model predicts close to the national city average for every city, so the benchmark '
         'here is "guess the US average". A Census figure is used only if it predicts held-out cities better than that.', '',
         '| Factor | Census figure | Cities with both | Rank correlation | Band error: conversion | Band error: US average | Decision |',
@@ -202,7 +210,10 @@ out += ['## 4. Census (ACS 2024) figures on the atlas\'s scales', '',
         'whose earnings, rent and price level all lie inside the calibrated ranges. The rest stay filled in.', '',
         '**Car dependence.** The share of workers who drive alone has no relationship with the Numbeo traffic CO₂ index the atlas '
         'scores. Among large US metros the two do not measure the same thing, so the Census figure is not substituted. This is '
-        'also a caution about the existing measure: it is kept because it is the only one available worldwide.', '',
+        'also a caution about the Numbeo measure, which is why it is now averaged with the ITDP Atlas wherever ITDP covers the city.', '',
+        f'**ITDP Atlas.** Its score does track how people get to work: across {sum(1 for n in ITDP if n in ACS and ACS[n]["drove"])} US metros it correlates '
+        f'{itdp_drove:.2f} with the share driving alone and {itdp_transit:.2f} with the share taking transit (Census ACS 2025), and '
+        f'{_r(itdp_ntr):.2f} with Numbeo\'s traffic CO₂ index across the {len(itdp_ntr)} cities both cover.', '',
         '**Housing availability.** The Census Bureau publishes rental vacancy from two surveys. The atlas used the Housing Vacancy '
         'Survey (75 large metros); the ACS covers every metro but reads about a point lower, so it is shifted onto the first survey\'s '
         'scale. Above the calibrated range (very high vacancy, mostly resort areas) the conversion was unreliable and is not used.', '']

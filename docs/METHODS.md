@@ -13,7 +13,7 @@ Each place gets a 1–5 value on up to 23 factors, grouped under three goals:
 - **Efficiency and security:** housing availability, commute, car dependence, healthcare, safety, freedom, clean
   air, honest institutions, low disaster risk.
 
-The values come from published sources: WHO, UN, FBI, Gallup, Transparency International, the Penn World Table, the WorldRiskIndex, EIU, Freedom House, the World Happiness Report, InterNations,
+The values come from published sources: WHO, UN, FBI, Gallup, Transparency International, the Penn World Table, the OECD, the ILO, the WorldRiskIndex, EIU, Freedom House, the World Happiness Report, InterNations, the US Census Bureau, BLS, EPA, County Health Rankings, Eurostat, the ITDP Atlas,
 Numbeo and others, each with its year and coverage (city, metro, state or country) shown on the place's page. The cut-offs
 that turn a figure into 1–5 are all in `pipeline/bands.py`.
 

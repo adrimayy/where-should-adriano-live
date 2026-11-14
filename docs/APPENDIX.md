@@ -42,23 +42,23 @@ The short version is in [METHODS.md](METHODS.md). This file has the statistics, 
 
 | Factor | Sources (file in `pipeline/sources/`) | Unit | Year |
 |---|---|---|---|
-| Healthcare | WHO UHC Service Coverage Index; Numbeo Health Care; share without coverage for the US (Census) and Mexico (CONEVAL) — `health.py`, `numbeo.py` | country; city | 2023; 2026; 2025 / 2022 |
+| Healthcare | WHO UHC Service Coverage Index; Numbeo Health Care; share without coverage: US metros' own under-65 uninsured share (Census SAHIE via County Health Rankings, 387 metros), else national (US Census) and Mexico (CONEVAL) — `health.py`, `numbeo.py`, `us_local.py` | country; city; metro | 2023; 2026; 2023; 2025 / 2022 |
 | Money left after rent | Net salary minus one-bedroom rent in the centre, ÷ Numbeo prices (NYC = 100%), in New York dollars. Numbeo item prices for 45 cities (StatRanker, snapshot 25 Apr 2026); other cities rebuilt from Numbeo indices, calibrated on those 45 (index salaries ÷ 1.365, index rents ÷ 0.946). Countries: mean of their cities, else Numbeo purchasing power — `numbeo.py`, `bands.py` | city | Apr 2026 |
 | Housing availability | Census rental vacancy by metro, NYC Housing and Vacancy Survey, CMHC (Canada), InterNations housing ranks — `housing.py` | metro / city / country | 2023–2026 |
-| Job market | Metro GDP (counted once), ILO youth unemployment, ILO informal-job share; for tech, the StartupBlink city rank — `jobs.py` | metro; country | 2021–24; 2024; 2025 |
-| Safety | UNODC homicide rates, FBI city rates, Numbeo Safety, Gallup Law and Order Index (countries, and cities outside the US) — `safety.py`, `numbeo.py` | country; city | 2022–23; 2024; 2026; 2024 |
-| Freedom | EIU Democracy Index, Freedom House — `freedom.py` | country | 2023; 2026 |
+| Job market | Metro GDP (counted once); the local unemployment rate (BLS LAUS for 390 US metros, Nov 2025–Sep 2026; Eurostat NUTS 2 regions for 67 European cities, mean of 2024–2025), else the national rate (ILO); ILO youth unemployment; ILO informal-job share; for tech, the StartupBlink city rank — `jobs.py`, `us_local.py`, `regional_jobs.py` | metro; region; country | 2021–24; 2025–26; 2024–25; 2024; 2025 |
+| Safety | UNODC homicide rates (each country's latest year from 2015, 129 countries), FBI city rates (28 cities), US metro homicide rates from County Health Rankings (308 more metros), Numbeo Safety, Gallup Law and Order Index (countries, and cities without a local homicide rate) — `safety.py`, `world_updates.py`, `us_local.py`, `numbeo.py` | country; city; metro | mostly 2024; 2024; 2017–2023; 2026; 2024 |
+| Freedom | EIU Democracy Index; Freedom House total (civil liberties + political rights, 167 countries plus Hong Kong and Singapore, via Our World in Data) — `freedom.py`, `world_updates.py` | country | 2023; 2026 |
 | Climate | Hottest and coldest month mean temperatures (1991–2020 normals, counted twice) plus Numbeo Climate Index — `climate.py`, `numbeo.py` | station; city | 1991–2020; 2026 |
 | Commute | Numbeo commute time; LIRR train times for Long Island commuter towns — `numbeo.py`, `getting_around.py` | city; town | 2026 |
-| Car dependence | Numbeo traffic CO2, everywhere. Walk Score / Transit Score shown on US and Canadian city pages, not scored — `numbeo.py`, `getting_around.py` | city | 2026 |
+| Car dependence | Numbeo traffic CO2, averaged with the ITDP Atlas of Sustainable City Transport for 309 cities (people near rapid transport, near healthcare and schools, near a protected bike lane, near a car-free place, and block density, banded at ≥50/30/15/5%, ≥85/75/60/40%, ≥50/25/10/2%, ≥75/60/40/20% and ≥100/85/70/55 blocks per km², then averaged into one score). Walk Score / Transit Score shown on US and Canadian city pages, not scored — `numbeo.py`, `itdp.py`, `getting_around.py` | city; urban area | 2026; 2025 |
 | Welcoming | InterNations Expat Insider (countries 2025, cities 2024); Gallup Migrant Acceptance Index only where no rank exists — `people.py` | country; city | 2025; 2024; 2016–17 |
 | Life satisfaction | World Happiness Report 2026; optional "beyond income, health and freedom" version (below) — `people.py` | country | 2026 |
 | Women's rights | Women, Peace and Security Index 2025/26 — `people.py` | country | 2025 |
 | LGBTQ+ acceptance | Equaldex Equality Index (fetched Nov 2026) — `people.py` | country | 2026 |
-| Things happening | Metro population, as a stand-in — `jobs.py` | metro | 2021–24 |
-| Clean air | PM2.5 annual mean: WHO Ambient Air Quality Database V8.0 (Jun 2026), ground monitors, 451 cities, average of the latest three years from 2019 on; countries: World Bank EN.ATM.PM25.MC.M3, population-weighted, modelled by IHME (2023). Cities WHO doesn't list are filled in from their country (city model, leave-one-out error 0.34 of a band). Bands at WHO interim targets: ≤10 = 5, ≤15 = 4, ≤25 = 3, ≤35 = 2 — `air.py` | city; country | 2019–25; 2023 |
+| Things happening | Metro population, as a stand-in (US metros: Census Vintage 2025 estimates) — `jobs.py`, `more_cities.py` | metro | 2021–25 |
+| Clean air | PM2.5 annual mean: for 278 US metros, EPA Air Quality System monitors (FRM/FEM, complete years) within 30 km of the city centre, 2024–2025 with wildfire-smoke days included; elsewhere WHO Ambient Air Quality Database V8.0 (Jun 2026), ground monitors, 222 cities, average of the latest three years from 2019 on; countries: World Bank EN.ATM.PM25.MC.M3, population-weighted, modelled by IHME (2023). Cities WHO doesn't list are filled in from their country (city model, leave-one-out error 0.34 of a band). Bands at WHO interim targets: ≤10 = 5, ≤15 = 4, ≤25 = 3, ≤35 = 2 — `air.py` | city; country | 2019–25; 2023 |
 | Honest institutions | Transparency International Corruption Perceptions Index 2025, 182 countries; ≥75 = 5, ≥60 = 4, ≥45 = 3, ≥30 = 2 — `honesty.py` | country | 2025 |
-| Time off | Annual hours worked per person in work, Penn World Table 11.0 (avh) as published by Our World in Data (updated Aug 2025), 129 countries; ≤1,500 = 5, ≤1,650 = 4, ≤1,800 = 3, ≤2,000 = 2. Not filled in elsewhere (test error 1.1 when hiding values the way real gaps fall) — `work_hours.py` | country | mostly 2023 |
+| Time off | Annual hours worked per person in work, Penn World Table 11.0 (avh) as published by Our World in Data (updated Aug 2025), 123 countries; ≤1,500 = 5, ≤1,650 = 4, ≤1,800 = 3, ≤2,000 = 2. Mexico: OECD 2,193 h (2024), because PWT 11's 1,629 h contradicts PWT 10.01 (2,137 h), the OECD and ILOSTAT. 35 countries PWT doesn't cover: ILOSTAT hours actually worked a week, ≤30 = 5, ≤33 = 4, ≤36 = 3, ≤40 = 2 (the annual cut-offs ÷ 49.6, the median ratio where both exist; values outside 20–60 h dropped as errors). The rest are filled in (test error 0.89) — `work_hours.py`, `world_updates.py` | country | mostly 2023; 2024; 2015–2025 |
 | Low disaster risk | WorldRiskIndex 2026 (column W: exposure to earthquakes, tsunamis, floods, cyclones, droughts and sea-level rise × vulnerability), 193 countries, from HDX; ≤3 = 5, ≤6 = 4, ≤12 = 3, ≤25 = 2 — `disaster_risk.py` | country | 2026 |
 | US politics (optional) | 2024 presidential margin by state and by county (Ballotpedia), averaged — `politics.py` | state; county | 2024 |
 | Daylight, trip home | Calculated in the page from latitude and distance | — | — |
@@ -193,7 +193,7 @@ Madrid 84%, Valencia 82%, Barcelona 63%, New York 61%, London 59%.
 
 ## Does wealth drive the ranking?
 
-`tests/wealth_bias.py`: across cities, national GDP per person explains 73% of the variation in Adriano's scores (r = 0.86)
+`tests/wealth_bias.py`: across cities, national GDP per person explains 74% of the variation in Adriano's scores (r = 0.86)
 and 72% with equal weights (74% and 75% before clean air, corruption, working hours and disaster risk were added). Each
 doubling of GDP per person is worth about 6.5 points. Richer places do score better on most
 measured factors, but a ranking this tied to wealth also inherits what the sources miss about rich places: the next section.
@@ -262,13 +262,21 @@ What the new cities have measured:
   shown as "or less". Metros created in the 2023 boundary revision have no BEA figure.
 - **Everything country-level** (healthcare, freedom, rights, happiness, safety where no city rate is published).
 
-- **Commute, housing availability and money after rent** for US metros: Census Bureau figures (ACS 2024: mean travel time
-  to work, rental vacancy rate, median earnings and median rent), each converted to the scale the atlas already uses.
+- **Commute, housing availability and money after rent** for US metros: Census Bureau figures (ACS 2025: median earnings
+  and median rent; ACS 2024: mean travel time to work and rental vacancy rate, because the 2025 detailed tables give commute
+  only in time bands and vacancy without its denominator), each converted to the scale the atlas already uses.
   Commute covers 361 metros and vacancy 297. Money after rent covers 86: only metros whose earnings, rent and price level
   all lie inside the range of the 27 calibration cities.
 
-Car dependence isn't measured for the new US metros, and money after rent isn't for the smaller ones, so those are filled
-in and marked. World cities outside the US have climate, population and country-level figures only.
+- **Jobs, safety, healthcare and clean air** for US metros (Nov 2026): BLS metro unemployment (390 metros), County Health
+  Rankings homicides 2017–2023 and uninsured under-65s 2023 (counties summed to the metro, only where the counties that
+  publish cover at least 80% of its people), and EPA PM2.5 monitors within 30 km of the centre (278 metros). Every metro is
+  matched to its Census CBSA code through the ACS file, and counties to metros through the Census CBSA population file
+  (`pipeline/import_us.py`).
+
+Car dependence is measured for US metros only where Numbeo or ITDP covers them, and money after rent isn't for the smaller
+ones, so those are filled in and marked. World cities outside the US have climate, population, the ITDP Atlas where it
+covers them, regional unemployment in Europe, and country-level figures.
 
 Each shortcut above was tested on places whose real value is known and was held out (`tests/validate_sources.py`,
 written to `docs/reports/VALIDATION.md`):
