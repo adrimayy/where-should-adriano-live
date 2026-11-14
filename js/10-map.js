@@ -208,6 +208,10 @@ function maybeHires() {
         await loadScript(s);
         const t = window.Datamap && window.Datamap.prototype.worldTopo;
         if (t && t !== before && t.objects) {
+          if (!window.ATLAS_LAKES_HI)
+            try {
+              await loadScript('data/lakes-hires.js');
+            } catch (e) {} // without them the standard lakes stay, slightly off the detailed shores
           HIRES = true;
           bindCountries(topoFeatures(t));
           drawGeo();
@@ -370,6 +374,9 @@ function cacheLand() {
     borders: MESH ? P(MESH.borders) : null,
     coast: MESH ? P(MESH.coast) : null,
     states: STATES && STATES.mesh ? P(STATES.mesh) : null,
+    // the country outlines count big lakes (the Great Lakes, Victoria, Baikal...) as land; Natural Earth's lakes at the
+    // same scale paint them back as water: 1:110m with the standard outlines, 1:50m with the detailed ones
+    lakes: P((HIRES && window.ATLAS_LAKES_HI) || DATA.lakes),
   };
   for (const d of features) {
     const ds = pth(d);
@@ -447,6 +454,10 @@ function drawLand() {
     ctx.fill(d._p);
   }
   ctx.globalAlpha = 1;
+  if (LAND.lakes) {
+    ctx.fillStyle = cssC(st.ocean);
+    ctx.fill(LAND.lakes);
+  }
   const stroke = cssC(st.stroke);
   if (!LAND.borders) {
     ctx.lineWidth = lw(0.5);
@@ -469,6 +480,7 @@ function drawLand() {
     ctx.lineWidth = lw(0.7);
     ctx.strokeStyle = cssC('var(--coast-line)');
     ctx.stroke(LAND.coast);
+    if (LAND.lakes && k >= 4) ctx.stroke(LAND.lakes); // zoomed out, small lakes' shores would read as specks
   }
   const sel = ui.sel && features.find(d => d._e === ui.sel);
   if (sel && sel._p) {
@@ -486,6 +498,7 @@ function countryAt(ev) {
   const ux = ((ev.clientX - r.left) / s - t.x) / t.k,
     uy = ((ev.clientY - r.top) / s - t.y) / t.k;
   ctx.setTransform(1, 0, 0, 1, 0, 0);
+  if (LAND.lakes && ctx.isPointInPath(LAND.lakes, ux, uy)) return null;
   for (let i = features.length - 1; i >= 0; i--) {
     const d = features[i],
       b = d._b;

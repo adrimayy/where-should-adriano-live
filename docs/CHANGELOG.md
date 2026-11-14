@@ -23,6 +23,9 @@ How the method changed, and what it did to the top of Adriano's list.
 - **Census data for US metros:** commute (361 metros), rental vacancy (297) and money after rent (86) are now measured.
   Driving-alone share was rejected as a car-dependence measure. The share of city scores filled in fell from 61% to 49%.
 
+- **Lakes on the map (v50):** the country outlines count big lakes as land, so the Great Lakes were missing and Michigan,
+  Wisconsin and Ontario ran together, as did Lake Victoria, Baikal, Titicaca and others. Natural Earth's lakes are now
+  painted on top as water, at the scale matching each outline level, and clicking a lake no longer selects a country.
 - **Local data where it was national or filled in (v49):** US metros get their own unemployment (BLS, 390), homicide
   rate (County Health Rankings, 308 more beyond the FBI's 28), share without health insurance (Census SAHIE, 387) and EPA
   air monitors (278), plus Census 2025 earnings, rents and populations. European cities get their region's unemployment

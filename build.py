@@ -1,6 +1,6 @@
 """Rebuild the data file from the sources:
 
-    python3 build.py      # pipeline/sources + pipeline/input  ->  data/atlas.js  (the only data file the page reads)
+    python3 build.py      # pipeline/sources + pipeline/input  ->  data/atlas.js, plus data/lakes-hires.js for the zoomed-in map
 
 Steps: published numbers become 1-5 values (pipeline/score_published.py), then gaps are estimated (pipeline/fill_gaps.py).
 Only needed when data changes; a change to the page (index.html, css/, js/) needs no build.
@@ -38,6 +38,7 @@ missing = [k for k in RACE_NEIGH if k not in by_name]
 assert not missing, f'country names not matched: {missing}'
 D['a3'] = json.load(open(INPUT / 'a3.json'))          # three-letter -> number country codes, for the map outlines
 D['built'] = datetime.date.today().isoformat()
+D['lakes'] = json.load(open(INPUT / 'lakes_110m.json', encoding='utf8'))   # big lakes as water: the country outlines count them as land
 
 data = (json.dumps(D, ensure_ascii=False, separators=(',', ':')).replace('NaN', 'null')
         .replace('],"', '],\n"').replace('],[', '],\n['))
@@ -45,4 +46,8 @@ out = ROOT / 'data' / 'atlas.js'
 out.parent.mkdir(exist_ok=True)
 out.write_text('// Every number the page shows. Made by build.py from pipeline/sources and pipeline/input: edit those, not this file.\n'
                'window.ATLAS=' + data + ';\n', encoding='utf8')
+# the detailed lakes go with the detailed outlines and load only when someone zooms in (js/10-map.js, maybeHires)
+hi = ROOT / 'data' / 'lakes-hires.js'
+hi.write_text('// Lakes for the detailed map outlines (Natural Earth 1:50m). Made by build.py from pipeline/input/lakes_50m.json.\n'
+              'window.ATLAS_LAKES_HI=' + (INPUT / 'lakes_50m.json').read_text(encoding='utf8') + ';\n', encoding='utf8')
 print(f"built: {len(D['cities'])} cities, {len(D['countries'])} countries; data/atlas.js {out.stat().st_size // 1024} KB")
