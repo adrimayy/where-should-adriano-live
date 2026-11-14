@@ -24,7 +24,18 @@ dup = {n for n in names if names.count(n) > 1}
 assert not dup, f'duplicate cities: {dup}'
 for c in D['cities']:
     assert -90 <= c[1] <= 90 and -180 <= c[2] <= 180, c[0]
-    assert len(c[4]) == 17 and c[4].isdigit(), c[0]
+    assert len(c[4]) == 21 and c[4].isdigit(), c[0]
+sys.path.insert(0, str(ROOT / 'pipeline'))
+from sources import languages, work_rights
+D['langs'] = languages.tables()                   # where each language works (any language a visitor speaks)
+D['work'] = work_rights.tables()                  # who can work where (any passport)
+from sources.economy import REGION
+D['region'] = {k: REGION[v[5]] for k, v in D['countries'].items() if len(v) > 5 and v[5] in REGION}   # world region, for cultural familiarity
+from sources.people import RACE_NEIGH
+by_name = {v[0]: int(k) for k, v in D['countries'].items()}
+D['raceNeighbours'] = {by_name[k]: v for k, v in RACE_NEIGH.items() if k in by_name}   # shown for context, never scored
+missing = [k for k in RACE_NEIGH if k not in by_name]
+assert not missing, f'country names not matched: {missing}'
 D['a3'] = json.load(open(INPUT / 'a3.json'))          # three-letter -> number country codes, for the map outlines
 D['built'] = datetime.date.today().isoformat()
 

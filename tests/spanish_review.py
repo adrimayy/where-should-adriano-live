@@ -1,4 +1,4 @@
-"""Writes docs/SPANISH_REVIEW.md: every Spanish verdict label, factor name, quiz question and option, side by side with the
+"""Writes docs/reports/SPANISH_REVIEW.md: every Spanish verdict label, factor name, quiz question and option, side by side with the
 English, so a native speaker can review them. Style: Mexican Spanish (rentar, auto, departamento, computadora; decimals with a
 point: 2.5 horas). Run after changing data or code: python3 tests/spanish_review.py"""
 import pathlib
@@ -24,5 +24,5 @@ md += ["## Buttons and short labels", "", "| Key | English | Español | Suggesti
 for k, v in STR['en'].items():
     e = STR['es'].get(k)
     if isinstance(v, str) and isinstance(e, str) and len(v) <= 60 and '<' not in v: md.append(f"| {k} | {v} | {e} | |")
-(ROOT / 'docs' / 'SPANISH_REVIEW.md').write_text('\n'.join(md) + '\n', encoding='utf8')
-print('wrote docs/SPANISH_REVIEW.md:', len(md), 'lines')
+(ROOT / 'docs' / 'reports' / 'SPANISH_REVIEW.md').write_text('\n'.join(md) + '\n', encoding='utf8')
+print('wrote docs/reports/SPANISH_REVIEW.md:', len(md), 'lines')

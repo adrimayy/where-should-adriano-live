@@ -1,6 +1,6 @@
 """Pack the site into one file for claude.ai, which needs everything inline:
 
-    python3 bundle.py     # index.html + css/ + data/atlas.js + js/  ->  dist/livability-atlas.html
+    python3 bundle.py     # index.html + css/ + data/atlas.js + js/ (+ js/i18n/)  ->  dist/livability-atlas.html
 
 GitHub Pages doesn't need this; it serves index.html and the files it points to."""
 import re, pathlib
@@ -17,6 +17,9 @@ def inline(m):
     return '<script>\n' + safe((ROOT / src).read_text(encoding='utf8')) + '</script>'
 page = re.sub(r'<script defer src="([^"]+)"></script>', inline, page)
 assert 'defer src=' not in page and 'href="css/' not in page
+# the extra interface languages normally load on demand from js/i18n/; in the one-file copy they ride along
+i18n = ''.join('<script>\n' + safe(f.read_text(encoding='utf8')) + '</script>\n' for f in sorted((ROOT / 'js' / 'i18n').glob('*.js')))
+page = page.replace('</body>', i18n + '</body>', 1)
 
 # the claude.ai viewer supplies its own doctype/html/head/body skeleton
 art = re.sub(r'^<!doctype html>\s*<html lang="en">\s*<head>\s*<meta charset="utf-8">\s*<meta name="viewport"[^>]*>\s*', '', page)

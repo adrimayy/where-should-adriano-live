@@ -15,8 +15,17 @@ with sync_playwright() as p:
         pg.click('#startQuiz')
         i=0
         while pg.locator('#qDone').count()==0 and i<20:
-            pg.locator('.opt').nth(i%3).click(); pg.wait_for_timeout(260); i+=1
-        pg.select_option('#qh1', 'city:Madrid')
+            if pg.locator('[data-l], #qPass').count():      # language picker: add French (fluent); passport picker: add France
+                if pg.locator('[data-l]').count(): pg.click('[data-l="fr"]')
+                else: pg.select_option('#qPass','250')
+                pg.wait_for_timeout(150); pg.screenshot(path=f'{OUT}/{name}-picker{i}.png'); pg.click('#qNext')
+            else: pg.locator('.opt').nth(i%3).click()
+            pg.wait_for_timeout(260); i+=1
+        # the place picker: open it, search, pick the first match
+        pg.click('.hpbtn[data-for="qh1"]'); pg.wait_for_timeout(200); pg.screenshot(path=f'{OUT}/{name}-picker-open.png')
+        pg.fill('#hpSearch', 'madr'); pg.wait_for_timeout(150); pg.screenshot(path=f'{OUT}/{name}-picker-search.png')
+        pg.press('#hpSearch', 'Enter'); pg.wait_for_timeout(150)
+        assert pg.input_value('#qh1') == 'city:Madrid', pg.input_value('#qh1')
         pg.screenshot(path=f'{OUT}/{name}-2-quizlast.png')
         pg.click('#qDone'); pg.wait_for_timeout(400)
         print(name,'match',pg.inner_text('#matchPct'),'| vs hidden',pg.is_hidden('#vsPanel'),'| mode',pg.inner_text('#modeNote')[:60])
@@ -24,7 +33,7 @@ with sync_playwright() as p:
         pg.locator('#list .row').first.click(); pg.wait_for_timeout(800)
         pg.screenshot(path=f'{OUT}/{name}-4-map.png',full_page=False)
         print(name,'pcard:',pg.inner_text('#pcard').replace('\n',' ')[:120])
-        pg.click('#lEn' if lang.startswith('es') else '#lEs'); pg.wait_for_timeout(300)
+        pg.select_option('#langSel', 'en' if lang.startswith('es') else 'es'); pg.wait_for_timeout(300)
         print(name,'after toggle h1:',pg.inner_text('h1'),'| first row:',pg.locator('#list .row').first.inner_text().replace('\n',' ')[:80])
         pg.click('#shareTake') if not mobile else None
         pg.screenshot(path=f'{OUT}/{name}-5-full.png',full_page=True)

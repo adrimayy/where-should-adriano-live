@@ -25,9 +25,11 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from sources.economy import GDPPC_T, POPN_T, REGION
 IN, OUT = sys.argv[1], sys.argv[2]
 D = json.load(open(IN, encoding='utf8'))
-IDX = dict(clim=0, jobs=1, hlth=2, free=3, safe=4, move=5, pay=8, open=9, happy=11, women=12, lgbt=13, cost=14, commute=15, home=16)
+IDX = dict(clim=0, jobs=1, hlth=2, free=3, safe=4, move=5, pay=8, open=9, happy=11, women=12, lgbt=13, cost=14, commute=15, home=16,
+           air=17, honest=18, hours=19, risk=20)
+NDIG = 21
 F = list(IDX)
-CITYF = ['clim', 'commute', 'move', 'pay', 'cost', 'safe', 'jobs', 'home']
+CITYF = ['clim', 'commute', 'move', 'pay', 'cost', 'safe', 'jobs', 'home', 'air']
 M_DRAWS, MAX_ERR, K_DONORS = 20, 1.0, 5
 rng = np.random.default_rng(7)
 
@@ -49,7 +51,7 @@ REGS = sorted(set(REGION.values()))
 ckeys = [('n', k) for k in D['countries']] + [('b', k) for k in D['byName']]
 def crec(kind, k): return (D['countries'] if kind == 'n' else D['byName'])[k]
 def crow(kind, k):
-    v = crec(kind, k); s = v[1].ljust(17, '0'); src = set(filter(None, v[3].split(',')))
+    v = crec(kind, k); s = v[1].ljust(NDIG, '0'); src = set(filter(None, v[3].split(',')))
     return [float(s[IDX[f]]) if (f in src and s[IDX[f]] != '0') else np.nan for f in F]
 def hrow(kind, k):
     v = crec(kind, k); nm = v[0]; a2 = v[5] if len(v) > 5 else None
@@ -66,7 +68,7 @@ helper_cover = dict(gdp=int(np.sum(~np.isnan(H[keep, 0]))), pop=int(np.sum(~np.i
 # country values derived from their cities where the country itself has no figure (city-level factors only)
 cities = D['cities']
 def cval(c, f):
-    s = c[4].ljust(17, '0'); src = set(filter(None, c[6].split(',')))
+    s = c[4].ljust(NDIG, '0'); src = set(filter(None, c[6].split(',')))
     return float(s[IDX[f]]) if (f in src and s[IDX[f]] != '0') else np.nan
 from_cities = {}
 for f in CITYF:
@@ -239,7 +241,7 @@ for c, i in zip(cities, city_rows):
                 d = DRAWS[(rr, j)]; imp[f] = [round(float(np.mean(d)), 2), round(max(float(np.std(d)), 0.25), 2), enc(d)]
     c.append(imp)
 for f in CITYF: models[f] = [round(x, 3) for x in models[f][0]]
-# ---------- happiness beyond income, health and freedom (Helliwell): what's left of life satisfaction after those three ----------
+# ---------- happiness beyond income, health and freedom: what's left of life satisfaction after those three ----------
 HR = {}
 jh, jl, jf = F.index('happy'), F.index('hlth'), F.index('free')
 rows_ = [r for r in range(len(Xk)) if not np.isnan(Xk[r, jh]) and not np.isnan(Hk[r, 0])]
