@@ -1,22 +1,23 @@
-"""Do any two factors measure the same thing? (Saltelli & Saisana.) Correlations between every pair of factors, across cities and
+"""Do any two factors measure the same thing? Correlations between every pair of factors, across cities and
 across countries, using published values only (exact within-band values where available); a principal-components analysis; and
-every pair above 0.7 flagged. Writes docs/OVERLAP.md. Run after changing data or code: python3 tests/overlap.py"""
+every pair above 0.7 flagged. Writes docs/reports/OVERLAP.md. Run after changing data or code: python3 tests/overlap.py"""
 import json, pathlib, numpy as np
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 D = json.load(open(ROOT / 'build' / 'final.json', encoding='utf8'))
-IDX = dict(clim=0, jobs=1, hlth=2, free=3, safe=4, move=5, cult=7, pay=8, open=9, happy=11, women=12, lgbt=13, cost=14, commute=15, home=16)
+IDX = dict(clim=0, jobs=1, hlth=2, free=3, safe=4, move=5, cult=7, pay=8, open=9, happy=11, women=12, lgbt=13, cost=14, commute=15, home=16, air=17, honest=18, hours=19, risk=20)
 NAMES = dict(clim='Climate', jobs='Job market', hlth='Healthcare', free='Freedom', safe='Safety', move='Car dependence', cult='Things happening',
-             pay='Money after rent', open='Welcoming', happy='Life satisfaction', women="Women's rights", lgbt='LGBTQ+', cost='Cost of living', commute='Commute', home='Housing availability')
+             pay='Money after rent', open='Welcoming', happy='Life satisfaction', women="Women's rights", lgbt='LGBTQ+', cost='Cost of living', commute='Commute', home='Housing availability',
+             air='Clean air', honest='Honest institutions', hours='Time off', risk='Low disaster risk')
 CONT = D.get('cont', {})
 def rows(kind):
     out = []
     if kind == 'city':
         for c in D['cities']:
-            s = c[4].ljust(17, '0'); src = set(c[6].split(',')); P = 'city:' + c[0]
+            s = c[4].ljust(21, '0'); src = set(c[6].split(',')); P = 'city:' + c[0]
             out.append({f: CONT.get(P, {}).get(f, float(s[i])) for f, i in IDX.items() if f in src and s[i] != '0'})
     else:
         for k, v in D['countries'].items():
-            s = v[1].ljust(17, '0'); src = set(v[3].split(',')); P = 'c:' + str(int(k))
+            s = v[1].ljust(21, '0'); src = set(v[3].split(',')); P = 'c:' + str(int(k))
             out.append({f: CONT.get(P, {}).get(f, float(s[i])) for f, i in IDX.items() if f in src and s[i] != '0'})
     return out
 F = list(IDX)
@@ -53,5 +54,5 @@ md += ["## What was changed because of this", "",
        "  housing now measures only availability. Before the change, the old rent-burden part of housing and purchasing power both carried rent and pay.",
        "- Metro GDP now counts once in the job market instead of twice, because metro size also drives *things happening*.",
        "- Cost of living is not a scored factor (it is only used for people who work remotely for an employer elsewhere)."]
-(ROOT / 'docs' / 'OVERLAP.md').write_text('\n'.join(md) + '\n', encoding='utf8')
-print('wrote docs/OVERLAP.md')
+(ROOT / 'docs' / 'reports' / 'OVERLAP.md').write_text('\n'.join(md) + '\n', encoding='utf8')
+print('wrote docs/reports/OVERLAP.md')

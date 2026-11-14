@@ -15,20 +15,30 @@ from sources.climate import *
 from sources.politics import *
 from sources.getting_around import *
 from sources.economy import *
+from sources.more_cities import US_METROS, WORLD, WIKI_TEMPS, CTT, jj_for, US_GDP, dist, BEA_RPP, ACS
+from sources.air import AIR_CITY, AIR_COUNTRY
+from sources.honesty import CPI
+from sources.work_hours import HOURS
+from sources.disaster_risk import WRI
 IN, ADD, OUT = sys.argv[1], sys.argv[2], sys.argv[3]
 D = json.load(open(IN, encoding='utf8'))
+NDIG = 21   # one digit per factor, see IDX below
+A3N = {}
+for _k, _v in json.load(open(os.path.join(os.path.dirname(IN), 'a3.json'))).items(): A3N.setdefault(_v, _k)   # number -> ISO3
 # merge cities added later (pipeline/input/cities_added.json)
 _have = {c[0] for c in D['cities']}
 for name, lat, lon, iso_, lang, jobs, cult, fields, en, es, nes in json.load(open(ADD, encoding='utf8')):
     if name in _have: continue
     cv = D['countries'].get(iso_.zfill(3)) or D['countries'].get(iso_)
-    cd = cv[1].ljust(17, '0'); csrc = cv[3].split(',')
+    cd = cv[1].ljust(NDIG, '0'); csrc = cv[3].split(',')
     s = f"3{jobs}0{cd[3]}33{lang}{cult}{cd[8]}" + cd[9:15] + "00"
     src = ','.join(x for x in ('open', 'happy', 'women', 'lgbt') if x in csrc)
     D['cities'].append([name, lat, lon, iso_, s, en, src, es, nes, fields])
 # digit layout: 0 clim 1 jobs 2 hlth 3 free 4 safe 5 move 6 lang 7 cult 8 pay 9 open 10 perm 11 happy 12 women 13 lgbt 14 cost 15 commute 16 home
-IDX = dict(clim=0, jobs=1, hlth=2, free=3, safe=4, move=5, lang=6, cult=7, pay=8, open=9, perm=10, happy=11, women=12, lgbt=13, cost=14, commute=15, home=16)
-def setd(s, k, v): i = IDX[k]; s = s.ljust(17, '0'); return s[:i] + str(v) + s[i+1:]
+#               17 air (clean air) 18 honest (honest institutions) 19 hours (time off) 20 risk (low disaster risk)
+IDX = dict(clim=0, jobs=1, hlth=2, free=3, safe=4, move=5, lang=6, cult=7, pay=8, open=9, perm=10, happy=11, women=12, lgbt=13, cost=14, commute=15, home=16,
+           air=17, honest=18, hours=19, risk=20)
+def setd(s, k, v): i = IDX[k]; s = s.ljust(NDIG, '0'); return s[:i] + str(v) + s[i+1:]
 # RAW[place][factor] = [[source key, value as published, band], ...] -- shown in the page's "how this score was calculated" table
 RAW = {}
 def rec(place, f, key, val, band):
@@ -49,6 +59,52 @@ def iso(name):
     n = norm(name)
     if n in ALIAS: return ALIAS[n]
     return N2I.get(n)
+# every US metro and the world cities with published temperatures (sources/more_cities.py); no notes, no hand estimates
+_have = {c[0] for c in D['cities']}
+_WORLD_ISO = {'east timor': 626, 'cape verde': 132, 'the bahamas': 44, 'andorra': 20, 'fiji': 242}
+def _add_city(name, lat, lon, code):
+    cv = D['countries'].get(str(code).zfill(3)) or D['countries'].get(str(code))
+    if cv is None: return False
+    cd = cv[1].ljust(NDIG, '0'); csrc = cv[3].split(',')
+    s_ = f"300{cd[3]}33{cd[6]}0{cd[8]}" + cd[9:15] + "00"
+    src_ = ','.join(x for x in ('open', 'happy', 'women', 'lgbt') if x in csrc)
+    D['cities'].append([name, lat, lon, str(code).zfill(3) if str(code).isdigit() else str(code), s_, '', src_, '', name, '0000'])
+    _have.add(name); return True
+for _n, (_st, _pop, _la, _lo) in US_METROS.items():
+    if _n not in _have: _add_city(_n, _la, _lo, 630 if _st == 'PR' else 840)
+_skipped = []
+for _n, (_ct, _la, _lo, _stn) in WORLD.items():
+    if _n in _have: continue
+    _c = _WORLD_ISO.get(_ct.lower()) or iso(_ct)
+    if not _c or not _add_city(_n, _la, _lo, _c): _skipped.append(_n)
+assert not _skipped, f'world cities with no country match: {_skipped}'
+# their published figures: metro population (things happening), metro GDP for the largest US metros, state politics
+for _n, (_st, _pop, _la, _lo) in US_METROS.items():
+    POP_EXTRA.setdefault(_n, _pop)
+    if _n in US_GDP and _n not in METRO: METRO[_n] = (US_GDP[_n], _pop, 2024)
+    if _st in STATE_MARGIN: CITY_STATE.setdefault(_n, _st)
+# temperatures: Wikipedia's list first, then NOAA normals (Current Results), then the nearest station within 120 km on similar ground
+for _n, _t in WIKI_TEMPS.items():
+    if _n not in TEMPS and _n not in CTT: TEMPS[_n] = _t
+JJT = {}
+for _n in US_METROS:
+    if _n in TEMPS or _n in TEMP_PROXY: continue
+    _j = jj_for(_n)
+    if _j: JJT[_n] = _j
+    elif _n in CTT: TEMPS[_n] = WIKI_TEMPS[_n]
+for _n, (_ct, _la, _lo, _stn) in WORLD.items():
+    if _stn and _n not in TEMPS: TEMP_PROXY[_n] = _stn
+# mountains, deserts and coasts where a station 100 km away has a different climate: no substitute
+_NO_PROXY = {'Flagstaff', 'Prescott', 'Santa Fe', 'Bend', 'Asheville', 'Blacksburg', 'Morgantown', 'Johnstown', 'Altoona',
+             'State College', 'Reno', 'Carson City', 'Redding', 'Wenatchee', 'Grand Junction', 'Kahului', 'Bakersfield',
+             'Salinas', 'Santa Cruz', 'Napa', 'Santa Rosa', 'Vallejo', 'Oxnard', 'San Luis Obispo', 'Santa Barbara', 'Riverside',
+             'El Centro', 'Yuma', 'Harrisonburg', 'Staunton', 'Charlottesville', 'Beckley', 'Boulder'}
+_pos = {c[0]: (c[1], c[2]) for c in D['cities']}
+_stations = [k for k in _pos if k in TEMPS or k in JJT]
+for _n in US_METROS:
+    if _n in TEMPS or _n in JJT or _n in TEMP_PROXY or _n in _NO_PROXY: continue
+    _best = min(_stations, key=lambda k: dist(_pos[_n], _pos[k]))
+    if dist(_pos[_n], _pos[_best]) <= 120: TEMP_PROXY[_n] = _best
 def parse(txt):
     out = {}
     for part in txt.split(';'):
@@ -58,6 +114,7 @@ def parse(txt):
         out[name.strip()] = vals[0].strip()
     return out
 UHC = {iso(k): float(v) for k, v in parse(UHC_T).items() if iso(k) is not None}
+GAL = {iso(k): v for k, v in GALLUP.items() if iso(k) is not None}
 EIU = {iso(k): float(v) for k, v in parse(EIU_T).items() if iso(k) is not None}
 def nparse(txt):
     out = {}
@@ -119,15 +176,67 @@ for nm_, (rent_i, pay_i) in ITEMS.items():
 CAL_PAY, CAL_RENT, CAL_N = statistics.median(_pr), statistics.median(_rr), len(_pr)
 def idx_pay(col): return NYC_PAY * col[3] * col[0] / 1e4 / CAL_PAY
 def idx_rent(col): return NYC_RENT * col[1] / 100 / CAL_RENT
+# Cost of living for US metros without Numbeo figures: BEA's regional price parity (RPP), put on Numbeo's scale by a log-log fit
+# over the US cities that have both. Checked out of sample (docs/APPENDIX.md): inside the calibration range the fit is off by about
+# a quarter of a band; extrapolated below it, it makes cheap metros look 5-9 index points cheaper than they are. So below the
+# range the conversion is held at the cheapest calibrated level, as a ceiling on cost.
+_xw = [(math.log(BEA_RPP[c[0]][0]), math.log(NCOL[NAME_N.get(c[0], norm(c[0]))][2])) for c in D['cities'] if c[0] in BEA_RPP and NAME_N.get(c[0], norm(c[0])) in NCOL]
+def _ols(pts):
+    n_ = len(pts); mx = sum(x for x, _ in pts) / n_; my = sum(y for _, y in pts) / n_
+    b_ = sum((x - mx) * (y - my) for x, y in pts) / sum((x - mx) ** 2 for x, _ in pts)
+    return my - b_ * mx, b_
+XW_A, XW_B = _ols(_xw)
+XW_MIN = math.exp(min(x for x, _ in _xw))
+def rpp_to_index(rp): return math.exp(XW_A + XW_B * math.log(max(rp, XW_MIN)))
+_loo = []
+for i_ in range(len(_xw)):
+    a_, b_ = _ols(_xw[:i_] + _xw[i_ + 1:]); x_, y_ = _xw[i_]
+    _loo.append(abs(b_cost(math.exp(a_ + b_ * x_)).c - b_cost(math.exp(y_)).c))
+_my = sum(y for _, y in _xw) / len(_xw)
+XW_R2 = 1 - sum((XW_A + XW_B * x - y) ** 2 for x, y in _xw) / sum((y - _my) ** 2 for _, y in _xw)
+_app = [k for k in BEA_RPP if NAME_N.get(k, norm(k)) not in NCOL]
+print(f'RPP -> Numbeo cost index: n={len(_xw)}, ln(index) = {XW_A:.2f} + {XW_B:.2f} ln(RPP), R2={XW_R2:.2f}, leave-one-out band error {sum(_loo) / len(_loo):.2f}; '
+      f'applied to {len(_app)} metros, {sum(1 for k in _app if BEA_RPP[k][0] < XW_MIN)} of them below RPP {XW_MIN:.1f} and held at {rpp_to_index(0):.0f}')
 for c in D['cities']:
     col = NCOL.get(NAME_N.get(c[0], norm(c[0])))
     if col: CITY_BURDEN.setdefault(int(c[3]), []).append(burden(col[1], col[0], col[3]))
     if c[0] in ITEMS and col: MONEY[c[0]] = ('items', money_left(ITEMS[c[0]][1], ITEMS[c[0]][0], col[0]))
     elif col: MONEY[c[0]] = ('nidx', money_left(idx_pay(col), idx_rent(col), col[0]))
     if c[0] in MONEY: CITY_MONEY.setdefault(int(c[3]), []).append(MONEY[c[0]][1])
+# ---------- Census ACS figures for US metros, put on the scales the atlas already uses ----------
+# Each conversion is a straight-line fit (in logs for dollar amounts) over the US cities that have both figures, and each was
+# tested on held-out cities before use (tests/validate_sources.py). Where the test showed extrapolation is unsafe, the figure
+# is only used inside the range the calibration cities cover.
+def _lin(pts):
+    a_, b_ = _ols(pts); return (lambda x: a_ + b_ * x), (min(x for x, _ in pts), max(x for x, _ in pts))
+def _loglog(pts):
+    a_, b_ = _ols([(math.log(x), math.log(y)) for x, y in pts]); return (lambda x: math.exp(a_ + b_ * math.log(x))), (min(x for x, _ in pts), max(x for x, _ in pts))
+_us = [c[0] for c in D['cities'] if c[0] in ACS]
+_ncol = lambda n_: NCOL.get(NAME_N.get(n_, norm(n_)))
+_nqol = lambda n_: NQOL.get(NAME_N.get(n_, norm(n_)))
+def _sal(n_): return ITEMS[n_][1] if MONEY[n_][0] == 'items' else idx_pay(_ncol(n_))
+def _rnt(n_): return ITEMS[n_][0] if MONEY[n_][0] == 'items' else idx_rent(_ncol(n_))
+# commute: Numbeo's one-way minutes from the ACS mean travel time (extrapolates safely in both directions in the tests)
+ACS_COMM, _ = _lin([(ACS[n_]['commute'], _nqol(n_)[2]) for n_ in _us if _nqol(n_) and ACS[n_]['commute']])
+# rental vacancy: the Census Housing Vacancy Survey rate from the ACS rate (same agency, different survey; inside the range only)
+ACS_VAC, ACS_VAC_R = _lin([(ACS[n_]['vac'], AV_US_MSA[n_]) for n_ in _us if n_ in AV_US_MSA and ACS[n_]['vac'] is not None])
+# money left after rent: salary, rent and prices converted one by one, then the atlas's own formula (inside the ranges only)
+_mo = [n_ for n_ in _us if n_ in MONEY and n_ in BEA_RPP and ACS[n_]['earn'] and ACS[n_]['rent']]
+ACS_SAL, ACS_SAL_R = _loglog([(ACS[n_]['earn'], _sal(n_)) for n_ in _mo])
+ACS_RENT, ACS_RENT_R = _loglog([(ACS[n_]['rent'], _rnt(n_)) for n_ in _mo])
+RPP_COL, RPP_COL_R = _loglog([(BEA_RPP[n_][0], _ncol(n_)[0]) for n_ in _mo])
+_in = lambda x, r: x is not None and r[0] <= x <= r[1]
+def acs_money(n_):
+    """(salary, rent, price index, money left) for a US metro whose earnings, rent and price level are all inside the calibrated ranges."""
+    a_ = ACS.get(n_)
+    if not a_ or n_ not in BEA_RPP or not (_in(a_['earn'], ACS_SAL_R) and _in(a_['rent'], ACS_RENT_R) and _in(BEA_RPP[n_][0], RPP_COL_R)): return None
+    sal, rent, col_ = ACS_SAL(a_['earn']), ACS_RENT(a_['rent']), RPP_COL(BEA_RPP[n_][0])
+    return sal, rent, col_, money_left(sal, rent, col_)
+print(f'ACS conversions: commute from {sum(1 for n_ in _us if _nqol(n_) and ACS[n_]["commute"])} cities; vacancy from {sum(1 for n_ in _us if n_ in AV_US_MSA and ACS[n_]["vac"] is not None)}, range {ACS_VAC_R}; '
+      f'money from {len(_mo)}, earnings {ACS_SAL_R}, rent {ACS_RENT_R}, RPP {RPP_COL_R}; money applies to {sum(1 for n_ in _us if n_ not in MONEY and acs_money(n_))} more metros')
 # ---------- countries ----------
 for k, v in D['countries'].items():
-    n = int(k); s = v[1].ljust(17, '0'); src = set(filter(None, v[3].split(','))); P = 'c:' + str(n)
+    n = int(k); s = v[1].ljust(NDIG, '0'); src = set(filter(None, v[3].split(','))); P = 'c:' + str(n)
     src -= {'safe', 'open', 'jobs', 'home', 'cult'}
     # healthcare: WHO UHC + Numbeo health care
     if n in UHC: rec(P, 'hlth', 'uhc', fmtn(UHC[n]), b_uhc(UHC[n]))
@@ -145,7 +254,8 @@ for k, v in D['countries'].items():
     # safety: UNODC homicide + Numbeo safety
     if n in RATES: rec(P, 'safe', 'hom', fmtn(RATES[n]), b_hom(RATES[n]))
     if n in NC_QOL: rec(P, 'safe', 'nqols', fmtn(NC_QOL[n][0]), b_nsafe(NC_QOL[n][0]))
-    sf = avg([b_hom(RATES[n]) if n in RATES else 0, b_nsafe(NC_QOL[n][0]) if n in NC_QOL else 0])
+    if n in GAL: rec(P, 'safe', 'gallup', fmtn(GAL[n]), b_gallup(GAL[n]))
+    sf = avg([b_hom(RATES[n]) if n in RATES else 0, b_nsafe(NC_QOL[n][0]) if n in NC_QOL else 0, b_gallup(GAL[n]) if n in GAL else 0])
     if sf: s = setd(s, 'safe', sf); src.add('safe')
     # making friends / welcome: Expat Insider ranks first; Gallup migrant acceptance only where no Expat Insider rank exists
     if n in EI25: op = b_rank(EI25[n], 46); rec(P, 'open', 'ei25s', f'#{EI25[n]}/46', op)
@@ -181,24 +291,35 @@ for k, v in D['countries'].items():
         kind, x, nn, sk = AVC[n]; hb.append(b_av(kind, x, nn)); rec(P, 'home', av_key(sk, kind), av_text(kind, x, nn), b_av(kind, x, nn))
     for kind, x, nn, sk in AV_COUNTRY_EXTRA.get(v[0], []):
         hb.append(b_av(kind, x, nn)); rec(P, 'home', av_key(sk, kind), av_text(kind, x, nn), b_av(kind, x, nn))
+    if not hb and name in ACS and _in(ACS[name]['vac'], ACS_VAC_R):
+        vv = ACS_VAC(ACS[name]['vac']); hb.append(b_av('vac', vv, None)); rec(P, 'home', 'acsvac', f'{fmtn(ACS[name]["vac"])}% → ≈{vv:.1f}%', b_av('vac', vv, None))
     hm = avg(hb); s = setd(s, 'home', hm)
     if hm: src.add('home')
+    # clean air (World Bank population-weighted PM2.5), honest institutions (CPI 2025), time off (Penn World Table hours)
+    i3 = A3N.get(n)
+    for f_, key_, tab_, band_, txt_ in (('air', 'wbpm', AIR_COUNTRY, b_pm25, lambda x: f'{fmtn(x[0])} µg/m³'),
+                                        ('honest', 'cpi', {k_: (x_,) for k_, x_ in CPI.items()}, b_cpi, lambda x: str(x[0])),
+                                        ('hours', 'pwt', HOURS, b_hours, lambda x: f'{x[0]:,} h ({x[1]})'),
+                                        ('risk', 'wri', {k_: (x_,) for k_, x_ in WRI.items()}, b_wri, lambda x: fmtn(x[0]))):
+        if i3 in tab_:
+            x_ = tab_[i3]; s = setd(s, f_, band_(x_[0])); src.add(f_); rec(P, f_, key_, txt_(x_), band_(x_[0]))
     s = setd(s, 'cult', 0)   # no country-level measure; scored for cities only
     v[1] = s; v[3] = ','.join(sorted(src))
 for k, v in D['byName'].items():
-    v[1] = v[1].ljust(17, '0')
+    v[1] = v[1].ljust(NDIG, '0')
     if k == 'Kosovo':
         v[1] = setd(v[1], 'lgbt', b_eq(48))
-        v[1] = setd(setd(v[1], 'pay', b_lpp(56.4)), 'cost', b_cost(20.4)); v[3] = 'happy,women,pay,cost,lgbt'
+        v[1] = setd(setd(v[1], 'pay', b_lpp(56.4)), 'cost', b_cost(20.4)); v[3] = 'happy,women,pay,cost,lgbt,honest'
+        v[1] = setd(v[1], 'honest', b_cpi(CPI['KSV'])); rec('c:Kosovo', 'honest', 'cpi', str(CPI['KSV']), b_cpi(CPI['KSV']))
     v[1] = setd(setd(v[1], 'cult', 0), 'jobs', 0)
 # ---------- cities ----------
 cs = D['countries']
 for c in D['cities']:
     name = c[0]; n = int(c[3]); cv = cs.get(str(n).zfill(3)) or cs.get(str(n)); P = 'city:' + name
-    s = c[4].ljust(17, '0'); src = set(filter(None, c[6].split(','))) - {'safe', 'open', 'jobs', 'home', 'cult'}
+    s = c[4].ljust(NDIG, '0'); src = set(filter(None, c[6].split(','))) - {'safe', 'open', 'jobs', 'home', 'cult'}
     key = NAME_N.get(name, norm(name))
     col, qol = NCOL.get(key), NQOL.get(key)
-    cdig = cv[1] if cv else '0' * 17; csrc = set(cv[3].split(',')) if cv else set()
+    cdig = cv[1] if cv else '0' * NDIG; csrc = set(cv[3].split(',')) if cv else set()
     # healthcare: country WHO UHC + city Numbeo health care
     uhc = UHC.get(n, 88 if name == 'Singapore' else None)
     if uhc: rec(P, 'hlth', 'uhc', fmtn(uhc), b_uhc(uhc))
@@ -216,7 +337,10 @@ for c in D['cities']:
     if hom is not None: rec(P, 'safe', 'fbi', fmtn(hom), b_hom(hom))
     elif (col or qol) and n in RATES: hom = RATES.get(n); rec(P, 'safe', 'hom', fmtn(hom), b_hom(hom))
     if qol: rec(P, 'safe', 'nqols', fmtn(qol[0]), b_nsafe(qol[0]))
-    sf = avg([b_hom(hom) if hom is not None else 0, b_nsafe(qol[0]) if qol else 0])
+    # Gallup is a national survey: used where the homicide figure is national too (not for US cities, which have their own FBI rate)
+    gal = GALLUP_CITY.get(name, GAL.get(n)) if (col or qol) and name not in FBI else None
+    if gal is not None: rec(P, 'safe', 'gallup', fmtn(gal), b_gallup(gal))
+    sf = avg([b_hom(hom) if hom is not None else 0, b_nsafe(qol[0]) if qol else 0, b_gallup(gal) if gal is not None else 0])
     s = setd(s, 'safe', sf if sf else int(s[4]))
     if sf: src.add('safe')
     # making friends: the city's own Expat Insider rank, else the country's
@@ -235,17 +359,36 @@ for c in D['cities']:
         else:
             rec(P, 'pay', 'nidx', f'(≈${round(idx_pay(col)):,} - ≈${round(idx_rent(col)):,}) / {fmtn(col[0])}% = ${round(m):,}', b_money(m))
         rec(P, 'cost', 'ncol', fmtn(col[2]), b_cost(col[2]))
-    else: s = setd(s, 'pay', int(s[8]) if 'pay' in src else 0)
-    tk = name if name in TEMPS else TEMP_PROXY.get(name)
+    else:
+        s = setd(s, 'pay', int(s[8]) if 'pay' in src else 0)
+        am = acs_money(name)
+        if am:
+            sal_, rent_, col_, m_ = am
+            s = setd(s, 'pay', b_money(m_)); src.add('pay'); MONEYD[name] = [round(sal_), round(rent_), round(col_, 1), 'acs']
+            rec(P, 'pay', 'acspay', f'(≈${round(sal_):,} - ≈${round(rent_):,}) / {fmtn(round(col_, 1))}% = ${round(m_):,}', b_money(m_))
+        if name in BEA_RPP:
+            rp, rr = BEA_RPP[name]; pc = rpp_to_index(rp)
+            s = setd(s, 'cost', b_cost(pc)); src.add('cost')
+            rec(P, 'cost', 'rpp', f'{rp:.1f} (rents {rr:.1f}) → ≈{pc:.0f}' + (' or less' if rp < XW_MIN else ''), b_cost(pc))
+    tk = name if name in TEMPS or name in JJT else TEMP_PROXY.get(name)
     cb = []
-    if tk:
+    if tk in JJT:   # NOAA January and July normals only: hottest and coldest month, no annual mean
+        cold, hot, stn = JJT[tk]
+        tb, tbc = b_temp(hot, cold); cb += [tb, tb]
+        here = tk == name and stn == name
+        rec(P, 'clim', 'tempjj' if tk == name else 'tempjjnear', f'{hot:.1f}° / {cold:.1f}°' + ('' if here else f' ({stn if tk == name else tk})'), B(max(1, int(math.floor(tb + 0.5))), tbc))
+        THOT[name] = hot
+    elif tk:
         tt = TEMPS[tk]; tb, tbc = b_temp(max(tt), min(tt)); cb += [tb, tb]
-        rec(P, 'clim', 'temp' if tk == name else 'tempnear', f'{max(tt):.1f}° / {min(tt):.1f}°' + ('' if tk == name else f' ({tk})'), B(max(1, int(math.floor(tb + 0.5))), tbc))
+        rec(P, 'clim', ('tempctt' if tk in CTT else 'temp') if tk == name else 'tempnear', f'{max(tt):.1f}° / {min(tt):.1f}°' + ('' if tk == name else f' ({tk})'), B(max(1, int(math.floor(tb + 0.5))), tbc))
         TMEAN[name] = round(sum(tt) / 12, 1)
         THOT[name] = max(tt)
     if qol:
         cb.append(b_clim(qol[4])); rec(P, 'clim', 'nqolc', fmtn(qol[4]), b_clim(qol[4]))
         s = setd(s, 'commute', b_comm(qol[2])); src.add('commute'); rec(P, 'commute', 'nqolt', fmtn(qol[2]), b_comm(qol[2]))
+    elif name in ACS and ACS[name]['commute'] and name not in LIRR_MIN:
+        cm_ = ACS_COMM(ACS[name]['commute'])
+        s = setd(s, 'commute', b_comm(cm_)); src.add('commute'); rec(P, 'commute', 'acscomm', f'{fmtn(ACS[name]["commute"])} min → ≈{cm_:.0f}', b_comm(cm_))
     else:
         s = setd(s, 'commute', 0)
     if cb: s = setd(s, 'clim', max(1, int(math.floor(statistics.mean(cb) + 0.5)))); src.add('clim')
@@ -292,11 +435,26 @@ for c in D['cities']:
     for kind, x, nn, sk in AV_EXTRA.get(name, []) + ([] if (name in AV_CITY or name in AV_EXTRA) else AV_COUNTRY_EXTRA.get(cv[0] if cv else '', [])):
         star = '' if name in AV_EXTRA else '*'
         hb.append(b_av(kind, x, nn)); rec(P, 'home', av_key(sk, kind) + star, av_text(kind, x, nn), b_av(kind, x, nn))
+    if not hb and name in ACS and _in(ACS[name]['vac'], ACS_VAC_R):
+        vv = ACS_VAC(ACS[name]['vac']); hb.append(b_av('vac', vv, None)); rec(P, 'home', 'acsvac', f'{fmtn(ACS[name]["vac"])}% → ≈{vv:.1f}%', b_av('vac', vv, None))
     hm = avg(hb); s = setd(s, 'home', hm)
     if hm: src.add('home')
     # towns that borrow New York's job market and things to do also take New York's commute: the train ride to Manhattan
     if name in LIRR_MIN:
         mins = LIRR_MIN[name]; s = setd(s, 'commute', b_comm(mins)); src.add('commute'); rec(P, 'commute', 'lirr', f'{mins} min', b_comm(mins))
+    # clean air: the city's own WHO monitors; cities WHO doesn't list are filled in from their country (fill_gaps.py)
+    if name in AIR_CITY:
+        pv, yrs, _who = AIR_CITY[name]; s = setd(s, 'air', b_pm25(pv)); src.add('air'); rec(P, 'air', 'who', f'{fmtn(pv)} µg/m³ ({yrs})', b_pm25(pv))
+    else: s = setd(s, 'air', 0)
+    # honest institutions, time off and disaster risk are national figures; Hong Kong and Singapore have their own
+    own3 = {'Hong Kong': 'HKG', 'Singapore': 'SGP'}.get(name)
+    for f_, key_, val_, band_, txt_ in (('honest', 'cpi', CPI.get(own3), b_cpi, str), ('hours', 'pwt', (HOURS.get(own3) or (None,))[0], b_hours, lambda x: f'{x:,} h'),
+                                        ('risk', 'wri', WRI.get(own3), b_wri, fmtn)):
+        if own3:
+            if val_ is not None: s = setd(s, f_, band_(val_)); src.add(f_); rec(P, f_, key_, txt_(val_), band_(val_))
+            else: s = setd(s, f_, 0)
+        elif f_ in csrc: s = setd(s, f_, cdig[IDX[f_]]); src.add(f_)
+        else: s = setd(s, f_, 0)
     c[4] = s; c[6] = ','.join(sorted(src))
     c.append('own' if (col or qol) else 'country')
 # a country's tech figure: its best-ranked city in the atlas

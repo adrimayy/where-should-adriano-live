@@ -1,0 +1,354 @@
+# NOAA 1991-2020 normals for US places, as listed by Current Results (currentresults.com, "Average Temperatures for <State> in
+# January / July" pages; Hawaii from its Maui page), fetched 12 Nov 2026. Average daily high and low, °F:
+# ST|place|coldest-month high|low|hottest-month high|low  -- January and July (Kahului: January and August).
+# The monthly mean is (high + low) / 2, NOAA's definition.
+TX|Athens|58|35|94|73
+TX|College Station|62|41|95|75
+TX|Dallas|58|38|97|78
+TX|Denton|56|34|96|75
+TX|Fort Worth|56|36|94|75
+TX|Killeen|60|36|96|72
+TX|McKinney|56|34|94|73
+TX|Sherman|53|34|93|74
+TX|Waco|59|36|97|74
+TX|Wichita Falls|55|30|97|72
+TX|Alice|68|47|97|76
+TX|Austin|63|42|97|75
+TX|Fredericksburg|60|34|93|71
+TX|Kingsville|68|47|96|76
+TX|Laredo|68|47|100|77
+TX|Midland|59|33|96|73
+TX|New Braunfels|62|37|93|72
+TX|San Antonio|63|41|95|75
+TX|Longview|58|34|94|73
+TX|Lufkin|60|38|93|72
+TX|Texarkana|54|33|93|73
+TX|Tyler|58|39|93|74
+TX|Beaumont|63|43|92|76
+TX|Brownsville|73|53|95|78
+TX|Corpus Christi|68|48|94|76
+TX|Galveston|63|49|91|80
+TX|Houston|64|46|93|77
+TX|McAllen|71|49|98|77
+TX|Victoria|65|44|95|75
+TX|Abilene|59|34|96|73
+TX|Amarillo|52|25|93|66
+TX|Del Rio|64|39|98|75
+TX|El Paso|59|35|96|73
+TX|Lubbock|55|27|93|69
+TX|Odessa|57|32|94|71
+TX|San Angelo|60|32|96|71
+CA|Chico|56|36|95|61
+CA|Fresno|55|41|98|69
+CA|Merced|54|37|95|62
+CA|Modesto|56|39|95|63
+CA|Napa|59|40|83|56
+CA|Redding|57|38|100|67
+CA|Sacramento|57|41|94|61
+CA|San Francisco|58|47|66|54
+CA|San Jose|60|42|81|58
+CA|Santa Rosa|60|38|82|52
+CA|Stockton|58|39|95|61
+CA|Vallejo|57|42|85|56
+CA|Watsonville|62|40|71|54
+CA|Yuba City|56|38|96|61
+CA|Bakersfield|59|41|98|71
+CA|El Centro|71|43|107|78
+CA|Hanford|56|37|98|66
+CA|Los Angeles|68|49|82|65
+CA|Oxnard|66|46|73|61
+CA|Riverside|68|44|93|64
+CA|Salinas|62|42|71|55
+CA|San Diego|66|50|75|66
+CA|San Luis Obispo|65|44|78|54
+CA|Santa Barbara|67|47|76|60
+CA|Santa Cruz|63|41|74|54
+CA|Visalia|55|38|94|67
+CA|Eureka|55|41|63|52
+CA|Lancaster|59|31|98|67
+OH|Akron|36|20|84|63
+OH|Cleveland|36|22|84|65
+OH|Lima|34|19|84|63
+OH|Mansfield|34|19|83|62
+OH|Sandusky|34|22|82|67
+OH|Steubenville|37|19|83|63
+OH|Toledo|35|20|87|64
+OH|Youngstown|34|19|83|60
+OH|Cincinnati|40|23|86|66
+OH|Columbus|37|22|85|65
+OH|Dayton|36|20|87|66
+OH|Springfield|36|19|84|62
+VA|Blacksburg|42|22|82|61
+VA|Harrisonburg|42|23|86|64
+VA|Roanoke|47|29|88|67
+VA|Staunton|42|25|84|64
+VA|Winchester|41|24|86|66
+VA|Charlottesville|45|28|87|68
+VA|Lynchburg|46|26|87|65
+VA|Richmond|48|29|90|69
+VA|Norfolk|51|34|89|73
+VA|Williamsburg|49|31|89|70
+AL|Fairhope|62|37|91|70
+AL|Mobile|62|41|91|73
+AL|Auburn|56|35|89|71
+AL|Dothan|62|40|93|73
+AL|Montgomery|60|37|94|72
+AL|Anniston|55|34|90|71
+AL|Birmingham|55|35|91|72
+AL|Gadsden|53|33|91|71
+AL|Tuscaloosa|57|36|94|73
+AL|Decatur|51|32|90|70
+AL|Huntsville|52|33|92|71
+AL|Muscle Shoals|52|34|92|71
+MI|Ann Arbor|32|16|84|60
+MI|Bay City|30|16|82|62
+MI|Detroit|32|19|84|64
+MI|Flint|30|16|82|60
+MI|Midland|29|17|82|62
+MI|Monroe|33|18|85|63
+MI|Saginaw|30|16|83|62
+MI|Battle Creek|32|17|83|60
+MI|Grand Rapids|31|19|83|63
+MI|Jackson|31|18|83|61
+MI|Kalamazoo|32|18|83|62
+MI|Lansing|31|17|83|61
+MI|Muskegon|33|21|82|62
+MI|Niles|33|19|83|61
+MI|Traverse City|29|17|81|59
+NC|Asheville|48|29|86|65
+NC|Winston-Salem|49|31|88|69
+NC|Burlington|52|30|91|70
+NC|Durham|49|28|87|69
+NC|Greensboro|50|30|89|71
+NC|Hickory|49|30|87|68
+NC|Fayetteville|54|32|91|71
+NC|Goldsboro|54|35|91|72
+NC|Greenville|53|33|90|71
+NC|Jacksonville|56|32|90|71
+NC|Rocky Mount|50|31|88|69
+NC|Wilmington|57|36|90|73
+SC|Beaufort|60|40|92|75
+SC|Charleston|60|39|91|74
+SC|North Myrtle Beach|56|37|88|74
+SC|Columbia|57|35|93|72
+SC|Florence|57|36|92|72
+SC|Sumter|55|33|90|70
+SC|Anderson|53|33|91|71
+SC|Greenville|54|35|91|72
+SC|Spartanburg|54|32|90|69
+TN|Chattanooga|51|32|91|71
+TN|Cleveland|50|29|89|68
+TN|Kingsport|46|27|87|66
+TN|Knoxville|48|30|88|69
+TN|Morristown|46|29|86|68
+TN|Clarksville|47|28|90|69
+TN|Nashville|49|30|91|71
+TN|Jackson|49|27|91|69
+TN|Memphis|51|33|92|74
+GA|Athens|55|34|92|70
+GA|Atlanta|54|36|90|72
+GA|Dalton|51|31|89|69
+GA|Gainesville|51|31|88|68
+GA|Rome|52|30|90|68
+GA|Augusta|60|35|94|72
+GA|Columbus|59|38|93|74
+GA|Hinesville|63|41|92|73
+GA|Macon|59|36|94|72
+GA|Warner Robins|58|36|91|72
+GA|Albany|60|37|92|72
+GA|Brunswick|61|44|90|75
+GA|Savannah|61|40|92|74
+GA|Valdosta|63|40|91|71
+FL|Ft. Myers|75|54|92|75
+FL|Ft. Pierce|72|53|89|74
+FL|Naples|74|52|91|72
+FL|Punta Gorda|75|51|93|74
+FL|Vero Beach|73|52|91|73
+FL|Avon Park|73|49|92|73
+FL|Daytona Beach|69|49|90|74
+FL|Lakeland|74|51|92|74
+FL|Melbourne|72|51|91|73
+FL|Sarasota|73|52|91|75
+FL|Gainesville|67|43|92|71
+FL|Ocala|71|46|92|72
+FL|Crestview|63|39|92|71
+FL|Destin|63|45|91|76
+FL|Panama City|64|43|91|75
+FL|Pensacola|63|44|92|75
+FL|Tallahassee|64|41|92|73
+AR|Jonesboro|46|27|90|70
+AR|Texarkana|54|35|93|72
+AR|Fort Smith|51|30|94|72
+AR|Hot Springs|52|32|93|72
+AR|Little Rock|51|31|92|71
+AR|Fayetteville|48|25|89|67
+MS|Gulfport|61|44|90|75
+MS|Hattiesburg|60|38|91|72
+MS|Jackson|57|37|92|72
+LA|Houma|64|44|91|74
+LA|Lafayette|62|44|92|75
+LA|Lake Charles|63|43|92|76
+LA|Baton Rouge|62|42|92|74
+LA|Hammond|62|38|92|72
+LA|Slidell|61|42|90|74
+LA|Alexandria|59|39|92|74
+LA|Monroe|58|35|94|72
+LA|Shreveport|58|37|94|74
+WI|Appleton|25|10|82|61
+WI|Fond du Lac|25|9|80|61
+WI|Green Bay|26|11|81|60
+WI|Kenosha|31|17|80|64
+WI|Oshkosh|26|10|82|63
+WI|Racine|30|15|79|64
+WI|Sheboygan|30|15|82|63
+WI|Beloit|25|11|80|60
+WI|La Crosse|27|11|85|65
+WI|Madison|27|12|82|62
+WI|Eau Claire|23|6|83|60
+WI|Wausau|23|7|80|59
+IA|Cedar Rapids|30|13|86|63
+IA|Davenport|30|14|84|65
+IA|Dubuque|28|10|85|64
+IA|Iowa City|29|12|84|63
+IA|Waterloo|28|11|85|64
+IA|Des Moines|31|14|86|66
+IA|Sioux City|30|10|85|63
+IL|Rockford|29|15|84|64
+IL|Bloomington|31|16|84|63
+IL|Champaign|34|18|85|65
+IL|Decatur|34|20|85|67
+IL|Kankakee|33|16|85|65
+IL|Peoria|34|18|86|66
+IL|Springfield|36|20|87|66
+IN|Fort Wayne|33|18|84|64
+IN|Goshen|32|18|83|63
+IN|La Porte|31|17|82|64
+IN|South Bend|31|17|83|62
+IN|Kokomo|33|17|84|63
+IN|Lafayette|33|18|84|64
+IN|Muncie|36|21|86|66
+IN|Terre Haute|38|21|86|65
+IN|Bloomington|37|21|85|65
+IN|Columbus|39|22|86|65
+IN|Evansville|42|27|89|71
+MO|Cape Girardeau|43|26|89|69
+MO|Joplin|45|25|90|70
+MO|Springfield|44|24|90|69
+MO|Columbia|40|23|89|69
+MO|Jefferson City|40|21|88|69
+MO|St Joseph|37|17|88|67
+KY|Elizabethtown|42|24|86|66
+KY|Lexington|42|25|87|67
+KY|Bowling Green|46|28|90|70
+KY|Paducah|45|27|90|69
+WV|Beckley|41|24|81|62
+WV|Charleston|44|26|86|66
+WV|Huntington|44|25|87|66
+WV|Morgantown|40|24|84|64
+WV|Parkersburg|40|24|87|66
+WV|Wheeling|39|22|85|64
+PA|Allentown|38|22|86|65
+PA|Chambersburg|37|23|85|65
+PA|Gettysburg|40|21|86|63
+PA|Harrisburg|40|25|88|67
+PA|Lancaster|40|22|87|65
+PA|Reading|39|23|87|66
+PA|State College|34|21|81|63
+PA|Scranton|36|20|85|63
+PA|Williamsport|35|20|85|63
+PA|York|41|21|88|63
+PA|Altoona|36|21|83|62
+PA|Erie|35|21|81|64
+OK|Enid|47|25|95|72
+OK|Lawton|51|28|96|72
+OK|Tulsa|49|28|94|73
+CT|Bridgeport|38|24|83|68
+CT|New Haven|38|23|82|66
+CT|New London|38|23|80|65
+CT|Hartford|35|19|85|63
+CT|Danbury|36|21|85|64
+ME|Portland|32|16|80|61
+ME|Bangor|28|9|80|59
+ME|Lewiston|28|12|80|62
+NH|Concord|32|13|83|59
+NH|Nashua|34|14|84|61
+NH|Lebanon|30|9|83|58
+MA|Hyannis|39|22|78|64
+MA|Amherst|34|14|83|60
+MA|Westfield|35|16|85|61
+MA|Worcester|32|17|80|62
+MA|Pittsfield|30|14|79|58
+MD|Salisbury|47|29|89|70
+MD|Patuxent River|45|30|87|71
+MD|Hagerstown|41|25|87|68
+NY|Elmira|34|16|84|58
+NY|Glens Falls|30|10|82|58
+NY|Ithaca|31|15|80|58
+NY|Poughkeepsie|36|18|85|62
+NY|Utica|30|14|81|60
+NY|Watertown|29|11|80|62
+NJ|Atlantic City Marina|42|30|80|71
+NJ|Trenton|40|24|86|67
+NJ|Millville|42|24|86|66
+VT|Burlington|29|13|82|62
+OR|Corvallis|47|34|83|52
+OR|Eugene|48|35|84|52
+OR|Salem|48|36|84|55
+OR|Grants Pass|48|35|91|56
+OR|Medford|48|33|92|59
+OR|Bend|43|25|84|49
+WA|Bellingham|46|34|73|55
+WA|Bremerton|47|36|77|55
+WA|Longview|48|35|79|53
+WA|Mount Vernon|47|35|73|54
+WA|Olympia|46|33|78|51
+WA|Kennewick|42|29|91|62
+WA|Walla Walla|42|31|90|62
+WA|Yakima|40|24|90|55
+ID|Idaho Falls|29|12|87|49
+ID|Pocatello|36|21|91|59
+ID|Twin Falls|37|22|87|55
+ID|Coeur d'Alene|36|26|83|57
+ID|Lewiston|42|30|91|61
+MT|Missoula|32|18|85|52
+MT|Bozeman|34|15|82|52
+MT|Helena|32|14|86|55
+MT|Billings|36|18|87|59
+MT|Great Falls|35|15|84|51
+CO|Grand Junction|38|17|95|64
+CO|Boulder|47|22|88|57
+CO|Colorado Springs|45|19|87|58
+CO|Fort Collins|45|18|87|59
+CO|Greeley|44|18|92|59
+CO|Pueblo|48|15|93|61
+AZ|Douglas|62|28|94|65
+AZ|Sierra Vista|61|30|92|63
+AZ|Kingman|57|31|99|70
+AZ|Yuma|70|48|107|83
+AZ|Prescott|53|24|90|61
+AZ|Flagstaff|43|18|82|51
+UT|Logan|32|18|88|60
+UT|Ogden|38|20|95|62
+UT|Provo|41|24|95|62
+UT|St George|54|28|102|72
+NV|Carson City|46|24|90|55
+NV|Reno|48|26|94|60
+NM|Las Cruces|59|30|96|69
+NM|Santa Fe|43|18|86|55
+NM|Farmington|41|20|90|61
+KS|Lawrence|38|19|89|70
+KS|Manhattan|40|19|91|69
+KS|Topeka|40|20|90|69
+NE|Lincoln|36|14|89|67
+NE|Grand Island|36|16|88|66
+SD|Sioux Falls|27|9|85|63
+SD|Rapid City|36|13|86|59
+ND|Grand Forks|15|-1|80|59
+ND|Bismarck|23|2|85|58
+ND|Minot|23|4|84|59
+MN|Mankato|24|6|82|62
+MN|Rochester|23|7|80|61
+MN|St. Cloud|21|3|82|59
+WY|Casper|35|15|89|53
+WY|Cheyenne|40|18|84|56
+HI|Kahului|82|64|90|72

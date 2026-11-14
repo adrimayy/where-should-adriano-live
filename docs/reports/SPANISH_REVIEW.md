@@ -34,208 +34,294 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | Safety / High crime or conflict | Seguridad / Delincuencia alta o conflicto | |
 | Safety and rights for women / Weaker safety and rights for women | Seguridad y derechos de las mujeres / Menos seguridad y derechos para las mujeres | |
 | LGBTQ+ acceptance / Less LGBTQ+ acceptance | Aceptación LGBTQ+ / Menos aceptación LGBTQ+ | |
+| Clean air / Polluted air | Aire limpio / Aire contaminado | |
+| Honest institutions / More corruption | Instituciones honestas / Más corrupción | |
+| Time off / Long working hours | Tiempo libre / Jornadas largas | |
 | Work permit / Hard to get permission to work | Permiso de trabajo / Difícil obtener permiso de trabajo | |
 | Language / Language barrier | Idioma / Barrera del idioma | |
 | Close to home / Far from home | Cerca de casa / Lejos de casa | |
+| Cultural familiarity / Culturally unfamiliar | Familiaridad cultural / Culturalmente desconocido | |
 
 ## Quiz
 
 ### field
 
-**EN:** What field do you work in, or want to work in?
+**EN:** What’s your field?
 
-**ES:** ¿En qué campo trabajas o quieres trabajar?
+**ES:** ¿A qué te dedicas?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
-| Computer science, tech or software | Ciencias de la computación, tecnología o software | |
+| Computer science or software | Computación o software | |
 | Finance or business | Finanzas o negocios | |
 | Healthcare | Salud | |
 | Creative work, media or the arts | Trabajo creativo, medios o artes | |
 | Research or academia | Investigación o academia | |
-| Another field or a mix | Otro campo o una mezcla | |
-| I work fully remotely for an employer elsewhere | Trabajo 100% a distancia para una empresa de otro lugar | |
+| Something else, or a mix | Otra cosa, o una mezcla | |
+| Fully remote, for an employer elsewhere | 100% remoto, para una empresa de otro lugar | |
 
 ### reach
 
-**EN:** Would you work hybrid, going into an office in a bigger city nearby a few days a week?
+**EN:** Would you commute to a bigger city a few days a week?
 
-**ES:** ¿Trabajarías en esquema híbrido, yendo unos días a la semana a una oficina en una ciudad más grande cercana?
+**ES:** ¿Viajarías a una ciudad más grande algunos días a la semana?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
-| Yes, up to about 1.5 hours each way is fine | Sí, hasta 1.5 horas de ida está bien | |
-| No, I want to work where I live | No, quiero trabajar donde vivo | |
+| Yes, up to 1.5 hours each way | Sí, hasta 1.5 horas por trayecto | |
+| No, I’d work where I live | No, trabajaría donde vivo | |
 
 ### horizon
 
 **EN:** How far ahead are you planning?
 
-**ES:** ¿Qué tan a futuro estás planeando?
+**ES:** ¿A qué plazo estás pensando?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
-| My first job, a couple of years | Mi primer trabajo, un par de años | |
-| About five years | Unos cinco años | |
-| The long run: where I’d build my career | A largo plazo: donde haría mi carrera | |
+| My first job (2–3 years) | Mi primer trabajo (2–3 años) | |
+| About 5 years | Unos 5 años | |
+| The long term | A largo plazo | |
 
 ### jobs
 
-**EN:** Job market: picture moving from a city with a small job market (like Tampico) to one of the biggest (like New York). How much would that change matter to you?
+**EN:** How much does a big job market matter? (Think Tampico vs. New York.)
 
-**ES:** Mercado laboral: imagina pasar de una ciudad con poco mercado laboral (como Tampico) a una de las más grandes (como Nueva York). ¿Cuánto te importaría ese cambio?
+**ES:** ¿Cuánto te importa un mercado laboral grande? (Piensa en Tampico frente a Nueva York.)
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
-| Hardly at all | Casi nada | |
+| Not much | Poco | |
 | Somewhat | Algo | |
 | A lot | Mucho | |
 
 ### pay
 
-**EN:** Money left after rent: picture going from about $1,700 a month left after a one-bedroom (New York) to about $4,000 (Pittsburgh, in New York prices). How much would that matter to you?
+**EN:** How much does money left after rent matter? (About $1,700 a month in New York vs. $4,000 in Pittsburgh.)
 
-**ES:** Dinero después de la renta: imagina pasar de que te queden unos $1,700 al mes después de rentar una recámara (Nueva York) a unos $4,000 (Pittsburgh, en precios de Nueva York). ¿Cuánto te importaría?
+**ES:** ¿Cuánto te importa el dinero que queda tras la renta? (Unos $1,700 al mes en Nueva York frente a $4,000 en Pittsburgh.)
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
-| Hardly at all | Casi nada | |
+| Not much | Poco | |
 | Somewhat | Algo | |
 | A lot | Mucho | |
 
 ### home
 
-**EN:** Finding a place: picture going from a market where rentals go within days (New York’s vacancy rate is 1.4%) to one with plenty available. How much would that matter to you?
+**EN:** How much does an easy apartment hunt matter? (In New York, only 1.4% of rentals are empty.)
 
-**ES:** Encontrar dónde vivir: imagina pasar de un mercado donde las rentas vuelan en días (en Nueva York solo el 1.4% está desocupado) a uno con mucha oferta. ¿Cuánto te importaría?
+**ES:** ¿Cuánto te importa encontrar departamento fácilmente? (En Nueva York solo el 1.4% está libre.)
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
-| Hardly at all | Casi nada | |
+| Not much | Poco | |
 | Somewhat | Algo | |
 | A lot | Mucho | |
 
 ### move
 
-**EN:** How do you want to get around day to day?
+**EN:** How do you want to get around?
 
-**ES:** ¿Cómo quieres moverte en el día a día?
+**ES:** ¿Cómo quieres moverte?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
 | Driving is fine | Manejar está bien | |
-| A mix of public transit and some driving | Una mezcla de transporte público y algo de auto | |
-| No car: walking, biking and transit only | Sin auto: a pie, en bici y en transporte público | |
+| Transit, plus some driving | Transporte público y algo de auto | |
+| No car at all | Sin auto | |
 
 ### commute
 
-**EN:** Commute: picture cutting a 45-minute commute to 20 minutes. How much would that matter to you?
+**EN:** How much does a short commute matter? (20 minutes instead of 45.)
 
-**ES:** Trayecto: imagina bajar un trayecto de 45 minutos a 20. ¿Cuánto te importaría?
+**ES:** ¿Cuánto te importa un trayecto corto? (20 minutos en vez de 45.)
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
-| Hardly at all | Casi nada | |
+| Not much | Poco | |
 | Somewhat | Algo | |
 | A lot | Mucho | |
 
 ### hlth
 
-**EN:** Healthcare: picture going from coverage that depends on your job (in the US, 8% of people have none all year) to coverage almost everyone has (like Spain or the Netherlands). How much would that matter to you?
+**EN:** How much does healthcare that doesn’t depend on your job matter?
 
-**ES:** Salud: imagina pasar de una cobertura que depende de tu trabajo (en EE. UU., el 8% de la gente no tiene ninguna todo el año) a una que casi todos tienen (como en España o los Países Bajos). ¿Cuánto te importaría?
+**ES:** ¿Cuánto te importa una salud que no dependa de tu trabajo?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
-| Hardly at all | Casi nada | |
+| Not much | Poco | |
 | Somewhat | Algo | |
 | A lot | Mucho | |
 
 ### clim
 
-**EN:** Which climate would you be happiest in?
+**EN:** What weather suits you?
 
-**ES:** ¿En qué clima serías más feliz?
+**ES:** ¿Qué clima te va?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
-| Mild all year: warm, not sticky summers and cool winters (like San Francisco or Lisbon) | Templado todo el año: veranos cálidos sin bochorno e inviernos frescos (como San Francisco o Lisboa) | |
-| Hot and sunny: heat and humidity don’t bother me (like Miami or Singapore) | Caluroso y soleado: el calor y la humedad no me molestan (como Miami o Singapur) | |
-| Four real seasons: snowy winters are fine (like Toronto or Berlin) | Cuatro estaciones de verdad: los inviernos con nieve están bien (como Toronto o Berlín) | |
-| Bright winters: long, sunny days even in December (like Madrid or Los Angeles) | Inviernos luminosos: días largos y soleados incluso en diciembre (como Madrid o Los Ángeles) | |
-| Weather doesn’t matter much to me | El clima no me importa mucho | |
+| Mild all year (San Francisco, Lisbon) | Templado todo el año (San Francisco, Lisboa) | |
+| Hot and sunny (Miami, Singapore) | Calor y sol (Miami, Singapur) | |
+| Four seasons, snow is fine (Toronto, Berlin) | Cuatro estaciones, con nieve (Toronto, Berlín) | |
+| Sunny winters (Madrid, Los Angeles) | Inviernos soleados (Madrid, Los Ángeles) | |
+| Weather doesn’t matter much | El clima me da casi igual | |
 
 ### open
 
-**EN:** Making friends: picture going from a country expats rank among the hardest for making friends (the Netherlands, 44th of 53) to one of the easiest to settle into (like Mexico or Spain). How much would that matter to you?
+**EN:** How much does making friends easily matter?
 
-**ES:** Hacer amigos: imagina pasar de un país que los expatriados ponen entre los más difíciles para hacer amigos (Países Bajos, 44 de 53) a uno de los más fáciles para adaptarse (como México o España). ¿Cuánto te importaría?
+**ES:** ¿Cuánto te importa hacer amigos fácilmente?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
-| Hardly at all | Casi nada | |
+| Not much | Poco | |
 | Somewhat | Algo | |
 | A lot | Mucho | |
 
 ### cult
 
-**EN:** Things going on: picture going from a metro of half a million people to one of ten million. How much would that matter to you?
+**EN:** How much does a big, busy city matter?
 
-**ES:** Que pasen cosas: imagina pasar de un área metropolitana de medio millón de personas a una de diez millones. ¿Cuánto te importaría?
+**ES:** ¿Cuánto te importa una ciudad grande y con mucha vida?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
-| Hardly at all | Casi nada | |
+| Not much | Poco | |
 | Somewhat | Algo | |
+| A lot | Mucho | |
+
+### kin
+
+**EN:** Should places that feel culturally familiar count more? (Same language or region as where you’re from.)
+
+**ES:** ¿Deberían contar más los lugares culturalmente familiares? (Mismo idioma o región que tu origen.)
+
+| English option | Opción en español | Suggestion |
+|---|---|---|
+| No | No | |
+| A little | Un poco | |
 | A lot | Mucho | |
 
 ### fam
 
-**EN:** Trip home: picture going from about 12 hours door to door to about 3. How much would that matter to you?
+**EN:** How much does a short trip home matter? (3 hours instead of 12.)
 
-**ES:** Viaje a casa: imagina pasar de unas 12 horas de puerta a puerta a unas 3. ¿Cuánto te importaría?
+**ES:** ¿Cuánto te importa un viaje corto a casa? (3 horas en vez de 12.)
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
-| Hardly at all | Casi nada | |
+| Not much | Poco | |
 | Somewhat | Algo | |
 | A lot | Mucho | |
 
 ### safe
 
-**EN:** Safety: picture going from a city with about 10 homicides per 100,000 people a year to one with under 1. How much would that matter to you?
+**EN:** How much does low crime matter?
 
-**ES:** Seguridad: imagina pasar de una ciudad con unos 10 homicidios por cada 100,000 habitantes al año a una con menos de 1. ¿Cuánto te importaría?
+**ES:** ¿Cuánto te importa que haya poca delincuencia?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
-| Hardly at all | Casi nada | |
+| Not much | Poco | |
 | Somewhat | Algo | |
 | A lot | Mucho | |
 
-### free
+### happy
 
-**EN:** Freedom: picture going from a country with limits on the press and on protest to a full democracy. How much would that matter to you?
+**EN:** How much does it matter that people who live there are satisfied with their lives? (Denmark instead of the world average.)
 
-**ES:** Libertad: imagina pasar de un país con límites a la prensa y a las protestas a una democracia plena. ¿Cuánto te importaría?
+**ES:** ¿Cuánto importa que la gente que vive ahí esté satisfecha con su vida? (Dinamarca en vez del promedio mundial.)
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
-| Hardly at all | Casi nada | |
+| Not much | Poco | |
+| Somewhat | Algo | |
+| A lot | Mucho | |
+
+### air
+
+**EN:** How much does clean air matter? (Madrid’s air instead of Mexico City’s: half the fine-particle pollution.)
+
+**ES:** ¿Cuánto importa el aire limpio? (El aire de Madrid en vez del de la Ciudad de México: la mitad de partículas finas.)
+
+| English option | Opción en español | Suggestion |
+|---|---|---|
+| Not much | Poco | |
+| Somewhat | Algo | |
+| A lot | Mucho | |
+
+### honest
+
+**EN:** How much does it matter that officials and police aren’t corrupt? (Denmark instead of Mexico on Transparency International’s index.)
+
+**ES:** ¿Cuánto importa que los funcionarios y la policía no sean corruptos? (Dinamarca en vez de México en el índice de Transparencia Internacional.)
+
+| English option | Opción en español | Suggestion |
+|---|---|---|
+| Not much | Poco | |
+| Somewhat | Algo | |
+| A lot | Mucho | |
+
+### hours
+
+**EN:** How much does time off matter? (Working hours like Germany’s instead of Mexico’s: about 15 fewer hours a week.)
+
+**ES:** ¿Cuánto importa el tiempo libre? (Jornadas como las de Alemania en vez de las de México: unas 15 horas menos a la semana.)
+
+| English option | Opción en español | Suggestion |
+|---|---|---|
+| Not much | Poco | |
+| Somewhat | Algo | |
+| A lot | Mucho | |
+
+### weak
+
+**EN:** Can a place’s strengths make up for one serious weak spot? (Great jobs but poor safety, say.)
+
+**ES:** ¿Pueden las ventajas de un lugar compensar un punto débil serio? (Buen empleo pero poca seguridad, por ejemplo.)
+
+| English option | Opción en español | Suggestion |
+|---|---|---|
+| Yes, strengths can make up for it | Sí, las ventajas pueden compensarlo | |
+| No, one serious weak spot spoils a place | No, un punto débil serio arruina un lugar | |
+
+### sure
+
+**EN:** When the data on a place is thin, how should it rank?
+
+**ES:** Cuando hay pocos datos sobre un lugar, ¿cómo debe ordenarse?
+
+| English option | Opción en español | Suggestion |
+|---|---|---|
+| Lower: I prefer well-measured places | Más abajo: prefiero lugares bien medidos | |
+| By its best guess: I’ll take the chance | Según su mejor estimación: me arriesgo | |
+
+### free
+
+**EN:** How much do political freedoms matter? (A free press, the right to protest.)
+
+**ES:** ¿Cuánto te importan las libertades políticas? (Prensa libre, derecho a protestar.)
+
+| English option | Opción en español | Suggestion |
+|---|---|---|
+| Not much | Poco | |
 | Somewhat | Algo | |
 | A lot | Mucho | |
 
 ### women
 
-**EN:** How much should women’s safety and equal rights count?
+**EN:** How much should women’s safety and rights count?
 
-**ES:** ¿Cuánto deben contar la seguridad y la igualdad de derechos para las mujeres?
+**ES:** ¿Cuánto deben contar la seguridad y los derechos de las mujeres?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
-| Not at all: leave it out | Nada: no lo tomes en cuenta | |
+| Not at all | Nada | |
 | A little | Un poco | |
-| Quite a bit: it matters to me | Bastante: me importa | |
+| Quite a bit | Bastante | |
 | A lot: it affects me or people I’d live with | Mucho: me afecta a mí o a quienes vivirían conmigo | |
 
 ### lgbt
@@ -246,64 +332,90 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
-| Not at all: leave it out | Nada: no lo tomes en cuenta | |
+| Not at all | Nada | |
 | A little | Un poco | |
-| Quite a bit: it matters to me | Bastante: me importa | |
+| Quite a bit | Bastante | |
 | A lot: it affects me or people I’d live with | Mucho: me afecta a mí o a quienes vivirían conmigo | |
 
 ### pol
 
-**EN:** If you’d live in the US, should local politics count (how the state and county voted in 2024)?
+**EN:** If you lived in the US, should local politics count?
 
-**ES:** Si vivieras en EE. UU., ¿debe contar la política local (cómo votaron el estado y el condado en 2024)?
+**ES:** Si vivieras en EE. UU., ¿debería contar la política local?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
-| Yes: I’d rather live where most people vote Democratic | Sí: prefiero vivir donde la mayoría vota demócrata | |
-| Yes: I’d rather live where most people vote Republican | Sí: prefiero vivir donde la mayoría vota republicano | |
-| No, leave politics out | No, deja la política fuera | |
+| Yes, I prefer Democratic-leaning areas | Sí, prefiero zonas demócratas | |
+| Yes, I prefer Republican-leaning areas | Sí, prefiero zonas republicanas | |
+| No | No | |
 
 ### lang
 
-**EN:** Which languages could you live your daily life in?
+**EN:** Which languages could you live in day to day?
 
-**ES:** ¿En qué idiomas podrías hacer tu vida diaria?
+**ES:** ¿En qué idiomas podrías vivir tu día a día?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
 | English and Spanish | Inglés y español | |
 | English only | Solo inglés | |
-| Some English, but not fluent | Algo de inglés, sin fluidez | |
+| Some English | Algo de inglés | |
 | Spanish only | Solo español | |
-| Spanish, plus some English | Español, con algo de inglés | |
-| I’ll learn whatever is needed | Aprendo lo que haga falta | |
+| Spanish, plus some English | Español y algo de inglés | |
+| I’d learn whatever’s needed | Aprendería lo que haga falta | |
 
 ### perm
 
-**EN:** Which passport do you hold? (It decides where you can work without a sponsor.)
+**EN:** Which passports do you have?
 
-**ES:** ¿Qué pasaporte tienes? (Decide dónde puedes trabajar sin patrocinio.)
+**ES:** ¿Qué pasaportes tienes?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
 | US and Mexican, like Adriano | Estadounidense y mexicano, como Adriano | |
 | US only | Solo estadounidense | |
 | Mexican only | Solo mexicano | |
-| A European Union passport | De la Unión Europea | |
-| Something else (ignore this) | Otro (ignorar esto) | |
+| An EU passport | Uno de la UE | |
+| Other (ignore this) | Otro (ignorar) | |
 
 ## Buttons and short labels
 
 | Key | English | Español | Suggestion |
 |---|---|---|---|
-| brand | Where should Adriano live? | ¿Dónde debería vivir Adriano? | |
+| knowDev | I know Adriano, who made this | Conozco a Adriano, quien hizo esto | |
+| knowDevOff | Hide Adriano’s picks | Ocultar lo de Adriano | |
+| modeYou1 | Showing your priorities. | Con tus prioridades. | |
+| resTitle | Your best matches | Tus mejores opciones | |
+| yourTopC | Your top 5 countries | Tus 5 países principales | |
+| brand | Where should you live? | ¿Dónde deberías vivir? | |
 | eyebrow | Livability atlas · November 2026 | Atlas de habitabilidad · noviembre de 2026 | |
-| h1 | Where should Adriano live? | ¿Dónde debería vivir Adriano? | |
+| h1 | Where should you live? | ¿Dónde deberías vivir? | |
 | prioTitle | My top priorities | Mis prioridades principales | |
-| startQuiz | Take the 1-minute quiz (5 questions) | Hacer el cuestionario de 1 minuto (5 preguntas) | |
-| skipQuiz | See Adriano’s take | Ver la versión de Adriano | |
-| resume | Continue with my saved take | Seguir con mi versión guardada | |
+| startQuiz | Take the 1-minute quiz | Hacer el cuestionario de 1 minuto | |
+| skipQuiz | Just show the map | Ver el mapa directamente | |
+| resume | Continue with my map | Seguir con mi mapa | |
+| howRead | How to read the map | Cómo leer el mapa | |
 | qOf | Question {n} of {t} | Pregunta {n} de {t} | |
+| heroNow | His top three right now: {x}. | Su top tres ahora mismo: {x}. | |
+| sharpen | Sharpen it: answer the rest | Afinarlo: responder el resto | |
+| doneLab | Done | Listo | |
+| doneTitle | Your map is ready | Tu mapa está listo | |
+| doneMore | Make it more accurate ({m} more) | Hacerlo más preciso ({m} más) | |
+| doneMap | See my map | Ver mi mapa | |
+| hpSearch | Search cities and countries | Buscar ciudades y países | |
+| cancel | Cancel | Cancelar | |
+| noMatch | No matches | Sin resultados | |
+| kinSrc | shares a main language and/or region with {x} | comparte idioma principal y/o región con {x} | |
+| kinNone | no shared main language or region | sin idioma principal ni región en común | |
+| latitude | latitude | latitud | |
+| howEnglish | This section is in English. | Esta sección está en inglés. | |
+| dataUpdated | Data updated | Datos actualizados | |
+| citiesWord | cities | ciudades | |
+| langFluent | Fluent | Con fluidez | |
+| langSome | some | algo | |
+| passAdd | Add a passport | Agregar un pasaporte | |
+| passIgnore | Ignore work permits | Ignorar los permisos de trabajo | |
+| remove | Remove | Quitar | |
 | back | Back | Atrás | |
 | skip | Skip the quiz | Saltar el cuestionario | |
 | next | Next | Siguiente | |
@@ -316,8 +428,8 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | impCountries | Countries: average error, points on the 1–5 scale | Países: error promedio, puntos en la escala 1–5 | |
 | impCities | Cities: average error, points on the 1–5 scale | Ciudades: error promedio, puntos en la escala 1–5 | |
 | unsure | Not sure, skip | No estoy seguro, saltar | |
-| whyGood | Strong for you on {x}. | Destaca para ti en {x}. | |
-| whyNone | No standout strengths for your priorities. | Sin fortalezas destacadas para tus prioridades. | |
+| whyGood | Good for you: {x}. | Bueno para ti: {x}. | |
+| whyNone | No standout strengths for you. | Nada destaca para ti. | |
 | whyBad | Weakest: {x}. | Lo más débil: {x}. | |
 | tagEst | estimate | estimado | |
 | notCounted | not counted | no cuenta | |
@@ -353,8 +465,6 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | modeAd | Showing Adriano’s priorities. | Con las prioridades de Adriano. | |
 | optsTitle | Map options and filters | Opciones del mapa y filtros | |
 | colorBy | Color by | Colorear por | |
-| mapStyle | Map style | Estilo del mapa | |
-| projection | Projection | Proyección | |
 | find | Find a place | Buscar un lugar | |
 | findPh | Guadalajara | Guadalajara | |
 | layers | Show | Mostrar | |
@@ -435,10 +545,6 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | secRules | Dealbreaker rules | Reglas de descarte | |
 | secAdjust | Adjustments | Ajustes | |
 | secStats | Data and statistics (advanced) | Datos y estadística (avanzado) | |
-| resTitle | Residents’ ratings | Calificaciones de residentes | |
-| resSave | I live here: save my rating | Vivo aquí: guardar mi calificación | |
-| resSaved | Saved. Thanks. | Guardado. Gracias. | |
-| resNeed | Pick all three ratings first. | Elige las tres calificaciones primero. | |
 | marMiss | Countries missing | Países sin dato | |
 | marGdp | Wealth gap | Diferencia de riqueza | |
 | marPop | Size gap | Diferencia de tamaño | |
@@ -446,9 +552,6 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | likelyRange | likely | probable | |
 | pFitShort | chance of Strong fit | probabilidad de Muy buena opción | |
 | probLine | Strong fit in {f} of recalculations · top 10 in {t} | Muy buena opción en {f} de los recálculos · top 10 en {t} | |
-| animRun | Recalculation {r} of {n}: the top 10 | Recálculo {r} de {n}: el top 10 | |
-| animPlay | ▶ Watch the order move | ▶ Ver cómo cambia el orden | |
-| animStopBtn | ■ Stop | ■ Detener | |
 | permRight | Legal right to work | Derecho legal a trabajar | |
 | permRoute | Route for a junior hire without that right | Vía para un recién egresado sin ese derecho | |
 | yes | yes | sí | |
@@ -470,11 +573,10 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | offerPay | Take-home pay / month | Sueldo neto al mes | |
 | offerRent | 1-bedroom rent, center | Renta 1 recámara, centro | |
 | offerLeft | Left after rent | Queda después de la renta | |
-| offerNY | In New York prices | En precios de Nueva York | |
+| offerNY | In {h} prices | En precios de {h} | |
 | offerVerdict | Verdict | Veredicto | |
 | offerEmpty | Add a city and a monthly take-home amount to compare. | Agrega una ciudad y un sueldo neto mensual para comparar. | |
-| eqTake | Everything equal | Todo igual | |
-| fullQuiz | Full quiz (20 questions) | Cuestionario completo (20 preguntas) | |
+| fullQuiz | Longer quiz (20 questions) | Cuestionario largo (20 preguntas) | |
 | defaultsTitle | {n} questions used a default | {n} preguntas usaron un valor por defecto | |
 | keepDefault | Default | Por defecto | |
 | rankByLab | Order within a verdict by | Dentro de un veredicto, ordenar por | |
@@ -484,4 +586,4 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | shadeOpac | Fade countries by filled-in share | Aclarar países según lo estimado | |
 | viewScore | Combined score | Puntaje combinado | |
 | viewProfile | Factors separately | Factores por separado | |
-| choicesTitle | Choices I made (and you can change) | Decisiones que tomé (y que puedes cambiar) | |
+| choicesTitle | Judgment calls (you can change them) | Decisiones que tomé (y que puedes cambiar) | |
