@@ -1,4 +1,4 @@
-"""How robust is Adriano's ranking, and which method choice moves it most? (Saltelli & Saisana's variance-based audit.)
+"""How robust is Adriano's ranking, and which method choice moves it most? (a variance-based sensitivity audit.)
 
 Five groups of choices vary at once in every run:
   weights      every weight x a random factor between about 0.5x and 2x (log-normal), each factor dropped with 15% probability

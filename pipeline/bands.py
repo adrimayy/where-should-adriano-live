@@ -61,6 +61,11 @@ def b_av(kind, x, n):
 def av_text(kind, x, n):
     return {'rank': f'#{x}/{n}', 'hard': f'{x}% vs {n}%', 'easy': f'{x}% vs {n}%', 'vac': f'{x}%'}[kind]
 def b_rank(r, n): return lo(r / n, 0.2, 0.4, 0.6, 0.8)
+def b_pm25(x): return lo(x, 10, 15, 25, 35)        # µg/m³; the cut-offs are WHO's interim targets 4, 3, 2 and 1
+def b_cpi(x): return hi(x, 75, 60, 45, 30)         # Corruption Perceptions Index, 0-100 (world average 42)
+def b_hours(x): return lo(x, 1500, 1650, 1800, 2000)   # hours worked a year per person in work (1,650 = about 34 a week)
+def b_hours_week(x): return lo(x, 30, 33, 36, 40)   # ILO hours a week where PWT has no annual figure: the annual cut-offs / 49.6, the median weeks a year where both exist
+def b_wri(x): return lo(x, 3, 6, 12, 25)          # WorldRiskIndex W: about the lowest third of countries = 5, top tenth = 1
 def b_cover(x): return lo(x, 1, 3, 6, 12)
 def b_walk(w, tr): return hi((w + tr) / 2, 80, 65, 50, 35)
 def b_sblink(r): return lo(r, 10, 30, 75, 200)
@@ -85,3 +90,13 @@ def b_money(x): return hi(x, 3000, 2000, 1200, 500)
 # ---------- legacy: rent burden (kept for the overlap test and the old method) ----------
 def burden(rent, col, lpp): return rent / (lpp * col / 100)
 def b_burden(r): return lo(r, 0.35, 0.5, 0.7, 0.9)
+def b_gallup(x): return hi(x, 92, 87, 82, 75)     # Gallup Law and Order Index (world average 83)
+
+
+# getting around without a car, ITDP Atlas: % near rapid transport, % near healthcare and schools, % near a protected bike lane,
+# % near a car-free place, city blocks per km². Each is banded, and the five continuous values are averaged into one score,
+# so ITDP counts once next to Numbeo's traffic CO2 index. Cut-offs sit near the quintiles of the 309 atlas cities ITDP covers.
+def b_itdp(rt, sv, pb, cf, bd):
+    parts = [hi(rt, 50, 30, 15, 5), hi(sv, 85, 75, 60, 40), hi(pb, 50, 25, 10, 2), hi(cf, 75, 60, 40, 20), hi(bd, 100, 85, 70, 55)]
+    c = sum(p.c for p in parts) / len(parts)
+    return B(max(1, min(5, int(c + 0.5))), round(c, 3))
