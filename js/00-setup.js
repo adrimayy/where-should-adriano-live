@@ -1,5 +1,5 @@
 'use strict';
-const DATA = window.ATLAS; // loaded by data/atlas.js, the one data file (built by build.py)
+const DATA = window.ATLAS; // loaded by data/atlas.js (built by build.py); data/lakes-hires.js loads only when the map zooms in
 const $ = id => document.getElementById(id);
 const store = {
   get(k, d) {
