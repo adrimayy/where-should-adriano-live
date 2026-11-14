@@ -37,6 +37,7 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | Clean air / Polluted air | Aire limpio / Aire contaminado | |
 | Honest institutions / More corruption | Instituciones honestas / Más corrupción | |
 | Time off / Long working hours | Tiempo libre / Jornadas largas | |
+| Low disaster risk / Disaster risk | Poco riesgo de desastres / Riesgo de desastres | |
 | Work permit / Hard to get permission to work | Permiso de trabajo / Difícil obtener permiso de trabajo | |
 | Language / Language barrier | Idioma / Barrera del idioma | |
 | Close to home / Far from home | Cerca de casa / Lejos de casa | |
@@ -270,6 +271,18 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 **EN:** How much does time off matter? (Working hours like Germany’s instead of Mexico’s: about 15 fewer hours a week.)
 
 **ES:** ¿Cuánto importa el tiempo libre? (Jornadas como las de Alemania en vez de las de México: unas 15 horas menos a la semana.)
+
+| English option | Opción en español | Suggestion |
+|---|---|---|
+| Not much | Poco | |
+| Somewhat | Algo | |
+| A lot | Mucho | |
+
+### risk
+
+**EN:** How much does a low risk of natural disasters matter? (The Netherlands instead of Mexico: floods, quakes and storms hit less, and cause less harm.)
+
+**ES:** ¿Cuánto importa un riesgo bajo de desastres naturales? (Países Bajos en vez de México: menos inundaciones, sismos y tormentas, y menos daño cuando ocurren.)
 
 | English option | Opción en español | Suggestion |
 |---|---|---|

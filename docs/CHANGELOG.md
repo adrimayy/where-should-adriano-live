@@ -23,6 +23,16 @@ How the method changed, and what it did to the top of Adriano's list.
 - **Census data for US metros:** commute (361 metros), rental vacancy (297) and money after rent (86) are now measured.
   Driving-alone share was rejected as a car-dependence measure. The share of city scores filled in fell from 61% to 49%.
 
+- **Local data where it was national or filled in (v49):** US metros get their own unemployment (BLS, 390), homicide
+  rate (County Health Rankings, 308 more beyond the FBI's 28), share without health insurance (Census SAHIE, 387) and EPA
+  air monitors (278), plus Census 2025 earnings, rents and populations. European cities get their region's unemployment
+  (Eurostat, 67); every other city now uses its country's rate instead of none. Getting around averages Numbeo with the
+  ITDP Atlas (309 cities), which tracks Census commuting where Numbeo doesn't. Freedom House now covers 167 countries (was
+  31 copied by hand), UNODC homicides 129 countries at their latest year (was 28), and working hours 159 countries: ILO
+  weekly hours fill 35 that PWT lacks, and Mexico uses the OECD's 2,193 h because PWT 11's 1,629 h contradicts every
+  other source. Links for Freedom House and UNODC now go to the publishers, not aggregator sites. The share of city scores
+  filled in fell from 48% to 35%. Adriano's top three: Amsterdam, Reykjavík, London; Valencia is fifth, behind Madrid,
+  mostly because its region's unemployment (12.1%) now counts.
 - **Low disaster risk; newer working hours (v48):** WorldRiskIndex 2026 for 193 countries, with its own quiz question.
   Working hours moved to Penn World Table 11.0 (129 countries, mostly 2023, from the Our World in Data file); the
   model can't fill the rest within a point, so those countries are left without a value. Checked the uploaded WHO file

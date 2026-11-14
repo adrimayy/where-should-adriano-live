@@ -20,6 +20,13 @@ from sources.air import AIR_CITY, AIR_COUNTRY
 from sources.honesty import CPI
 from sources.work_hours import HOURS
 from sources.disaster_risk import WRI
+from sources.us_local import UNEMP_US, PM_US, HOM_US, UNINS_US
+from sources.regional_jobs import LOCAL_UNEMP
+from sources.itdp import ITDP
+from sources.world_updates import FH_ALL, FH_CITY, HOM_UNODC, HOURS_ILO, HOURS_OECD
+FH.update(FH_ALL)                                       # Freedom House for every country, not only the 31 copied by hand
+RATES.update({n_: v_[0] for n_, v_ in HOM_UNODC.items()}); RATES_YR = {n_: v_[1] for n_, v_ in HOM_UNODC.items()}
+hom_txt = lambda n_: fmtn(RATES[n_]) + (f' ({RATES_YR[n_]})' if n_ in RATES_YR else '')
 IN, ADD, OUT = sys.argv[1], sys.argv[2], sys.argv[3]
 D = json.load(open(IN, encoding='utf8'))
 NDIG = 21   # one digit per factor, see IDX below
@@ -252,7 +259,7 @@ for k, v in D['countries'].items():
     f = avg(fb)
     if f: s = setd(s, 'free', f); src.add('free')
     # safety: UNODC homicide + Numbeo safety
-    if n in RATES: rec(P, 'safe', 'hom', fmtn(RATES[n]), b_hom(RATES[n]))
+    if n in RATES: rec(P, 'safe', 'hom', hom_txt(n), b_hom(RATES[n]))
     if n in NC_QOL: rec(P, 'safe', 'nqols', fmtn(NC_QOL[n][0]), b_nsafe(NC_QOL[n][0]))
     if n in GAL: rec(P, 'safe', 'gallup', fmtn(GAL[n]), b_gallup(GAL[n]))
     sf = avg([b_hom(RATES[n]) if n in RATES else 0, b_nsafe(NC_QOL[n][0]) if n in NC_QOL else 0, b_gallup(GAL[n]) if n in GAL else 0])
@@ -299,10 +306,15 @@ for k, v in D['countries'].items():
     i3 = A3N.get(n)
     for f_, key_, tab_, band_, txt_ in (('air', 'wbpm', AIR_COUNTRY, b_pm25, lambda x: f'{fmtn(x[0])} µg/m³'),
                                         ('honest', 'cpi', {k_: (x_,) for k_, x_ in CPI.items()}, b_cpi, lambda x: str(x[0])),
-                                        ('hours', 'pwt', HOURS, b_hours, lambda x: f'{x[0]:,} h ({x[1]})'),
                                         ('risk', 'wri', {k_: (x_,) for k_, x_ in WRI.items()}, b_wri, lambda x: fmtn(x[0]))):
         if i3 in tab_:
             x_ = tab_[i3]; s = setd(s, f_, band_(x_[0])); src.add(f_); rec(P, f_, key_, txt_(x_), band_(x_[0]))
+    # time off: Penn World Table annual hours; OECD where PWT 11 contradicts every other source (Mexico); ILO weekly hours where PWT has none
+    if i3 in HOURS_OECD: x_ = HOURS_OECD[i3]; hb_ = b_hours(x_[0]); rec(P, 'hours', 'oecdh', f'{x_[0]:,} h ({x_[1]})', hb_)
+    elif i3 in HOURS: x_ = HOURS[i3]; hb_ = b_hours(x_[0]); rec(P, 'hours', 'pwt', f'{x_[0]:,} h ({x_[1]})', hb_)
+    elif i3 in HOURS_ILO: x_ = HOURS_ILO[i3]; hb_ = b_hours_week(x_[0]); rec(P, 'hours', 'iloh', f'{fmtn(x_[0])} h/week ({x_[1]})', hb_)
+    else: hb_ = 0
+    if hb_: s = setd(s, 'hours', hb_); src.add('hours')
     s = setd(s, 'cult', 0)   # no country-level measure; scored for cities only
     v[1] = s; v[3] = ','.join(sorted(src))
 for k, v in D['byName'].items():
@@ -324,21 +336,27 @@ for c in D['cities']:
     uhc = UHC.get(n, 88 if name == 'Singapore' else None)
     if uhc: rec(P, 'hlth', 'uhc', fmtn(uhc), b_uhc(uhc))
     if qol: rec(P, 'hlth', 'nqolh', fmtn(qol[1]), b_health(qol[1]))
-    if n in UNC: rec(P, 'hlth', UNC[n][1], fmtn(UNC[n][0]) + '%', b_cover(UNC[n][0]))
-    h = avg([b_uhc(uhc) if uhc else 0, b_health(qol[1]) if qol else 0, b_cover(UNC[n][0]) if n in UNC else 0])
+    # people without health insurance: the metro's own share (US, County Health Rankings / SAHIE 2023), else the national figure
+    unc = (UNINS_US[name], 'sahie') if name in UNINS_US else UNC.get(n)
+    if unc: rec(P, 'hlth', unc[1], fmtn(unc[0]) + '%', b_cover(unc[0]))
+    h = avg([b_uhc(uhc) if uhc else 0, b_health(qol[1]) if qol else 0, b_cover(unc[0]) if unc else 0])
     s = setd(s, 'hlth', h); (src.add('hlth') if h else None)
-    if name == 'Hong Kong': s = setd(s, 'free', b_eiu(5.24)); src.add('free'); rec(P, 'free', 'eiu', '5.24', b_eiu(5.24))
+    if name == 'Hong Kong':
+        s = setd(s, 'free', avg([b_eiu(5.24), b_fh(FH_CITY['Hong Kong'])])); src.add('free')
+        rec(P, 'free', 'eiu', '5.24', b_eiu(5.24)); rec(P, 'free', 'fh', str(FH_CITY['Hong Kong']), b_fh(FH_CITY['Hong Kong']))
     elif 'free' in csrc: s = setd(s, 'free', cdig[3]); src.add('free')
     if name == 'Singapore':
-        s = setd(s, 'free', b_eiu(6.18)); s = setd(s, 'happy', 3); s = setd(s, 'women', 5); s = setd(s, 'lgbt', b_eq(44))
+        s = setd(s, 'free', avg([b_eiu(6.18), b_fh(FH_CITY['Singapore'])])); s = setd(s, 'happy', 3); s = setd(s, 'women', 5); s = setd(s, 'lgbt', b_eq(44))
         src |= {'free', 'happy', 'women', 'lgbt'}
-        rec(P, 'free', 'eiu', '6.18', b_eiu(6.18)); rec(P, 'happy', 'whr', '#36/147', 3); rec(P, 'women', 'wps', '#17/181', 5); rec(P, 'lgbt', 'eq', '44', b_eq(44))
+        rec(P, 'free', 'eiu', '6.18', b_eiu(6.18)); rec(P, 'free', 'fh', str(FH_CITY['Singapore']), b_fh(FH_CITY['Singapore'])); rec(P, 'happy', 'whr', '#36/147', 3); rec(P, 'women', 'wps', '#17/181', 5); rec(P, 'lgbt', 'eq', '44', b_eq(44))
+    # homicides: the city's own FBI rate, else the metro's (County Health Rankings, US), else the national rate where Numbeo has the city
     hom = FBI.get(name)
     if hom is not None: rec(P, 'safe', 'fbi', fmtn(hom), b_hom(hom))
-    elif (col or qol) and n in RATES: hom = RATES.get(n); rec(P, 'safe', 'hom', fmtn(hom), b_hom(hom))
+    elif name in HOM_US: hom = HOM_US[name]; rec(P, 'safe', 'chrhom', fmtn(hom), b_hom(hom))
+    elif (col or qol) and n in RATES: hom = RATES.get(n); rec(P, 'safe', 'hom', hom_txt(n), b_hom(hom))
     if qol: rec(P, 'safe', 'nqols', fmtn(qol[0]), b_nsafe(qol[0]))
     # Gallup is a national survey: used where the homicide figure is national too (not for US cities, which have their own FBI rate)
-    gal = GALLUP_CITY.get(name, GAL.get(n)) if (col or qol) and name not in FBI else None
+    gal = GALLUP_CITY.get(name, GAL.get(n)) if (col or qol) and name not in FBI and name not in HOM_US else None
     if gal is not None: rec(P, 'safe', 'gallup', fmtn(gal), b_gallup(gal))
     sf = avg([b_hom(hom) if hom is not None else 0, b_nsafe(qol[0]) if qol else 0, b_gallup(gal) if gal is not None else 0])
     s = setd(s, 'safe', sf if sf else int(s[4]))
@@ -402,19 +420,25 @@ for c in D['cities']:
             rec(P, 'pol', 'county24', f"{cn}: {'D' if cm > 0 else 'R'} +{abs(cm):.1f}", 3)
     mv = []
     if name in CO2: mv.append(b_co2(CO2[name])); rec(P, 'move', 'ntr', fmtn(CO2[name]), b_co2(CO2[name]))
-    # one car-dependence measure everywhere (Numbeo traffic CO2); Walk Score / Transit Score are shown on the page but not scored
+    if name in ITDP:   # ITDP's five measures of living without a car, averaged into one score so they count once
+        v_ = ITDP[name]; bi = b_itdp(*v_[:5]); mv.append(bi)
+        rec(P, 'move', 'itdp', ' / '.join(fmtn(x) + ('%' if i < 4 else '') for i, x in enumerate(v_[:5])), bi)
+    # car dependence: Numbeo traffic CO2 and the ITDP Atlas, averaged; Walk Score / Transit Score are shown on the page but not scored
     if name in WALK: WALKD[name] = list(WALK[name])
     if mv: s = setd(s, 'move', avg(mv)); src.add('move')
     # jobs: size of the metro economy the city belongs to + national youth unemployment
     gdp = METRO.get(name, (None,))[0]; gk = 'gdp'
     if name in NYC_COMMUTER: gdp = METRO['New York City'][0]; gk = 'gdpnyc'
     elif name in SUFFOLK: gdp = SUFFOLK_GDP; gk = 'bea'
-    if gdp:
-        rec(P, 'jobs', gk, '$' + fmtn(gdp) + 'bn', b_gdp(gdp))
+    # the unemployment rate: BLS for US metros, Eurostat for European regions, else the national rate, so every city has one
+    lu = (UNEMP_US[name], 'laus') if name in UNEMP_US else LOCAL_UNEMP.get(name) or ((UNEMP[n], 'ilo') if n in UNEMP else None)   # else national (ILO)
+    if gdp: rec(P, 'jobs', gk, '$' + fmtn(gdp) + 'bn', b_gdp(gdp))
+    if lu: rec(P, 'jobs', lu[1], fmtn(lu[0]) + '%' + (f' ({lu[2]})' if len(lu) > 2 else ''), b_unemp(lu[0]))
+    if gdp or lu:
         if n in YOUTH: rec(P, 'jobs', 'iloy', fmtn(YOUTH[n]) + '%', b_youth(YOUTH[n]))
         if n in INFORMAL: rec(P, 'jobs', 'inf', fmtn(INFORMAL[n]) + '%', b_inf(INFORMAL[n]))
         # metro GDP counts once (it overlaps with metro population, used for things happening; see tests/overlap.py)
-        j = avg([b_gdp(gdp), b_youth(YOUTH[n]) if n in YOUTH else 0, b_inf(INFORMAL[n]) if n in INFORMAL else 0]); s = setd(s, 'jobs', j); src.add('jobs')
+        j = avg([b_gdp(gdp) if gdp else 0, b_unemp(lu[0]) if lu else 0, b_youth(YOUTH[n]) if n in YOUTH else 0, b_inf(INFORMAL[n]) if n in INFORMAL else 0]); s = setd(s, 'jobs', j); src.add('jobs')
     else: s = setd(s, 'jobs', 0)
     # tech ecosystem (only counted when the field is tech): StartupBlink city rank, outside the top 1,000 = lowest band
     sb = SBLINK.get('New York City') if name in NYC_COMMUTER else SBLINK.get(name)
@@ -443,7 +467,9 @@ for c in D['cities']:
     if name in LIRR_MIN:
         mins = LIRR_MIN[name]; s = setd(s, 'commute', b_comm(mins)); src.add('commute'); rec(P, 'commute', 'lirr', f'{mins} min', b_comm(mins))
     # clean air: the city's own WHO monitors; cities WHO doesn't list are filled in from their country (fill_gaps.py)
-    if name in AIR_CITY:
+    if name in PM_US:   # US: EPA monitors within 30 km of the city centre, newer than the WHO compilation
+        pv, yrs, _ns = PM_US[name]; s = setd(s, 'air', b_pm25(pv)); src.add('air'); rec(P, 'air', 'epa', f'{fmtn(pv)} µg/m³ ({yrs})', b_pm25(pv))
+    elif name in AIR_CITY:
         pv, yrs, _who = AIR_CITY[name]; s = setd(s, 'air', b_pm25(pv)); src.add('air'); rec(P, 'air', 'who', f'{fmtn(pv)} µg/m³ ({yrs})', b_pm25(pv))
     else: s = setd(s, 'air', 0)
     # honest institutions, time off and disaster risk are national figures; Hong Kong and Singapore have their own

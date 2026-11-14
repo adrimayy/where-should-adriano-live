@@ -24,7 +24,9 @@ js/                 The page's code, one file per part, run in name order:
 pipeline/           Where the data comes from (only used to make data/atlas.js):
   sources/          Every published number, one file per topic, each naming its source and year.
                     languages.py and work_rights.py hold where each language works and who can work where.
-                    air.py, honesty.py, work_hours.py and disaster_risk.py are made by import_tables.py from the downloaded files.
+                    air.py, honesty.py, work_hours.py and disaster_risk.py are made by import_tables.py from the downloaded files;
+                    us_local.py by import_us.py, regional_jobs.py by import_eurostat.py, itdp.py by import_itdp.py and
+                    world_updates.py by import_world.py.
   input/            Hand-curated inputs: places, coordinates, notes, hand estimates. See input/README.md.
   bands.py          Every rule that turns a number into a 1-5 score, in one place.
   score_published.py  Step 1: combines the sources into scores for each country and city.
@@ -54,6 +56,13 @@ Working files (`build/`, `dist/`) are not part of the repository. Code is format
   those files, translate it, and add the code to `UI_LANGS` in `js/01-strings.js`.
 - **Clean air, corruption, working hours or disaster risk, after a new release:** download the files named in `pipeline/import_tables.py`,
   run it with their paths (needs `openpyxl`), then `python3 build.py`.
+- **US metro data (BLS unemployment, EPA air, County Health Rankings, Census population):** `pipeline/import_us.py`. The ACS
+  file `pipeline/input/acs_2025_metros.txt` holds earnings, rent and transport to work, with each metro's CBSA code.
+- **European regional unemployment:** `pipeline/import_eurostat.py` with the Eurostat `lfst_r_lfu3rt` spreadsheet and the
+  NUTS 2 boundaries from github.com/eurostat/Nuts2json (needs `shapely`).
+- **Car dependence (ITDP Atlas):** `pipeline/import_itdp.py` with the `atlas_cities_*.csv` files from atlas.itdp.org.
+- **Freedom House, UNODC homicides, ILO working hours:** `pipeline/import_world.py`.
+- Each importer's docstring lists the exact files and where to download them; each output file records the files' checksums.
 - **Where a language works, or a visa rule:** `pipeline/sources/languages.py` or `work_rights.py`, then `python3 build.py`.
 
 ## Run the tests

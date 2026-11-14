@@ -109,16 +109,17 @@ def _bea_name(name):
 BEA_RPP = {n: _RPP[b] for n in US_METROS for b in [_bea_name(n)] if b}
 
 
-# ---------- Census ACS 2024 1-year, by metro (input/acs_2024_metros.txt) ----------
+# ---------- Census ACS by metro (input/acs_2025_metros.txt: rent, earnings and means of transport 2025; commute, income, vacancy 2024) ----------
 # metro -> dict(rent $/month, earn $/year, hh $/year, commute minutes, drove % alone, transit %, vac rental vacancy %); None = not published
 _ACS = {}
-for r in _rows('acs_2024_metros.txt'):
-    r += [''] * (8 - len(r))
+_CBSA = {}
+for r in _rows('acs_2025_metros.txt'):
     _ACS[r[0]] = dict(zip(('rent', 'earn', 'hh', 'commute', 'drove', 'transit', 'vac'), [float(x) if x else None for x in r[1:8]]))
+    _CBSA[r[0]] = r[8]
 # the ACS uses the 2023 metro boundaries, so a few names differ from BEA's
 _ACS_ALIAS = dict(_BEA_ALIAS, **{'Sarasota': 'North Port-Bradenton-Sarasota', 'Lexington Park': 'Lexington Park', 'Poughkeepsie': 'Kiryas Joel-Poughkeepsie',
                                  'Northampton': 'Amherst Town-Northampton', 'Pinehurst': 'Pinehurst-Southern Pines', 'Slidell': 'Slidell-Mandeville',
-                                 'Kenosha': 'Kenosha, WI', 'Daphne': 'Daphne-Fairhope', 'Myrtle Beach': 'Myrtle Beach-Conway', 'Waterbury': 'Waterbury-Shelton'})
+                                 'Kenosha': 'Kenosha, WI', 'Winston-Salem': 'Winston-Salem, NC', 'The Villages': 'Wildwood-The Villages', 'Lebanon NH': 'Lebanon-Claremont', 'Daphne': 'Daphne-Fairhope', 'Myrtle Beach': 'Myrtle Beach-Conway', 'Waterbury': 'Waterbury-Shelton'})
 
 
 def _acs_name(name):
@@ -131,3 +132,5 @@ def _acs_name(name):
 
 
 ACS = {n: _ACS[a] for n in US_METROS for a in [_acs_name(n)] if a}
+# atlas US metro -> Census CBSA code (the key used by the EPA, BLS LAUS, Census population and county files)
+CBSA = {n: _CBSA[a] for n in US_METROS for a in [_acs_name(n)] if a}
