@@ -1,0 +1,191 @@
+# World cities added Nov 2026: City|Country|lat|lon|temperature station if not its own
+# The list is the cities in Wikipedia's "List of cities by average temperature" not already in the atlas, plus the largest
+# metro areas missing from that list, which use the nearest listed station (named in the last column).
+Algiers|Algeria|36.75|3.06
+Luanda|Angola|-8.84|13.23
+Cotonou|Benin|6.37|2.39
+Gaborone|Botswana|-24.65|25.91
+Ouagadougou|Burkina Faso|12.37|-1.52
+Bujumbura|Burundi|-3.38|29.36
+Douala|Cameroon|4.05|9.70
+Yaoundé|Cameroon|3.87|11.52
+Bangui|Central African Republic|4.39|18.56
+N'Djamena|Chad|12.13|15.06
+Kinshasa|Democratic Republic of the Congo|-4.32|15.31
+Lubumbashi|Democratic Republic of the Congo|-11.66|27.48
+Djibouti|Djibouti|11.59|43.15
+Alexandria|Egypt|31.20|29.92
+Malabo|Equatorial Guinea|3.75|8.78
+Asmara|Eritrea|15.32|38.93
+Libreville|Gabon|0.42|9.47
+Banjul|The Gambia|13.45|-16.58
+Kumasi|Ghana|6.69|-1.62
+Conakry|Guinea|9.64|-13.58
+Bissau|Guinea-Bissau|11.86|-15.60
+Bouaké|Ivory Coast|7.69|-5.03
+Mombasa|Kenya|-4.04|39.67
+Tripoli|Libya|32.89|13.19
+Benghazi|Libya|32.12|20.09
+Antananarivo|Madagascar|-18.88|47.51
+Blantyre|Malawi|-15.79|35.01
+Bamako|Mali|12.64|-8.00
+Nouakchott|Mauritania|18.08|-15.98
+Rabat|Morocco|34.02|-6.83
+Marrakesh|Morocco|31.63|-8.01
+Maputo|Mozambique|-25.97|32.57
+Niamey|Niger|13.51|2.11
+Kano|Nigeria|12.00|8.52
+Brazzaville|Republic of the Congo|-4.27|15.28
+Pointe-Noire|Republic of the Congo|-4.78|11.86
+Dakar|Senegal|14.72|-17.47
+Mogadishu|Somalia|2.05|45.32
+Pretoria|South Africa|-25.75|28.19
+Bloemfontein|South Africa|-29.12|26.21
+Durban|South Africa|-29.86|31.03
+Juba|South Sudan|4.85|31.58
+Khartoum|Sudan|15.50|32.56
+Zanzibar City|Tanzania|-6.16|39.20
+Dodoma|Tanzania|-6.16|35.75
+Lomé|Togo|6.13|1.22
+Lusaka|Zambia|-15.39|28.32
+Harare|Zimbabwe|-17.83|31.05
+Bulawayo|Zimbabwe|-20.15|28.58
+Kabul|Afghanistan|34.53|69.17
+Chittagong|Bangladesh|22.36|91.78
+Phnom Penh|Cambodia|11.56|104.92
+Changsha|China|28.23|112.94
+Chongqing|China|29.56|106.55
+Harbin|China|45.80|126.53
+Kunming|China|25.04|102.71
+Ürümqi|China|43.83|87.62
+Xi'an|China|34.34|108.94
+Tianjin|China|39.13|117.20|Beijing
+Wuhan|China|30.59|114.31|Changsha
+Nanjing|China|32.06|118.80|Shanghai
+Suzhou|China|31.30|120.59|Shanghai
+Dongguan|China|23.02|113.75|Shenzhen
+Foshan|China|23.02|113.12|Guangzhou
+Dili|East Timor|-8.56|125.57
+Batumi|Georgia|41.64|41.64
+Kolkata|India|22.57|88.36
+Surat|India|21.17|72.83|Mumbai
+Denpasar|Indonesia|-8.65|115.22
+Makassar|Indonesia|-5.15|119.43
+Medan|Indonesia|3.59|98.67
+Palembang|Indonesia|-2.98|104.76
+Surabaya|Indonesia|-7.25|112.75
+Baghdad|Iraq|33.31|44.37
+Erbil|Iraq|36.19|44.01
+Tehran|Iran|35.69|51.39
+Ahvaz|Iran|31.32|48.67
+Tabriz|Iran|38.08|46.29
+Sapporo|Japan|43.06|141.35
+Niigata|Japan|37.92|139.04
+Kyoto|Japan|35.01|135.77
+Nagoya|Japan|35.18|136.91|Kyoto
+Hiroshima|Japan|34.39|132.46
+Fukuoka|Japan|33.59|130.40
+Naha|Japan|26.21|127.68
+Astana|Kazakhstan|51.17|71.45
+Bishkek|Kyrgyzstan|42.87|74.59
+Vientiane|Laos|17.97|102.63
+Ulaanbaatar|Mongolia|47.89|106.91
+Mandalay|Myanmar|21.96|96.08
+Yangon|Myanmar|16.84|96.17
+Kathmandu|Nepal|27.72|85.32
+Baguio|Philippines|16.40|120.60
+Irkutsk|Russia|52.29|104.28
+Novosibirsk|Russia|55.01|82.93
+Vladivostok|Russia|43.12|131.89
+Yakutsk|Russia|62.03|129.73
+Abha|Saudi Arabia|18.22|42.50
+Busan|South Korea|35.18|129.08
+Damascus|Syria|33.51|36.28
+Dushanbe|Tajikistan|38.56|68.79
+Chiang Mai|Thailand|18.79|98.98
+Hat Yai|Thailand|7.01|100.47
+Nakhon Ratchasima|Thailand|14.98|102.10
+Ankara|Turkey|39.93|32.86
+İzmir|Turkey|38.42|27.14
+Ashgabat|Turkmenistan|37.96|58.33
+Da Nang|Vietnam|16.05|108.20
+Aden|Yemen|12.79|45.03
+Sanaa|Yemen|15.37|44.19
+Minsk|Belarus|53.90|27.56
+Sarajevo|Bosnia and Herzegovina|43.86|18.41
+Split|Croatia|43.51|16.44
+Nicosia|Cyprus|35.19|33.38
+Oulu|Finland|65.01|25.47
+Kuopio|Finland|62.89|27.68
+Bordeaux|France|44.84|-0.58
+Marseille|France|43.30|5.37
+Heraklion|Greece|35.34|25.14
+Thessaloniki|Greece|40.64|22.94
+Reykjavík|Iceland|64.15|-21.94
+Palermo|Italy|38.12|13.36
+Naples|Italy|40.85|14.27
+Luxembourg|Luxembourg|49.61|6.13
+Chișinău|Moldova|47.01|28.86
+Podgorica|Montenegro|42.44|19.26
+Skopje|North Macedonia|41.99|21.43
+Bergen|Norway|60.39|5.32
+Tromsø|Norway|69.65|18.96
+Saint Petersburg|Russia|59.94|30.31
+Rostov-on-Don|Russia|47.24|39.71
+Sochi|Russia|43.60|39.73
+Umeå|Sweden|63.83|20.26
+Lviv|Ukraine|49.84|24.03
+Odesa|Ukraine|46.48|30.72
+Nassau|The Bahamas|25.05|-77.34
+Belize City|Belize|17.50|-88.20
+Edmonton|Canada|53.55|-113.49
+Halifax|Canada|44.65|-63.58
+Moncton|Canada|46.09|-64.78
+Saskatoon|Canada|52.13|-106.67
+St. John's|Canada|47.56|-52.71
+Winnipeg|Canada|49.90|-97.14
+Havana|Cuba|23.11|-82.37
+Guatemala City|Guatemala|14.63|-90.51
+Tegucigalpa|Honduras|14.07|-87.19
+Kingston|Jamaica|18.02|-76.80
+Chihuahua|Mexico|28.63|-106.07
+Mexicali|Mexico|32.62|-115.45
+Tijuana|Mexico|32.51|-117.04
+Toluca|Mexico|19.29|-99.66
+Veracruz|Mexico|19.17|-96.13
+Villahermosa|Mexico|17.99|-92.93
+Managua|Nicaragua|12.11|-86.24
+Bahía Blanca|Argentina|-38.72|-62.27
+Mar del Plata|Argentina|-38.00|-57.56
+Mendoza|Argentina|-32.89|-68.84
+Rosario|Argentina|-32.94|-60.65
+Salta|Argentina|-24.78|-65.41
+San Miguel de Tucumán|Argentina|-26.81|-65.22
+La Paz|Bolivia|-16.50|-68.15
+Santa Cruz de la Sierra|Bolivia|-17.78|-63.18
+Belém|Brazil|-1.46|-48.49
+Florianópolis|Brazil|-27.60|-48.55
+Fortaleza|Brazil|-3.73|-38.53
+Goiânia|Brazil|-16.69|-49.26
+Manaus|Brazil|-3.12|-60.02
+Recife|Brazil|-8.05|-34.88
+Salvador|Brazil|-12.97|-38.50
+Vitória|Brazil|-20.32|-40.34
+Antofagasta|Chile|-23.65|-70.40
+Concepción|Chile|-36.83|-73.05
+La Serena|Chile|-29.90|-71.25
+Barranquilla|Colombia|10.97|-74.80
+Piura|Peru|-5.19|-80.63
+Paramaribo|Suriname|5.85|-55.20
+Caracas|Venezuela|10.48|-66.90
+Maracaibo|Venezuela|10.65|-71.64
+Georgetown|Guyana|6.80|-58.16
+Canberra|Australia|-35.28|149.13
+Darwin|Australia|-12.46|130.84
+Hobart|Australia|-42.88|147.33
+Cairns|Australia|-16.92|145.77
+Christchurch|New Zealand|-43.53|172.64
+Hamilton|New Zealand|-37.79|175.28
+Dunedin|New Zealand|-45.88|170.50
+Suva|Fiji|-18.14|178.44
+Port Moresby|Papua New Guinea|-9.44|147.18

@@ -2,8 +2,12 @@
 Every number is copied from the source named in its comment."""
 
 # ---------- US state politics: 2024 presidential vote, Harris minus Trump, percentage points (official results via Wikipedia) ----------
-STATE_MARGIN = {'NY': 12.60, 'CA': 20.14, 'WA': 18.22, 'MA': 25.20, 'DC': 83.81, 'IL': 10.90, 'PA': -1.71, 'CO': 10.99, 'TX': -13.68,
-                'GA': -2.19, 'NC': -3.21, 'FL': -13.10, 'AZ': -5.53, 'MN': 4.24, 'OR': 14.30, 'TN': -29.72, 'UT': -21.59, 'MD': 28.54}
+STATE_MARGIN = {'AL': -30.47, 'AK': -13.13, 'AZ': -5.53, 'AR': -30.64, 'CA': 20.14, 'CO': 10.99, 'CT': 14.51, 'DE': 14.70, 'DC':
+                83.81, 'FL': -13.10, 'GA': -2.19, 'HI': 23.11, 'ID': -36.49, 'IL': 10.90, 'IN': -18.96, 'IA': -13.21, 'KS': -16.12,
+                'KY': -30.53, 'LA': -22.01, 'ME': 6.94, 'MD': 28.54, 'MA': 25.20, 'MI': -1.42, 'MN': 4.24, 'MS': -22.89, 'MO': -18.41,
+                'MT': -19.93, 'NE': -20.46, 'NV': -3.10, 'NH': 2.78, 'NJ': 5.91, 'NM': 6.00, 'NY': 12.60, 'NC': -3.21, 'ND': -36.45,
+                'OH': -11.21, 'OK': -34.26, 'OR': 14.30, 'PA': -1.71, 'RI': 13.78, 'SC': -17.87, 'SD': -29.19, 'TN': -29.72, 'TX':
+                -13.68, 'UT': -21.59, 'VT': 31.51, 'VA': 5.78, 'WA': 18.22, 'WV': -41.87, 'WI': -0.86, 'WY': -45.76}
 
 CITY_STATE = {'New York City': 'NY', 'San Francisco': 'CA', 'Seattle': 'WA', 'Boston': 'MA', 'Washington DC': 'DC', 'Chicago': 'IL',
               'Pittsburgh': 'PA', 'Denver': 'CO', 'Los Angeles': 'CA', 'San Diego': 'CA', 'Austin': 'TX', 'Atlanta': 'GA', 'Raleigh': 'NC',
