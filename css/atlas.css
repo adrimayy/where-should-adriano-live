@@ -1729,3 +1729,12 @@ th {
   max-width: 360px;
   margin: 18px auto 0;
 }
+
+/* quiz: the two home-base pickers side by side, and the data comparison under a question */
+.homepair { display: flex; flex-wrap: wrap; gap: 12px; }
+.homepair .field { flex: 1 1 200px; }
+.qsub.qex { font-style: italic; }
+/* quiz buttons stay on one row on a narrow phone: the "not sure" link wraps inside itself instead */
+#quizPanel .qnav { flex-wrap: nowrap; }
+#quizPanel .qnav .toggles { flex-wrap: nowrap; justify-content: flex-end; }
+#qUnsure { white-space: normal; text-align: right; }

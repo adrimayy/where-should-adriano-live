@@ -12,22 +12,27 @@ with sync_playwright() as p:
         pg.on('console',lambda m,n=name: errs.append(f'{n} console {m.type}: {m.text}') if m.type=='error' else None)
         pg.goto('file://'+PAGE); pg.wait_for_timeout(800)
         pg.screenshot(path=f'{OUT}/{name}-1-start.png',full_page=False)
-        pg.click('#startQuiz')
+        pg.click('#startQuiz'); ex_seen=[]
         i=0
-        while pg.locator('#qDone').count()==0 and i<20:
-            if pg.locator('[data-l], #qPass').count():      # language picker: add French (fluent); passport picker: add France
+        # the short quiz: field, languages, passports, home, then choices; the last answer opens the results
+        while not pg.is_hidden('#quizPanel') and pg.locator('#doneMap').count()==0 and i<20:
+            if pg.locator('[data-l], #qPass, #qh1').count():      # pickers: add French (fluent), a French passport, Madrid as home
                 if pg.locator('[data-l]').count(): pg.click('[data-l="fr"]')
-                else: pg.select_option('#qPass','250')
+                elif pg.locator('#qPass').count():   # the passport list is the same searchable sheet as every other place lookup
+                    pg.click('.hpbtn[data-for="qPass"]'); pg.fill('#hpSearch', 'Fran'); pg.keyboard.press('Enter'); pg.wait_for_timeout(200)
+                    assert pg.locator('[data-p="250"]').count() == 1, 'France was not added as a passport'
+                else:   # the place picker: open it, search, pick the first match
+                    pg.click('.hpbtn[data-for="qh1"]'); pg.wait_for_timeout(200); pg.screenshot(path=f'{OUT}/{name}-picker-open.png')
+                    pg.fill('#hpSearch', 'madr'); pg.wait_for_timeout(150); pg.screenshot(path=f'{OUT}/{name}-picker-search.png')
+                    pg.press('#hpSearch', 'Enter'); pg.wait_for_timeout(150)
+                    assert pg.input_value('#qh1') == 'city:Madrid', pg.input_value('#qh1')
                 pg.wait_for_timeout(150); pg.screenshot(path=f'{OUT}/{name}-picker{i}.png'); pg.click('#qNext')
-            else: pg.locator('.opt').nth(i%3).click()
-            pg.wait_for_timeout(260); i+=1
-        # the place picker: open it, search, pick the first match
-        pg.click('.hpbtn[data-for="qh1"]'); pg.wait_for_timeout(200); pg.screenshot(path=f'{OUT}/{name}-picker-open.png')
-        pg.fill('#hpSearch', 'madr'); pg.wait_for_timeout(150); pg.screenshot(path=f'{OUT}/{name}-picker-search.png')
-        pg.press('#hpSearch', 'Enter'); pg.wait_for_timeout(150)
-        assert pg.input_value('#qh1') == 'city:Madrid', pg.input_value('#qh1')
-        pg.screenshot(path=f'{OUT}/{name}-2-quizlast.png')
-        pg.click('#qDone'); pg.wait_for_timeout(400)
+            else:
+                if pg.locator('.qex').count(): ex_seen.append(pg.inner_text('.qex'))
+                pg.locator('.opt').nth(i%3).click()
+            pg.wait_for_timeout(300); i+=1
+        assert ex_seen, 'no data comparison was shown under the questions after choosing a home'
+        if pg.locator('#doneMap').count(): pg.screenshot(path=f'{OUT}/{name}-2-quizdone.png'); pg.click('#doneMap'); pg.wait_for_timeout(400)
         print(name,'match',pg.inner_text('#matchPct'),'| vs hidden',pg.is_hidden('#vsPanel'),'| mode',pg.inner_text('#modeNote')[:60])
         pg.screenshot(path=f'{OUT}/{name}-3-vs.png',full_page=False)
         pg.locator('#list .row').first.click(); pg.wait_for_timeout(800)

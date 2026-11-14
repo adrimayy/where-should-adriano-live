@@ -45,6 +45,15 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 
 ## Quiz
 
+### where
+
+**EN:** Where is home for you?
+
+**ES:** ¿Dónde está tu hogar?
+
+| English option | Opción en español | Suggestion |
+|---|---|---|
+
 ### field
 
 **EN:** What’s your field?
@@ -72,23 +81,11 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | Yes, up to 1.5 hours each way | Sí, hasta 1.5 horas por trayecto | |
 | No, I’d work where I live | No, trabajaría donde vivo | |
 
-### horizon
-
-**EN:** How far ahead are you planning?
-
-**ES:** ¿A qué plazo estás pensando?
-
-| English option | Opción en español | Suggestion |
-|---|---|---|
-| My first job (2–3 years) | Mi primer trabajo (2–3 años) | |
-| About 5 years | Unos 5 años | |
-| The long term | A largo plazo | |
-
 ### jobs
 
-**EN:** How much does a big job market matter? (Think Tampico vs. New York.)
+**EN:** How much does a big, busy city matter? (More jobs and more going on.)
 
-**ES:** ¿Cuánto te importa un mercado laboral grande? (Piensa en Tampico frente a Nueva York.)
+**ES:** ¿Cuánto te importa una ciudad grande y con mucha vida? (Más empleo y más cosas que hacer.)
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
@@ -98,9 +95,9 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 
 ### pay
 
-**EN:** How much does money left after rent matter? (About $1,700 a month in New York vs. $4,000 in Pittsburgh.)
+**EN:** How much does money left after rent matter?
 
-**ES:** ¿Cuánto te importa el dinero que queda tras la renta? (Unos $1,700 al mes en Nueva York frente a $4,000 en Pittsburgh.)
+**ES:** ¿Cuánto te importa el dinero que queda tras la renta?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
@@ -110,9 +107,9 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 
 ### home
 
-**EN:** How much does an easy apartment hunt matter? (In New York, only 1.4% of rentals are empty.)
+**EN:** How much does an easy apartment hunt matter?
 
-**ES:** ¿Cuánto te importa encontrar departamento fácilmente? (En Nueva York solo el 1.4% está libre.)
+**ES:** ¿Cuánto te importa encontrar departamento fácilmente?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
@@ -146,9 +143,9 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 
 ### hlth
 
-**EN:** How much does healthcare that doesn’t depend on your job matter?
+**EN:** How much does good healthcare that everyone can get matter?
 
-**ES:** ¿Cuánto te importa una salud que no dependa de tu trabajo?
+**ES:** ¿Cuánto te importa una buena atención médica al alcance de todos?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
@@ -169,24 +166,13 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | Four seasons, snow is fine (Toronto, Berlin) | Cuatro estaciones, con nieve (Toronto, Berlín) | |
 | Sunny winters (Madrid, Los Angeles) | Inviernos soleados (Madrid, Los Ángeles) | |
 | Weather doesn’t matter much | El clima me da casi igual | |
+| Cold, snowy winters are a plus (Oslo, Montreal) | Inviernos fríos y con nieve, mejor (Oslo, Montreal) | |
 
 ### open
 
 **EN:** How much does making friends easily matter?
 
 **ES:** ¿Cuánto te importa hacer amigos fácilmente?
-
-| English option | Opción en español | Suggestion |
-|---|---|---|
-| Not much | Poco | |
-| Somewhat | Algo | |
-| A lot | Mucho | |
-
-### cult
-
-**EN:** How much does a big, busy city matter?
-
-**ES:** ¿Cuánto te importa una ciudad grande y con mucha vida?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
@@ -230,35 +216,11 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | Somewhat | Algo | |
 | A lot | Mucho | |
 
-### happy
-
-**EN:** How much does it matter that people who live there are satisfied with their lives? (Denmark instead of the world average.)
-
-**ES:** ¿Cuánto importa que la gente que vive ahí esté satisfecha con su vida? (Dinamarca en vez del promedio mundial.)
-
-| English option | Opción en español | Suggestion |
-|---|---|---|
-| Not much | Poco | |
-| Somewhat | Algo | |
-| A lot | Mucho | |
-
 ### air
 
-**EN:** How much does clean air matter? (Madrid’s air instead of Mexico City’s: half the fine-particle pollution.)
+**EN:** How much does clean air matter?
 
-**ES:** ¿Cuánto importa el aire limpio? (El aire de Madrid en vez del de la Ciudad de México: la mitad de partículas finas.)
-
-| English option | Opción en español | Suggestion |
-|---|---|---|
-| Not much | Poco | |
-| Somewhat | Algo | |
-| A lot | Mucho | |
-
-### honest
-
-**EN:** How much does it matter that officials and police aren’t corrupt? (Denmark instead of Mexico on Transparency International’s index.)
-
-**ES:** ¿Cuánto importa que los funcionarios y la policía no sean corruptos? (Dinamarca en vez de México en el índice de Transparencia Internacional.)
+**ES:** ¿Cuánto importa el aire limpio?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
@@ -268,9 +230,9 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 
 ### hours
 
-**EN:** How much does time off matter? (Working hours like Germany’s instead of Mexico’s: about 15 fewer hours a week.)
+**EN:** How much does time off matter?
 
-**ES:** ¿Cuánto importa el tiempo libre? (Jornadas como las de Alemania en vez de las de México: unas 15 horas menos a la semana.)
+**ES:** ¿Cuánto importa el tiempo libre?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
@@ -280,9 +242,9 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 
 ### risk
 
-**EN:** How much does a low risk of natural disasters matter? (The Netherlands instead of Mexico: floods, quakes and storms hit less, and cause less harm.)
+**EN:** How much does a low risk of natural disasters matter?
 
-**ES:** ¿Cuánto importa un riesgo bajo de desastres naturales? (Países Bajos en vez de México: menos inundaciones, sismos y tormentas, y menos daño cuando ocurren.)
+**ES:** ¿Cuánto importa un riesgo bajo de desastres naturales?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
@@ -314,9 +276,9 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 
 ### free
 
-**EN:** How much do political freedoms matter? (A free press, the right to protest.)
+**EN:** How much do political freedom and honest officials matter? (A free press, the right to protest, police and officials who don’t take bribes.)
 
-**ES:** ¿Cuánto te importan las libertades políticas? (Prensa libre, derecho a protestar.)
+**ES:** ¿Cuánto te importan la libertad política y funcionarios honestos? (Prensa libre, derecho a protestar, policías y funcionarios que no aceptan mordidas.)
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
@@ -416,6 +378,8 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | doneMore | Make it more accurate ({m} more) | Hacerlo más preciso ({m} más) | |
 | doneMap | See my map | Ver mi mapa | |
 | hpSearch | Search cities and countries | Buscar ciudades y países | |
+| hpSearchC | Search countries | Buscar países | |
+| hpSearchO | Search cities | Buscar ciudades | |
 | cancel | Cancel | Cancelar | |
 | noMatch | No matches | Sin resultados | |
 | kinSrc | shares a main language and/or region with {x} | comparte idioma principal y/o región con {x} | |
@@ -427,6 +391,7 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | langFluent | Fluent | Con fluidez | |
 | langSome | some | algo | |
 | passAdd | Add a passport | Agregar un pasaporte | |
+| passAddBtn | Choose a country | Elige un país | |
 | passIgnore | Ignore work permits | Ignorar los permisos de trabajo | |
 | remove | Remove | Quitar | |
 | back | Back | Atrás | |
@@ -452,7 +417,8 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | grpCities | Cities | Ciudades | |
 | grpCountries | Countries | Países | |
 | homeQ | Where is home for you? | ¿Dónde está tu hogar? | |
-| homeSub | Used to estimate flight times back home. Optional. | Se usa para estimar el tiempo de vuelo a casa. Opcional. | |
+| qCmp | {a} scores {x} of 5 on this. The best nearby is {b}, at {y}. | {a} tiene {x} de 5 en esto. Lo mejor de la región es {b}, con {y}. | |
+| qCmpTop | {a} scores {x} of 5 on this, as good as anywhere nearby. | {a} tiene {x} de 5 en esto, tan bien como lo mejor de la región. | |
 | home1 | Home base | Hogar | |
 | home2 | Second home base (optional) | Segundo hogar (opcional) | |
 | none | None | Ninguno | |

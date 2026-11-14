@@ -216,23 +216,33 @@ rent) and high-scoring deserves suspicion. Cities in the top quarter of scores w
 ## Career horizon
 
 Early-career moves into large, dense job markets pay off for years: wages and job-switching options in big tech clusters
-compound over a career. The quiz asks how far ahead you're planning; "the long run" raises the job-market weight by 30%,
-"my first job" lowers it by 20%. For hybrid work, a city can borrow the job market of a bigger city within 120 km.
+compound over a career. (Until Nov 2026 the quiz asked how far ahead you were planning; "the long run" raised the job-market weight by 30%,
+"my first job" lowered it by 20%; dropped because the effect was invisible.) For hybrid work, a city can borrow the job market of a bigger city within 120 km.
 
 ## Quiz design
 
-- One thing per question: healthcare no longer includes work-life balance; safety and freedom, jobs and money, car
-  dependence and commute are separate questions.
-- Importance questions are swing questions naming a real change (e.g. "from about $1,700 a month left after a one-bedroom,
-  New York, to about $4,000, Pittsburgh in New York prices"), all answered on the same 3-point scale, low to high.
+- About you first (field, languages, passports, home), then priorities, then the two questions about how to judge (may a
+  strength offset a weak spot; how to rank thin data). Home is asked early because trip home, cultural familiarity and the
+  comparisons under later questions depend on it.
+- One thing per question, and no two questions for one measure: "a big job market" and "a big, busy city" are one question
+  (both are measured by metro size; it sets things happening at 0.6 of the job-market weight), and political freedom and
+  honest officials are one question (their scores correlate 0.75 or more). Planning horizon was dropped (it only scaled the
+  job weight by 0.8–1.3) and so was life satisfaction, which is largely an outcome of the other factors; it still counts
+  at half weight by default and can be changed under Adjust.
+- Importance questions are answered on the same 3-point scale, low to high. Instead of fixed examples (which were all New
+  York, Tampico and Mexico), each shows how the visitor's own home scores on that factor and the best place of the same kind
+  in its world region, from measured figures only; a city without one falls back to its country. Without a home or
+  passport, no example is shown.
+- US local politics is asked only of people with a US passport or a US home: the data covers US states and counties only.
+- Weather has six answers, including "cold, snowy winters are a plus" (scored coldest first).
 - Answers without a natural order are shuffled, with "other / doesn't matter" kept last.
-- A 6-question version is the default (languages and passports are pickers: any language, any passport); "Sharpen it"
-  asks the remaining questions of the 20. Every question that was skipped or not asked shows its default on the results
-  screen, where it can be answered.
+- A 7-question version is the default (languages, passports and home are pickers: any language, any passport, any place);
+  "Sharpen it" asks the remaining questions of the 25. Every question that was skipped or not asked shows its default on
+  the results screen, where it can be answered. Unanswered, languages default to the browser's and passports to none.
+- Every place lookup (home bases, passports, job offers) uses the same searchable list.
 - A note before the first question: people tend to overweight weather and short visits and underweight commutes and
   friendships. An optional setting moves 30% of the climate and daylight weight to commute and making friends.
 - Each city page lists three questions to ask a resident, picked from its weakest and least certain factors.
-
 ## How the 744 cities were chosen, and what's under-covered
 
 The list started from places Adriano has lived, visited or considered, then added the largest tech hubs, capitals and

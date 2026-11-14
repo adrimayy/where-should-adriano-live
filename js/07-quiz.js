@@ -4,6 +4,10 @@
 // options without a natural order (nominal) are shuffled, keeping "other / doesn't matter" answers last.
 // Importance questions are swing questions: they name a real change from a worse place to a better one.
 const SW = [0.5, 1.5, 2.5];
+// About you first (field, languages, passports, home), so later questions can use it; how-to-judge questions last.
+// Merged (Nov 2026): job market + big busy city are both measured by metro size; freedom + honest officials move together.
+// Dropped: planning horizon (it only nudged one weight) and life satisfaction (largely an outcome of the other factors;
+// it still counts at half weight, QBASE). Removed ids stay readable in old saved answers: weightsFromQuiz only reads QUIZ.
 const QUIZ = [
   {
     id: 'field',
@@ -14,51 +18,6 @@ const QUIZ = [
     m: ['tech', 'finance', 'health', 'creative', 'academia', 'general', 'remote'],
   },
   { id: 'reach', nominal: 0, w: [{}, {}], mk: 'reach', m: ['yes', 'no'] },
-  { id: 'horizon', w: [{}, {}, {}], mult: { jobs: [0.8, 1, 1.3] } },
-  { id: 'jobs', w: SW.map(x => ({ jobs: x })) },
-  { id: 'pay', w: SW.map(x => ({ pay: x })) },
-  { id: 'home', w: SW.map(x => ({ home: x })) },
-  { id: 'move', w: [{ move: 0.75 }, { move: 1.5 }, { move: 2.5 }] },
-  { id: 'commute', w: SW.map(x => ({ commute: x })) },
-  { id: 'hlth', w: [{ hlth: 0.75 }, { hlth: 1.75 }, { hlth: 3 }] },
-  { id: 'air', w: SW.map(x => ({ air: x })) },
-  { id: 'hours', w: SW.map(x => ({ hours: x })) },
-  { id: 'risk', w: SW.map(x => ({ risk: x })) },
-  {
-    id: 'clim',
-    nominal: 1,
-    fixed: 1,
-    w: [
-      { clim: 1.5, day: 1 },
-      { clim: 1.5, day: 0.75 },
-      { clim: 1.25, day: 0.5 },
-      { clim: 0.75, day: 2 },
-      { clim: 0.25, day: 0.25 },
-    ],
-    mk: 'clim',
-    m: ['mild', 'warm', 'cool', 'mild', 'mild'],
-  },
-  { id: 'open', w: SW.map(x => ({ open: x })) },
-  { id: 'cult', w: SW.map(x => ({ cult: x })) },
-  { id: 'fam', w: [{ fam: 0.25 }, { fam: 1 }, { fam: 2 }] },
-  { id: 'kin', w: [{ kin: 0 }, { kin: 0.75 }, { kin: 2 }] },
-  { id: 'safe', w: SW.map(x => ({ safe: x })) },
-  { id: 'happy', w: SW.map(x => ({ happy: x })) },
-  { id: 'free', w: SW.map(x => ({ free: x })) },
-  { id: 'honest', w: SW.map(x => ({ honest: x })) },
-  { id: 'women', w: [{ women: 0 }, { women: 0.75 }, { women: 1.5 }, { women: 2.5 }] },
-  { id: 'lgbt', w: [{ lgbt: 0 }, { lgbt: 0.75 }, { lgbt: 1.5 }, { lgbt: 2.5 }] },
-  {
-    id: 'pol',
-    nominal: 1,
-    fixed: 1,
-    w: [{ pol: 1.5 }, { pol: 1.5 }, { pol: 0 }],
-    mk: 'pol',
-    m: ['d', 'r', 'd'],
-  },
-  // values about how to judge, not what to weigh: may a strength offset a weakness, and how to treat thin data
-  { id: 'weak', nominal: 0, w: [{}, {}], mk: 'agg', m: ['mean', 'geo'] },
-  { id: 'sure', nominal: 0, w: [{}, {}], mk: 'sure', m: ['lo', 'mid'] },
   {
     id: 'lang',
     picker: 'lang',
@@ -77,20 +36,66 @@ const QUIZ = [
     mk: 'perm',
     m: ['usmx', 'us', 'mx', 'eu', 'usmx'],
   },
+  { id: 'where', picker: 'where', w: [] },
+  { id: 'jobs', w: SW.map(x => ({ jobs: x, cult: x * 0.6 })), ex: 'jobs' },
+  { id: 'pay', w: SW.map(x => ({ pay: x })), ex: 'pay' },
+  { id: 'home', w: SW.map(x => ({ home: x })), ex: 'home' },
+  { id: 'move', w: [{ move: 0.75 }, { move: 1.5 }, { move: 2.5 }], ex: 'move' },
+  { id: 'commute', w: SW.map(x => ({ commute: x })), ex: 'commute' },
+  { id: 'hlth', w: [{ hlth: 0.75 }, { hlth: 1.75 }, { hlth: 3 }], ex: 'hlth' },
+  {
+    id: 'clim',
+    nominal: 1,
+    last: [4], // "weather doesn't matter" always last; "cold winters" (5) was added later, so it is stored after it
+    w: [
+      { clim: 1.5, day: 1 },
+      { clim: 1.5, day: 0.75 },
+      { clim: 1.25, day: 0.5 },
+      { clim: 0.75, day: 2 },
+      { clim: 0.25, day: 0.25 },
+      { clim: 1.25, day: 0.25 },
+    ],
+    mk: 'clim',
+    m: ['mild', 'warm', 'cool', 'mild', 'mild', 'cold'],
+  },
+  { id: 'air', w: SW.map(x => ({ air: x })), ex: 'air' },
+  { id: 'hours', w: SW.map(x => ({ hours: x })), ex: 'hours' },
+  { id: 'risk', w: SW.map(x => ({ risk: x })), ex: 'risk' },
+  { id: 'open', w: SW.map(x => ({ open: x })), ex: 'open' },
+  { id: 'fam', w: [{ fam: 0.25 }, { fam: 1 }, { fam: 2 }] },
+  { id: 'kin', w: [{ kin: 0 }, { kin: 0.75 }, { kin: 2 }] },
+  { id: 'safe', w: SW.map(x => ({ safe: x })), ex: 'safe' },
+  { id: 'free', w: SW.map(x => ({ free: x * 0.75, honest: x * 0.75 })), ex: 'honest' },
+  { id: 'women', w: [{ women: 0 }, { women: 0.75 }, { women: 1.5 }, { women: 2.5 }], ex: 'women' },
+  { id: 'lgbt', w: [{ lgbt: 0 }, { lgbt: 0.75 }, { lgbt: 1.5 }, { lgbt: 2.5 }], ex: 'lgbt' },
+  {
+    id: 'pol',
+    nominal: 1,
+    fixed: 1,
+    w: [{ pol: 1.5 }, { pol: 1.5 }, { pol: 0 }],
+    mk: 'pol',
+    m: ['d', 'r', 'd'],
+    // only for people with a US passport or a US home: the politics data covers US states and counties only
+    show: () => usLinked() !== false,
+  },
+  // values about how to judge, not what to weigh: may a strength offset a weakness, and how to treat thin data
+  { id: 'weak', nominal: 0, w: [{}, {}], mk: 'agg', m: ['mean', 'geo'] },
+  { id: 'sure', nominal: 0, w: [{}, {}], mk: 'sure', m: ['lo', 'mid'] },
 ];
 // a 6-question version is the default; the full quiz is one tap away
-const SIMPLE = ['field', 'clim', 'move', 'jobs', 'lang', 'perm'];
+const SIMPLE = ['field', 'lang', 'perm', 'where', 'jobs', 'move', 'clim'];
 let QLIST = QUIZ.filter(q => SIMPLE.includes(q.id)),
   ORDER = {};
 let ANS = {},
   QSTEP = 0,
   HOMEKEYS = [];
 const qText = id => (QSTR[LANG] || {})[id] || QSTR.en[id];
-const QBASE = { ...PRESETS.equal, pol: 0, happy: 1, women: 0.75, lgbt: 0.75 };
+const QBASE = { ...PRESETS.equal, pol: 0, happy: 0.5, women: 0.75, lgbt: 0.75 };
 // "picker" questions (languages, passports) take any number of answers; older saved answers are numbers and still work
 const picked = v => v && typeof v === 'object';
 const answered = q => typeof ANS[q.id] === 'number' || (q.picker && picked(ANS[q.id]));
 function pickerW(q, v) {
+  if (q.picker === 'where') return {};
   if (q.picker === 'lang') return { lang: v.learn ? 0.25 : 1.25 };
   return { perm: v.ignore || !(v.sel || []).length ? 0 : 1 };
 }
@@ -112,8 +117,8 @@ function weightsFromQuiz(a) {
 }
 function modesFromQuiz(a) {
   const o = {
-    lang: 'en',
-    perm: 'us',
+    lang: langCode(browserLangs()), // unanswered: the languages the visitor's browser is set to
+    perm: 'P:', // unanswered: no passport assumed, so work permits are scored as for anyone
     field: 'general',
     clim: 'mild',
     pol: 'd',
@@ -133,20 +138,23 @@ function pickerBody(q) {
     ? ANS[q.id]
     : q.picker === 'lang'
       ? { sel: browserLangs() }
-      : { sel: [] });
+      : q.picker === 'where'
+        ? { keys: HOMEKEYS.slice() }
+        : { sel: [] });
   const [title] = qText(q.id);
+  if (q.picker === 'where') {
+    const k = v.keys || [];
+    return `<div class="qtitle">${title}</div><p class="meta qsub">${L('homeSub')}</p><div class="homepair"><div class="field"><span class="lab">${L('home1')}</span>${homeSelect('qh1', k[0] || '')}</div><div class="field"><span class="lab">${L('home2')}</span>${homeSelect('qh2', k[1] || '')}</div></div>`;
+  }
   if (q.picker === 'lang') {
     const lv = k => (v.sel || {})[k] || 0,
       lab = ['', 'langSome', 'langFluent'];
     return `<div class="qtitle">${title}</div><p class="meta qsub">${L('langHint')}</p><div class="chips">${LANG_PICK.map(k => `<button class="lchip lv${lv(k)}" data-l="${k}" aria-pressed="${lv(k) > 0}" title="${lv(k) ? L(lab[lv(k)]) : ''}"><span lang="${k}">${LANG_NATIVE[k]}</span>${lv(k) === 1 ? `<small>${L('langSome')}</small>` : ''}</button>`).join('')}</div>
       <label class="check"><input type="checkbox" id="qLearn" ${v.learn ? 'checked' : ''}> ${L('langLearn')}</label>`;
   }
-  const cs = ents
-    .filter(e => e.type === 'country' && typeof e.id === 'number' && e.a2)
-    .sort((a, b) => dn(a).localeCompare(dn(b), LANG));
   return `<div class="qtitle">${title}</div><p class="meta qsub">${L('passHint')}</p>
     <div class="chips">${(v.sel || []).map(n => `<button class="lchip lv2" data-p="${n}" aria-label="${L('remove')} ${dn(byIso[n] || { a2: '', name: n })}">${dn(byIso[n] || { a2: '', name: String(n) })} <span aria-hidden="true">×</span></button>`).join('')}</div>
-    <div class="field"><label class="lab" for="qPass">${L('passAdd')}</label><select id="qPass"><option value="">—</option>${cs.map(e => `<option value="${e.id}">${dn(e)}</option>`).join('')}</select></div>
+    <div class="field"><span class="lab">${L('passAdd')}</span>${homeSelect('qPass', '', 'country', L('passAddBtn'))}</div>
     <label class="check"><input type="checkbox" id="qIgnore" ${v.ignore ? 'checked' : ''}> ${L('passIgnore')}</label>`;
 }
 function wirePicker(q) {
@@ -171,7 +179,7 @@ function wirePicker(q) {
   );
   if ($('qPass'))
     $('qPass').onchange = e => {
-      const n = +e.target.value;
+      const n = (byKey[e.target.value] || {}).id;
       if (n && !v.sel.includes(n)) v.sel.push(n);
       renderQuiz();
     };
@@ -183,6 +191,42 @@ function wirePicker(q) {
     $('qIgnore').onchange = e => {
       v.ignore = e.target.checked;
     };
+  if ($('qh1'))
+    $('qh1').onchange = $('qh2').onchange = () => {
+      v.keys = HOMEKEYS = [$('qh1').value, $('qh2').value].filter(Boolean);
+    };
+}
+// US passport or US home? true / false, or null when the visitor hasn't said where they're from
+function usLinked() {
+  const ps = picked(ANS.perm) ? ANS.perm.sel || [] : [],
+    hs = HOMEKEYS.map(k => byKey[k]).filter(Boolean);
+  if (!ps.length && !hs.length) return null;
+  return ps.includes(840) || hs.some(e => +isoOf(e) === 840);
+}
+// A line under a question built from the data: how the visitor's home (or passport country) scores on that factor,
+// and the best place of the same kind in its world region. Nothing when we don't know where they're from.
+function qExample(k) {
+  let ref = HOMEKEYS.map(x => byKey[x]).find(Boolean) || (picked(ANS.perm) ? byIso[(ANS.perm.sel || [])[0]] : null);
+  // measured figures only (filled-in estimates are left out): a city without one falls back to its country
+  const sc = e => (e && e.sc && e.sc[k] != null ? Math.round(e.sc[k]) : null);
+  if (ref && sc(ref) == null && ref.type === 'city') ref = byIso[isoOf(ref)];
+  const x = sc(ref);
+  if (x == null) return '';
+  const rg = DATA.region || {},
+    reg = rg[isoOf(ref)];
+  if (!reg) return '';
+  // ties go to a place people know: for cities the bigger metro (things happening is metro size), for countries the one
+  // with the most cities on the map
+  const nCities = {};
+  ents.forEach(e => e.type === 'city' && (nCities[isoOf(e)] = (nCities[isoOf(e)] || 0) + 1));
+  const known = e => (e.type === 'city' ? e.sc.cult || 0 : nCities[isoOf(e)] || 0);
+  let best = null;
+  for (const e of ents) {
+    if (e === ref || e.type !== ref.type || !listable(e) || rg[isoOf(e)] !== reg || sc(e) == null) continue;
+    if (!best || sc(e) > sc(best) || (sc(e) === sc(best) && known(e) > known(best))) best = e;
+  }
+  if (!best || sc(best) <= x) return fmt(L('qCmpTop'), { a: dn(ref), x });
+  return fmt(L('qCmp'), { a: dn(ref), x, b: dn(best), y: sc(best) });
 }
 function orderedPlaces(needGeo) {
   const ok = e => listable(e) && (!needGeo || e.hasGeo),
@@ -198,11 +242,19 @@ function orderedPlaces(needGeo) {
 }
 // ---- place picker: search box, a short "Suggested" list, then every place A–Z with letter headers and a letter rail.
 // Suggested places also keep their alphabetical spot. The value lives in a hidden input.
-const placeLabel = e =>
-  e ? dn(e) + (e.type === 'city' && countryOf(e) ? ', ' + countryOf(e) : '') : L('none');
-function homeSelect(id, val) {
+// Every place lookup on the page (home bases, passports, job offers) opens this same searchable sheet.
+// kind picks the list: 'place' = any city or country on the map, 'country' = every country (passports),
+// 'offer' = cities with pay and rent figures. empty = what the button says when nothing is chosen.
+const PICKERS = {
+  place: () => ents.filter(e => listable(e) && e.hasGeo),
+  country: () => ents.filter(e => e.type === 'country' && typeof e.id === 'number' && e.a2 && e.id !== 10), // no Antarctica
+  offer: () => ents.filter(e => e.type === 'city' && MONEYD[e.name]),
+};
+const placeLabel = (e, empty) =>
+  e ? dn(e) + (e.type === 'city' && countryOf(e) ? ', ' + countryOf(e) : '') : empty || L('none');
+function homeSelect(id, val, kind = 'place', empty = '') {
   const e = byKey[val];
-  return `<div class="hpick"><input type="hidden" id="${id}" value="${val || ''}"><button type="button" class="hpbtn" data-for="${id}" aria-haspopup="dialog"><span>${placeLabel(e)}</span>${IC('chev', 14, 2.4)}</button></div>`;
+  return `<div class="hpick"><input type="hidden" id="${id}" value="${val || ''}"><button type="button" class="hpbtn" data-for="${id}" data-kind="${kind}" data-empty="${empty}" aria-haspopup="dialog"><span>${placeLabel(e, empty)}</span>${IC('chev', 14, 2.4)}</button></div>`;
 }
 function suggestedPlaces() {
   const out = [],
@@ -217,21 +269,27 @@ function suggestedPlaces() {
     const r = (t.split('-')[1] || '').toUpperCase();
     if (r.length === 2) add(ents.find(e => e.type === 'country' && e.a2 === r));
   }
-  passSpec(PERMMODE).forEach(n => add(byIso[n]));
-  HOMES.forEach(h => add(byKey[h.key]));
+  // the visitor's own passports and homes; until their answers apply, the page is showing Adriano's, so use the quiz's
+  const mine = MODE === 'yours';
+  (mine ? passSpec(PERMMODE) : picked(ANS.perm) ? ANS.perm.sel || [] : []).forEach(n => add(byIso[n]));
+  (mine ? HOMES.map(h => byKey[h.key]) : HOMEKEYS.map(k => byKey[k])).forEach(add);
   return out.slice(0, 6);
 }
 function openPicker(id) {
   const D = $('hpDialog'),
     inp = $(id),
+    btn = document.querySelector(`.hpbtn[data-for="${id}"]`),
+    kind = (btn && btn.dataset.kind) || 'place',
+    empty = (btn && btn.dataset.empty) || '',
     fold = s =>
       s
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '')
         .toLowerCase();
-  const all = ents.filter(e => listable(e) && e.hasGeo).sort((a, b) => dn(a).localeCompare(dn(b), LANG));
+  const all = PICKERS[kind]().sort((a, b) => dn(a).localeCompare(dn(b), LANG)),
+    inList = new Set(all);
   const row = e =>
-    `<button type="button" class="hprow${inp.value === (e ? e.key : '') ? ' on' : ''}" data-k="${e ? e.key : ''}"><span>${e ? dn(e) : L('none')}</span>${e ? `<small>${e.type === 'city' ? L('city') + (countryOf(e) ? ' · ' + countryOf(e) : '') : L('country')}</small>` : ''}</button>`;
+    `<button type="button" class="hprow${inp.value === (e ? e.key : '') ? ' on' : ''}" data-k="${e ? e.key : ''}"><span>${e ? dn(e) : L('none')}</span>${e && kind !== 'country' ? `<small>${e.type === 'city' ? L('city') + (countryOf(e) ? ' · ' + countryOf(e) : '') : L('country')}</small>` : ''}</button>`;
   const letter = e => fold(dn(e)).charAt(0).toUpperCase();
   function render(q) {
     const L_ = $('hpList');
@@ -246,13 +304,13 @@ function openPicker(id) {
       $('hpRail').innerHTML = '';
       return;
     }
-    const sug = suggestedPlaces(),
+    const sug = suggestedPlaces().filter(e => inList.has(e)),
       groups = {};
     all.forEach(e => {
       (groups[letter(e)] = groups[letter(e)] || []).push(e);
     });
     L_.innerHTML =
-      row(null) +
+      (empty ? '' : row(null)) +
       (sug.length ? `<h4 class="hphead">${L('grpSuggested')}</h4>${sug.map(row).join('')}` : '') +
       Object.keys(groups)
         .map(k => `<h4 class="hphead" id="hp-${k}">${k}</h4>${groups[k].map(row).join('')}`)
@@ -262,7 +320,7 @@ function openPicker(id) {
       .join('');
   }
   $('hpSearch').value = '';
-  $('hpSearch').placeholder = L('hpSearch');
+  $('hpSearch').placeholder = L({ place: 'hpSearch', country: 'hpSearchC', offer: 'hpSearchO' }[kind]);
   $('hpCancel').textContent = L('cancel');
   render('');
   $('hpSearch').oninput = ev => render(ev.target.value);
@@ -278,7 +336,7 @@ function openPicker(id) {
     const b = ev.target.closest('[data-k]');
     if (!b) return;
     inp.value = b.dataset.k;
-    document.querySelector(`.hpbtn[data-for="${id}"] span`).textContent = placeLabel(byKey[b.dataset.k]);
+    if (btn) btn.querySelector('span').textContent = placeLabel(byKey[b.dataset.k], empty);
     D.close();
     inp.dispatchEvent(new Event('change'));
   };
@@ -302,7 +360,8 @@ document.addEventListener('click', ev => {
 // after the short quiz: the map is ready (and shown below); answering the rest is offered once, never required
 let QDONE = false,
   QMORE = false;
-const moreLeft = () => QUIZ.filter(q => !answered(q) && ANS[q.id] !== 'skip');
+const applies = q => !q.show || q.show();
+const moreLeft = () => QUIZ.filter(q => !answered(q) && ANS[q.id] !== 'skip' && applies(q));
 function renderDone() {
   const Q = $('qwrap'),
     m = moreLeft().length;
@@ -315,64 +374,68 @@ function renderDone() {
   };
   $('doneMore').onclick = sharpenQuiz;
 }
+let QDIR = 1; // which way the person last moved, so a question that doesn't apply is skipped in that direction
 function renderQuiz() {
   if (QDONE) return renderDone();
-  // the extra questions don't ask for home bases again
-  if (QMORE && QSTEP >= QLIST.length) return finishQuiz();
-  const total = QLIST.length + (QMORE ? 0 : 1),
-    n = QSTEP + 1;
+  if (QSTEP >= QLIST.length) return finishQuiz();
+  const cur = QLIST[QSTEP];
+  if (cur.show && !cur.show()) {
+    if (!answered(cur)) ANS[cur.id] = 'skip';
+    QSTEP = QDIR < 0 && QSTEP > 0 ? QSTEP - 1 : QSTEP + 1;
+    return renderQuiz();
+  }
+  const total = QLIST.length,
+    n = QSTEP + 1,
+    last = QSTEP === QLIST.length - 1;
   const Q = $('qwrap');
   let body;
-  if (QSTEP < QLIST.length && QLIST[QSTEP].picker)
-    body = (QSTEP === 0 ? `<p class="meta qtip">${L('qtip')}</p>` : '') + pickerBody(QLIST[QSTEP]);
-  else if (QSTEP < QLIST.length) {
-    const q = QLIST[QSTEP],
+  if (cur.picker) body = (QSTEP === 0 ? `<p class="meta qtip">${L('qtip')}</p>` : '') + pickerBody(cur);
+  else {
+    const q = cur,
       [title, opts] = qText(q.id),
       ord = ORDER[q.id] || opts.map((o, i) => i);
     // a trailing example in brackets becomes a quieter second line: "How much does X matter?" / "Think Tampico vs. New York."
     const mt = /^(.+?)\s*[(（](.+)[)）]\s*$/.exec(title),
       head = mt ? mt[1] : title,
-      sub = mt ? mt[2] : '';
-    body = `${QSTEP === 0 ? `<p class="meta qtip">${L('qtip')}</p>` : ''}<div class="qtitle">${head}</div>${sub ? `<p class="meta qsub">${sub}</p>` : ''}<div class="opts">${ord.map(i => `<button class="opt" data-i="${i}" aria-pressed="${ANS[q.id] === i}"><span class="dot"></span><span>${opts[i]}</span></button>`).join('')}</div>`;
-  } else
-    body = `<div class="qtitle">${L('homeQ')}</div><p class="meta">${L('homeSub')}</p><div style="display:flex;flex-wrap:wrap;gap:12px"><div class="field"><label class="lab" for="qh1">${L('home1')}</label>${homeSelect('qh1', HOMEKEYS[0] || '')}</div><div class="field"><label class="lab" for="qh2">${L('home2')}</label>${homeSelect('qh2', HOMEKEYS[1] || '')}</div></div>`;
+      sub = mt ? mt[2] : '',
+      ex = q.ex ? qExample(q.ex) : '';
+    body = `${QSTEP === 0 ? `<p class="meta qtip">${L('qtip')}</p>` : ''}<div class="qtitle">${head}</div>${sub ? `<p class="meta qsub">${sub}</p>` : ''}${ex ? `<p class="meta qsub qex">${ex}</p>` : ''}<div class="opts">${ord.map(i => `<button class="opt" data-i="${i}" aria-pressed="${ANS[q.id] === i}"><span class="dot"></span><span>${opts[i]}</span></button>`).join('')}</div>`;
+  }
   Q.innerHTML = `<div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><span class="lab">${fmt(L('qOf'), { n, t: total })}</span><button class="ghost" id="qSkip">${QMORE ? L('doneMap') : L('skip')}</button></div>
   <div class="progress"><span style="width:${Math.round((n / total) * 100)}%"></span></div>${body}
-  <div class="qnav"><button id="qBack" ${QSTEP === 0 ? 'hidden' : ''}>${L('back')}</button>${QSTEP < QLIST.length ? `<span class="toggles"><button class="ghost" id="qUnsure">${L('unsure')}</button>${answered(QLIST[QSTEP]) ? `<button id="qNext">${L('next')}</button>` : ''}</span>` : `<button class="primary" id="qDone">${L('finish')}</button>`}</div>`;
+  <div class="qnav"><button id="qBack" ${QSTEP === 0 ? 'style="visibility:hidden" tabindex="-1" aria-hidden="true"' : ''}>${L('back')}</button><span class="toggles"><button class="ghost" id="qUnsure">${L('unsure')}</button>${answered(cur) ? `<button id="qNext" ${last ? 'class="primary"' : ''}>${last ? L('finish') : L('next')}</button>` : ''}</span></div>`;
   Q.querySelectorAll('.opt').forEach(
     b =>
       (b.onclick = () => {
         ANS[QLIST[QSTEP].id] = +b.dataset.i;
         Q.querySelectorAll('.opt').forEach(x => x.setAttribute('aria-pressed', x === b));
         setTimeout(() => {
+          QDIR = 1;
           QSTEP++;
           renderQuiz();
         }, 180);
       })
   );
-  if (QSTEP < QLIST.length && QLIST[QSTEP].picker) wirePicker(QLIST[QSTEP]);
+  if (cur.picker) wirePicker(cur);
   if ($('qBack'))
     $('qBack').onclick = () => {
+      QDIR = -1;
       QSTEP = Math.max(0, QSTEP - 1);
       renderQuiz();
     };
   if ($('qNext'))
     $('qNext').onclick = () => {
+      QDIR = 1;
       QSTEP++;
       renderQuiz();
     };
   if ($('qUnsure'))
     $('qUnsure').onclick = () => {
       ANS[QLIST[QSTEP].id] = 'skip';
+      QDIR = 1;
       QSTEP++;
       renderQuiz();
     };
-  if ($('qh1')) {
-    $('qh1').onchange = $('qh2').onchange = () => {
-      HOMEKEYS = [$('qh1').value, $('qh2').value];
-    };
-  }
-  if ($('qDone')) $('qDone').onclick = finishQuiz;
   $('qSkip').onclick = () => {
     if (QMORE) return finishQuiz();
     $('quizPanel').hidden = true;
@@ -408,6 +471,7 @@ function sharpenQuiz() {
 function startQuiz(full) {
   ANS = {};
   QSTEP = 0;
+  QDIR = 1;
   QDONE = QMORE = false;
   HOMEKEYS = [];
   QLIST = full === true ? QUIZ.slice() : QUIZ.filter(q => SIMPLE.includes(q.id));
@@ -415,7 +479,8 @@ function startQuiz(full) {
   QUIZ.forEach(q => {
     const n = QSTR.en[q.id][1].length,
       idx = [...Array(n).keys()];
-    if (q.nominal) {
+    if (q.last) ORDER[q.id] = shuffle(idx.filter(i => !q.last.includes(i))).concat(q.last);
+    else if (q.nominal) {
       const k = q.fixed || 0;
       ORDER[q.id] = shuffle(idx.slice(0, n - k)).concat(idx.slice(n - k));
     }
@@ -428,7 +493,7 @@ function startQuiz(full) {
 function renderDefaults() {
   const el = $('vsDefaults');
   if (!el) return;
-  const un = QUIZ.filter(q => !answered(q));
+  const un = QUIZ.filter(q => !answered(q) && q.picker !== 'where' && applies(q)); // home bases are set in the settings panel
   if (!un.length) {
     el.innerHTML = '';
     return;
@@ -479,7 +544,7 @@ function applyQuizAnswers() {
   LASTS = false;
 }
 function finishQuiz() {
-  if ($('qh1')) HOMEKEYS = [$('qh1').value, $('qh2').value].filter(Boolean);
+  if (picked(ANS.where)) HOMEKEYS = (ANS.where.keys || []).filter(k => byKey[k]);
   applyQuizAnswers();
   HOMES = homesFromKeys(HOMEKEYS);
   gate = gateOpen = norm = true;

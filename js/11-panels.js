@@ -863,18 +863,14 @@ function renderEff() {
 function offersUI() {
   const el = $('offerRows');
   if (!el) return;
-  const opts = ents
-    .filter(e => e.type === 'city' && MONEYD[e.name])
-    .sort((a, b) => dn(a).localeCompare(dn(b), LANG));
   const prev = [0, 1, 2].map(i => [$('of' + i)?.value || '', $('op' + i)?.value || '']);
   el.innerHTML = [0, 1, 2]
     .map(
       i =>
-        `<div class="toggles"><select id="of${i}" aria-label="${L('offerCity')} ${i + 1}"><option value="">${L('offerCity')} ${i + 1}</option>${opts.map(e => `<option value="${e.key}">${dn(e)}</option>`).join('')}</select><label class="meta" style="display:flex;gap:6px;align-items:center">${L('offerPay')} <input type="number" id="op${i}" min="0" step="50" inputmode="numeric" style="width:110px;font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--fg)"></label></div>`
+        `<div class="toggles">${homeSelect('of' + i, prev[i][0], 'offer', L('offerCity') + ' ' + (i + 1))}<label class="meta" style="display:flex;gap:6px;align-items:center">${L('offerPay')} <input type="number" id="op${i}" min="0" step="50" inputmode="numeric" style="width:110px;font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--fg)"></label></div>`
     )
     .join('');
   [0, 1, 2].forEach(i => {
-    $('of' + i).value = prev[i][0];
     $('op' + i).value = prev[i][1];
     $('of' + i).onchange = renderOffers;
     $('op' + i).oninput = renderOffers;
@@ -973,10 +969,6 @@ function selectsUI() {
     .querySelectorAll('#regions button')
     .forEach(b => (b.onclick = () => regionView(b.dataset.r, true)));
   $('search').placeholder = L('findPh');
-  $('names').innerHTML = orderedPlaces(false)
-    .flatMap(([g, arr]) => arr)
-    .map(e => `<option value="${dn(e)}">`)
-    .join('');
 }
 function impSection() {
   const M = DATA.meta || {},

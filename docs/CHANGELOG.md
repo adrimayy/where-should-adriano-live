@@ -23,6 +23,12 @@ How the method changed, and what it did to the top of Adriano's list.
 - **Census data for US metros:** commute (361 metros), rental vacancy (297) and money after rent (86) are now measured.
   Driving-alone share was rejected as a car-dependence measure. The share of city scores filled in fell from 61% to 49%.
 
+- **Quiz rework; one place lookup (v51):** about-you questions first, home as a regular step, how-to-judge questions last.
+  Merged questions that measured the same thing (job market + big city; freedom + honest officials), dropped planning
+  horizon and life satisfaction (now half weight by default): 29 questions became 25. Examples under questions are built
+  from the visitor's own home instead of New York and Mexico; US politics is asked only of people tied to the US; a
+  "cold winters" weather answer. Passports, home bases and job offers all use the searchable place list. Fixed: visitors
+  who gave no passport were treated as having Adriano's US and Mexican ones, and unanswered languages defaulted to English.
 - **Lakes on the map (v50):** the country outlines count big lakes as land, so the Great Lakes were missing and Michigan,
   Wisconsin and Ontario ran together, as did Lake Victoria, Baikal, Titicaca and others. Natural Earth's lakes are now
   painted on top as water, at the scale matching each outline level, and clicking a lake no longer selects a country.

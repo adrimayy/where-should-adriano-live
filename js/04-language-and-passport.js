@@ -52,7 +52,8 @@ function climFor(e, m) {
   if (e.base.clim == null) return null;
   if (m === 'mild' || !e.hasGeo) return e.base.clim;
   const w = warmth(e);
-  return m === 'warm' ? [0, 1, 2, 4, 5, 5][w] : [0, 3, 5, 4, 2, 1][w];
+  // warmth 1 (coldest) to 5 (hottest); 'cool' = four seasons, 'cold' = the colder the better
+  return m === 'warm' ? [0, 1, 2, 4, 5, 5][w] : m === 'cold' ? [0, 5, 4, 3, 2, 1][w] : [0, 3, 5, 4, 2, 1][w];
 }
 function jobsFor(e, f) {
   return e.base.jobs;
@@ -246,7 +247,7 @@ function passCode(ps) {
   const s = [...new Set(ps)].sort((a, b) => a - b);
   for (const [c, v] of Object.entries(LEGACY_PM))
     if (v.length === s.length && [...v].sort((a, b) => a - b).every((x, i) => x === s[i])) return c;
-  return s.length ? 'P:' + s.join(',') : 'usmx';
+  return 'P:' + s.join(','); // no passports given means none, never Adriano's (an empty 'P:' reads back as [])
 }
 function permRule(n, ps) {
   n = +n;

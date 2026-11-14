@@ -2,7 +2,7 @@
 
 An interactive map that scores every country and 744 cities (every US metro area and major world cities) on 23 factors (healthcare, housing, jobs, climate, safety,
 freedom, clean air, corruption, working hours, disaster risk and more), using published data from sources like the WHO, the UN, the FBI, Numbeo and the World Happiness Report.
-A 6-question quiz re-weights everything for you: any languages you speak, any passports you hold, any home city. Interface in English,
+A 7-question quiz re-weights everything for you: any languages you speak, any passports you hold, any home city. Interface in English,
 Spanish, Portuguese, French, German, Chinese, Hindi and Arabic. It started as Adriano's own search; people who know him
 can turn on his picks to compare.
 
