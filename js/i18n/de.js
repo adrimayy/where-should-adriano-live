@@ -12,6 +12,8 @@ I18N({
     doneMore: 'Genauer machen ({m} weitere)',
     doneMap: 'Meine Karte ansehen',
     hpSearch: 'Städte und Länder suchen',
+    hpSearchC: 'Länder suchen',
+    hpSearchO: 'Städte suchen',
     cancel: 'Abbrechen',
     noMatch: 'Keine Treffer',
     gatedNote:
@@ -35,7 +37,7 @@ I18N({
     eyebrow: 'Lebensqualitäts-Atlas · November 2026',
     h1: 'Wo solltest du leben?',
     intro1:
-      'Jedes Land und {NCITIES} Städte, nach denselben 23 Kriterien aus veröffentlichten Daten bewertet. Beantworte sechs Fragen, und die Karte sortiert sie für dich.',
+      'Jedes Land und {NCITIES} Städte, nach denselben 23 Kriterien aus veröffentlichten Daten bewertet. Beantworte sieben Fragen, und die Karte sortiert sie für dich.',
     prioTitle: 'Meine wichtigsten Prioritäten',
     prio: [
       'Effizienz und Fußläufigkeit',
@@ -62,6 +64,7 @@ I18N({
     passHint:
       'Füge alle deine Pässe hinzu. Staatsbürgerschaft, Freizügigkeitszonen wie die EU und besondere Wege zählen.',
     passAdd: 'Pass hinzufügen',
+    passAddBtn: 'Land auswählen',
     passIgnore: 'Arbeitserlaubnisse ignorieren',
     remove: 'Entfernen',
     back: 'Zurück',
@@ -100,7 +103,9 @@ I18N({
     grpCities: 'Städte',
     grpCountries: 'Länder',
     homeQ: 'Wo ist dein Zuhause?',
-    homeSub: 'Damit werden Flugzeiten nach Hause geschätzt. Optional.',
+    homeSub: 'Für die Reisezeit nach Hause, was dir vertraut ist, und die Vergleiche in den nächsten Fragen. Optional.',
+    qCmp: '{a} kommt hier auf {x} von 5. Am besten in der Region: {b} mit {y}.',
+    qCmpTop: '{a} kommt hier auf {x} von 5, so gut wie das Beste in der Region.',
     home1: 'Heimatbasis',
     home2: 'Zweite Heimatbasis (optional)',
     none: 'Keine',
@@ -354,8 +359,8 @@ I18N({
       field: 'allgemeiner Arbeitsmarkt',
       clim: 'mildes Klima',
       pol: 'Politik ausgelassen',
-      lang: 'nur Englisch',
-      perm: 'US-Pass',
+      lang: 'die Sprachen deines Browsers',
+      perm: 'kein Pass angegeben: Arbeitserlaubnis wie für alle',
       reach: 'nein',
       agg: 'Stärken können eine Schwäche ausgleichen',
       sure: 'gut gemessene Orte zuerst',
@@ -428,6 +433,7 @@ I18N({
     kin: ['Kulturelle Vertrautheit', 'Kulturell fremd'],
   },
   QSTR: {
+    where: ['Wo ist dein Zuhause?', []],
     kin: [
       'Sollen kulturell vertraute Orte mehr zählen? (Gleiche Sprache oder Region wie deine Herkunft.)',
       ['Nein', 'Ein wenig', 'Sehr'],
@@ -448,62 +454,27 @@ I18N({
       'Würdest du ein paar Tage pro Woche in eine größere Stadt pendeln?',
       ['Ja, bis 1,5 Stunden pro Strecke', 'Nein, ich arbeite, wo ich wohne'],
     ],
-    horizon: ['Wie weit planst du voraus?', ['Erster Job (2–3 Jahre)', 'Etwa 5 Jahre', 'Langfristig']],
-    jobs: [
-      'Wie wichtig ist ein großer Arbeitsmarkt? (Tampico gegenüber New York.)',
-      ['Wenig', 'Etwas', 'Sehr'],
-    ],
-    pay: [
-      'Wie wichtig ist das Geld, das nach der Miete bleibt? (Etwa 1.700 $ im Monat in New York gegenüber 4.000 $ in Pittsburgh.)',
-      ['Wenig', 'Etwas', 'Sehr'],
-    ],
-    home: [
-      'Wie wichtig ist eine einfache Wohnungssuche? (In New York stehen nur 1,4 % leer.)',
-      ['Wenig', 'Etwas', 'Sehr'],
-    ],
+    jobs: ['Wie wichtig ist eine große, lebendige Stadt? (Mehr Jobs und mehr los.)', ['Wenig', 'Etwas', 'Sehr']],
+    pay: ['Wie wichtig ist das Geld, das nach der Miete bleibt?', ['Wenig', 'Etwas', 'Sehr']],
+    home: ['Wie wichtig ist eine einfache Wohnungssuche?', ['Wenig', 'Etwas', 'Sehr']],
     move: [
       'Wie willst du dich fortbewegen?',
       ['Autofahren ist okay', 'Nahverkehr und etwas Auto', 'Ganz ohne Auto'],
     ],
     commute: ['Wie wichtig ist ein kurzer Arbeitsweg? (20 statt 45 Minuten.)', ['Wenig', 'Etwas', 'Sehr']],
-    hlth: [
-      'Wie wichtig ist eine Gesundheitsversorgung, die nicht vom Job abhängt?',
-      ['Wenig', 'Etwas', 'Sehr'],
-    ],
-    clim: [
-      'Welches Wetter passt zu dir?',
-      [
+    hlth: ['Wie wichtig ist eine gute Gesundheitsversorgung, die allen offensteht?', ['Wenig', 'Etwas', 'Sehr']],
+    clim: ['Welches Wetter passt zu dir?', [
         'Das ganze Jahr mild (San Francisco, Lissabon)',
         'Heiß und sonnig (Miami, Singapur)',
         'Vier Jahreszeiten, Schnee ist okay (Toronto, Berlin)',
         'Sonnige Winter (Madrid, Los Angeles)',
-        'Wetter ist mir nicht so wichtig',
-      ],
-    ],
+        'Wetter ist mir nicht so wichtig', 'Kalte, schneereiche Winter sind ein Plus (Oslo, Montreal)']],
     open: ['Wie wichtig ist es, leicht Freunde zu finden?', ['Wenig', 'Etwas', 'Sehr']],
-    cult: ['Wie wichtig ist eine große, lebendige Stadt?', ['Wenig', 'Etwas', 'Sehr']],
     fam: ['Wie wichtig ist eine kurze Reise nach Hause? (3 statt 12 Stunden.)', ['Wenig', 'Etwas', 'Sehr']],
     safe: ['Wie wichtig ist wenig Kriminalität?', ['Wenig', 'Etwas', 'Sehr']],
-    happy: [
-      'Wie wichtig ist es, dass die Menschen dort mit ihrem Leben zufrieden sind? (Dänemark statt Weltdurchschnitt.)',
-      ['Wenig', 'Etwas', 'Sehr'],
-    ],
-    air: [
-      'Wie wichtig ist saubere Luft? (Die Luft in Madrid statt in Mexiko-Stadt: halb so viel Feinstaub.)',
-      ['Wenig', 'Etwas', 'Sehr'],
-    ],
-    honest: [
-      'Wie wichtig ist es, dass Behörden und Polizei nicht korrupt sind? (Dänemark statt Mexiko im Index von Transparency International.)',
-      ['Wenig', 'Etwas', 'Sehr'],
-    ],
-    hours: [
-      'Wie wichtig ist Freizeit? (Arbeitszeiten wie in Deutschland statt wie in Mexiko: etwa 15 Stunden weniger pro Woche.)',
-      ['Wenig', 'Etwas', 'Sehr'],
-    ],
-    risk: [
-      'Wie wichtig ist ein geringes Risiko für Naturkatastrophen? (Die Niederlande statt Mexiko: weniger Überschwemmungen, Erdbeben und Stürme, und weniger Schaden.)',
-      ['Wenig', 'Etwas', 'Sehr'],
-    ],
+    air: ['Wie wichtig ist saubere Luft?', ['Wenig', 'Etwas', 'Sehr']],
+    hours: ['Wie wichtig ist Freizeit?', ['Wenig', 'Etwas', 'Sehr']],
+    risk: ['Wie wichtig ist ein geringes Risiko für Naturkatastrophen?', ['Wenig', 'Etwas', 'Sehr']],
     weak: [
       'Können die Stärken eines Ortes eine ernste Schwäche ausgleichen? (Gute Jobs, aber wenig Sicherheit, zum Beispiel.)',
       ['Ja, Stärken können das ausgleichen', 'Nein, eine ernste Schwäche verdirbt einen Ort'],
@@ -515,10 +486,7 @@ I18N({
         'Nach der besten Schätzung: Ich gehe das Risiko ein',
       ],
     ],
-    free: [
-      'Wie wichtig sind politische Freiheiten? (Freie Presse, Recht auf Protest.)',
-      ['Wenig', 'Etwas', 'Sehr'],
-    ],
+    free: ['Wie wichtig sind politische Freiheit und ehrliche Behörden? (Freie Presse, Demonstrationsrecht, Polizei und Beamte, die keine Bestechung annehmen.)', ['Wenig', 'Etwas', 'Sehr']],
     women: [
       'Wie stark sollen Sicherheit und Rechte von Frauen zählen?',
       ['Gar nicht', 'Ein wenig', 'Ziemlich', 'Sehr: es betrifft mich oder Menschen, mit denen ich lebe'],

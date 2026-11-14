@@ -12,6 +12,8 @@ I18N({
     doneMore: 'Deixar mais preciso (mais {m})',
     doneMap: 'Ver meu mapa',
     hpSearch: 'Buscar cidades e países',
+    hpSearchC: 'Buscar países',
+    hpSearchO: 'Buscar cidades',
     cancel: 'Cancelar',
     noMatch: 'Nenhum resultado',
     gatedNote:
@@ -35,7 +37,7 @@ I18N({
     eyebrow: 'Atlas de qualidade de vida · novembro de 2026',
     h1: 'Onde você deveria morar?',
     intro1:
-      'Todos os países e {NCITIES} cidades, avaliados nos mesmos 23 critérios com dados publicados. Responda seis perguntas e o mapa os ordena para você.',
+      'Todos os países e {NCITIES} cidades, avaliados nos mesmos 23 critérios com dados publicados. Responda sete perguntas e o mapa os ordena para você.',
     prioTitle: 'Minhas prioridades',
     prio: [
       'Eficiência e poder andar a pé',
@@ -62,6 +64,7 @@ I18N({
     passHint:
       'Adicione todos os seus passaportes. Cidadania, zonas de livre circulação como a UE e rotas especiais contam.',
     passAdd: 'Adicionar um passaporte',
+    passAddBtn: 'Escolher um país',
     passIgnore: 'Ignorar permissões de trabalho',
     remove: 'Remover',
     back: 'Voltar',
@@ -100,7 +103,9 @@ I18N({
     grpCities: 'Cidades',
     grpCountries: 'Países',
     homeQ: 'Onde é a sua casa?',
-    homeSub: 'Usado para estimar o tempo de voo para casa. Opcional.',
+    homeSub: 'Usado para o tempo de viagem até sua casa, o que é familiar para você e as comparações das próximas perguntas. Opcional.',
+    qCmp: '{a} tem {x} de 5 nisso. O melhor da região é {b}, com {y}.',
+    qCmpTop: '{a} tem {x} de 5 nisso, tão bem quanto o melhor da região.',
     home1: 'Base principal',
     home2: 'Segunda base (opcional)',
     none: 'Nenhuma',
@@ -353,8 +358,8 @@ I18N({
       field: 'mercado de trabalho geral',
       clim: 'clima ameno',
       pol: 'política fora',
-      lang: 'só inglês',
-      perm: 'passaporte dos EUA',
+      lang: 'os idiomas do seu navegador',
+      perm: 'nenhum passaporte informado: permissões de trabalho como para qualquer pessoa',
       reach: 'não',
       agg: 'pontos fortes podem compensar um ponto fraco',
       sure: 'lugares bem medidos primeiro',
@@ -421,6 +426,7 @@ I18N({
     kin: ['Familiaridade cultural', 'Culturalmente desconhecido'],
   },
   QSTR: {
+    where: ['Onde é a sua casa?', []],
     kin: [
       'Lugares culturalmente familiares devem contar mais? (Mesmo idioma ou região de onde você vem.)',
       ['Não', 'Um pouco', 'Muito'],
@@ -441,22 +447,9 @@ I18N({
       'Você iria a uma cidade maior alguns dias por semana?',
       ['Sim, até 1h30 por trecho', 'Não, trabalharia onde moro'],
     ],
-    horizon: [
-      'Para quando você está planejando?',
-      ['Primeiro emprego (2–3 anos)', 'Uns 5 anos', 'Longo prazo'],
-    ],
-    jobs: [
-      'Quanto importa um mercado de trabalho grande? (Pense em Tampico vs. Nova York.)',
-      ['Pouco', 'Mais ou menos', 'Muito'],
-    ],
-    pay: [
-      'Quanto importa o dinheiro que sobra depois do aluguel? (Cerca de US$ 1.700 por mês em Nova York vs. US$ 4.000 em Pittsburgh.)',
-      ['Pouco', 'Mais ou menos', 'Muito'],
-    ],
-    home: [
-      'Quanto importa achar apartamento com facilidade? (Em Nova York, só 1,4% está vago.)',
-      ['Pouco', 'Mais ou menos', 'Muito'],
-    ],
+    jobs: ['Quanto importa uma cidade grande e movimentada? (Mais empregos e mais coisas acontecendo.)', ['Pouco', 'Mais ou menos', 'Muito']],
+    pay: ['Quanto importa o dinheiro que sobra depois do aluguel?', ['Pouco', 'Mais ou menos', 'Muito']],
+    home: ['Quanto importa achar apartamento com facilidade?', ['Pouco', 'Mais ou menos', 'Muito']],
     move: [
       'Como você quer se locomover?',
       ['Dirigir está bem', 'Transporte público e um pouco de carro', 'Sem carro'],
@@ -465,44 +458,22 @@ I18N({
       'Quanto importa um trajeto curto? (20 minutos em vez de 45.)',
       ['Pouco', 'Mais ou menos', 'Muito'],
     ],
-    hlth: ['Quanto importa uma saúde que não dependa do seu emprego?', ['Pouco', 'Mais ou menos', 'Muito']],
-    clim: [
-      'Que clima combina com você?',
-      [
+    hlth: ['Quanto importa uma boa saúde acessível a todos?', ['Pouco', 'Mais ou menos', 'Muito']],
+    clim: ['Que clima combina com você?', [
         'Ameno o ano todo (São Francisco, Lisboa)',
         'Quente e ensolarado (Miami, Singapura)',
         'Quatro estações, com neve (Toronto, Berlim)',
         'Invernos ensolarados (Madri, Los Angeles)',
-        'O clima pouco importa',
-      ],
-    ],
+        'O clima pouco importa', 'Invernos frios e com neve, melhor ainda (Oslo, Montreal)']],
     open: ['Quanto importa fazer amigos com facilidade?', ['Pouco', 'Mais ou menos', 'Muito']],
-    cult: ['Quanto importa uma cidade grande e movimentada?', ['Pouco', 'Mais ou menos', 'Muito']],
     fam: [
       'Quanto importa uma viagem curta para casa? (3 horas em vez de 12.)',
       ['Pouco', 'Mais ou menos', 'Muito'],
     ],
     safe: ['Quanto importa ter pouca criminalidade?', ['Pouco', 'Mais ou menos', 'Muito']],
-    happy: [
-      'Quanto importa que as pessoas que moram lá estejam satisfeitas com a vida? (Dinamarca em vez da média mundial.)',
-      ['Pouco', 'Mais ou menos', 'Muito'],
-    ],
-    air: [
-      'Quanto importa o ar limpo? (O ar de Madri em vez do da Cidade do México: metade das partículas finas.)',
-      ['Pouco', 'Mais ou menos', 'Muito'],
-    ],
-    honest: [
-      'Quanto importa que funcionários públicos e a polícia não sejam corruptos? (Dinamarca em vez do México no índice da Transparência Internacional.)',
-      ['Pouco', 'Mais ou menos', 'Muito'],
-    ],
-    hours: [
-      'Quanto importa o tempo livre? (Jornadas como as da Alemanha em vez das do México: cerca de 15 horas a menos por semana.)',
-      ['Pouco', 'Mais ou menos', 'Muito'],
-    ],
-    risk: [
-      'Quanto importa um risco baixo de desastres naturais? (Países Baixos em vez do México: menos enchentes, terremotos e tempestades, e menos estragos.)',
-      ['Pouco', 'Mais ou menos', 'Muito'],
-    ],
+    air: ['Quanto importa o ar limpo?', ['Pouco', 'Mais ou menos', 'Muito']],
+    hours: ['Quanto importa o tempo livre?', ['Pouco', 'Mais ou menos', 'Muito']],
+    risk: ['Quanto importa um risco baixo de desastres naturais?', ['Pouco', 'Mais ou menos', 'Muito']],
     weak: [
       'Os pontos fortes de um lugar compensam um ponto fraco sério? (Bons empregos mas pouca segurança, por exemplo.)',
       ['Sim, os pontos fortes podem compensar', 'Não, um ponto fraco sério estraga o lugar'],
@@ -511,10 +482,7 @@ I18N({
       'Quando há poucos dados sobre um lugar, como ele deve ser ordenado?',
       ['Mais abaixo: prefiro lugares bem medidos', 'Pela melhor estimativa: aceito o risco'],
     ],
-    free: [
-      'Quanto importam as liberdades políticas? (Imprensa livre, direito de protestar.)',
-      ['Pouco', 'Mais ou menos', 'Muito'],
-    ],
+    free: ['Quanto importam a liberdade política e autoridades honestas? (Imprensa livre, direito de protestar, policiais e funcionários que não aceitam propina.)', ['Pouco', 'Mais ou menos', 'Muito']],
     women: [
       'Quanto devem contar a segurança e os direitos das mulheres?',
       ['Nada', 'Um pouco', 'Bastante', 'Muito: afeta a mim ou a quem moraria comigo'],

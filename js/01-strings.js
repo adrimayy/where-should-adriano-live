@@ -15,7 +15,7 @@ const STR = {
     intro1:
       'Every country and ' +
       DATA.cities.length +
-      ' cities, scored on the same 23 things from published data. Answer six questions and the map ranks them for you.',
+      ' cities, scored on the same 23 things from published data. Answer seven questions and the map ranks them for you.',
     prioTitle: 'My top priorities',
     prio: [
       'Efficiency and walkability',
@@ -39,6 +39,8 @@ const STR = {
     doneMore: 'Make it more accurate ({m} more)',
     doneMap: 'See my map',
     hpSearch: 'Search cities and countries',
+    hpSearchC: 'Search countries',
+    hpSearchO: 'Search cities',
     cancel: 'Cancel',
     noMatch: 'No matches',
     gatedNote:
@@ -63,6 +65,7 @@ const STR = {
     passHint:
       'Add every passport you hold. Citizenship, free-movement zones like the EU and special routes all count.',
     passAdd: 'Add a passport',
+    passAddBtn: 'Choose a country',
     passIgnore: 'Ignore work permits',
     remove: 'Remove',
     back: 'Back',
@@ -101,7 +104,9 @@ const STR = {
     grpCities: 'Cities',
     grpCountries: 'Countries',
     homeQ: 'Where is home for you?',
-    homeSub: 'Used to estimate flight times back home. Optional.',
+    homeSub: 'Used for travel time home, what feels familiar, and the comparisons in later questions. Optional.',
+    qCmp: '{a} scores {x} of 5 on this. The best nearby is {b}, at {y}.',
+    qCmpTop: '{a} scores {x} of 5 on this, as good as anywhere nearby.',
     home1: 'Home base',
     home2: 'Second home base (optional)',
     none: 'None',
@@ -352,8 +357,8 @@ const STR = {
       field: 'general job market',
       clim: 'mild climate',
       pol: 'politics left out',
-      lang: 'English only',
-      perm: 'US passport',
+      lang: 'the languages your browser is set to',
+      perm: 'no passport given: work permits as for anyone',
       reach: 'no',
       agg: 'strengths can make up for a weak spot',
       sure: 'well-measured places first',
@@ -400,7 +405,7 @@ const STR = {
     intro1:
       'Todos los países y ' +
       DATA.cities.length +
-      ' ciudades, calificados en las mismas 19 cosas con datos publicados. Responde seis preguntas y el mapa los ordena para ti.',
+      ' ciudades, calificados en las mismas 23 cosas con datos publicados. Responde siete preguntas y el mapa los ordena para ti.',
     prioTitle: 'Mis prioridades principales',
     prio: [
       'Eficiencia y poder caminar a todo',
@@ -425,6 +430,8 @@ const STR = {
     doneMore: 'Hacerlo más preciso ({m} más)',
     doneMap: 'Ver mi mapa',
     hpSearch: 'Buscar ciudades y países',
+    hpSearchC: 'Buscar países',
+    hpSearchO: 'Buscar ciudades',
     cancel: 'Cancelar',
     noMatch: 'Sin resultados',
     gatedNote:
@@ -450,6 +457,7 @@ const STR = {
     passHint:
       'Agrega todos tus pasaportes. Cuentan la ciudadanía, las zonas de libre circulación como la UE y las vías especiales.',
     passAdd: 'Agregar un pasaporte',
+    passAddBtn: 'Elige un país',
     passIgnore: 'Ignorar los permisos de trabajo',
     remove: 'Quitar',
     back: 'Atrás',
@@ -488,7 +496,9 @@ const STR = {
     grpCities: 'Ciudades',
     grpCountries: 'Países',
     homeQ: '¿Dónde está tu hogar?',
-    homeSub: 'Se usa para estimar el tiempo de vuelo a casa. Opcional.',
+    homeSub: 'Se usa para el tiempo de viaje a casa, lo que te resulta familiar y las comparaciones de las siguientes preguntas. Opcional.',
+    qCmp: '{a} tiene {x} de 5 en esto. Lo mejor de la región es {b}, con {y}.',
+    qCmpTop: '{a} tiene {x} de 5 en esto, tan bien como lo mejor de la región.',
     home1: 'Hogar',
     home2: 'Segundo hogar (opcional)',
     none: 'Ninguno',
@@ -742,8 +752,8 @@ const STR = {
       field: 'mercado laboral general',
       clim: 'clima templado',
       pol: 'sin política',
-      lang: 'solo inglés',
-      perm: 'pasaporte estadounidense',
+      lang: 'los idiomas de tu navegador',
+      perm: 'sin pasaporte indicado: permisos de trabajo como para cualquiera',
       reach: 'no',
       agg: 'las ventajas pueden compensar un punto débil',
       sure: 'primero los lugares bien medidos',
@@ -841,6 +851,7 @@ const FSTR = {
 };
 const QSTR = {
   en: {
+    where: ['Where is home for you?', []],
     field: [
       'What’s your field?',
       [
@@ -857,22 +868,9 @@ const QSTR = {
       'Would you commute to a bigger city a few days a week?',
       ['Yes, up to 1.5 hours each way', 'No, I’d work where I live'],
     ],
-    horizon: [
-      'How far ahead are you planning?',
-      ['My first job (2–3 years)', 'About 5 years', 'The long term'],
-    ],
-    jobs: [
-      'How much does a big job market matter? (Think Tampico vs. New York.)',
-      ['Not much', 'Somewhat', 'A lot'],
-    ],
-    pay: [
-      'How much does money left after rent matter? (About $1,700 a month in New York vs. $4,000 in Pittsburgh.)',
-      ['Not much', 'Somewhat', 'A lot'],
-    ],
-    home: [
-      'How much does an easy apartment hunt matter? (In New York, only 1.4% of rentals are empty.)',
-      ['Not much', 'Somewhat', 'A lot'],
-    ],
+    jobs: ['How much does a big, busy city matter? (More jobs and more going on.)', ['Not much', 'Somewhat', 'A lot']],
+    pay: ['How much does money left after rent matter?', ['Not much', 'Somewhat', 'A lot']],
+    home: ['How much does an easy apartment hunt matter?', ['Not much', 'Somewhat', 'A lot']],
     move: [
       'How do you want to get around?',
       ['Driving is fine', 'Transit, plus some driving', 'No car at all'],
@@ -881,22 +879,14 @@ const QSTR = {
       'How much does a short commute matter? (20 minutes instead of 45.)',
       ['Not much', 'Somewhat', 'A lot'],
     ],
-    hlth: [
-      'How much does healthcare that doesn’t depend on your job matter?',
-      ['Not much', 'Somewhat', 'A lot'],
-    ],
-    clim: [
-      'What weather suits you?',
-      [
+    hlth: ['How much does good healthcare that everyone can get matter?', ['Not much', 'Somewhat', 'A lot']],
+    clim: ['What weather suits you?', [
         'Mild all year (San Francisco, Lisbon)',
         'Hot and sunny (Miami, Singapore)',
         'Four seasons, snow is fine (Toronto, Berlin)',
         'Sunny winters (Madrid, Los Angeles)',
-        'Weather doesn’t matter much',
-      ],
-    ],
+        'Weather doesn’t matter much', 'Cold, snowy winters are a plus (Oslo, Montreal)']],
     open: ['How much does making friends easily matter?', ['Not much', 'Somewhat', 'A lot']],
-    cult: ['How much does a big, busy city matter?', ['Not much', 'Somewhat', 'A lot']],
     kin: [
       'Should places that feel culturally familiar count more? (Same language or region as where you’re from.)',
       ['No', 'A little', 'A lot'],
@@ -906,26 +896,9 @@ const QSTR = {
       ['Not much', 'Somewhat', 'A lot'],
     ],
     safe: ['How much does low crime matter?', ['Not much', 'Somewhat', 'A lot']],
-    happy: [
-      'How much does it matter that people who live there are satisfied with their lives? (Denmark instead of the world average.)',
-      ['Not much', 'Somewhat', 'A lot'],
-    ],
-    air: [
-      'How much does clean air matter? (Madrid’s air instead of Mexico City’s: half the fine-particle pollution.)',
-      ['Not much', 'Somewhat', 'A lot'],
-    ],
-    honest: [
-      'How much does it matter that officials and police aren’t corrupt? (Denmark instead of Mexico on Transparency International’s index.)',
-      ['Not much', 'Somewhat', 'A lot'],
-    ],
-    hours: [
-      'How much does time off matter? (Working hours like Germany’s instead of Mexico’s: about 15 fewer hours a week.)',
-      ['Not much', 'Somewhat', 'A lot'],
-    ],
-    risk: [
-      'How much does a low risk of natural disasters matter? (The Netherlands instead of Mexico: floods, quakes and storms hit less, and cause less harm.)',
-      ['Not much', 'Somewhat', 'A lot'],
-    ],
+    air: ['How much does clean air matter?', ['Not much', 'Somewhat', 'A lot']],
+    hours: ['How much does time off matter?', ['Not much', 'Somewhat', 'A lot']],
+    risk: ['How much does a low risk of natural disasters matter?', ['Not much', 'Somewhat', 'A lot']],
     weak: [
       'Can a place’s strengths make up for one serious weak spot? (Great jobs but poor safety, say.)',
       ['Yes, strengths can make up for it', 'No, one serious weak spot spoils a place'],
@@ -934,10 +907,7 @@ const QSTR = {
       'When the data on a place is thin, how should it rank?',
       ['Lower: I prefer well-measured places', 'By its best guess: I’ll take the chance'],
     ],
-    free: [
-      'How much do political freedoms matter? (A free press, the right to protest.)',
-      ['Not much', 'Somewhat', 'A lot'],
-    ],
+    free: ['How much do political freedom and honest officials matter? (A free press, the right to protest, police and officials who don’t take bribes.)', ['Not much', 'Somewhat', 'A lot']],
     women: [
       'How much should women’s safety and rights count?',
       ['Not at all', 'A little', 'Quite a bit', 'A lot: it affects me or people I’d live with'],
@@ -967,6 +937,7 @@ const QSTR = {
     ],
   },
   es: {
+    where: ['¿Dónde está tu hogar?', []],
     field: [
       '¿A qué te dedicas?',
       [
@@ -983,63 +954,28 @@ const QSTR = {
       '¿Viajarías a una ciudad más grande algunos días a la semana?',
       ['Sí, hasta 1.5 horas por trayecto', 'No, trabajaría donde vivo'],
     ],
-    horizon: [
-      '¿A qué plazo estás pensando?',
-      ['Mi primer trabajo (2–3 años)', 'Unos 5 años', 'A largo plazo'],
-    ],
-    jobs: [
-      '¿Cuánto te importa un mercado laboral grande? (Piensa en Tampico frente a Nueva York.)',
-      ['Poco', 'Algo', 'Mucho'],
-    ],
-    pay: [
-      '¿Cuánto te importa el dinero que queda tras la renta? (Unos $1,700 al mes en Nueva York frente a $4,000 en Pittsburgh.)',
-      ['Poco', 'Algo', 'Mucho'],
-    ],
-    home: [
-      '¿Cuánto te importa encontrar departamento fácilmente? (En Nueva York solo el 1.4% está libre.)',
-      ['Poco', 'Algo', 'Mucho'],
-    ],
+    jobs: ['¿Cuánto te importa una ciudad grande y con mucha vida? (Más empleo y más cosas que hacer.)', ['Poco', 'Algo', 'Mucho']],
+    pay: ['¿Cuánto te importa el dinero que queda tras la renta?', ['Poco', 'Algo', 'Mucho']],
+    home: ['¿Cuánto te importa encontrar departamento fácilmente?', ['Poco', 'Algo', 'Mucho']],
     move: ['¿Cómo quieres moverte?', ['Manejar está bien', 'Transporte público y algo de auto', 'Sin auto']],
     commute: ['¿Cuánto te importa un trayecto corto? (20 minutos en vez de 45.)', ['Poco', 'Algo', 'Mucho']],
-    hlth: ['¿Cuánto te importa una salud que no dependa de tu trabajo?', ['Poco', 'Algo', 'Mucho']],
-    clim: [
-      '¿Qué clima te va?',
-      [
+    hlth: ['¿Cuánto te importa una buena atención médica al alcance de todos?', ['Poco', 'Algo', 'Mucho']],
+    clim: ['¿Qué clima te va?', [
         'Templado todo el año (San Francisco, Lisboa)',
         'Calor y sol (Miami, Singapur)',
         'Cuatro estaciones, con nieve (Toronto, Berlín)',
         'Inviernos soleados (Madrid, Los Ángeles)',
-        'El clima me da casi igual',
-      ],
-    ],
+        'El clima me da casi igual', 'Inviernos fríos y con nieve, mejor (Oslo, Montreal)']],
     open: ['¿Cuánto te importa hacer amigos fácilmente?', ['Poco', 'Algo', 'Mucho']],
-    cult: ['¿Cuánto te importa una ciudad grande y con mucha vida?', ['Poco', 'Algo', 'Mucho']],
     kin: [
       '¿Deberían contar más los lugares culturalmente familiares? (Mismo idioma o región que tu origen.)',
       ['No', 'Un poco', 'Mucho'],
     ],
     fam: ['¿Cuánto te importa un viaje corto a casa? (3 horas en vez de 12.)', ['Poco', 'Algo', 'Mucho']],
     safe: ['¿Cuánto te importa que haya poca delincuencia?', ['Poco', 'Algo', 'Mucho']],
-    happy: [
-      '¿Cuánto importa que la gente que vive ahí esté satisfecha con su vida? (Dinamarca en vez del promedio mundial.)',
-      ['Poco', 'Algo', 'Mucho'],
-    ],
-    air: [
-      '¿Cuánto importa el aire limpio? (El aire de Madrid en vez del de la Ciudad de México: la mitad de partículas finas.)',
-      ['Poco', 'Algo', 'Mucho'],
-    ],
-    honest: [
-      '¿Cuánto importa que los funcionarios y la policía no sean corruptos? (Dinamarca en vez de México en el índice de Transparencia Internacional.)',
-      ['Poco', 'Algo', 'Mucho'],
-    ],
-    hours: [
-      '¿Cuánto importa el tiempo libre? (Jornadas como las de Alemania en vez de las de México: unas 15 horas menos a la semana.)',
-      ['Poco', 'Algo', 'Mucho'],
-    ],
-    risk: [
-      '¿Cuánto importa un riesgo bajo de desastres naturales? (Países Bajos en vez de México: menos inundaciones, sismos y tormentas, y menos daño cuando ocurren.)',
-      ['Poco', 'Algo', 'Mucho'],
-    ],
+    air: ['¿Cuánto importa el aire limpio?', ['Poco', 'Algo', 'Mucho']],
+    hours: ['¿Cuánto importa el tiempo libre?', ['Poco', 'Algo', 'Mucho']],
+    risk: ['¿Cuánto importa un riesgo bajo de desastres naturales?', ['Poco', 'Algo', 'Mucho']],
     weak: [
       '¿Pueden las ventajas de un lugar compensar un punto débil serio? (Buen empleo pero poca seguridad, por ejemplo.)',
       ['Sí, las ventajas pueden compensarlo', 'No, un punto débil serio arruina un lugar'],
@@ -1048,10 +984,7 @@ const QSTR = {
       'Cuando hay pocos datos sobre un lugar, ¿cómo debe ordenarse?',
       ['Más abajo: prefiero lugares bien medidos', 'Según su mejor estimación: me arriesgo'],
     ],
-    free: [
-      '¿Cuánto te importan las libertades políticas? (Prensa libre, derecho a protestar.)',
-      ['Poco', 'Algo', 'Mucho'],
-    ],
+    free: ['¿Cuánto te importan la libertad política y funcionarios honestos? (Prensa libre, derecho a protestar, policías y funcionarios que no aceptan mordidas.)', ['Poco', 'Algo', 'Mucho']],
     women: [
       '¿Cuánto deben contar la seguridad y los derechos de las mujeres?',
       ['Nada', 'Un poco', 'Bastante', 'Mucho: me afecta a mí o a quienes vivirían conmigo'],

@@ -12,6 +12,8 @@ I18N({
     doneMore: 'La rendre plus précise ({m} de plus)',
     doneMap: 'Voir ma carte',
     hpSearch: 'Rechercher une ville ou un pays',
+    hpSearchC: 'Rechercher un pays',
+    hpSearchO: 'Rechercher une ville',
     cancel: 'Annuler',
     noMatch: 'Aucun résultat',
     gatedNote:
@@ -35,7 +37,7 @@ I18N({
     eyebrow: 'Atlas de qualité de vie · novembre 2026',
     h1: 'Où devriez-vous vivre ?',
     intro1:
-      'Tous les pays et {NCITIES} villes, notés sur les mêmes 23 critères à partir de données publiées. Répondez à six questions et la carte les classe pour vous.',
+      'Tous les pays et {NCITIES} villes, notés sur les mêmes 23 critères à partir de données publiées. Répondez à sept questions et la carte les classe pour vous.',
     prioTitle: 'Mes priorités',
     prio: [
       'Efficacité et ville marchable',
@@ -63,6 +65,7 @@ I18N({
     passHint:
       'Ajoutez tous vos passeports. La citoyenneté, les zones de libre circulation comme l’UE et les voies spéciales comptent.',
     passAdd: 'Ajouter un passeport',
+    passAddBtn: 'Choisir un pays',
     passIgnore: 'Ignorer les permis de travail',
     remove: 'Retirer',
     back: 'Retour',
@@ -102,7 +105,9 @@ I18N({
     grpCities: 'Villes',
     grpCountries: 'Pays',
     homeQ: 'Où est votre chez-vous ?',
-    homeSub: 'Sert à estimer le temps de vol pour rentrer. Facultatif.',
+    homeSub: 'Sert au temps de trajet vers chez vous, à ce qui vous est familier et aux comparaisons des questions suivantes. Facultatif.',
+    qCmp: '{a} obtient {x} sur 5 sur ce point. Le mieux dans la région : {b}, avec {y}.',
+    qCmpTop: '{a} obtient {x} sur 5 sur ce point, aussi bien que le mieux de la région.',
     home1: 'Point d’attache',
     home2: 'Second point d’attache (facultatif)',
     none: 'Aucun',
@@ -355,8 +360,8 @@ I18N({
       field: 'marché de l’emploi général',
       clim: 'climat doux',
       pol: 'politique exclue',
-      lang: 'anglais seulement',
-      perm: 'passeport américain',
+      lang: 'les langues de votre navigateur',
+      perm: 'aucun passeport indiqué : permis de travail comme pour tout le monde',
       reach: 'non',
       agg: 'les atouts peuvent compenser un point faible',
       sure: 'les lieux bien mesurés d’abord',
@@ -426,6 +431,7 @@ I18N({
     kin: ['Familiarité culturelle', 'Culturellement peu familier'],
   },
   QSTR: {
+    where: ['Où est votre chez-vous ?', []],
     kin: [
       'Les lieux culturellement familiers doivent-ils compter davantage ? (Même langue ou région que vos origines.)',
       ['Non', 'Un peu', 'Beaucoup'],
@@ -446,19 +452,9 @@ I18N({
       'Iriez-vous dans une grande ville quelques jours par semaine ?',
       ['Oui, jusqu’à 1 h 30 par trajet', 'Non, je travaillerais là où je vis'],
     ],
-    horizon: ['À quel horizon pensez-vous ?', ['Premier emploi (2–3 ans)', 'Environ 5 ans', 'Le long terme']],
-    jobs: [
-      'À quel point compte un grand marché de l’emploi ? (Tampico contre New York.)',
-      ['Peu', 'Assez', 'Beaucoup'],
-    ],
-    pay: [
-      'À quel point compte l’argent qui reste après le loyer ? (Environ 1 700 $ par mois à New York contre 4 000 $ à Pittsburgh.)',
-      ['Peu', 'Assez', 'Beaucoup'],
-    ],
-    home: [
-      'À quel point compte trouver un logement facilement ? (À New York, seuls 1,4 % des logements sont libres.)',
-      ['Peu', 'Assez', 'Beaucoup'],
-    ],
+    jobs: ['À quel point compte une grande ville animée ? (Plus d’emplois et plus de choses à faire.)', ['Peu', 'Assez', 'Beaucoup']],
+    pay: ['À quel point compte l’argent qui reste après le loyer ?', ['Peu', 'Assez', 'Beaucoup']],
+    home: ['À quel point compte trouver un logement facilement ?', ['Peu', 'Assez', 'Beaucoup']],
     move: [
       'Comment voulez-vous vous déplacer ?',
       ['La voiture me va', 'Transports en commun et un peu de voiture', 'Sans voiture'],
@@ -467,44 +463,22 @@ I18N({
       'À quel point compte un trajet court ? (20 minutes au lieu de 45.)',
       ['Peu', 'Assez', 'Beaucoup'],
     ],
-    hlth: ['À quel point compte une santé qui ne dépend pas de votre emploi ?', ['Peu', 'Assez', 'Beaucoup']],
-    clim: [
-      'Quel climat vous convient ?',
-      [
+    hlth: ['À quel point comptent des soins de qualité accessibles à tous ?', ['Peu', 'Assez', 'Beaucoup']],
+    clim: ['Quel climat vous convient ?', [
         'Doux toute l’année (San Francisco, Lisbonne)',
         'Chaud et ensoleillé (Miami, Singapour)',
         'Quatre saisons, neige comprise (Toronto, Berlin)',
         'Hivers ensoleillés (Madrid, Los Angeles)',
-        'Le climat compte peu',
-      ],
-    ],
+        'Le climat compte peu', 'Des hivers froids et enneigés, tant mieux (Oslo, Montréal)']],
     open: ['À quel point compte se faire des amis facilement ?', ['Peu', 'Assez', 'Beaucoup']],
-    cult: ['À quel point compte une grande ville animée ?', ['Peu', 'Assez', 'Beaucoup']],
     fam: [
       'À quel point compte un trajet court pour rentrer chez vous ? (3 heures au lieu de 12.)',
       ['Peu', 'Assez', 'Beaucoup'],
     ],
     safe: ['À quel point compte une faible criminalité ?', ['Peu', 'Assez', 'Beaucoup']],
-    happy: [
-      'À quel point compte le fait que les habitants soient satisfaits de leur vie ? (Le Danemark plutôt que la moyenne mondiale.)',
-      ['Peu', 'Assez', 'Beaucoup'],
-    ],
-    air: [
-      'À quel point compte un air pur ? (L’air de Madrid plutôt que celui de Mexico : moitié moins de particules fines.)',
-      ['Peu', 'Assez', 'Beaucoup'],
-    ],
-    honest: [
-      'À quel point compte le fait que les fonctionnaires et la police ne soient pas corrompus ? (Le Danemark plutôt que le Mexique dans l’indice de Transparency International.)',
-      ['Peu', 'Assez', 'Beaucoup'],
-    ],
-    hours: [
-      'À quel point compte le temps libre ? (Des horaires comme en Allemagne plutôt qu’au Mexique : environ 15 heures de moins par semaine.)',
-      ['Peu', 'Assez', 'Beaucoup'],
-    ],
-    risk: [
-      'À quel point compte un faible risque de catastrophes naturelles ? (Les Pays-Bas plutôt que le Mexique : moins d’inondations, de séismes et de tempêtes, et moins de dégâts.)',
-      ['Peu', 'Assez', 'Beaucoup'],
-    ],
+    air: ['À quel point compte un air pur ?', ['Peu', 'Assez', 'Beaucoup']],
+    hours: ['À quel point compte le temps libre ?', ['Peu', 'Assez', 'Beaucoup']],
+    risk: ['À quel point compte un faible risque de catastrophes naturelles ?', ['Peu', 'Assez', 'Beaucoup']],
     weak: [
       'Les atouts d’un lieu peuvent-ils compenser un point faible sérieux ? (De bons emplois mais peu de sécurité, par exemple.)',
       ['Oui, les atouts peuvent compenser', 'Non, un point faible sérieux gâche un lieu'],
@@ -513,10 +487,7 @@ I18N({
       'Quand les données sur un lieu sont minces, comment le classer ?',
       ['Plus bas : je préfère les lieux bien mesurés', 'Selon la meilleure estimation : je prends le risque'],
     ],
-    free: [
-      'À quel point comptent les libertés politiques ? (Presse libre, droit de manifester.)',
-      ['Peu', 'Assez', 'Beaucoup'],
-    ],
+    free: ['À quel point comptent la liberté politique et des responsables intègres ? (Presse libre, droit de manifester, policiers et fonctionnaires qui ne touchent pas de pots-de-vin.)', ['Peu', 'Assez', 'Beaucoup']],
     women: [
       'Combien doivent compter la sécurité et les droits des femmes ?',
       ['Pas du tout', 'Un peu', 'Assez', 'Beaucoup : cela me concerne, moi ou mes proches'],

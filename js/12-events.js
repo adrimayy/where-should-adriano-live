@@ -284,12 +284,16 @@ $('cmpClear').onclick = () => {
   pcard();
 };
 $('search').oninput = () => list();
-$('search').onchange = e => {
+// the Find box filters the ranking as you type; Enter opens the best match (an exact name first, else the first starting with it)
+$('search').onkeydown = e => {
+  if (e.key !== 'Enter') return;
   const v = e.target.value.trim().toLowerCase();
-  const hit = ents.find(x => listable(x) && (dn(x).toLowerCase() === v || x.name.toLowerCase() === v));
-  if (hit) {
-    select(hit, true);
-  }
+  if (!v) return;
+  const ok = ents.filter(x => listable(x));
+  const hit =
+    ok.find(x => dn(x).toLowerCase() === v || x.name.toLowerCase() === v) ||
+    ok.find(x => dn(x).toLowerCase().startsWith(v));
+  if (hit) select(hit, true);
 };
 $('zin').onclick = () => zoom && zsel.transition().duration(300).call(zoom.scaleBy, 1.6);
 $('zout').onclick = () =>
