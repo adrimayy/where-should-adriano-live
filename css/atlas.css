@@ -1845,3 +1845,19 @@ body:not(.adv) .row .rbar { display: none !important; }
 /* the start-over button is deliberately quiet: last line of the method notes, behind the calculations switch */
 .linkbtn.wipe { font-size: 12px; color: var(--muted); }
 .linkbtn.wipe[data-armed] { color: #b3261e; }
+/* trade-off round: two made-up cities side by side, then five answers from "definitely A" to "definitely B" */
+.tpair { display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: stretch; }
+.tside { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; background: var(--panel); display: flex; flex-direction: column; gap: 6px; }
+.tside ul { margin: 0; padding-inline-start: 18px; font-size: 17px; font-weight: 600; line-height: 1.5; }
+.tvs { align-self: center; color: var(--muted); font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; }
+#quizPanel .topts .opt { min-height: 44px; }
+@media (max-width: 640px) { .tpair { grid-template-columns: 1fr; } .tvs { justify-self: center; } }
+.tmoves { display: flex; flex-direction: column; gap: 4px; align-items: center; text-align: center; }
+.tmove { margin: 0; }
+.tmove.up b { color: var(--accent); }
+.tmove.down b { color: var(--muted); }
+/* fact sentences in a place's details */
+.facts { list-style: none; margin: 4px 0 10px; padding: 0; display: flex; flex-direction: column; gap: 4px; font-size: 14px; }
+.facts li::before { display: inline-block; width: 1.3em; font-weight: 700; }
+.facts li.good::before { content: '↑'; color: #1e8e3e; }
+.facts li.bad::before { content: '↓'; color: #c5221f; }

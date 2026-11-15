@@ -249,6 +249,17 @@ compound over a career. (Until Nov 2026 the quiz asked how far ahead you were pl
 - A note before the first question: people tend to overweight weather and short visits and underweight commutes and
   friendships. An optional setting moves 30% of the climate and daylight weight to commute and making friends.
 - Each city page lists three questions to ask a resident, picked from its weakest and least certain factors.
+- Trade-offs ("Sharpen with 5 trade-offs", after the quiz): rating factors one at a time makes almost everything
+  important, so the weights come out flat. Five pairs of made-up cities, each strong on two things and average on the rest,
+  ask which sounds better (definitely A … definitely B). The factors are the ones you weigh where your current top 15 cities
+  differ most (spread × √weight, top 8); each appears two or three times, never on both sides of one question. Each answer
+  multiplies the winning side's weights by 1.15 per step (two steps for "definitely") and divides the losing side's; the
+  total per factor is capped at ×2 or ÷2, so the quiz still sets the shape. Personal settings and gates (politics, family,
+  home, passports, language) are left out. The answers are saved with the quiz answers; redoing the round replaces them,
+  and "Undo" restores the weights from before.
+- Fact lines on a place's page: up to two strengths and one weakness, only from published figures, only for factors you
+  weigh, when the place is better (or weaker) than at least 80% of the same kind of place in the atlas with a published
+  figure (at least 30 of them). Shown as a share rounded down to 5%, not as "the best", so the line stays true.
 ## How the 744 cities were chosen, and what's under-covered
 
 The list started from places Adriano has lived, visited or considered, then added the largest tech hubs, capitals and

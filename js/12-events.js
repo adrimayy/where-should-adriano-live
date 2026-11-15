@@ -8,6 +8,7 @@ $('startQuiz').onclick = () => startQuiz(false);
 $('advBtn').onclick = () => setAdv(!document.body.classList.contains('adv'));
 document.body.classList.toggle('adv', !!store.get('adv', false));
 $('fullQuiz').onclick = () => sharpenQuiz();
+$('tradeBtn').onclick = () => startTrades();
 function setAdriano() {
   MODE = 'adriano';
   W = { ...PRESETS.mine };

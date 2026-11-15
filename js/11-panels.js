@@ -234,6 +234,34 @@ function calcTable(e) {
   return `<details class="calc" id="calcT" open><summary><b>${L('calcTitle')}</b></summary><div class="biastable"><table><thead><tr><th>${L('calcFactor')}</th><th>${L('calcSrc')}</th><th>${L('calcUsed')}</th><th>${L('calcW')}</th><th>${L('calcPts')}</th></tr></thead><tbody>${body}<tr><td><b>${L('calcTotal')}</b></td><td></td><td></td><td></td><td class="mono"><b>${AGG === 'geo' ? e.score : tot.toFixed(1)}</b></td></tr></tbody></table></div><p class="meta">${L('calcNote')}${AGG === 'geo' ? ' ' + L('geoNote') : ''}</p>
   ${e.rubin ? `<p class="meta mono">${fmt(L('rubinLine'), { t: e.rubin.sd.toFixed(1), b: e.rubin.between.toFixed(1), w: e.rubin.within.toFixed(1) })}</p>` : ''}</details>`;
 }
+// Two or three plain sentences, from published figures only: where this place sits among the others in the atlas,
+// on factors you weigh. Comparisons within the atlas, not superlatives, so they hold up; rounded down to 5%.
+function factLines(e) {
+  if (e.est || !e.how) return '';
+  const pool = ents.filter(x => x.type === e.type && listable(x) && x !== e),
+    c = [];
+  FACTORS.forEach(f => {
+    const k = f.k;
+    if (f.calc || TRADE_SKIP.has(k) || !(W[k] > 0)) return;
+    if (e.how[k] !== 'obs' || !backed(e, k) || e.v[k] == null) return;
+    const xs = pool.filter(x => x.how && x.how[k] === 'obs' && x.v[k] != null).map(x => x.v[k]);
+    if (xs.length < 30) return;
+    const below = xs.filter(v => v < e.v[k]).length / xs.length,
+      above = xs.filter(v => v > e.v[k]).length / xs.length;
+    if (below >= 0.8) c.push({ k, good: true, p: below, s: below * (1 + W[k]) });
+    else if (above >= 0.8) c.push({ k, good: false, p: above, s: above * (1 + W[k]) });
+  });
+  const by = (a, b) => b.s - a.s,
+    pick = c.filter(x => x.good).sort(by).slice(0, 2).concat(c.filter(x => !x.good).sort(by).slice(0, 1));
+  if (!pick.length) return '';
+  const city = e.type === 'city';
+  return `<ul class="facts">${pick
+    .map(
+      x =>
+        `<li class="${x.good ? 'good' : 'bad'}">${fmt(L(x.good ? (city ? 'factGoodC' : 'factGoodN') : city ? 'factBadC' : 'factBadN'), { f: FL(x.k), p: Math.floor(x.p * 20) * 5 })}</li>`
+    )
+    .join('')}</ul>`;
+}
 function detail(e) {
   const D = $('detail');
   // empty panels stay out of the way: details appear when a place is picked, compare when something is added
@@ -256,7 +284,7 @@ function detail(e) {
   const rangeLine = `<div class="calc-only"><div class="drange">${rbar(e)}</div><p class="mono muted">${fmt(L('rangeLine'), { lo: e.lo, hi: e.hi, rlo: e.rlo, rhi: e.rhi, n: e.rn })} · ${fmt(L('probLine'), { f: pct(e.pFit), t: pct(e.pTop) })}${e.impShare > 0.005 ? ' · ' + fmt(L('impShare'), { p: Math.round(e.impShare * 100) }) : ''}</p><p class="meta">${L('roundNote')} <button class="ghost linkbtn" id="toCalc">${L('seeCalc')}</button></p></div>`;
   const mins = Math.round((e.dayH % 1) * 60);
   D.innerHTML = `<div class="dhead"><div style="display:flex;flex-direction:column;gap:6px;min-width:0"><span class="eyebrow">${e.type === 'city' ? L('city') + ' · ' + countryOf(e) : L('country')}${e.est ? ' · ' + L('estimated') : ''}</span><h2 style="font-size:24px">${dn(e)}</h2><div class="toggles">${chip(e.tier)}<button class="chipbtn" id="cmpBtn">${ui.cmp.includes(e) ? L('removeCmp') : L('addCmp')}</button></div></div>${big}</div>
-  ${rangeLine}<p style="font-weight:500">${whyLine(e)}${e.gated ? L('dealRule') : ''}</p><p class="meta">${noteOf(e) || ''}</p>${e.natl ? `<p class="meta">${L('natlNote')}</p>` : ''}
+  ${rangeLine}<p style="font-weight:500">${whyLine(e)}${e.gated ? L('dealRule') : ''}</p>${factLines(e)}<p class="meta">${noteOf(e) || ''}</p>${e.natl ? `<p class="meta">${L('natlNote')}</p>` : ''}
   ${
     e.hasGeo
       ? `<p class="mono muted">${fmt(L('shortest'), { h: Math.floor(e.dayH), m: String(mins).padStart(2, '0') })}${
@@ -1227,7 +1255,7 @@ function applyLang() {
   syncMode();
   offersUI();
   renderDefaults();
-  if (!$('quizPanel').hidden) renderQuiz();
+  if (!$('quizPanel').hidden) TRADE ? renderTrade() : renderQuiz();
   $('zin').innerHTML = IC('plus', 16);
   $('zout').innerHTML = IC('minus', 16);
   $('zreset').innerHTML = IC('reset', 16);
