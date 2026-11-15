@@ -157,6 +157,8 @@ I18N({
     gotIt: 'C’est noté',
     advShow: 'Voir comment les scores sont calculés',
     advHide: 'Masquer les calculs',
+    wipeAll: 'Effacer tout ce que ce navigateur a enregistré et repartir comme un nouveau visiteur',
+    wipeAgain: 'Touchez encore pour tout effacer',
     ppHead: 'Ce qui compte pour vous',
     ppHow: 'Un appui : ça compte. Un deuxième : ★, ça compte double. Un troisième : désactivé.',
     ppLv: ['désactivé', 'compte', 'compte double'],

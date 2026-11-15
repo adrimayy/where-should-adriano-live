@@ -52,10 +52,10 @@ function whyLine(e) {
   return good + bad + cap + lk + gn + fw;
 }
 function srcTag(e, k) {
-  if (e.how && e.how[k] === 'imp') return `<span class="tag" style="color:var(--you)">${L('tagImp')}</span>`;
-  if (CALC.has(k) || (k === 'clim' && CLIMMODE !== 'mild')) return `<span class="tag">${L('tagCalc')}</span>`;
-  if (backed(e, k)) return `<span class="tag">${L('tagData')}</span>`;
-  return `<span class="tag" style="color:var(--muted)">${L('tagEst')}</span>`;
+  if (e.how && e.how[k] === 'imp') return `<span class="tag calc-only" style="color:var(--you)">${L('tagImp')}</span>`;
+  if (CALC.has(k) || (k === 'clim' && CLIMMODE !== 'mild')) return `<span class="tag calc-only">${L('tagCalc')}</span>`;
+  if (backed(e, k)) return `<span class="tag calc-only">${L('tagData')}</span>`;
+  return `<span class="tag calc-only" style="color:var(--muted)">${L('tagEst')}</span>`;
 }
 // what each published figure covers, and its year (Davis: geography; Cairo: per-source year)
 const SRCMETA = {
@@ -253,7 +253,7 @@ function detail(e) {
   const big = vsAd()
     ? `<div style="display:flex;gap:16px;align-items:flex-end"><div><span class="lab" style="color:var(--you)">${L('youScore')}</span><div class="big">${r5(e.score)}</div></div><div><span class="lab">${L('adScore')}</span><div class="big" style="font-size:28px;color:var(--muted)">${r5(e.ad.score)}</div></div></div>`
     : `<div class="big">${r5(e.score)}<small>/100</small></div>`;
-  const rangeLine = `<div class="drange calc-only">${rbar(e)}</div><p class="mono muted">${fmt(L('rangeLine'), { lo: e.lo, hi: e.hi, rlo: e.rlo, rhi: e.rhi, n: e.rn })} · ${fmt(L('probLine'), { f: pct(e.pFit), t: pct(e.pTop) })}${e.impShare > 0.005 ? ' · ' + fmt(L('impShare'), { p: Math.round(e.impShare * 100) }) : ''}</p><p class="meta">${L('roundNote')} <button class="ghost linkbtn" id="toCalc">${L('seeCalc')}</button></p>`;
+  const rangeLine = `<div class="calc-only"><div class="drange">${rbar(e)}</div><p class="mono muted">${fmt(L('rangeLine'), { lo: e.lo, hi: e.hi, rlo: e.rlo, rhi: e.rhi, n: e.rn })} · ${fmt(L('probLine'), { f: pct(e.pFit), t: pct(e.pTop) })}${e.impShare > 0.005 ? ' · ' + fmt(L('impShare'), { p: Math.round(e.impShare * 100) }) : ''}</p><p class="meta">${L('roundNote')} <button class="ghost linkbtn" id="toCalc">${L('seeCalc')}</button></p></div>`;
   const mins = Math.round((e.dayH % 1) * 60);
   D.innerHTML = `<div class="dhead"><div style="display:flex;flex-direction:column;gap:6px;min-width:0"><span class="eyebrow">${e.type === 'city' ? L('city') + ' · ' + countryOf(e) : L('country')}${e.est ? ' · ' + L('estimated') : ''}</span><h2 style="font-size:24px">${dn(e)}</h2><div class="toggles">${chip(e.tier)}<button class="chipbtn" id="cmpBtn">${ui.cmp.includes(e) ? L('removeCmp') : L('addCmp')}</button></div></div>${big}</div>
   ${rangeLine}<p style="font-weight:500">${whyLine(e)}${e.gated ? L('dealRule') : ''}</p><p class="meta">${noteOf(e) || ''}</p>${e.natl ? `<p class="meta">${L('natlNote')}</p>` : ''}
@@ -276,7 +276,7 @@ function detail(e) {
     if (how === 'imp') {
       const m = e.v[f.k],
         sd = e.sd[f.k];
-      return `<div class="brow"><span class="lbl">${FL(f.k)}${srcTag(e, f.k)}</span><span class="track"><span class="fill" style="width:${m * 20}%;background:${barCol(Math.round(m))};opacity:.55"></span></span><span class="v">≈${m.toFixed(1)} ±${sd.toFixed(1)}</span></div>`;
+      return `<div class="brow"><span class="lbl">${FL(f.k)}${srcTag(e, f.k)}</span><span class="track"><span class="fill" style="width:${m * 20}%;background:${barCol(Math.round(m))};opacity:.55"></span></span><span class="v">≈${m.toFixed(1)}/5<span class="calc-only"> ±${sd.toFixed(1)}</span></span></div>`;
     }
     const v = e.sc[f.k];
     if (v == null) {
@@ -1202,7 +1202,21 @@ function applyLang() {
     `<p class="stamp" style="color:var(--muted);font-size:12px">${L('dataUpdated')} ${DATA.built} · ${DATA.cities.length} ${L('citiesWord')}</p>` +
     (FEEDBACK_URL
       ? `<p><a href="${FEEDBACK_URL}" target="_blank" rel="noopener">${L('feedback')}</a></p>`
-      : '');
+      : '') +
+    `<p><button class="ghost linkbtn wipe" id="wipeBtn">${L('wipeAll')}</button></p>`;
+  $('wipeBtn').onclick = ev => {
+    const b = ev.currentTarget;
+    if (!b.dataset.armed) {
+      b.dataset.armed = '1';
+      b.textContent = L('wipeAgain');
+      setTimeout(() => {
+        delete b.dataset.armed;
+        b.textContent = L('wipeAll');
+      }, 4000);
+      return;
+    }
+    wipeAll();
+  };
   selectsUI();
   weightsUI();
   prioUI();

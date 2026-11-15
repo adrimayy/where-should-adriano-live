@@ -155,6 +155,8 @@ I18N({
     gotIt: 'Anotado',
     advShow: 'Mostrar como as notas são calculadas',
     advHide: 'Ocultar os cálculos',
+    wipeAll: 'Apagar tudo o que este navegador guardou e começar como um visitante novo',
+    wipeAgain: 'Toque de novo para apagar tudo',
     ppHead: 'O que importa para você',
     ppHow: 'Toque uma vez e conta. De novo para ★, que conta em dobro. Uma terceira vez desativa.',
     ppLv: ['desativado', 'conta', 'conta em dobro'],
