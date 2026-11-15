@@ -33,6 +33,10 @@ How the method changed, and what it did to the top of Adriano's list.
   on estimated bars moved behind the switch. For testing as a first-time visitor, the last line of the method notes (with
   calculations on) clears everything the site saved in this browser after a second tap; opening the page with `#reset`
   does the same.
+- **Trade-offs and fact lines (v55):** after the quiz, "Sharpen with 5 trade-offs" asks which of two made-up cities sounds
+  better, each strong on two things you care about, and nudges the weights (at most ×2 or ÷2 per factor), then shows what
+  counts more, what counts less and whether the top match changed, with Undo. A place's page opens with up to three plain
+  lines from published figures, such as "Low car dependence: better than 85% of the cities in the atlas".
   Region pills also move the map, replacing the separate row of map-view buttons in the plain view.
 - **Layout after the NYT "Where should you live" quiz (v52):** what matters to you sits beside the map and ranking (a
   sticky panel on wide screens, a bottom sheet behind a "Priorities" button on phones), one tap per factor: off, counts
