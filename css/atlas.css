@@ -1738,3 +1738,82 @@ th {
 #quizPanel .qnav { flex-wrap: nowrap; }
 #quizPanel .qnav .toggles { flex-wrap: nowrap; justify-content: flex-end; }
 #qUnsure { white-space: normal; text-align: right; }
+
+/* ---------- workspace: what matters (left) next to the map and ranking ---------- */
+.work { display: flex; flex-direction: column; gap: 18px; }
+.workmain { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.ppanel { display: flex; flex-direction: column; gap: 12px; background: var(--panel); border-radius: 18px; padding: 18px 16px; }
+.ppanel h2 { font-size: 19px; margin: 0; }
+.phead { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.pclose { display: none; }
+.pgrp { display: flex; flex-direction: column; gap: 8px; }
+.pchips { display: flex; flex-wrap: wrap; gap: 6px; }
+.pchip { min-height: 32px; padding: 4px 10px; border-radius: 999px; font-size: 13px; border: 1px solid var(--line); background: transparent; color: var(--muted); }
+.pchip[data-lv='1'] { background: var(--tint); color: var(--fg); border-color: transparent; }
+.pchip[data-lv='2'] { background: var(--accent); color: #fff; border-color: transparent; font-weight: 600; }
+.pfoot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+.pfab { display: none; }
+@media (min-width: 1180px) {
+  .wrap { max-width: 1400px; }
+  .wrap > :not(.work, .topbar) { width: 100%; max-width: 1120px; margin-inline: auto; }
+  .work { display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: 24px; align-items: start; }
+  .ppanel { position: sticky; top: 64px; max-height: calc(100vh - 80px); overflow: auto; }
+}
+@media (max-width: 1179px) {
+  .ppanel { position: fixed; inset: auto 0 0 0; z-index: 40; max-height: 78vh; overflow: auto; border-radius: 18px 18px 0 0;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.18); transform: translateY(105%); transition: transform 0.25s ease; visibility: hidden;
+    padding-bottom: max(18px, env(safe-area-inset-bottom)); }
+  .ppanel.open { transform: none; visibility: visible; }
+  .pclose { display: inline-flex; }
+  .pfab { display: inline-flex; align-items: center; position: fixed; z-index: 30; right: max(14px, env(safe-area-inset-right));
+    bottom: max(14px, env(safe-area-inset-bottom)); padding: 10px 16px; border-radius: 999px; background: var(--accent); color: #fff;
+    border: 0; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); font-weight: 600; }
+  body.sheet-open .pfab { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .ppanel { transition: none; } }
+
+/* ---------- "Only show" pills ---------- */
+.pills { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.pgroup { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+.pill { min-height: 34px; padding: 6px 12px; border: 0; border-radius: 0; background: transparent; font-size: 13.5px; color: var(--muted); }
+.pill + .pill { border-inline-start: 1px solid var(--line); }
+.pill[aria-pressed='true'] { background: var(--fg); color: var(--bg); }
+
+/* ---------- ranking: rows with why-chips and hearts; the best match as a card ---------- */
+.rw { position: relative; border-bottom: 0.5px solid var(--line); }
+.rw:last-child { border-bottom: 0; }
+.rw .row { border-bottom: 0; padding-inline-end: 52px; }
+.rw.sel .row { background: var(--tint); }
+.row { grid-template-columns: 40px minmax(0, 1fr) minmax(170px, 0.9fr); grid-template-areas: 'n nm sc' '. chips chips' '. why why'; row-gap: 6px; }
+.row .n { grid-area: n; }
+.row .nm { grid-area: nm; min-width: 0; }
+.row .nm b { font-weight: 500; }
+.row .nm .muted { font-size: 12.5px; }
+.row .sc { grid-area: sc; }
+.row .chips5 { grid-area: chips; }
+.row .why { grid-area: why; }
+.row .rbar { min-width: 110px; }
+.chips5 { display: flex; flex-wrap: wrap; gap: 5px; }
+.why5 { display: inline-flex; gap: 4px; align-items: center; font-size: 12px; padding: 2px 8px; border-radius: 999px;
+  background: color-mix(in srgb, var(--c) 28%, transparent); color: var(--fg); }
+.why5 b { font-weight: 600; }
+.heart { position: absolute; top: 10px; inset-inline-end: 8px; min-height: 36px; min-width: 36px; padding: 0; border: 0;
+  background: transparent; color: var(--muted); display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; }
+.heart:hover { color: var(--fg); background: var(--fill); }
+.heart[aria-pressed='true'] { color: #d4334a; }
+.heart[aria-pressed='true'] svg { fill: currentColor; }
+.row.hero1 { display: flex; flex-direction: column; align-items: stretch; gap: 10px; padding: 20px 56px 20px 18px; min-height: 0; }
+.hero1 .hname b { font-family: var(--display); font-size: 28px; font-weight: 600; line-height: 1.1; }
+.hero1 .hname .muted { font-size: 15px; }
+.hero1 .hscore { display: inline-flex; align-items: center; gap: 8px; }
+.hero1 .hscore .sn { font-size: 26px; font-weight: 600; }
+.hero1 .rbar { height: 12px; min-width: 0; flex: none; width: 100%; }
+.hero1 .why { white-space: normal; }
+.top1 .heart { top: 16px; }
+@media (max-width: 600px) {
+  .rw .row { grid-template-columns: 30px minmax(0, 1fr) 100px; grid-template-areas: 'n nm sc' 'chips chips chips' 'why why why'; padding-inline-end: 44px; }
+  .row .rbar { min-width: 36px; }
+  .row .chips5 .why5:nth-child(n + 4) { display: none; }
+  .heart { inset-inline-end: 4px; }
+  .hero1 .hname b { font-size: 23px; }
+}

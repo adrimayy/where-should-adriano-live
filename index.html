@@ -48,6 +48,11 @@
     <p class="sr" id="modeNote" aria-live="polite"></p>
   </section>
 
+  <!-- the workspace: what matters (left, sticky; a bottom sheet on phones) next to the map and ranking it changes -->
+  <div class="work" id="work">
+  <aside class="ppanel" id="ppanel"></aside>
+  <div class="workmain">
+  <div class="pills" id="pills" role="group"></div>
   <section style="display:flex;flex-direction:column;gap:12px" id="mapSec">
     <div class="rankhead">
       <div style="display:flex;flex-direction:column;gap:4px"><h2 data-t="mapTitle"></h2></div>
@@ -141,6 +146,8 @@
       <aside class="live" id="liveTop" aria-live="polite"></aside>
     </div>
   </details>
+  </div>
+  </div>
 
   <details class="box after"><summary><span data-t="prioTitle"></span></summary><div class="inner"><div class="prio" id="prio"></div></div></details>
   <details class="box after choices"><summary><span data-t="choicesTitle"></span></summary><div class="inner" data-th="choicesBody"></div></details>
@@ -150,6 +157,7 @@
   </details>
 </div>
 
+<button class="pfab" id="pfab" aria-controls="ppanel" aria-expanded="false"></button>
 <div class="gtoast" id="gtoast" role="status" hidden></div>
 <!-- Libraries, then the data (one file, made by build.py), then the page code in order. "defer" downloads them all at once and runs them in this order. -->
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
