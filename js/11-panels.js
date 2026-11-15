@@ -396,6 +396,7 @@ function toggleCmp(e) {
   renderCmp();
   detail(ui.sel);
   pcard();
+  list(); // keep the hearts in the ranking in step
 }
 function renderCmp() {
   const G = $('cmp');
@@ -452,6 +453,24 @@ function renderCmp() {
       })
   );
 }
+// the factors you weigh most, for the chips on each result
+function topKeys(n) {
+  return FACTORS.filter(f => (W[f.k] || 0) > 0)
+    .sort((a, b) => W[b.k] - W[a.k] || FACTORS.indexOf(a) - FACTORS.indexOf(b))
+    .slice(0, n)
+    .map(f => f.k);
+}
+// "Safety 4/5" for each of your top priorities, coloured by the score; * marks a filled-in estimate
+function whyChips(e, n) {
+  return topKeys(n)
+    .map(k => {
+      const v = e.v[k];
+      if (v == null) return '';
+      const im = e.how && e.how[k] !== 'obs';
+      return `<span class="why5" style="--c:${barCol(Math.round(v))}" title="${FL(k)}${im ? ' (' + L('tagImp') + ')' : ''}">${FL(k)} <b>${Math.round(v)}/5</b>${im ? '*' : ''}</span>`;
+    })
+    .join('');
+}
 function list() {
   const q = ($('search').value || '').trim().toLowerCase();
   const all = ents.filter(e => e.type === ui.rankType && listable(e));
@@ -465,15 +484,39 @@ function list() {
     );
   const shown = ui.showAll || q ? rows : rows.slice(0, 20);
   const sortedAll = [...all].sort((a, b) => byRank(a, b) || dn(a).localeCompare(dn(b)));
-  const rankOf = e => sortedAll.indexOf(e) + 1;
+  // places in a row with the same displayed score share a rank ("=2"): the order inside a tie is not meaningful
+  const rankLab = new Map();
+  sortedAll.forEach((e, i) => {
+    const p = sortedAll[i - 1];
+    if (p && r5(p.score) === r5(e.score)) {
+      const r = rankLab.get(p);
+      r.tie = true;
+      rankLab.set(e, r);
+    } else rankLab.set(e, { n: i + 1, tie: false });
+  });
+  const rankOf = e => {
+    const r = rankLab.get(e);
+    return r ? (r.tie ? '=' : '') + r.n : '';
+  };
+  const heart = e => {
+    const on = ui.cmp.includes(e);
+    return `<button class="heart" data-heart="${e.key}" aria-pressed="${on}" aria-label="${L(on ? 'removeCmp' : 'addCmp')}: ${dn(e)}" title="${L(on ? 'removeCmp' : 'addCmp')}">${IC('heart', 18)}</button>`;
+  };
+  const place = e =>
+    `<b>${dn(e)}</b>${e.type === 'city' ? ` <span class="muted">${countryOf(e)}</span>` : ''}${vsAd() ? `<span class="ad">${L('adScore')} ${r5(e.ad.score)}</span>` : ''}`;
+  const drawback = e => (e.lim === 'none' ? L('noMajor') : FD(e.lim));
+  const tip = e => `${L('tiers')[e.tier]} · ${fmt(L('probLine'), { f: pct(e.pFit), t: pct(e.pTop) })}`;
+  // the best match gets a card; the rest are rows. Searching or the factor table show plain rows.
+  const hero = !q && ui.view !== 'profile' && shown[0] && shown[0] === sortedAll.find(passes);
   if (ui.view === 'profile') {
     $('list').innerHTML = profileTable(shown);
   } else
     $('list').innerHTML =
       shown
-        .map(
-          e =>
-            `<button class="row${ui.sel === e ? ' sel' : ''}" data-key="${e.key}" title="${L('tiers')[e.tier]} · ${fmt(L('probLine'), { f: pct(e.pFit), t: pct(e.pTop) })}"><span class="n">${rankOf(e)}</span><span style="min-width:0"><b style="font-weight:500">${dn(e)}</b>${e.type === 'city' ? ` <span class="muted" style="font-size:12.5px">${countryOf(e)}</span>` : ''}${vsAd() ? `<span class="ad">${L('adScore')} ${r5(e.ad.score)}</span>` : ''}</span><span class="sc">${sym(e.tier)}<span class="sn">${r5(e.score)}</span>${rbar(e)}</span><span class="why">${e.lim === 'none' ? L('noMajor') : FD(e.lim)}</span></button>`
+        .map((e, i) =>
+          hero && i === 0
+            ? `<div class="rw top1${ui.sel === e ? ' sel' : ''}"><button class="row hero1" data-key="${e.key}" title="${tip(e)}"><span class="eyebrow">${L('topPick')}</span><span class="hname">${place(e)}</span><span class="hscore">${sym(e.tier)}<span class="sn">${r5(e.score)}</span><span class="meta">${L('tiers')[e.tier]}</span></span>${rbar(e)}<span class="chips5">${whyChips(e, 6)}</span><span class="why">${L('mainDrawback')}: ${drawback(e)}</span></button>${heart(e)}</div>`
+            : `<div class="rw${ui.sel === e ? ' sel' : ''}"><button class="row" data-key="${e.key}" title="${tip(e)}"><span class="n" title="${rankLab.get(e) && rankLab.get(e).tie ? L('tieTitle') : ''}">${rankOf(e)}</span><span class="nm">${place(e)}</span><span class="sc">${sym(e.tier)}<span class="sn">${r5(e.score)}</span>${rbar(e)}</span><span class="chips5">${whyChips(e, 4)}</span><span class="why">${drawback(e)}</span></button>${heart(e)}</div>`
         )
         .join('') || `<p class="meta" style="padding:12px 6px">${L('nothing')}</p>`;
   $('more').hidden = ui.showAll || !!q || rows.length <= 20;
@@ -489,6 +532,116 @@ function list() {
           $('mapSec').scrollIntoView({ block: 'start' });
         })
     );
+  // a heart puts the place in Compare (up to 3)
+  $('list')
+    .querySelectorAll('[data-heart]')
+    .forEach(
+      b =>
+        (b.onclick = ev => {
+          ev.stopPropagation();
+          const e = byKey[b.dataset.heart],
+            had = ui.cmp.includes(e);
+          toggleCmp(e);
+          gtoast(had ? fmt(L('cmpRemoved'), { p: dn(e) }) : fmt(L('cmpAdded'), { p: dn(e), n: ui.cmp.length }));
+        })
+    );
+}
+// One tap per factor: off, counts (weight 1), ★ counts double (2). Reads the current weights, so quiz answers and
+// sliders show up here; fine-tuning stays on the sliders.
+const PLEVEL = w => (w >= 1.75 ? 2 : w > 0 ? 1 : 0);
+function prioUI() {
+  const P = $('ppanel');
+  if (!P) return;
+  const n = FACTORS.filter(f => (W[f.k] || 0) > 0).length;
+  P.innerHTML =
+    `<div class="phead"><h2>${L('ppHead')}</h2><button class="ghost pclose" id="pclose" aria-label="${L('ppClose')}">${IC('x', 18)}</button></div><p class="meta">${L('ppHow')}</p>` +
+    Object.entries(GOALS)
+      .map(
+        ([g, ks]) =>
+          `<div class="pgrp"><span class="lab">${L('goals')[g]}</span><div class="pchips">${ks
+            .map(k => {
+              const lv = PLEVEL(W[k] || 0);
+              return `<button class="pchip" data-k="${k}" data-lv="${lv}" aria-pressed="${lv > 0}" aria-label="${FL(k)}: ${L('ppLv')[lv]}">${lv === 2 ? '★ ' : lv === 1 ? '✓ ' : ''}${FL(k)}</button>`;
+            })
+            .join('')}</div></div>`
+      )
+      .join('') +
+    `<div class="pfoot"><button class="linkbtn" id="preset2">${L(QUIZW ? 'ppResetQuiz' : 'ppReset')}</button><button class="linkbtn" id="pfine">${L('ppFine')}</button></div>`;
+  $('pfab').textContent = fmt(L('ppFab'), { n });
+  P.querySelectorAll('.pchip').forEach(
+    b =>
+      (b.onclick = () => {
+        const k = b.dataset.k,
+          lv = (+b.dataset.lv + 1) % 3;
+        becomeYours();
+        W[k] = [0, 1, 2][lv];
+        $('preset').value = 'custom';
+        if ($('w-' + k)) {
+          $('w-' + k).value = W[k];
+          $('o-' + k).textContent = fmtW(W[k]);
+        }
+        goalShares();
+        refreshAll();
+        saveTake();
+        const nb = $('ppanel').querySelector(`[data-k="${k}"]`);
+        if (nb) nb.focus();
+      })
+  );
+  $('preset2').onclick = () => {
+    becomeYours();
+    W = { ...(QUIZW || PRESETS.equal) };
+    weightsUI();
+    refreshAll();
+    saveTake();
+  };
+  $('pfine').onclick = () => {
+    setSheet(false);
+    $('weightsBox').open = true;
+    $('weightsBox').scrollIntoView({ block: 'start' });
+  };
+  $('pclose').onclick = () => setSheet(false);
+}
+// on phones the panel is a bottom sheet behind the floating button
+function setSheet(open) {
+  $('ppanel').classList.toggle('open', open);
+  $('pfab').setAttribute('aria-expanded', open);
+  document.body.classList.toggle('sheet-open', open);
+  if (open) $('ppanel').querySelector('.pchip')?.focus();
+}
+// "Only show" pills: narrow the map and ranking without changing a score
+function pillsUI() {
+  const f = ui.f,
+    pill = (grp, v, label, on) =>
+      `<button class="pill" data-g="${grp}" data-v="${v}" aria-pressed="${on}">${label}</button>`;
+  const any = f.reg.size || f.cost.size || f.big || f.work;
+  $('pills').setAttribute('aria-label', L('onlyShow'));
+  $('pills').innerHTML =
+    `<span class="lab">${L('onlyShow')}</span>` +
+    `<span class="pgroup">${['eu', 'na', 'la', 'ap', 'af'].map(r => pill('reg', r, r === 'af' ? L('regAf') : L('regions')[r], f.reg.has(r))).join('')}</span>` +
+    `<span class="pgroup" title="${L('costPills')}">${[1, 2, 3, 4].map(c => pill('cost', c, '$'.repeat(c), f.cost.has(c))).join('')}</span>` +
+    `<span class="pgroup">${pill('big', 1, L('bigCities'), f.big)}${pill('work', 1, L('canWork'), f.work)}</span>` +
+    (any ? `<button class="linkbtn" id="pillClear">${L('clear')}</button>` : '');
+  $('pills')
+    .querySelectorAll('.pill')
+    .forEach(
+      b =>
+        (b.onclick = () => {
+          const g = b.dataset.g,
+            v = g === 'cost' ? +b.dataset.v : b.dataset.v;
+          if (g === 'reg' || g === 'cost') f[g].has(v) ? f[g].delete(v) : f[g].add(v);
+          else f[g] = !f[g];
+          pillsUI();
+          filtersChanged();
+        })
+    );
+  if ($('pillClear'))
+    $('pillClear').onclick = () => {
+      f.reg.clear();
+      f.cost.clear();
+      f.big = f.work = false;
+      pillsUI();
+      filtersChanged();
+    };
 }
 // The likely range (10th to 90th percentile of the 120 recalculations) as a bar, the score as a tick, the Strong-fit line dotted
 function rbar(e) {
@@ -830,6 +983,7 @@ function refreshAll(fast) {
   renderEff();
   renderOffers();
   renderLive();
+  prioUI();
   if (!fast) trackState();
 }
 // how much each factor actually moves the scores: its share of the variance of scores across places (covariance of its points with the total)
@@ -1034,6 +1188,8 @@ function applyLang() {
       : '');
   selectsUI();
   weightsUI();
+  prioUI();
+  pillsUI();
   tierFilters();
   mustUI();
   syncMode();

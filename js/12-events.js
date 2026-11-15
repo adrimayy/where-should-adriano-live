@@ -315,3 +315,11 @@ if (window.IntersectionObserver) {
       document.body.classList.toggle('past-hero', !en.isIntersecting)
     ).observe(h);
 } else document.body.classList.add('past-hero');
+// the priorities panel is a bottom sheet on phones: the floating button opens it, Escape or the close button shuts it
+$('pfab').onclick = () => setSheet(!$('ppanel').classList.contains('open'));
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && $('ppanel').classList.contains('open')) {
+    setSheet(false);
+    $('pfab').focus();
+  }
+});

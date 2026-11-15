@@ -23,6 +23,12 @@ How the method changed, and what it did to the top of Adriano's list.
 - **Census data for US metros:** commute (361 metros), rental vacancy (297) and money after rent (86) are now measured.
   Driving-alone share was rejected as a car-dependence measure. The share of city scores filled in fell from 61% to 49%.
 
+- **Layout after the NYT "Where should you live" quiz (v52):** what matters to you sits beside the map and ranking (a
+  sticky panel on wide screens, a bottom sheet behind a "Priorities" button on phones), one tap per factor: off, counts
+  (weight 1), ★ counts double (2), read from and written to the same weights as the sliders, which stay under "Fine-tune".
+  "Only show" pills (region, cost $–$$$$, big cities, can work freely) narrow the map and ranking without changing scores.
+  The best match is a card; every result shows chips for your top priorities on the 1–5 scale; places with the same
+  displayed score share a rank ("=2"); a heart on each result adds it to Compare.
 - **Quiz rework; one place lookup (v51):** about-you questions first, home as a regular step, how-to-judge questions last.
   Merged questions that measured the same thing (job market + big city; freedom + honest officials), dropped planning
   horizon and life satisfaction (now half weight by default): 29 questions became 25. Examples under questions are built

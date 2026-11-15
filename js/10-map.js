@@ -16,7 +16,22 @@ const ui = {
   showAll: false,
   sel: null,
   cmp: [],
+  // quick filters above the map and ranking: world regions, cost bands ($ cheapest), big cities, can work freely
+  f: { reg: new Set(), cost: new Set(), big: false, work: false },
 };
+// World Bank regions in five pills
+const REGPILL = {
+  Europe: 'eu',
+  'North America': 'na',
+  'Latin America & Caribbean': 'la',
+  'East Asia & Pacific': 'ap',
+  'South Asia': 'ap',
+  'Central Asia & Caucasus': 'ap',
+  'Middle East & North Africa': 'af',
+  'Sub-Saharan Africa': 'af',
+};
+// cost of living band (5 = cheapest, index 35 or less with New York = 100) as $ to $$$$
+const costPill = e => (e.cost == null ? null : e.cost >= 4.5 ? 1 : e.cost >= 3.5 ? 2 : e.cost >= 2.5 ? 3 : 4);
 const narrow = matchMedia('(max-width:640px)').matches,
   touch = matchMedia('(pointer:coarse)').matches;
 const VW = 960,
@@ -287,6 +302,13 @@ function fixWinding(f) {
 // A place below any minimum you set is out, whatever else it scores; the rest are ranked by weighted score
 function passes(e) {
   if (!ui.tiers.has(e.tier) || e.score < ui.minScore) return false;
+  const f = ui.f;
+  if (f.reg.size && !f.reg.has(REGPILL[(DATA.region || {})[isoOf(e)]])) return false;
+  if (f.cost.size && !f.cost.has(costPill(e))) return false;
+  // big city: metro of about 1.5 million or more (things happening is banded on metro population)
+  if (f.big && e.type === 'city' && !((e.v.cult ?? 0) >= 2.75)) return false;
+  // can work freely: a passport gives the right to work there (citizen or free movement)
+  if (f.work && !((e.v.perm ?? 0) >= 4.5)) return false;
   for (const k in ui.mins) {
     const v = e.v && e.v[k];
     if (v == null || v < ui.mins[k] - 1e-9) return false;
