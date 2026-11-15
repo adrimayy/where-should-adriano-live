@@ -155,6 +155,8 @@ I18N({
     gotIt: 'Verstanden',
     advShow: 'Zeigen, wie die Werte berechnet werden',
     advHide: 'Berechnungen ausblenden',
+    wipeAll: 'Alles löschen, was dieser Browser gespeichert hat, und als neuer Besucher beginnen',
+    wipeAgain: 'Zum Löschen noch einmal tippen',
     ppHead: 'Was dir wichtig ist',
     ppHow: 'Einmal tippen: zählt. Noch einmal: ★, zählt doppelt. Ein drittes Mal: aus.',
     ppLv: ['aus', 'zählt', 'zählt doppelt'],

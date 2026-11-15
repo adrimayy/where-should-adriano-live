@@ -21,3 +21,21 @@ const store = {
     } catch (e) {}
   },
 };
+// Start over as a brand-new visitor: clears everything this site saved in the browser.
+// Reached two ways: the small "Clear everything" button at the end of the method notes, or by opening the page with #reset.
+function clearSaved() {
+  try {
+    Object.keys(localStorage)
+      .filter(k => k.startsWith('atlas.'))
+      .forEach(k => localStorage.removeItem(k));
+    sessionStorage.clear();
+  } catch (e) {}
+}
+function wipeAll() {
+  clearSaved();
+  location.replace(location.pathname + location.search);
+}
+if (/^#reset$/i.test(location.hash)) {
+  clearSaved();
+  history.replaceState(null, '', location.pathname + location.search);
+}

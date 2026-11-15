@@ -1842,3 +1842,6 @@ body:not(.adv) .row .rbar { display: none !important; }
   .pgroup::-webkit-scrollbar { display: none; }
 }
 #vsPanel .toast:empty { display: none; }
+/* the start-over button is deliberately quiet: last line of the method notes, behind the calculations switch */
+.linkbtn.wipe { font-size: 12px; color: var(--muted); }
+.linkbtn.wipe[data-armed] { color: #b3261e; }

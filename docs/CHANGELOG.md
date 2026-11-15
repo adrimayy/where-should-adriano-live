@@ -28,6 +28,11 @@ How the method changed, and what it did to the top of Adriano's list.
   0.18 s). After the quiz the landing card steps aside and one "Your results" header leads into the panel, filters, map
   and ranking. Ranges, the map legend and options, the "factors separately" table, the comparison with Adriano, the
   defaults list, the sliders and the method boxes sit behind "Show how the scores are calculated" (remembered per browser).
+- **Plain place details; start-over (v54):** a place's details now show only the verdict, notes and factor bars until
+  calculations are on: the score range, probabilities, "see the calculation" link, the source tags on each bar and the ±
+  on estimated bars moved behind the switch. For testing as a first-time visitor, the last line of the method notes (with
+  calculations on) clears everything the site saved in this browser after a second tap; opening the page with `#reset`
+  does the same.
   Region pills also move the map, replacing the separate row of map-view buttons in the plain view.
 - **Layout after the NYT "Where should you live" quiz (v52):** what matters to you sits beside the map and ranking (a
   sticky panel on wide screens, a bottom sheet behind a "Priorities" button on phones), one tap per factor: off, counts
