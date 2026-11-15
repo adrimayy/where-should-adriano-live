@@ -22,7 +22,8 @@ function renderVs() {
     return;
   }
   const cs = ents.filter(e => e.type === 'city');
-  $('vsTitle').textContent = L(KNOWS ? 'vsTitle' : 'resTitle');
+  // the plain view is a header for the map and ranking below; the comparison with Adriano comes with the calculations
+  $('vsTitle').textContent = document.body.classList.contains('adv') ? L(KNOWS ? 'vsTitle' : 'resTitle') : L('vsEyebrow');
   $('vsMatch').hidden = !KNOWS;
   if (!KNOWS) {
     const top = t =>

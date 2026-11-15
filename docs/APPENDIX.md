@@ -242,6 +242,8 @@ compound over a career. (Until Nov 2026 the quiz asked how far ahead you were pl
 - Every place lookup (home bases, passports, job offers) uses the same searchable list.
 - After the quiz, the answers live in the "What matters to you" panel next to the results: each factor is off, counts
   (weight 1) or ★ counts double (2), so a change shows up in the ranking straight away. Sliders remain for finer weights.
+- By default the page shows only the results: scores, chips, map and ranking. "Show how the scores are calculated"
+  brings back the likely ranges, legends, the factor table, the comparison with Adriano, the sliders and the method notes.
 - Filters ("Only show": region, cost band, big cities of about 1.5 million or more, can work freely) never change a score;
   they hide places. Ties: places in a row with the same displayed score share a rank, shown as "=2".
 - A note before the first question: people tend to overweight weather and short visits and underweight commutes and

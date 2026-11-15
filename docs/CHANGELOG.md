@@ -23,6 +23,12 @@ How the method changed, and what it did to the top of Adriano's list.
 - **Census data for US metros:** commute (361 metros), rental vacancy (297) and money after rent (86) are now measured.
   Driving-alone share was rejected as a car-dependence measure. The share of city scores filled in fell from 61% to 49%.
 
+- **Quiz apart from results; calculations hidden by default (v53):** while the quiz is open nothing else is on the
+  page. Each answer gets a check on the choice, "Got it" and the progress bar moving before the next question (0.6 s, was
+  0.18 s). After the quiz the landing card steps aside and one "Your results" header leads into the panel, filters, map
+  and ranking. Ranges, the map legend and options, the "factors separately" table, the comparison with Adriano, the
+  defaults list, the sliders and the method boxes sit behind "Show how the scores are calculated" (remembered per browser).
+  Region pills also move the map, replacing the separate row of map-view buttons in the plain view.
 - **Layout after the NYT "Where should you live" quiz (v52):** what matters to you sits beside the map and ranking (a
   sticky panel on wide screens, a bottom sheet behind a "Priorities" button on phones), one tap per factor: off, counts
   (weight 1), ★ counts double (2), read from and written to the same weights as the sliders, which stay under "Fine-tune".

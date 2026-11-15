@@ -370,7 +370,7 @@ function renderDone() {
   $('doneMap').onclick = () => {
     QDONE = false;
     $('quizPanel').hidden = true;
-    $('vsPanel').scrollIntoView({ block: 'start' });
+    window.scrollTo({ top: 0 });
   };
   $('doneMore').onclick = sharpenQuiz;
 }
@@ -402,18 +402,29 @@ function renderQuiz() {
     body = `${QSTEP === 0 ? `<p class="meta qtip">${L('qtip')}</p>` : ''}<div class="qtitle">${head}</div>${sub ? `<p class="meta qsub">${sub}</p>` : ''}${ex ? `<p class="meta qsub qex">${ex}</p>` : ''}<div class="opts">${ord.map(i => `<button class="opt" data-i="${i}" aria-pressed="${ANS[q.id] === i}"><span class="dot"></span><span>${opts[i]}</span></button>`).join('')}</div>`;
   }
   Q.innerHTML = `<div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><span class="lab">${fmt(L('qOf'), { n, t: total })}</span><button class="ghost" id="qSkip">${QMORE ? L('doneMap') : L('skip')}</button></div>
-  <div class="progress"><span style="width:${Math.round((n / total) * 100)}%"></span></div>${body}
+  <div class="progress"><span style="width:${Math.round((QSTEP / total) * 100)}%"></span></div>${body}<p class="qgot" id="qGot" role="status"></p>
   <div class="qnav"><button id="qBack" ${QSTEP === 0 ? 'style="visibility:hidden" tabindex="-1" aria-hidden="true"' : ''}>${L('back')}</button><span class="toggles"><button class="ghost" id="qUnsure">${L('unsure')}</button>${answered(cur) ? `<button id="qNext" ${last ? 'class="primary"' : ''}>${last ? L('finish') : L('next')}</button>` : ''}</span></div>`;
   Q.querySelectorAll('.opt').forEach(
     b =>
       (b.onclick = () => {
+        if (Q.dataset.busy) return; // one answer per question; a second tap while it confirms does nothing
+        Q.dataset.busy = '1';
         ANS[QLIST[QSTEP].id] = +b.dataset.i;
-        Q.querySelectorAll('.opt').forEach(x => x.setAttribute('aria-pressed', x === b));
+        Q.querySelectorAll('.opt').forEach(x => {
+          x.setAttribute('aria-pressed', x === b);
+          x.classList.toggle('chosen', x === b);
+        });
+        // show that the answer registered (check on the choice, "Got it", progress moves) before the next question
+        const ok = $('qGot');
+        if (ok) ok.textContent = '✓ ' + L('gotIt');
+        const bar = Q.querySelector('.progress span');
+        if (bar) bar.style.width = Math.round(((QSTEP + 1) / QLIST.length) * 100) + '%';
         setTimeout(() => {
+          delete Q.dataset.busy;
           QDIR = 1;
           QSTEP++;
           renderQuiz();
-        }, 180);
+        }, 600);
       })
   );
   if (cur.picker) wirePicker(cur);

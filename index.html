@@ -32,12 +32,12 @@
 
   <section class="panel" id="vsPanel" hidden>
     <div class="dhead">
-      <div style="display:flex;flex-direction:column;gap:4px"><span class="eyebrow" data-t="vsEyebrow"></span><h2 id="vsTitle"></h2></div>
-      <div class="match" id="vsMatch"><span class="big" id="matchPct">0%</span><span class="meta" data-t="matchLabel"></span></div>
+      <div style="display:flex;flex-direction:column;gap:4px"><span class="eyebrow calc-only" data-t="vsEyebrow"></span><h2 id="vsTitle"></h2></div>
+      <div class="match calc-only" id="vsMatch"><span class="big" id="matchPct">0%</span><span class="meta" data-t="matchLabel"></span></div>
     </div>
-    <div class="vs" id="vsLists"></div>
-    <div class="diffs" id="vsDiffs"></div>
-    <div id="vsDefaults"></div>
+    <div class="vs calc-only" id="vsLists"></div>
+    <div class="diffs calc-only" id="vsDiffs"></div>
+    <div id="vsDefaults" class="calc-only"></div>
     <div class="toast" id="toast" role="status"></div>
     <p class="meta" data-t="startNote"></p>
     <div class="toggles"><button class="primary" id="shareTake" data-t="share"></button><button id="retake" data-t="retake"></button><button class="ghost" id="fullQuiz" data-t="sharpen"></button><button class="ghost" id="toMap" data-t="toMap"></button></div>
@@ -57,7 +57,7 @@
     <div class="rankhead">
       <div style="display:flex;flex-direction:column;gap:4px"><h2 data-t="mapTitle"></h2></div>
     </div>
-    <details class="box" id="mapOpts">
+    <details class="box calc-only" id="mapOpts">
       <summary><span data-t="optsTitle"></span><span class="meta" id="fsum" style="font-weight:400;margin-left:auto"></span></summary>
       <div class="inner">
         <div class="mapctl">
@@ -71,7 +71,7 @@
         <div><button id="freset" data-t="resetFilters"></button></div>
       </div>
     </details>
-    <div class="toggles" id="regions" role="group" aria-label="Map view"></div>
+    <div class="toggles calc-only" id="regions" role="group" aria-label="Map view"></div>
     <div class="mapbox" id="mapbox">
       <canvas id="map" role="img" aria-label="World map"></canvas>
       <svg id="overlay" aria-label="Cities"></svg>
@@ -80,19 +80,19 @@
       <div class="tip" id="tip"></div>
       <div class="pcard" id="pcard" hidden></div>
     </div>
-    <details class="howread"><summary data-t="howRead"></summary><p class="meta" data-t="namesRule"></p></details>
-    <div class="legend" id="legend"></div>
+    <details class="howread calc-only"><summary data-t="howRead"></summary><p class="meta" data-t="namesRule"></p></details>
+    <div class="legend calc-only" id="legend"></div>
   </section>
 
   <section style="display:flex;flex-direction:column;gap:12px" id="rankSec">
     <div class="rankhead">
       <div style="display:flex;flex-direction:column;gap:4px"><h2 data-t="ranking"></h2><p class="meta" id="rankmeta"></p></div>
       <div class="toggles"><div class="seg" role="group"><button id="rCities" aria-pressed="true" data-t="cities"></button><button id="rCountries" aria-pressed="false" data-t="countries"></button></div>
-      <div class="seg" role="group"><button id="vScore" aria-pressed="true" data-t="viewScore"></button><button id="vProfile" aria-pressed="false" data-t="viewProfile"></button></div>
+      <div class="seg calc-only" role="group"><button id="vScore" aria-pressed="true" data-t="viewScore"></button><button id="vProfile" aria-pressed="false" data-t="viewProfile"></button></div>
 </div>
     </div>
     <div class="list" id="list"></div>
-    <div><button id="more" data-t="showAll"></button></div>
+    <div class="listfoot"><button id="more" data-t="showAll"></button><button class="linkbtn" id="advBtn" aria-pressed="false"></button></div>
   </section>
 
   <div class="grid2 after" id="detailSec">
@@ -109,7 +109,7 @@
     <div id="offerOut"></div>
   </div></details>
 
-  <details class="box after" id="weightsBox">
+  <details class="box after calc-only" id="weightsBox">
     <summary><span data-t="weightsTitle"></span></summary>
     <div class="inner wgrid">
       <div class="wmain">
@@ -149,9 +149,9 @@
   </div>
   </div>
 
-  <details class="box after"><summary><span data-t="prioTitle"></span></summary><div class="inner"><div class="prio" id="prio"></div></div></details>
-  <details class="box after choices"><summary><span data-t="choicesTitle"></span></summary><div class="inner" data-th="choicesBody"></div></details>
-  <details class="box after">
+  <details class="box after calc-only"><summary><span data-t="prioTitle"></span></summary><div class="inner"><div class="prio" id="prio"></div></div></details>
+  <details class="box after choices calc-only"><summary><span data-t="choicesTitle"></span></summary><div class="inner" data-th="choicesBody"></div></details>
+  <details class="box after calc-only">
     <summary><span data-t="howTitle"></span></summary>
     <div class="inner foot" id="howInner"></div>
   </details>

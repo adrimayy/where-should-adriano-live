@@ -253,7 +253,7 @@ function detail(e) {
   const big = vsAd()
     ? `<div style="display:flex;gap:16px;align-items:flex-end"><div><span class="lab" style="color:var(--you)">${L('youScore')}</span><div class="big">${r5(e.score)}</div></div><div><span class="lab">${L('adScore')}</span><div class="big" style="font-size:28px;color:var(--muted)">${r5(e.ad.score)}</div></div></div>`
     : `<div class="big">${r5(e.score)}<small>/100</small></div>`;
-  const rangeLine = `<div class="drange">${rbar(e)}</div><p class="mono muted">${fmt(L('rangeLine'), { lo: e.lo, hi: e.hi, rlo: e.rlo, rhi: e.rhi, n: e.rn })} · ${fmt(L('probLine'), { f: pct(e.pFit), t: pct(e.pTop) })}${e.impShare > 0.005 ? ' · ' + fmt(L('impShare'), { p: Math.round(e.impShare * 100) }) : ''}</p><p class="meta">${L('roundNote')} <button class="ghost linkbtn" id="toCalc">${L('seeCalc')}</button></p>`;
+  const rangeLine = `<div class="drange calc-only">${rbar(e)}</div><p class="mono muted">${fmt(L('rangeLine'), { lo: e.lo, hi: e.hi, rlo: e.rlo, rhi: e.rhi, n: e.rn })} · ${fmt(L('probLine'), { f: pct(e.pFit), t: pct(e.pTop) })}${e.impShare > 0.005 ? ' · ' + fmt(L('impShare'), { p: Math.round(e.impShare * 100) }) : ''}</p><p class="meta">${L('roundNote')} <button class="ghost linkbtn" id="toCalc">${L('seeCalc')}</button></p>`;
   const mins = Math.round((e.dayH % 1) * 60);
   D.innerHTML = `<div class="dhead"><div style="display:flex;flex-direction:column;gap:6px;min-width:0"><span class="eyebrow">${e.type === 'city' ? L('city') + ' · ' + countryOf(e) : L('country')}${e.est ? ' · ' + L('estimated') : ''}</span><h2 style="font-size:24px">${dn(e)}</h2><div class="toggles">${chip(e.tier)}<button class="chipbtn" id="cmpBtn">${ui.cmp.includes(e) ? L('removeCmp') : L('addCmp')}</button></div></div>${big}</div>
   ${rangeLine}<p style="font-weight:500">${whyLine(e)}${e.gated ? L('dealRule') : ''}</p><p class="meta">${noteOf(e) || ''}</p>${e.natl ? `<p class="meta">${L('natlNote')}</p>` : ''}
@@ -290,8 +290,8 @@ function detail(e) {
     return `<div class="brow${v <= 2 && !off ? ' weak' : ''}" style="${off ? 'opacity:.45' : ''}"><span class="lbl">${FL(f.k)}${srcTag(e, f.k)}</span><span class="track"><span class="fill" style="width:${v * 20}%;background:${barCol(v)}"></span></span><span class="v">${off ? L('notCounted') : Math.round(v * 10) / 10 + '/5'}</span></div>`;
   }).join('')}</div>
   ${HOMES.length && e.hasGeo ? `<div class="field"><span class="lab">${L('tripTitle')}</span><div class="toggles">${HOMES.map((h, i) => (h === e ? '' : `<label class="meta" style="display:flex;gap:6px;align-items:center">${dn(h)} <input type="number" min="0" max="60" step="0.5" data-h="${h.key}" value="${TRIPS[e.key + '|' + h.key] || ''}" placeholder="${Math.round(e.flights[i])}" style="width:70px;font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--fg)"> h</label>`)).join('')}</div><p class="meta">${L('tripNote')}</p></div>` : ''}
-  ${calcTable(e)}
-  <p class="meta">${fmt(L('backed'), { b: e.backed, k: e.known })}</p>
+  <div class="calc-only">${calcTable(e)}
+  <p class="meta">${fmt(L('backed'), { b: e.backed, k: e.known })}</p></div>
   ${RACED[isoOf(e)] ? `<p class="meta">${fmt(L('raceInfo'), { r: RACED[isoOf(e)][0], i: RACED[isoOf(e)][1] })} <a href="${RAWU.wvsrace}" target="_blank" rel="noopener">KCL / WVS</a></p>` : ''}
   ${e.type === 'city' ? `<details class="calc"><summary><b>${L('nbhdTitle')}</b></summary><p class="meta">${L('nbhd')}</p>${WALKD[e.name] ? `<p class="meta">${fmt(L('walkInfo'), { w: WALKD[e.name][0], t: WALKD[e.name][1] })} <a href="${RAWU.walk}" target="_blank" rel="noopener">${L('walkLink')}</a></p>` : ''}</details>` : ''}
   
@@ -595,11 +595,26 @@ function prioUI() {
     saveTake();
   };
   $('pfine').onclick = () => {
+    setAdv(true);
     setSheet(false);
     $('weightsBox').open = true;
     $('weightsBox').scrollIntoView({ block: 'start' });
   };
   $('pclose').onclick = () => setSheet(false);
+}
+// How the scores are calculated (ranges, legends, method boxes, the calculation table): hidden unless asked for
+function setAdv(on) {
+  document.body.classList.toggle('adv', on);
+  store.set('adv', on);
+  $('advBtn').textContent = L(on ? 'advHide' : 'advShow');
+  if (typeof renderVs === 'function' && !$('vsPanel').hidden) renderVs();
+  $('advBtn').setAttribute('aria-pressed', on);
+  if (!on && ui.view === 'profile') {
+    ui.view = 'score';
+    $('vScore').setAttribute('aria-pressed', true);
+    $('vProfile').setAttribute('aria-pressed', false);
+    list();
+  }
 }
 // on phones the panel is a bottom sheet behind the floating button
 function setSheet(open) {
@@ -630,6 +645,8 @@ function pillsUI() {
             v = g === 'cost' ? +b.dataset.v : b.dataset.v;
           if (g === 'reg' || g === 'cost') f[g].has(v) ? f[g].delete(v) : f[g].add(v);
           else f[g] = !f[g];
+          // a region filter also moves the map there (one region: that region; none or several: the default view)
+          if (g === 'reg') regionView(f.reg.size === 1 && REGIONS[[...f.reg][0]] ? [...f.reg][0] : f.reg.size ? 'world' : 'atlantic', true);
           pillsUI();
           filtersChanged();
         })
@@ -1190,6 +1207,7 @@ function applyLang() {
   weightsUI();
   prioUI();
   pillsUI();
+  setAdv(document.body.classList.contains('adv'));
   tierFilters();
   mustUI();
   syncMode();
