@@ -1817,3 +1817,28 @@ th {
   .heart { inset-inline-end: 4px; }
   .hero1 .hname b { font-size: 23px; }
 }
+
+/* ---------- the quiz is its own screen: nothing else on the page while it is open ---------- */
+body:has(#quizPanel:not([hidden])) .wrap > :not(.topbar, #quizPanel),
+body:has(#quizPanel:not([hidden])) .pfab { display: none !important; }
+body:has(#quizPanel:not([hidden])) #quizPanel { margin-top: 4vh; min-height: min(640px, 80vh); }
+/* once there are results, the landing card steps aside: retake is in the results header */
+body:has(#vsPanel:not([hidden])) #start { display: none; }
+/* feedback after each answer: the choice gets a check, "Got it" appears, the progress bar moves */
+.progress span { transition: width 0.45s ease; }
+.opt.chosen { background: var(--tint); border-color: var(--accent); }
+.opt.chosen::after { content: '✓'; margin-inline-start: auto; color: var(--accent); font-weight: 700; }
+.qgot { min-height: 1.4em; margin: 0; color: var(--accent); font-weight: 600; font-size: 14px; }
+@media (prefers-reduced-motion: reduce) { .progress span { transition: none; } }
+
+/* ---------- how scores are calculated: hidden unless switched on ---------- */
+body:not(.adv) .calc-only,
+body:not(.adv) .row .rbar { display: none !important; }
+.listfoot { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.pill { white-space: nowrap; flex: none; }
+@media (max-width: 640px) {
+  /* each pill group scrolls sideways in one row instead of squeezing its words */
+  .pgroup { max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+  .pgroup::-webkit-scrollbar { display: none; }
+}
+#vsPanel .toast:empty { display: none; }

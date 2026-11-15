@@ -5,6 +5,8 @@ $('langSel').innerHTML = Object.entries(UI_LANGS)
   .join('');
 $('langSel').onchange = e => setLang(e.target.value);
 $('startQuiz').onclick = () => startQuiz(false);
+$('advBtn').onclick = () => setAdv(!document.body.classList.contains('adv'));
+document.body.classList.toggle('adv', !!store.get('adv', false));
 $('fullQuiz').onclick = () => sharpenQuiz();
 function setAdriano() {
   MODE = 'adriano';
