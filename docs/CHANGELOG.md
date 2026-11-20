@@ -37,6 +37,14 @@ How the method changed, and what it did to the top of Adriano's list.
   better, each strong on two things you care about, and nudges the weights (at most ×2 or ÷2 per factor), then shows what
   counts more, what counts less and whether the top match changed, with Undo. A place's page opens with up to three plain
   lines from published figures, such as "Low car dependence: better than 85% of the cities in the atlas".
+- **The quiz is a tree (v56):** every question reworded as a scene from daily life, with a line under it showing what two
+  real places measure (minutes to work, dollars left after rent, hours of December daylight). New roots: where your pay
+  will come from and who is moving; they decide what is asked next (remote workers get prices and the clock, not
+  commutes). One screen asks what you would miss most and what you could live without, and only the follow-ups to the
+  "most" areas are asked. "I'm not sure" counts as average, and the results say whether those answers could change the
+  top match. Two new factors worked out from the map, off unless asked for: same hours as home (time zones) and the sea
+  nearby (distance to the coast). 33 questions in all, about a dozen in the short quiz. Method and reading list in
+  docs/APPENDIX.md, "Quiz design".
   Region pills also move the map, replacing the separate row of map-view buttons in the plain view.
 - **Layout after the NYT "Where should you live" quiz (v52):** what matters to you sits beside the map and ranking (a
   sticky panel on wide screens, a bottom sheet behind a "Priorities" button on phones), one tap per factor: off, counts

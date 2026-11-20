@@ -42,21 +42,98 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | Language / Language barrier | Idioma / Barrera del idioma | |
 | Close to home / Far from home | Cerca de casa / Lejos de casa | |
 | Cultural familiarity / Culturally unfamiliar | Familiaridad cultural / Culturalmente desconocido | |
+| Same hours as home / Big time difference from home | Mismo horario que en casa / Mucha diferencia horaria con casa | |
+| The sea nearby / Far from the sea | El mar cerca / Lejos del mar | |
 
 ## Quiz
 
 ### where
 
-**EN:** Where is home for you?
+**EN:** Where do you live now?
 
-**ES:** ¿Dónde está tu hogar?
+**ES:** ¿Dónde vives ahora?
+
+| English option | Opción en español | Suggestion |
+|---|---|---|
+
+### perm
+
+**EN:** Which passports do you hold?
+
+**ES:** ¿Qué pasaportes tienes?
+
+| English option | Opción en español | Suggestion |
+|---|---|---|
+| US and Mexican, like Adriano | Estadounidense y mexicano, como Adriano | |
+| US only | Solo estadounidense | |
+| Mexican only | Solo mexicano | |
+| An EU passport | Uno de la UE | |
+| Other (ignore this) | Otro (ignorar) | |
+
+### lang
+
+**EN:** Which languages could you live in? (Enough to call a landlord or see a doctor, not just order coffee.)
+
+**ES:** ¿En qué idiomas podrías vivir? (Lo suficiente para llamar a un casero o ir al médico, no solo para pedir un café.)
+
+| English option | Opción en español | Suggestion |
+|---|---|---|
+| English and Spanish | Inglés y español | |
+| English only | Solo inglés | |
+| Some English | Algo de inglés | |
+| Spanish only | Solo español | |
+| Spanish, plus some English | Español y algo de inglés | |
+| I’d learn whatever’s needed | Aprendería lo que haga falta | |
+
+### work
+
+**EN:** After the move, where will your pay come from?
+
+**ES:** Después de mudarte, ¿de dónde vendrá tu sueldo?
+
+| English option | Opción en español | Suggestion |
+|---|---|---|
+| A job there, with a local employer | Un empleo ahí, con un empleador local | |
+| Remote work: my pay comes from somewhere else | Trabajo remoto: mi sueldo viene de otro lugar | |
+| I’ll be studying | Voy a estudiar | |
+| I’m retired or won’t be working | Estoy jubilado o no voy a trabajar | |
+| I don’t know yet | Todavía no lo sé | |
+
+### who
+
+**EN:** Who’s moving with you?
+
+**ES:** ¿Quién se muda contigo?
+
+| English option | Opción en español | Suggestion |
+|---|---|---|
+| Just me | Solo yo | |
+| My partner and me | Mi pareja y yo | |
+| My family, with kids | Mi familia, con hijos | |
+
+### partner
+
+**EN:** Will your partner need to find a job there?
+
+**ES:** ¿Tu pareja tendrá que buscar trabajo ahí?
+
+| English option | Opción en español | Suggestion |
+|---|---|---|
+| Yes | Sí | |
+| No | No | |
+
+### top
+
+**EN:** Picture an ordinary Tuesday in your new city. Which of these would you miss most if they were bad?
+
+**ES:** Imagina un martes cualquiera en tu nueva ciudad. ¿Cuáles de estas cosas echarías más de menos si fueran malas?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
 
 ### field
 
-**EN:** What’s your field?
+**EN:** What kind of work do you do?
 
 **ES:** ¿A qué te dedicas?
 
@@ -70,22 +147,11 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | Something else, or a mix | Otra cosa, o una mezcla | |
 | Fully remote, for an employer elsewhere | 100% remoto, para una empresa de otro lugar | |
 
-### reach
-
-**EN:** Would you commute to a bigger city a few days a week?
-
-**ES:** ¿Viajarías a una ciudad más grande algunos días a la semana?
-
-| English option | Opción en español | Suggestion |
-|---|---|---|
-| Yes, up to 1.5 hours each way | Sí, hasta 1.5 horas por trayecto | |
-| No, I’d work where I live | No, trabajaría donde vivo | |
-
 ### jobs
 
-**EN:** How much does a big, busy city matter? (More jobs and more going on.)
+**EN:** Say your job ended next year. How much would it matter to find another without moving again?
 
-**ES:** ¿Cuánto te importa una ciudad grande y con mucha vida? (Más empleo y más cosas que hacer.)
+**ES:** Supón que tu trabajo se acaba el año que viene. ¿Cuánto importa poder encontrar otro sin volver a mudarte?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
@@ -93,11 +159,34 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | Somewhat | Algo | |
 | A lot | Mucho | |
 
+### reach
+
+**EN:** Would you take a train to a bigger city nearby, up to an hour and a half each way, a few days a week?
+
+**ES:** ¿Tomarías un tren a una ciudad más grande cercana, hasta hora y media por trayecto, unos días a la semana?
+
+| English option | Opción en español | Suggestion |
+|---|---|---|
+| Yes, up to 1.5 hours each way | Sí, hasta 1.5 horas por trayecto | |
+| No, I’d work where I live | No, trabajaría donde vivo | |
+
 ### pay
 
-**EN:** How much does money left after rent matter?
+**EN:** Rent is paid. How much does it matter what’s left of your paycheck for everything else?
 
-**ES:** ¿Cuánto te importa el dinero que queda tras la renta?
+**ES:** Ya pagaste la renta. ¿Cuánto importa lo que te queda del sueldo para todo lo demás?
+
+| English option | Opción en español | Suggestion |
+|---|---|---|
+| Not much | Poco | |
+| Somewhat | Algo | |
+| A lot | Mucho | |
+
+### pay_r
+
+**EN:** Your income comes with you. How much does it matter that it buys more there?
+
+**ES:** Tu ingreso viaja contigo. ¿Cuánto importa que ahí rinda más?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
@@ -107,9 +196,9 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 
 ### home
 
-**EN:** How much does an easy apartment hunt matter?
+**EN:** You need an apartment within a month. How much does it matter that finding one is easy?
 
-**ES:** ¿Cuánto te importa encontrar departamento fácilmente?
+**ES:** Necesitas un departamento en un mes. ¿Cuánto importa que sea fácil encontrarlo?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
@@ -119,9 +208,9 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 
 ### move
 
-**EN:** How do you want to get around?
+**EN:** In a normal week, how do you want to get around?
 
-**ES:** ¿Cómo quieres moverte?
+**ES:** En una semana normal, ¿cómo quieres moverte?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
@@ -131,9 +220,9 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 
 ### commute
 
-**EN:** How much does a short commute matter? (20 minutes instead of 45.)
+**EN:** Twice a day, every workday: how much would a longer trip to work wear on you?
 
-**ES:** ¿Cuánto te importa un trayecto corto? (20 minutos en vez de 45.)
+**ES:** Dos veces al día, cada día de trabajo: ¿cuánto te desgastaría un trayecto más largo?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
@@ -141,11 +230,23 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | Somewhat | Algo | |
 | A lot | Mucho | |
 
-### hlth
+### hours
 
-**EN:** How much does good healthcare that everyone can get matter?
+**EN:** How much do free evenings, weekends and real vacations matter to you?
 
-**ES:** ¿Cuánto te importa una buena atención médica al alcance de todos?
+**ES:** ¿Cuánto te importan las tardes libres, los fines de semana y unas vacaciones de verdad?
+
+| English option | Opción en español | Suggestion |
+|---|---|---|
+| Not much | Poco | |
+| Somewhat | Algo | |
+| A lot | Mucho | |
+
+### cult
+
+**EN:** It’s Friday night. How much do you want a city where there’s always something on?
+
+**ES:** Es viernes por la noche. ¿Cuánto quieres una ciudad donde siempre haya algo que hacer?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
@@ -155,9 +256,9 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 
 ### clim
 
-**EN:** What weather suits you?
+**EN:** What weather would you be happy to wake up to?
 
-**ES:** ¿Qué clima te va?
+**ES:** ¿Con qué clima te gustaría despertar?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
@@ -168,35 +269,11 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | Weather doesn’t matter much | El clima me da casi igual | |
 | Cold, snowy winters are a plus (Oslo, Montreal) | Inviernos fríos y con nieve, mejor (Oslo, Montreal) | |
 
-### open
+### day
 
-**EN:** How much does making friends easily matter?
+**EN:** You leave work at five in December and it’s already dark. How much would that get to you?
 
-**ES:** ¿Cuánto te importa hacer amigos fácilmente?
-
-| English option | Opción en español | Suggestion |
-|---|---|---|
-| Not much | Poco | |
-| Somewhat | Algo | |
-| A lot | Mucho | |
-
-### kin
-
-**EN:** Should places that feel culturally familiar count more? (Same language or region as where you’re from.)
-
-**ES:** ¿Deberían contar más los lugares culturalmente familiares? (Mismo idioma o región que tu origen.)
-
-| English option | Opción en español | Suggestion |
-|---|---|---|
-| No | No | |
-| A little | Un poco | |
-| A lot | Mucho | |
-
-### fam
-
-**EN:** How much does a short trip home matter? (3 hours instead of 12.)
-
-**ES:** ¿Cuánto te importa un viaje corto a casa? (3 horas en vez de 12.)
+**ES:** Sales del trabajo a las cinco en diciembre y ya es de noche. ¿Cuánto te afectaría?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
@@ -204,35 +281,23 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | Somewhat | Algo | |
 | A lot | Mucho | |
 
-### safe
+### sea
 
-**EN:** How much does low crime matter?
+**EN:** A free Saturday: how much do you want the sea, or a lake too wide to see across, within easy reach?
 
-**ES:** ¿Cuánto te importa que haya poca delincuencia?
+**ES:** Un sábado libre: ¿cuánto quieres tener cerca el mar, o un lago tan grande que no se ve la otra orilla?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
-| Not much | Poco | |
-| Somewhat | Algo | |
-| A lot | Mucho | |
+| I don’t need it | No lo necesito | |
+| It would be nice | Estaría bien | |
+| I really want it | Lo quiero de verdad | |
 
 ### air
 
-**EN:** How much does clean air matter?
+**EN:** How much would it bother you to live where the air is often hazy and smells of traffic?
 
-**ES:** ¿Cuánto importa el aire limpio?
-
-| English option | Opción en español | Suggestion |
-|---|---|---|
-| Not much | Poco | |
-| Somewhat | Algo | |
-| A lot | Mucho | |
-
-### hours
-
-**EN:** How much does time off matter?
-
-**ES:** ¿Cuánto importa el tiempo libre?
+**ES:** ¿Cuánto te molestaría vivir donde el aire suele estar turbio y huele a tráfico?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
@@ -242,9 +307,9 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 
 ### risk
 
-**EN:** How much does a low risk of natural disasters matter?
+**EN:** Earthquakes, hurricanes, floods, wildfires. How much does living somewhere low-risk matter to you?
 
-**ES:** ¿Cuánto importa un riesgo bajo de desastres naturales?
+**ES:** Terremotos, huracanes, inundaciones, incendios. ¿Cuánto te importa vivir en un lugar de bajo riesgo?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
@@ -252,33 +317,95 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | Somewhat | Algo | |
 | A lot | Mucho | |
 
-### weak
+### open
 
-**EN:** Can a place’s strengths make up for one serious weak spot? (Great jobs but poor safety, say.)
+**EN:** You arrive knowing no one. How much does it matter that people there are easy to befriend?
 
-**ES:** ¿Pueden las ventajas de un lugar compensar un punto débil serio? (Buen empleo pero poca seguridad, por ejemplo.)
-
-| English option | Opción en español | Suggestion |
-|---|---|---|
-| Yes, strengths can make up for it | Sí, las ventajas pueden compensarlo | |
-| No, one serious weak spot spoils a place | No, un punto débil serio arruina un lugar | |
-
-### sure
-
-**EN:** When the data on a place is thin, how should it rank?
-
-**ES:** Cuando hay pocos datos sobre un lugar, ¿cómo debe ordenarse?
+**ES:** Llegas sin conocer a nadie. ¿Cuánto importa que ahí sea fácil hacer amigos?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
-| Lower: I prefer well-measured places | Más abajo: prefiero lugares bien medidos | |
-| By its best guess: I’ll take the chance | Según su mejor estimación: me arriesgo | |
+| Not much | Poco | |
+| Somewhat | Algo | |
+| A lot | Mucho | |
+
+### fam
+
+**EN:** A birthday, a wedding, a bad week back home. How much does a quick trip home matter?
+
+**ES:** Un cumpleaños, una boda, una mala semana en casa. ¿Cuánto importa poder volver rápido?
+
+| English option | Opción en español | Suggestion |
+|---|---|---|
+| Not much | Poco | |
+| Somewhat | Algo | |
+| A lot | Mucho | |
+
+### tz
+
+**EN:** You call home after dinner. How much does it matter that they’re awake?
+
+**ES:** Llamas a casa después de cenar. ¿Cuánto importa que estén despiertos?
+
+| English option | Opción en español | Suggestion |
+|---|---|---|
+| Not much | Poco | |
+| Somewhat | Algo | |
+| A lot | Mucho | |
+
+### tz_r
+
+**EN:** Your work runs on another clock. How much does it matter to keep normal hours?
+
+**ES:** Tu trabajo sigue otro reloj. ¿Cuánto importa tener un horario normal?
+
+| English option | Opción en español | Suggestion |
+|---|---|---|
+| Not much | Poco | |
+| Somewhat | Algo | |
+| A lot | Mucho | |
+
+### kin
+
+**EN:** Should places that feel familiar count for more? (Your language, food you know, a similar way of doing things.)
+
+**ES:** ¿Deben contar más los lugares que se sienten familiares? (Tu idioma, comida que conoces, una forma parecida de hacer las cosas.)
+
+| English option | Opción en español | Suggestion |
+|---|---|---|
+| No | No | |
+| A little | Un poco | |
+| A lot | Mucho | |
+
+### safe
+
+**EN:** Walking home alone at eleven at night. How much does it matter that you wouldn’t think twice?
+
+**ES:** Vuelves a casa a pie, a solas, a las once de la noche. ¿Cuánto importa hacerlo sin pensarlo dos veces?
+
+| English option | Opción en español | Suggestion |
+|---|---|---|
+| Not much | Poco | |
+| Somewhat | Algo | |
+| A lot | Mucho | |
+
+### hlth
+
+**EN:** You wake up sick on a Monday. How much does it matter that seeing a doctor is easy and doesn’t depend on your job?
+
+**ES:** Amaneces enfermo un lunes. ¿Cuánto importa que ver a un médico sea fácil y no dependa de tu trabajo?
+
+| English option | Opción en español | Suggestion |
+|---|---|---|
+| Not much | Poco | |
+| Somewhat | Algo | |
+| A lot | Mucho | |
 
 ### free
 
-**EN:** How much do political freedom and honest officials matter? (A free press, the right to protest, police and officials who don’t take bribes.)
+**EN:** How much does it matter that you can criticize the government out loud and never have to pay a bribe?
 
-**ES:** ¿Cuánto te importan la libertad política y funcionarios honestos? (Prensa libre, derecho a protestar, policías y funcionarios que no aceptan mordidas.)
+**ES:** ¿Cuánto importa poder criticar al gobierno en voz alta y no tener que pagar nunca una mordida?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
@@ -288,9 +415,9 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 
 ### women
 
-**EN:** How much should women’s safety and rights count?
+**EN:** How much should it count that women are safe there and treated as equals?
 
-**ES:** ¿Cuánto deben contar la seguridad y los derechos de las mujeres?
+**ES:** ¿Cuánto debe contar que ahí las mujeres estén seguras y reciban un trato igual?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
@@ -301,9 +428,9 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 
 ### lgbt
 
-**EN:** How much should LGBTQ+ acceptance count?
+**EN:** How much should it count that LGBTQ+ people can live openly there?
 
-**ES:** ¿Cuánto debe contar la aceptación LGBTQ+?
+**ES:** ¿Cuánto debe contar que ahí las personas LGBTQ+ puedan vivir abiertamente?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
@@ -314,9 +441,9 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 
 ### pol
 
-**EN:** If you lived in the US, should local politics count?
+**EN:** In the US, would you rather live where most of your neighbors vote like you?
 
-**ES:** Si vivieras en EE. UU., ¿debería contar la política local?
+**ES:** En EE. UU., ¿preferirías vivir donde la mayoría de tus vecinos vota como tú?
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
@@ -324,34 +451,27 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | Yes, I prefer Republican-leaning areas | Sí, prefiero zonas republicanas | |
 | No | No | |
 
-### lang
+### weak
 
-**EN:** Which languages could you live in day to day?
+**EN:** A city has almost everything you want and one serious flaw. Could you still be happy there? (Great jobs but unsafe streets, say.)
 
-**ES:** ¿En qué idiomas podrías vivir tu día a día?
-
-| English option | Opción en español | Suggestion |
-|---|---|---|
-| English and Spanish | Inglés y español | |
-| English only | Solo inglés | |
-| Some English | Algo de inglés | |
-| Spanish only | Solo español | |
-| Spanish, plus some English | Español y algo de inglés | |
-| I’d learn whatever’s needed | Aprendería lo que haga falta | |
-
-### perm
-
-**EN:** Which passports do you have?
-
-**ES:** ¿Qué pasaportes tienes?
+**ES:** Una ciudad tiene casi todo lo que quieres y un defecto serio. ¿Podrías ser feliz ahí? (Muy buenos empleos pero calles inseguras, por ejemplo.)
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
-| US and Mexican, like Adriano | Estadounidense y mexicano, como Adriano | |
-| US only | Solo estadounidense | |
-| Mexican only | Solo mexicano | |
-| An EU passport | Uno de la UE | |
-| Other (ignore this) | Otro (ignorar) | |
+| Yes, strengths can make up for it | Sí, las ventajas pueden compensarlo | |
+| No, one serious weak spot spoils a place | No, un punto débil serio arruina un lugar | |
+
+### sure
+
+**EN:** For some places there’s little data, so part of the score is an estimate. How should they rank?
+
+**ES:** De algunos lugares hay pocos datos, así que parte de la nota es una estimación. ¿Cómo deben ordenarse?
+
+| English option | Opción en español | Suggestion |
+|---|---|---|
+| Lower: I prefer well-measured places | Más abajo: prefiero lugares bien medidos | |
+| By its best guess: I’ll take the chance | Según su mejor estimación: me arriesgo | |
 
 ## Buttons and short labels
 
@@ -405,7 +525,7 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | impFactor | Factor | Factor | |
 | impCountries | Countries: average error, points on the 1–5 scale | Países: error promedio, puntos en la escala 1–5 | |
 | impCities | Cities: average error, points on the 1–5 scale | Ciudades: error promedio, puntos en la escala 1–5 | |
-| unsure | Not sure, skip | No estoy seguro, saltar | |
+| unsure | I’m not sure | No estoy seguro | |
 | whyGood | Good for you: {x}. | Bueno para ti: {x}. | |
 | whyNone | No standout strengths for you. | Nada destaca para ti. | |
 | whyBad | Weakest: {x}. | Lo más débil: {x}. | |
@@ -462,6 +582,56 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | nothing | Nothing matches these filters. | Nada cumple estos filtros. | |
 | compare | Compare | Comparar | |
 | clear | Clear | Borrar | |
+| gotIt | Got it | Listo | |
+| advShow | Show how the scores are calculated | Mostrar cómo se calculan las puntuaciones | |
+| advHide | Hide the calculations | Ocultar los cálculos | |
+| wipeAgain | Tap again to clear everything | Toca otra vez para borrarlo todo | |
+| tradeBtn | Sharpen with 5 trade-offs | Afinar con 5 dilemas | |
+| tradeQ | Which city sounds better? | ¿Qué ciudad te suena mejor? | |
+| tradeSub | Both cities are about average on everything else. | En todo lo demás, las dos ciudades están más o menos en la media. | |
+| tradeOr | or | o | |
+| cityA | City A is strong on | La ciudad A destaca en | |
+| cityB | City B is strong on | La ciudad B destaca en | |
+| tradeStop | Stop here | Parar aquí | |
+| tradeDoneT | Your priorities are sharper | Tus prioridades están más claras | |
+| tradeMoved | What changed in how your results are weighed: | Qué cambió en cómo se pesan tus resultados: | |
+| tradeUp | Counts more: | Cuenta más: | |
+| tradeDown | Counts less: | Cuenta menos: | |
+| tradeSame | Your answers matched your quiz, so nothing needed to change. | Tus respuestas coinciden con el cuestionario, así que no hizo falta cambiar nada. | |
+| tradeTopNew | Your top match is now {p} (was {o}). | Tu mejor opción ahora es {p} (antes {o}). | |
+| tradeTopSame | Your top match is still {p}. | Tu mejor opción sigue siendo {p}. | |
+| tradeUndo | Undo these changes | Deshacer estos cambios | |
+| tradeUndone | Trade-off changes undone. | Cambios de los dilemas deshechos. | |
+| factGoodC | {f}: better than {p}% of the cities in the atlas | {f}: mejor que el {p}% de las ciudades del atlas | |
+| factBadC | {f}: weaker than {p}% of the cities in the atlas | {f}: peor que el {p}% de las ciudades del atlas | |
+| factGoodN | {f}: better than {p}% of the countries in the atlas | {f}: mejor que el {p}% de los países del atlas | |
+| factBadN | {f}: weaker than {p}% of the countries in the atlas | {f}: peor que el {p}% de los países del atlas | |
+| topLow | could live without | podría no tenerlo | |
+| topMax | That’s {n} already. Take one off to add another. | Ya van {n}. Quita uno para agregar otro. | |
+| unsureHead | You weren’t sure about: {f}. | No estabas seguro sobre: {f}. | |
+| unsureHolds | Your top match stays the same whichever way you’d answer. | Tu mejor opción es la misma respondas lo que respondas. | |
+| unsureHint | The 5 trade-offs can settle it. | Los 5 dilemas pueden resolverlo. | |
+| swSafe | Homicides per 100,000 people a year: {x} in {a}, {y} in {b}. | Homicidios por cada 100 mil habitantes al año: {x} en {a}, {y} en {b}. | |
+| swFam | Door to door to {h}: about {x} hours from {a}, {y} from {b}. | De puerta a puerta hasta {h}: unas {x} horas desde {a}, {y} desde {b}. | |
+| swTz | When it’s {t} in {h}, it’s {x} in {a} and {y} in {b}. | Cuando son las {t} en {h}, son las {x} en {a} y las {y} en {b}. | |
+| qN | Question {n} | Pregunta {n} | |
+| calcTz | clocks {h}h apart from home | {h} h de diferencia horaria con casa | |
+| calcSea | {km} km to the sea or a great lake | {km} km hasta el mar o un gran lago | |
+| ppHead | What matters to you | Lo que te importa | |
+| ppReset | Reset | Restablecer | |
+| ppResetQuiz | Back to my quiz answers | Volver a mis respuestas | |
+| ppFine | Fine-tune with sliders | Ajustar con barras | |
+| ppFab | Priorities ({n}) | Prioridades ({n}) | |
+| ppClose | Close | Cerrar | |
+| topPick | Best match | Mejor opción | |
+| mainDrawback | Main drawback | Principal desventaja | |
+| cmpAdded | {p} added to Compare ({n} of 3) | {p} se agregó a Comparar ({n} de 3) | |
+| cmpRemoved | {p} removed from Compare | {p} se quitó de Comparar | |
+| onlyShow | Only show | Mostrar solo | |
+| regAf | Africa and Middle East | África y Medio Oriente | |
+| costPills | Cost of living: $ is cheapest | Costo de vida: $ es lo más barato | |
+| bigCities | Big cities | Ciudades grandes | |
+| canWork | Can work freely | Puedes trabajar libremente | |
 | overall | Overall | General | |
 | weightsTitle | Fine-tune the weights | Ajustar los pesos | |
 | preset | Preset | Plantilla | |

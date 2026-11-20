@@ -36,6 +36,10 @@ by_name = {v[0]: int(k) for k, v in D['countries'].items()}
 D['raceNeighbours'] = {by_name[k]: v for k, v in RACE_NEIGH.items() if k in by_name}   # shown for context, never scored
 missing = [k for k in RACE_NEIGH if k not in by_name]
 assert not missing, f'country names not matched: {missing}'
+from sources.geo_extra import GEO
+missing = [n for n in names if n not in GEO]
+assert not missing, f'no clock/coast figures (run pipeline/import_geo.py): {missing}'
+D['geo'] = {n: list(GEO[n]) for n in names}           # per city: UTC offset (standard time), km to the sea or a great lake
 D['a3'] = json.load(open(INPUT / 'a3.json'))          # three-letter -> number country codes, for the map outlines
 D['built'] = datetime.date.today().isoformat()
 D['lakes'] = json.load(open(INPUT / 'lakes_110m.json', encoding='utf8'))   # big lakes as water: the country outlines count them as land

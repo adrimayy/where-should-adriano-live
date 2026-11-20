@@ -13,6 +13,7 @@ const FACTORS = [
   { k: 'hours', i: 19 },
   { k: 'clim', i: 0 },
   { k: 'day', calc: true },
+  { k: 'sea', calc: true },
   { k: 'air', i: 17 },
   { k: 'risk', i: 20 },
   { k: 'free', i: 3 },
@@ -24,6 +25,7 @@ const FACTORS = [
   { k: 'perm', i: 10 },
   { k: 'lang', i: 6 },
   { k: 'fam', calc: true },
+  { k: 'tz', calc: true },
   { k: 'kin', calc: true },
 ];
 const TECHL = {
@@ -113,11 +115,11 @@ const PRESETS = {
     hours: 2,
     risk: 1.5,
   },
-  equal: { ...Object.fromEntries(FACTORS.map(f => [f.k, 1])), pol: 0, kin: 0 },
+  equal: { ...Object.fromEntries(FACTORS.map(f => [f.k, 1])), pol: 0, kin: 0, tz: 0, sea: 0 },
 };
-// cultural familiarity is off unless the person turns it up
-for (const p of Object.values(PRESETS)) if (p.kin == null) p.kin = 0;
-const CALC = new Set(['day', 'fam', 'pol', 'kin']),
+// cultural familiarity, the clock difference from home and a coast nearby are off unless the person turns them up
+for (const p of Object.values(PRESETS)) for (const k of ['kin', 'tz', 'sea']) if (p[k] == null) p[k] = 0;
+const CALC = new Set(['day', 'fam', 'pol', 'kin', 'tz', 'sea']),
   RULES = new Set(['perm', 'lang']);
 const FEEDBACK_URL = '';
 let useEst = false,
@@ -146,7 +148,7 @@ const CRUCIAL = ['home', 'jobs', 'hlth', 'safe', 'free', 'pay'];
 // Every factor sits under exactly one of three goals
 const GOALS = {
   growth: ['jobs', 'pay', 'perm', 'lang'],
-  happiness: ['happy', 'open', 'cult', 'clim', 'day', 'fam', 'kin', 'women', 'lgbt', 'pol', 'hours'],
+  happiness: ['happy', 'open', 'cult', 'clim', 'day', 'sea', 'fam', 'tz', 'kin', 'women', 'lgbt', 'pol', 'hours'],
   ease: ['home', 'commute', 'move', 'hlth', 'safe', 'free', 'air', 'honest', 'risk'],
 };
 const GOALOF = Object.fromEntries(Object.entries(GOALS).flatMap(([g, ks]) => ks.map(k => [k, g])));
@@ -176,6 +178,8 @@ const GROUP = {
   lang: 'people',
   kin: 'people',
   fam: 'distance',
+  tz: 'distance',
+  sea: 'climate',
   none: 'none',
 };
 const GROUPS = ['money', 'housing', 'jobs', 'climate', 'around', 'rights', 'people', 'distance', 'none'];

@@ -8,25 +8,52 @@ const SW = [0.5, 1.5, 2.5];
 // Merged (Nov 2026): job market + big busy city are both measured by metro size; freedom + honest officials move together.
 // Dropped: planning horizon (it only nudged one weight) and life satisfaction (largely an outcome of the other factors;
 // it still counts at half weight, QBASE). Removed ids stay readable in old saved answers: weightsFromQuiz only reads QUIZ.
+// ---- the quiz is a tree: an answer decides what is asked next ----
+// work: where your pay will come from decides whether jobs, commutes and working hours are worth asking about
+const WORKM = ['local', 'remote', 'student', 'retired', 'unknown'];
+const workIs = (...v) => v.includes(typeof ANS.work === 'number' ? WORKM[ANS.work] : 'unknown');
+const withKids = () => ANS.who === 2;
+const homeKnown = () => HOMEKEYS.some(k => byKey[k]);
+// "what would you miss most": each area of life covers one or two factors. Marked "most" (2), its follow-up is asked in
+// the short quiz; marked "could live without" (1), it gets a low weight and its follow-up is never asked.
+const TOP = {
+  jobs: ['jobs'],
+  pay: ['pay'],
+  home: ['home'],
+  commute: ['commute'],
+  hours: ['hours'],
+  cult: ['cult'],
+  clim: ['clim', 'day'],
+  air: ['air'],
+  sea: ['sea'],
+  safe: ['safe'],
+  hlth: ['hlth'],
+  open: ['open'],
+  fam: ['fam', 'tz'],
+  free: ['free', 'honest'],
+};
+const TOP_HIDE = {
+  jobs: () => workIs('remote', 'retired'),
+  commute: () => workIs('remote', 'retired'),
+  hours: () => workIs('retired', 'student'),
+  fam: () => !homeKnown(),
+};
+const TOP_MAX = 4;
+const topSel = () => (ANS.top && typeof ANS.top === 'object' && ANS.top.sel) || {};
+const topIs = a => topSel()[a] === 2 && !(TOP_HIDE[a] && TOP_HIDE[a]());
+const lowIs = a => topSel()[a] === 1 && !(TOP_HIDE[a] && TOP_HIDE[a]());
+function topW(v) {
+  const w = {};
+  for (const [a, lv] of Object.entries(v.sel || {})) {
+    if (!TOP[a] || (TOP_HIDE[a] && TOP_HIDE[a]())) continue;
+    // "could live without" never raises a factor that is off unless asked for (the sea, the clock difference)
+    TOP[a].forEach((k, i) => (w[k] = lv === 2 ? (i ? 1.5 : 2.5) : Math.min(QBASE[k] ?? 1, 0.25)));
+  }
+  return w;
+}
+// a: the area of life a follow-up belongs to (see TOP). core: asked in the short quiz. show: asked at all.
 const QUIZ = [
-  {
-    id: 'field',
-    nominal: 1,
-    fixed: 2,
-    w: [{}, {}, {}, {}, {}, {}, { jobs: 0 }],
-    mk: 'field',
-    m: ['tech', 'finance', 'health', 'creative', 'academia', 'general', 'remote'],
-  },
-  { id: 'reach', nominal: 0, w: [{}, {}], mk: 'reach', m: ['yes', 'no'] },
-  {
-    id: 'lang',
-    picker: 'lang',
-    nominal: 1,
-    fixed: 1,
-    w: [{ lang: 0.75 }, { lang: 1.25 }, { lang: 1.5 }, { lang: 1.5 }, { lang: 1.25 }, { lang: 0.25 }],
-    mk: 'lang',
-    m: ['both', 'en', 'enok', 'es', 'esen', 'both'],
-  },
+  { id: 'where', picker: 'where', w: [], core: true },
   {
     id: 'perm',
     picker: 'perm',
@@ -35,14 +62,61 @@ const QUIZ = [
     w: [{ perm: 1 }, { perm: 1 }, { perm: 1 }, { perm: 1 }, { perm: 0 }],
     mk: 'perm',
     m: ['usmx', 'us', 'mx', 'eu', 'usmx'],
+    core: true,
   },
-  { id: 'where', picker: 'where', w: [] },
-  { id: 'jobs', w: SW.map(x => ({ jobs: x, cult: x * 0.6 })), ex: 'jobs' },
-  { id: 'pay', w: SW.map(x => ({ pay: x })), ex: 'pay' },
-  { id: 'home', w: SW.map(x => ({ home: x })), ex: 'home' },
-  { id: 'move', w: [{ move: 0.75 }, { move: 1.5 }, { move: 2.5 }], ex: 'move' },
-  { id: 'commute', w: SW.map(x => ({ commute: x })), ex: 'commute' },
-  { id: 'hlth', w: [{ hlth: 0.75 }, { hlth: 1.75 }, { hlth: 3 }], ex: 'hlth' },
+  {
+    id: 'lang',
+    picker: 'lang',
+    nominal: 1,
+    fixed: 1,
+    w: [{ lang: 0.75 }, { lang: 1.25 }, { lang: 1.5 }, { lang: 1.5 }, { lang: 1.25 }, { lang: 0.25 }],
+    mk: 'lang',
+    m: ['both', 'en', 'enok', 'es', 'esen', 'both'],
+    core: true,
+  },
+  {
+    id: 'work',
+    w: [{}, { jobs: 0, commute: 0 }, { jobs: 0.5, hours: 0 }, { jobs: 0, commute: 0, hours: 0 }, {}],
+    mk: 'work',
+    m: WORKM,
+    core: true,
+  },
+  { id: 'who', w: [{}, {}, {}], mk: 'who', m: ['solo', 'pair', 'kids'], core: true },
+  { id: 'partner', w: [{}, {}], show: () => ANS.who === 1 || ANS.who === 2, core: true },
+  { id: 'top', picker: 'top', w: [], core: true },
+  {
+    id: 'field',
+    nominal: 1,
+    fixed: 2,
+    hide: () => (typeof ANS.work === 'number' ? [6] : []), // "fully remote" is covered by the work question
+    w: [{}, {}, {}, {}, {}, {}, { jobs: 0 }],
+    mk: 'field',
+    m: ['tech', 'finance', 'health', 'creative', 'academia', 'general', 'remote'],
+    show: () => workIs('local', 'unknown'),
+    core: true,
+  },
+  {
+    id: 'jobs',
+    a: 'jobs',
+    w: SW.map(x => ({ jobs: x })),
+    ex: 'jobs',
+    show: () => workIs('local', 'student', 'unknown') || ANS.partner === 0,
+  },
+  { id: 'reach', nominal: 0, w: [{}, {}], mk: 'reach', m: ['yes', 'no'], show: () => workIs('local', 'unknown') },
+  {
+    id: 'pay',
+    a: 'pay',
+    w: SW.map(x => ({ pay: x })),
+    // pay that comes from elsewhere is judged by what things cost there, so the example shows prices, not local pay
+    ex: () => (workIs('remote', 'retired', 'student') ? 'cost' : 'pay'),
+    alt: () => (workIs('remote', 'retired', 'student') ? 'pay_r' : null),
+    core: () => workIs('remote', 'retired', 'student'),
+  },
+  { id: 'home', a: 'home', w: SW.map(x => ({ home: x })), ex: 'home' },
+  { id: 'move', w: [{ move: 0.75 }, { move: 1.5 }, { move: 2.5 }], ex: 'move', core: true },
+  { id: 'commute', a: 'commute', w: SW.map(x => ({ commute: x })), ex: 'commute', show: () => !workIs('remote', 'retired') },
+  { id: 'hours', a: 'hours', w: SW.map(x => ({ hours: x })), ex: 'hours', show: () => !workIs('retired', 'student') },
+  { id: 'cult', a: 'cult', w: SW.map(x => ({ cult: x })), ex: 'cult' },
   {
     id: 'clim',
     nominal: 1,
@@ -57,15 +131,27 @@ const QUIZ = [
     ],
     mk: 'clim',
     m: ['mild', 'warm', 'cool', 'mild', 'mild', 'cold'],
+    core: true,
   },
-  { id: 'air', w: SW.map(x => ({ air: x })), ex: 'air' },
-  { id: 'hours', w: SW.map(x => ({ hours: x })), ex: 'hours' },
+  { id: 'day', a: 'clim', w: [{ day: 0.25 }, { day: 1 }, { day: 2 }], ex: 'day', show: () => ANS.clim !== 4 },
+  { id: 'sea', a: 'sea', w: [{ sea: 0 }, { sea: 1 }, { sea: 2 }], ex: 'sea' },
+  { id: 'air', a: 'air', w: SW.map(x => ({ air: x })), ex: 'air' },
   { id: 'risk', w: SW.map(x => ({ risk: x })), ex: 'risk' },
-  { id: 'open', w: SW.map(x => ({ open: x })), ex: 'open' },
-  { id: 'fam', w: [{ fam: 0.25 }, { fam: 1 }, { fam: 2 }] },
+  { id: 'open', a: 'open', w: SW.map(x => ({ open: x })), ex: 'open' },
+  { id: 'fam', a: 'fam', w: [{ fam: 0.25 }, { fam: 1 }, { fam: 2 }], ex: 'fam', show: homeKnown },
+  {
+    id: 'tz',
+    a: 'fam',
+    w: [{ tz: 0.25 }, { tz: 1 }, { tz: 2 }],
+    ex: 'tz',
+    show: homeKnown,
+    alt: () => (workIs('remote') ? 'tz_r' : null),
+    core: () => workIs('remote'),
+  },
   { id: 'kin', w: [{ kin: 0 }, { kin: 0.75 }, { kin: 2 }] },
-  { id: 'safe', w: SW.map(x => ({ safe: x })), ex: 'safe' },
-  { id: 'free', w: SW.map(x => ({ free: x * 0.75, honest: x * 0.75 })), ex: 'honest' },
+  { id: 'safe', a: 'safe', w: SW.map(x => ({ safe: x })), ex: 'safe', core: withKids },
+  { id: 'hlth', a: 'hlth', w: [{ hlth: 0.75 }, { hlth: 1.75 }, { hlth: 3 }], ex: 'hlth', core: () => withKids() || workIs('retired') },
+  { id: 'free', a: 'free', w: SW.map(x => ({ free: x * 0.75, honest: x * 0.75 })), ex: 'free' },
   { id: 'women', w: [{ women: 0 }, { women: 0.75 }, { women: 1.5 }, { women: 2.5 }], ex: 'women' },
   { id: 'lgbt', w: [{ lgbt: 0 }, { lgbt: 0.75 }, { lgbt: 1.5 }, { lgbt: 2.5 }], ex: 'lgbt' },
   {
@@ -82,9 +168,10 @@ const QUIZ = [
   { id: 'weak', nominal: 0, w: [{}, {}], mk: 'agg', m: ['mean', 'geo'] },
   { id: 'sure', nominal: 0, w: [{}, {}], mk: 'sure', m: ['lo', 'mid'] },
 ];
-// a 6-question version is the default; the full quiz is one tap away
-const SIMPLE = ['field', 'lang', 'perm', 'where', 'jobs', 'move', 'clim'];
-let QLIST = QUIZ.filter(q => SIMPLE.includes(q.id)),
+// the short quiz walks the whole list but stops only at core questions: the ones every answer needs, the follow-ups to
+// what the person marked as mattering most, and the ones their situation calls for (kids, remote work, retirement)
+let QSHORT = true,
+  QLIST = QUIZ.slice(),
   ORDER = {};
 let ANS = {},
   QSTEP = 0,
@@ -96,6 +183,7 @@ const picked = v => v && typeof v === 'object';
 const answered = q => typeof ANS[q.id] === 'number' || (q.picker && picked(ANS[q.id]));
 function pickerW(q, v) {
   if (q.picker === 'where') return {};
+  if (q.picker === 'top') return topW(v);
   if (q.picker === 'lang') return { lang: v.learn ? 0.25 : 1.25 };
   return { perm: v.ignore || !(v.sel || []).length ? 0 : 1 };
 }
@@ -105,10 +193,20 @@ function pickerMode(q, v) {
 }
 function weightsFromQuiz(a) {
   const w = { ...QBASE };
+  const t = (picked(a.top) && a.top.sel) || {};
   QUIZ.forEach(q => {
     if (q.picker && picked(a[q.id])) Object.assign(w, pickerW(q, a[q.id]));
     else if (typeof a[q.id] === 'number' && q.w[a[q.id]]) Object.assign(w, q.w[a[q.id]]);
+    // the weather question sets its own weights; marking weather "most" or "could live without" scales them
+    if (q.id === 'clim' && typeof a.clim === 'number' && t.clim) {
+      w.clim = Math.min(3, w.clim * (t.clim === 2 ? 1.6 : 0.3));
+      w.day = Math.min(3, w.day * (t.clim === 2 ? 1.3 : 0.5));
+    }
   });
+  // answers from before city life had its own question: "a big, busy city" covered jobs and things happening together
+  if (typeof a.jobs === 'number' && typeof a.cult !== 'number' && !t.cult) w.cult = SW[a.jobs] * 0.6;
+  // a partner who needs a job there: the job market counts even when your own pay comes with you
+  if (a.partner === 0 && (w.jobs || 0) < 1) w.jobs = 1;
   QUIZ.forEach(q => {
     if (q.mult && typeof a[q.id] === 'number')
       for (const k in q.mult) w[k] = (w[k] || 0) * q.mult[k][a[q.id]];
@@ -126,23 +224,40 @@ function modesFromQuiz(a) {
     reach: 'no',
     agg: 'mean',
     sure: 'lo',
+    work: 'unknown',
+    who: 'solo',
   };
   QUIZ.forEach(q => {
     if (q.mk && q.picker && picked(a[q.id])) o[q.mk] = pickerMode(q, a[q.id]);
     else if (q.mk && typeof a[q.id] === 'number') o[q.mk] = q.m[a[q.id]];
   });
+  // pay that comes from elsewhere (remote work, a pension, a student budget): what counts is what things cost there
+  if (['remote', 'retired', 'student'].includes(o.work)) o.field = 'remote';
   return o;
+}
+// a trailing example in brackets becomes a quieter second line: "Which languages could you live in?" / "Enough to…"
+function splitTitle(t) {
+  const m = /^(.+?)\s*[(（](.+)[)）]\s*$/.exec(t);
+  return m ? [m[1], m[2]] : [t, ''];
 }
 // languages: tap once for fluent, again for "some", again to remove. Passports: pick from every country.
 function pickerBody(q) {
   const v = (ANS[q.id] = picked(ANS[q.id])
     ? ANS[q.id]
-    : q.picker === 'lang'
+    : q.picker === 'top'
+      ? { sel: {} }
+      : q.picker === 'lang'
       ? { sel: browserLangs() }
       : q.picker === 'where'
         ? { keys: HOMEKEYS.slice() }
         : { sel: [] });
-  const [title] = qText(q.id);
+  const [head, sub] = splitTitle(qText(q.id)[0]),
+    title = head + (sub ? `</div><p class="meta qsub">${sub}</p><div hidden>` : '');
+  if (q.picker === 'top') {
+    const lv = k => (v.sel || {})[k] || 0,
+      ks = Object.keys(TOP).filter(k => !(TOP_HIDE[k] && TOP_HIDE[k]()));
+    return `<div class="qtitle">${title}</div><p class="meta qsub">${fmt(L('topHint'), { n: TOP_MAX })}</p><div class="chips tchips">${ks.map(k => `<button class="lchip tchip lv${lv(k)}" data-a="${k}" aria-pressed="${lv(k) > 0}"><span>${lv(k) === 2 ? '★ ' : ''}${L('topAreas')[k]}</span>${lv(k) === 1 ? `<small>${L('topLow')}</small>` : ''}</button>`).join('')}</div>`;
+  }
   if (q.picker === 'where') {
     const k = v.keys || [];
     return `<div class="qtitle">${title}</div><p class="meta qsub">${L('homeSub')}</p><div class="homepair"><div class="field"><span class="lab">${L('home1')}</span>${homeSelect('qh1', k[0] || '')}</div><div class="field"><span class="lab">${L('home2')}</span>${homeSelect('qh2', k[1] || '')}</div></div>`;
@@ -166,6 +281,22 @@ function wirePicker(q) {
       (b.onclick = () => {
         const k = b.dataset.l,
           n = ((v.sel[k] || 0) + 2) % 3;
+        if (n) v.sel[k] = n;
+        else delete v.sel[k];
+        renderQuiz();
+      })
+  );
+  // tap: matters most → could live without → neither; no more than TOP_MAX can matter most
+  Q.querySelectorAll('[data-a]').forEach(
+    b =>
+      (b.onclick = () => {
+        const k = b.dataset.a,
+          cur = v.sel[k] || 0,
+          n = cur === 0 ? 2 : cur === 2 ? 1 : 0;
+        if (n === 2 && Object.values(v.sel).filter(x => x === 2).length >= TOP_MAX) {
+          $('qGot').textContent = fmt(L('topMax'), { n: TOP_MAX });
+          return;
+        }
         if (n) v.sel[k] = n;
         else delete v.sel[k];
         renderQuiz();
@@ -228,6 +359,172 @@ function qExample(k) {
   }
   if (!best || sc(best) <= x) return fmt(L('qCmpTop'), { a: dn(ref), x });
   return fmt(L('qCmp'), { a: dn(ref), x, b: dn(best), y: sc(best) });
+}
+// ---- examples from the data, in everyday units ----
+// Importance only means something against a real difference ("does 25 more minutes each way matter?"), so each
+// follow-up shows what two real places measure: the visitor's home (or its country) and a well-known place at the
+// other end. Only published figures are used, and only pairs measured the same way (the same source, or sources
+// that report the same thing). g: source groups in order of preference; t: the kind of place the figures describe;
+// lo: lower is better.
+const SWING = {
+  commute: { g: [{ s: ['nqolt'] }, { s: ['acscomm'], t: 'city' }], lo: 1 },
+  air: { g: [{ s: ['who', 'epa'], t: 'city' }, { s: ['wbpm'], t: 'country' }], lo: 1 },
+  safe: { g: [{ s: ['chrhom', 'fbi'], t: 'city' }, { s: ['hom'], t: 'country' }], lo: 1 },
+  pay: { g: [{ s: ['items', 'itemsn', 'nidx', 'acspay'], t: 'city' }, { s: ['money'], t: 'country' }] },
+  cost: { g: [{ s: ['ncol'], t: 'city' }, { s: ['ncolc'], t: 'country' }], lo: 1 },
+  hours: { g: [{ s: ['pwt', 'oecdh'], t: 'country' }], lo: 1 },
+  jobs: { g: [{ s: ['laus', 'eurostat'], t: 'city' }, { s: ['ilo'], t: 'country' }], lo: 1 },
+  hlth: { g: [{ s: ['uhc'], t: 'country' }] },
+  home: { g: [{ s: ['acsvac', 'censusmsa', 'cmhc', 'nychvs'], t: 'city' }] },
+  move: { g: [{ s: ['itdp'], t: 'city' }] },
+  cult: { g: [{ s: ['pop'], t: 'city' }] },
+  free: { g: [{ s: ['fh'], t: 'country' }] },
+  risk: { g: [{ s: ['wri'], t: 'country' }], lo: 1 },
+};
+function rawNum(k, str) {
+  const m = k === 'pay' ? /=\s*\$(-?[\d,.]+)/.exec(str) || /\$(-?[\d,.]+)/.exec(str) : /(-?[\d,]*\.?\d+)/.exec(str);
+  return m ? +m[1].replace(/,/g, '') : null;
+}
+function swingVal(e, k, srcs) {
+  const rows = ((RAWD[e.type === 'city' ? 'city:' + e.name : 'c:' + e.id] || {})[k] || []).filter(r => srcs.includes(r[0]));
+  return rows.length ? rawNum(k, String(rows[0][1])) : null;
+}
+let FAME = null;
+// how widely known a place is: a city's metro population, a country's number of cities on the map
+function fame(e) {
+  if (!FAME) {
+    FAME = {};
+    ents.forEach(x => x.type === 'city' && (FAME[isoOf(x)] = (FAME[isoOf(x)] || 0) + 1));
+  }
+  if (e.type !== 'city') return FAME[isoOf(e)] || 0;
+  // its own metro's population: a suburb listed with its big neighbour's figure isn't a place people know
+  const r = ((RAWD['city:' + e.name] || {}).cult || []).find(x => x[0] === 'pop');
+  return r ? parseFloat(r[1]) || 0 : 0;
+}
+// the 40 best-known places with a figure; then the one near the far end from the anchor (15th or 85th percentile,
+// so a freak value isn't the example). Without an anchor: one from each end.
+function swingPair(anchor, type, val, lo, far = 0.15) {
+  const pool = ents
+    .filter(e => e.type === type && e !== anchor && listable(e) && val(e) != null)
+    .sort((a, b) => fame(b) - fame(a))
+    .slice(0, 40)
+    .sort((a, b) => (lo ? val(b) - val(a) : val(a) - val(b))); // worst first
+  if (pool.length < 8) return null;
+  const at = q => pool[Math.round(q * (pool.length - 1))],
+    x = anchor ? val(anchor) : null;
+  if (x == null) return [at(far), at(1 - far)];
+  const worse = pool.filter(e => (lo ? val(e) > x : val(e) < x)).length / pool.length;
+  return [anchor, at(worse >= 0.5 ? far : 1 - far)];
+}
+// the Spanish on the page is Mexico's: a decimal point, a comma for thousands
+const numLoc = () => (LANG === 'es' ? 'es-MX' : LANG);
+const nfmt = (x, d = 0) => x.toLocaleString(numLoc(), { maximumFractionDigits: d, minimumFractionDigits: 0 });
+const hm = h => Math.floor(h) + ':' + String(Math.round((h % 1) * 60)).padStart(2, '0');
+function qSwing(k) {
+  const ref = HOMEKEYS.map(x => byKey[x]).find(Boolean) || (picked(ANS.perm) ? byIso[(ANS.perm.sel || [])[0]] : null),
+    refCity = ref && ref.type === 'city' ? ref : null,
+    refCountry = ref ? (ref.type === 'city' ? byIso[isoOf(ref)] : ref) : null,
+    T = id => L(id);
+  const line = (id, A, B, x, y, more) => (x === y ? '' : fmt(T(id), { a: dn(A), b: dn(B), x, y, ...more }));
+  // worked out from the map, not from a published table
+  if (k === 'day') {
+    // daylight is geometry, so there are no freak values to avoid: take the far end
+    const pr = swingPair(refCity, 'city', e => (e.hasGeo ? e.dayH : null), 0, 0.03);
+    return pr ? line('swDay', pr[0], pr[1], hm(pr[0].dayH), hm(pr[1].dayH)) : '';
+  }
+  if (k === 'sea') {
+    const pr = swingPair(refCity, 'city', e => e.coast, 1);
+    return pr ? line('swSea', pr[0], pr[1], nfmt(Math.max(1, pr[0].coast)), nfmt(Math.max(1, pr[1].coast))) : '';
+  }
+  if (k === 'fam' || k === 'tz') {
+    if (!ref || !ref.hasGeo) return '';
+    const known = ents
+      .filter(e => e.type === 'city' && e !== ref && listable(e) && e.utc != null)
+      .sort((a, b) => fame(b) - fame(a))
+      .slice(0, 40);
+    if (k === 'fam') {
+      const far = known.map(e => [e, tripH(e, ref)]).filter(o => o[1] > 1.5).sort((a, b) => a[1] - b[1]);
+      if (far.length < 8) return '';
+      const A = far[Math.round(0.15 * (far.length - 1))],
+        B = far[Math.round(0.85 * (far.length - 1))];
+      return fmt(T('swFam'), { h: dn(ref), a: dn(A[0]), b: dn(B[0]), x: nfmt(A[1]), y: nfmt(B[1]) });
+    }
+    if (ref.utc == null) return '';
+    // one place a long way off that keeps the same hours, one where the clocks are far apart
+    const gap = e => clockGap(e.utc, ref.utc),
+      A = known.filter(e => gap(e) <= 1).sort((a, b) => tripH(b, ref) - tripH(a, ref))[0],
+      B = known.filter(e => gap(e) >= 7)[0];
+    if (!A || !B) return '';
+    const clock = e =>
+      new Intl.DateTimeFormat(numLoc(), { hour: 'numeric', minute: '2-digit', timeZone: 'UTC' }).format(
+        new Date(Date.UTC(2026, 0, 15, 20, 0) + (e.utc - ref.utc) * 3600e3)
+      );
+    return fmt(T('swTz'), { h: dn(ref), t: clock(ref), a: dn(A), x: clock(A), b: dn(B), y: clock(B) });
+  }
+  const S = SWING[k];
+  if (!S) return '';
+  for (const g of S.g) {
+    const type = g.t || (refCity && swingVal(refCity, k, g.s) != null ? 'city' : 'country'),
+      anchor = type === 'city' ? refCity : refCountry,
+      val = e => swingVal(e, k, g.s);
+    if (anchor && val(anchor) == null && g !== S.g[S.g.length - 1]) continue; // try the next kind of figure
+    const pr = swingPair(anchor && val(anchor) != null ? anchor : null, type, val, S.lo);
+    if (!pr) continue;
+    const [A, B] = pr,
+      x = val(A),
+      y = val(B);
+    if (k === 'commute') return line('swCommute', A, B, nfmt(x), nfmt(y), { h: nfmt(Math.round((Math.abs(x - y) * 2 * 230) / 60 / 5) * 5) });
+    if (k === 'hours') return line('swHours', A, B, nfmt(x), nfmt(y), { w: nfmt(Math.abs(x - y) / 40) });
+    const usd = v => (v < 0 ? '−$' : '$') + nfmt(Math.abs(v));
+    if (k === 'pay') return line('swPay', A, B, usd(x), usd(y));
+    const id = 'sw' + k[0].toUpperCase() + k.slice(1),
+      d = k === 'cult' || k === 'air' || k === 'jobs' || k === 'safe' || k === 'home' ? 1 : 0;
+    return line(id, A, B, nfmt(x, d), nfmt(y, d));
+  }
+  return '';
+}
+// ---- "not sure" answers ----
+// They count as average. Afterwards the page checks whether they could change the outcome: the current top places are
+// re-scored with each unsure factor counting little (0.5) and a lot (2.5), and the result is said in plain words.
+function unsureKeys() {
+  const ks = new Set();
+  QUIZ.forEach(q => {
+    if (ANS[q.id] === 'unsure' && !q.picker && !q.mk && applies(q))
+      (q.w || []).forEach(o => Object.keys(o).forEach(k => ks.add(k)));
+  });
+  return [...ks];
+}
+function renderUnsure() {
+  const el = $('unsureNote');
+  if (!el) return;
+  const ks = MODE === 'yours' ? unsureKeys() : [],
+    pool = ks.length
+      ? ents
+          .filter(e => e.type === ui.rankType && listable(e) && passes(e) && !e.gated)
+          .sort(byRank)
+          .slice(0, 40)
+      : [];
+  if (pool.length < 2) {
+    el.hidden = true;
+    return;
+  }
+  const w0 = W,
+    first = () => pool.reduce((b, e) => ((e._s = scoreWith(e, k => e.v[k])) > b._s ? e : b), ((pool[0]._s = -1), pool[0])),
+    base = first();
+  let flip = null;
+  for (const k of ks) {
+    for (const x of [2.5, 0.5]) {
+      W = { ...w0, [k]: x };
+      const b = first();
+      if (b !== base && !flip) flip = { k, hi: x > 1, e: b };
+    }
+  }
+  W = w0;
+  el.hidden = false;
+  el.innerHTML =
+    fmt(L('unsureHead'), { f: ks.map(FL).join(', ') }) +
+    ' ' +
+    (flip ? fmt(L(flip.hi ? 'unsureHi' : 'unsureLo'), { f: FL(flip.k), p: dn(flip.e) }) + ' ' + L('unsureHint') : L('unsureHolds'));
 }
 function orderedPlaces(needGeo) {
   const ok = e => listable(e) && (!needGeo || e.hasGeo),
@@ -361,8 +658,12 @@ document.addEventListener('click', ev => {
 // after the short quiz: the map is ready (and shown below); answering the rest is offered once, never required
 let QDONE = false,
   QMORE = false;
-const applies = q => !q.show || q.show();
-const moreLeft = () => QUIZ.filter(q => !answered(q) && ANS[q.id] !== 'skip' && applies(q));
+const applies = q => (!q.show || q.show()) && !(q.a && lowIs(q.a));
+const isCore = q => q.core === true || (typeof q.core === 'function' && q.core()) || !!(q.a && topIs(q.a));
+const inPath = q => applies(q) && (!QSHORT || isCore(q));
+// "not sure" ('unsure'; 'skip' in older saved answers) is an answer: the question isn't asked again
+const passed = q => ANS[q.id] === 'unsure' || ANS[q.id] === 'skip';
+const moreLeft = () => QUIZ.filter(q => !answered(q) && !passed(q) && applies(q));
 function renderDone() {
   const Q = $('qwrap'),
     m = moreLeft().length;
@@ -381,31 +682,34 @@ function renderQuiz() {
   if (QDONE) return renderDone();
   if (QSTEP >= QLIST.length) return finishQuiz();
   const cur = QLIST[QSTEP];
-  if (cur.show && !cur.show()) {
-    if (!answered(cur)) ANS[cur.id] = 'skip';
-    QSTEP = QDIR < 0 && QSTEP > 0 ? QSTEP - 1 : QSTEP + 1;
+  if (!inPath(cur)) {
+    // skip it in the direction the person is moving (forward when there is nothing to go back to)
+    QSTEP += QDIR < 0 && QLIST.slice(0, QSTEP).some(inPath) ? -1 : 1;
     return renderQuiz();
   }
-  const total = QLIST.length,
-    n = QSTEP + 1,
-    last = QSTEP === QLIST.length - 1;
+  // the path can grow or shrink as answers come in, so the count is taken fresh each time; the total is only shown
+  // once the questions that shape the path (up to "what would you miss most") are behind
+  const path = QLIST.filter(inPath),
+    total = path.length,
+    n = path.indexOf(cur) + 1,
+    last = n === total;
   const Q = $('qwrap');
   let body;
-  if (cur.picker) body = (QSTEP === 0 ? `<p class="meta qtip">${L('qtip')}</p>` : '') + pickerBody(cur);
+  if (cur.picker) body = (n === 1 && !QMORE ? `<p class="meta qtip">${L('qtip')}</p>` : '') + pickerBody(cur);
   else {
     const q = cur,
-      [title, opts] = qText(q.id),
-      ord = ORDER[q.id] || opts.map((o, i) => i);
-    // a trailing example in brackets becomes a quieter second line: "How much does X matter?" / "Think Tampico vs. New York."
-    const mt = /^(.+?)\s*[(（](.+)[)）]\s*$/.exec(title),
-      head = mt ? mt[1] : title,
-      sub = mt ? mt[2] : '',
-      ex = q.ex ? qExample(q.ex) : '';
-    body = `${QSTEP === 0 ? `<p class="meta qtip">${L('qtip')}</p>` : ''}<div class="qtitle">${head}</div>${sub ? `<p class="meta qsub">${sub}</p>` : ''}${ex ? `<p class="meta qsub qex">${ex}</p>` : ''}<div class="opts">${ord.map(i => `<button class="opt" data-i="${i}" aria-pressed="${ANS[q.id] === i}"><span class="dot"></span><span>${opts[i]}</span></button>`).join('')}</div>`;
+      [title, opts] = qText((q.alt && q.alt()) || q.id),
+      hid = typeof q.hide === 'function' ? q.hide() : [],
+      ord = (ORDER[q.id] || opts.map((o, i) => i)).filter(i => !hid.includes(i));
+    // under the question: two real places and what they measure on this, in everyday units (or their 1-5 scores)
+    const [head, sub] = splitTitle(title),
+      exk = typeof q.ex === 'function' ? q.ex() : q.ex,
+      ex = exk ? qSwing(exk) || qExample(exk === 'cost' ? 'pay' : exk) : '';
+    body = `${n === 1 && !QMORE ? `<p class="meta qtip">${L('qtip')}</p>` : ''}<div class="qtitle">${head}</div>${sub ? `<p class="meta qsub">${sub}</p>` : ''}${ex ? `<p class="meta qsub qex">${ex}</p>` : ''}<div class="opts">${ord.map(i => `<button class="opt" data-i="${i}" aria-pressed="${ANS[q.id] === i}"><span class="dot"></span><span>${opts[i]}</span></button>`).join('')}</div>`;
   }
-  Q.innerHTML = `<div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><span class="lab">${fmt(L('qOf'), { n, t: total })}</span><button class="ghost" id="qSkip">${QMORE ? L('doneMap') : L('skip')}</button></div>
-  <div class="progress"><span style="width:${Math.round((QSTEP / total) * 100)}%"></span></div>${body}<p class="qgot" id="qGot" role="status"></p>
-  <div class="qnav"><button id="qBack" ${QSTEP === 0 ? 'style="visibility:hidden" tabindex="-1" aria-hidden="true"' : ''}>${L('back')}</button><span class="toggles"><button class="ghost" id="qUnsure">${L('unsure')}</button>${answered(cur) ? `<button id="qNext" ${last ? 'class="primary"' : ''}>${last ? L('finish') : L('next')}</button>` : ''}</span></div>`;
+  Q.innerHTML = `<div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><span class="lab">${QSHORT && QSTEP <= QLIST.findIndex(q => q.id === 'top') ? fmt(L('qN'), { n }) : fmt(L('qOf'), { n, t: total })}</span><button class="ghost" id="qSkip">${QMORE ? L('doneMap') : L('skip')}</button></div>
+  <div class="progress"><span style="width:${Math.round(((n - 1) / total) * 100)}%"></span></div>${body}<p class="qgot" id="qGot" role="status"></p>
+  <div class="qnav"><button id="qBack" ${n === 1 ? 'style="visibility:hidden" tabindex="-1" aria-hidden="true"' : ''}>${L('back')}</button><span class="toggles"><button class="ghost" id="qUnsure">${L('unsure')}</button>${answered(cur) ? `<button id="qNext" ${last ? 'class="primary"' : ''}>${last ? L('finish') : L('next')}</button>` : ''}</span></div>`;
   Q.querySelectorAll('.opt').forEach(
     b =>
       (b.onclick = () => {
@@ -420,7 +724,7 @@ function renderQuiz() {
         const ok = $('qGot');
         if (ok) ok.textContent = '✓ ' + L('gotIt');
         const bar = Q.querySelector('.progress span');
-        if (bar) bar.style.width = Math.round(((QSTEP + 1) / QLIST.length) * 100) + '%';
+        if (bar) bar.style.width = Math.round((n / total) * 100) + '%';
         setTimeout(() => {
           delete Q.dataset.busy;
           QDIR = 1;
@@ -444,10 +748,17 @@ function renderQuiz() {
     };
   if ($('qUnsure'))
     $('qUnsure').onclick = () => {
-      ANS[QLIST[QSTEP].id] = 'skip';
-      QDIR = 1;
-      QSTEP++;
-      renderQuiz();
+      if (Q.dataset.busy) return;
+      Q.dataset.busy = '1';
+      // "not sure" is a real answer: the factor counts as average, and the results say whether it could change them
+      ANS[QLIST[QSTEP].id] = 'unsure';
+      $('qGot').textContent = L('unsureGot');
+      setTimeout(() => {
+        delete Q.dataset.busy;
+        QDIR = 1;
+        QSTEP++;
+        renderQuiz();
+      }, 1400);
     };
   $('qSkip').onclick = () => {
     if (QMORE) return finishQuiz();
@@ -472,6 +783,7 @@ function shuffle(a) {
 // "sharpen": keep the short quiz's answers and ask only the questions not answered yet
 function sharpenQuiz() {
   QSTEP = 0;
+  QSHORT = false;
   QLIST = moreLeft();
   if (!QLIST.length) return;
   QDONE = false;
@@ -487,7 +799,8 @@ function startQuiz(full) {
   QDIR = 1;
   QDONE = QMORE = false;
   HOMEKEYS = [];
-  QLIST = full === true ? QUIZ.slice() : QUIZ.filter(q => SIMPLE.includes(q.id));
+  QSHORT = full !== true;
+  QLIST = QUIZ.slice();
   ORDER = {};
   QUIZ.forEach(q => {
     const n = QSTR.en[q.id][1].length,
@@ -506,14 +819,14 @@ function startQuiz(full) {
 function renderDefaults() {
   const el = $('vsDefaults');
   if (!el) return;
-  const un = QUIZ.filter(q => !answered(q) && q.picker !== 'where' && applies(q)); // home bases are set in the settings panel
+  const un = QUIZ.filter(q => !answered(q) && q.picker !== 'where' && q.picker !== 'top' && applies(q)); // home bases are set in the settings panel
   if (!un.length) {
     el.innerHTML = '';
     return;
   }
   const defOf = q =>
     q.mk
-      ? L('defModes')[q.mk]
+      ? L('defModes')[q.mk] || '—'
       : Object.keys(q.w[0] || {})
           .map(k => `${FL(k)} ${fmtW(QBASE[k] ?? 1)}`)
           .join(', ') || '—';
@@ -582,7 +895,7 @@ function finishQuiz() {
 // each strong on two things (and average on the rest), show which priorities win when they compete.
 // Each answer moves the weights a little: ×1.15 per step, two steps for "definitely", at most ×2 or ÷2 per factor. The answers are kept in ANS.tr,
 // so they survive reloads, share links and later quiz changes (weightsFromQuiz applies them last).
-const TRADE_SKIP = new Set(['pol', 'fam', 'kin', 'perm', 'lang']); // personal settings and gates, not trade-offs
+const TRADE_SKIP = new Set(['pol', 'fam', 'tz', 'kin', 'perm', 'lang']); // personal settings and gates, not trade-offs
 const TRADE_STEP = 0.15;
 function applyTrades(w, tr) {
   if (!Array.isArray(tr)) return w;
@@ -600,14 +913,16 @@ function applyTrades(w, tr) {
 }
 // the factors you weigh where your current top places differ most: those are the trade-offs that change the ranking
 function tradeFactors() {
-  const top = ents.filter(e => e.type === 'city' && listable(e) && passes(e)).sort(byRank).slice(0, 15);
+  const top = ents.filter(e => e.type === 'city' && listable(e) && passes(e)).sort(byRank).slice(0, 15),
+    un = new Set(unsureKeys());
   return FACTORS.map(f => f.k)
     .filter(k => !TRADE_SKIP.has(k) && (W[k] || 0) > 0)
     .map(k => {
       const xs = top.map(e => e.v[k]).filter(v => v != null),
         m = xs.reduce((s, x) => s + x, 0) / (xs.length || 1),
         sd = Math.sqrt(xs.reduce((s, x) => s + (x - m) ** 2, 0) / (xs.length || 1));
-      return { k, s: xs.length >= 5 ? sd * Math.sqrt(W[k]) : 0 };
+      // a factor the person wasn't sure about comes first: that is where a comparison teaches the most
+      return { k, s: xs.length >= 5 ? sd * Math.sqrt(W[k]) * (un.has(k) ? 3 : 1) : 0 };
     })
     .filter(o => o.s > 0.15)
     .sort((a, b) => b.s - a.s)

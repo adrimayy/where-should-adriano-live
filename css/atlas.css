@@ -1861,3 +1861,12 @@ body:not(.adv) .row .rbar { display: none !important; }
 .facts li::before { display: inline-block; width: 1.3em; font-weight: 700; }
 .facts li.good::before { content: '↑'; color: #1e8e3e; }
 .facts li.bad::before { content: '↓'; color: #c5221f; }
+/* "what would you miss most": one tap = matters most (filled, ★), a second = could live without (dashed, struck through) */
+.tchips { justify-content: center; }
+button.lchip.tchip.lv1 { border-style: dashed; border-color: var(--muted); color: var(--muted); background: transparent; }
+button.lchip.tchip.lv1 > span { text-decoration: line-through; }
+/* what the "not sure" answers could change, above the results */
+.unsure { border-inline-start: 3px solid var(--accent); padding-inline-start: 10px; }
+.unsure[hidden] { display: none; }
+button.lchip.tchip { flex-wrap: wrap; justify-content: center; }
+button.lchip.tchip.lv1 small { flex-basis: 100%; }

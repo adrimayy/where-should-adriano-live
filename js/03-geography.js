@@ -43,6 +43,7 @@ function setGeo(e, lat, lon, approx) {
   e.sc.day = dayScore(e.dayH);
   e.geoApprox = approx;
   e.hasGeo = true;
+  e.sc.sea = e.coast == null ? null : seaBand(e.coast);
   famFor(e);
 }
 const SMALL_AIRPORT = new Set([
@@ -59,8 +60,20 @@ function tripH(a, h) {
   if (d < 500) return d / 60;
   return d / 830 + 0.75 + (SMALL_AIRPORT.has(h.key) && d > 1500 ? 2.5 : 0);
 }
+// hours between two clocks, the short way round the day
+const clockGap = (a, b) => Math.min(Math.abs(a - b), 24 - Math.abs(a - b));
+// 5 = same hours as home (an hour apart at most), 1 = more than nine hours apart: someone is always asleep
+function tzBand(h) {
+  return h <= 1 ? 5 : h <= 3 ? 4 : h <= 6 ? 3 : h <= 9 ? 2 : 1;
+}
+// 5 = on the water (10 km), 4 = under an hour away, 3 = a day trip, 2 = a weekend, 1 = further than 250 km
+function seaBand(d) {
+  return d <= 10 ? 5 : d <= 40 ? 4 : d <= 100 ? 3 : d <= 250 ? 2 : 1;
+}
 function famFor(e) {
   if (!e.hasGeo) return;
   e.flights = HOMES.map(h => tripH(e, h));
   e.sc.fam = HOMES.length ? Math.round(d3.mean(e.flights.map(famBand))) : null;
+  e.gaps = e.utc == null ? [] : HOMES.filter(h => h.utc != null).map(h => clockGap(e.utc, h.utc));
+  e.sc.tz = e.gaps.length ? Math.round(d3.mean(e.gaps.map(tzBand))) : null;
 }

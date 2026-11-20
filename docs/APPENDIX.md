@@ -62,6 +62,7 @@ The short version is in [METHODS.md](METHODS.md). This file has the statistics, 
 | Low disaster risk | WorldRiskIndex 2026 (column W: exposure to earthquakes, tsunamis, floods, cyclones, droughts and sea-level rise × vulnerability), 193 countries, from HDX; ≤3 = 5, ≤6 = 4, ≤12 = 3, ≤25 = 2 — `disaster_risk.py` | country | 2026 |
 | US politics (optional) | 2024 presidential margin by state and by county (Ballotpedia), averaged — `politics.py` | state; county | 2024 |
 | Daylight, trip home | Calculated in the page from latitude and distance | — | — |
+| Same hours as home, the sea nearby | Each city's UTC offset (timezonefinder / timezone-boundary-builder) and km to the coast or a great lake (Natural Earth 1:10m coastline, 1:110m lakes) — `import_geo.py`, `geo_extra.py`; scored in the page | city | 2026 |
 | Work permit, language | Official rules (below) and official languages, applied in the page | country | checked 11 Nov 2026 |
 | Helpers for gap-filling (not scored) | GDP per person, PPP (World Bank via Wikipedia); population (UN); world region — `economy.py` | country | latest (mostly 2024) |
 
@@ -221,24 +222,69 @@ compound over a career. (Until Nov 2026 the quiz asked how far ahead you were pl
 
 ## Quiz design
 
-- About you first (field, languages, passports, home), then priorities, then the two questions about how to judge (may a
-  strength offset a weak spot; how to rank thin data). Home is asked early because trip home, cultural familiarity and the
-  comparisons under later questions depend on it.
-- One thing per question, and no two questions for one measure: "a big job market" and "a big, busy city" are one question
-  (both are measured by metro size; it sets things happening at 0.6 of the job-market weight), and political freedom and
-  honest officials are one question (their scores correlate 0.75 or more). Planning horizon was dropped (it only scaled the
-  job weight by 0.8–1.3) and so was life satisfaction, which is largely an outcome of the other factors; it still counts
-  at half weight by default and can be changed under Adjust.
-- Importance questions are answered on the same 3-point scale, low to high. Instead of fixed examples (which were all New
-  York, Tampico and Mexico), each shows how the visitor's own home scores on that factor and the best place of the same kind
-  in its world region, from measured figures only; a city without one falls back to its country. Without a home or
-  passport, no example is shown.
-- US local politics is asked only of people with a US passport or a US home: the data covers US states and counties only.
-- Weather has six answers, including "cold, snowy winters are a plus" (scored coldest first).
+The quiz follows four bodies of work, each with a standard text:
+
+- **How people answer questions.** An answer takes four steps: understand the question, recall something relevant, form a
+  judgement, fit it to the options (Tourangeau, Rips & Rasinski, *The Psychology of Survey Response*, 2000). Each step
+  costs effort, and tired respondents pick the first acceptable answer ("satisficing"; Krosnick 1991; Krosnick & Presser
+  in the *Handbook of Survey Research*, 2010). Hence: one idea per question, everyday words, a scene to recall instead
+  of an abstraction ("walking home alone at eleven at night", not "how important is safety"), few options, and no
+  question that doesn't apply to the person (Dillman, Smyth & Christian, *Internet, Phone, Mail, and Mixed-Mode Surveys*,
+  2014).
+- **How to turn priorities into weights.** "How important is X?" has no answer until you say how much X differs between
+  the options: a weight is importance times range (swing weighting; Keeney & Raiffa, *Decisions with Multiple
+  Objectives*, 1976; von Winterfeldt & Edwards, *Decision Analysis and Behavioral Research*, 1986). Rating items one by
+  one also makes everything "important"; having people choose between items or bundles separates them (best-worst
+  scaling and choice experiments; Louviere, Hensher & Swait, *Stated Choice Methods*, 2000; Louviere, Flynn & Marley,
+  *Best-Worst Scaling*, 2015). The index itself follows the OECD/JRC *Handbook on Constructing Composite Indicators* (2008).
+- **What people get wrong about their own happiness.** Preferences are partly made up on the spot (Lichtenstein &
+  Slovic, *The Construction of Preference*, 2006), and people overweight what is easy to picture, like weather, and
+  underweight what they will live with every day, like commutes and loneliness (Schkade & Kahneman 1998; Kahneman,
+  *Thinking, Fast and Slow*, 2011; Gilbert, *Stumbling on Happiness*, 2006; Stutzer & Frey 2008 on commuting).
+- **What actually predicts life satisfaction.** Health (mental above all), relationships and having work come first;
+  income matters less than people expect (Clark, Flèche, Layard, Powdthavee & Ward, *The Origins of Happiness*, 2018;
+  Layard & De Neve, *Wellbeing: Science and Policy*, 2023). Across countries the World Happiness Report explains most
+  of the differences with six things: income, social support, healthy life expectancy, freedom, generosity and
+  corruption.
+
+- **How to draw it.** Position and length are read more accurately than color or area (Cleveland & McGill 1984), so
+  the ranking uses bars and the map uses a few clearly different color classes, not a continuous ramp (Brewer,
+  *Designing Better Maps*, 2015; Munzner, *Visualization Analysis and Design*, 2014; Wilke, *Fundamentals of Data
+  Visualization*, 2019). Maps mislead through what they leave out (Monmonier, *How to Lie with Maps*, 2018), and an
+  estimate drawn like a measurement is one such omission, so estimated values are marked and ranges are available
+  (Padilla, Kay & Hullman, "Uncertainty Visualization", 2021).
+
+What the quiz does with that:
+
+- **It is a tree.** About you first: home, passports, languages, where your pay will come from (a local job, remote
+  work, studying, retired) and who is moving (alone, a partner, kids). Those answers decide what comes next: a remote
+  worker is never asked about the job market or commutes and is asked about prices and the clock difference instead;
+  a retiree is asked about healthcare; a family with kids is asked about safety and healthcare; a partner who needs a
+  job keeps the job market in play. The US-politics question is asked only of people with a US passport or home.
+- **Coarse, then fine, then pairwise.** One screen asks which areas of life you would miss most if they were bad (up
+  to four) and which you could live without. "Most" sets a high weight (2.5) and puts that area's follow-up in the
+  short quiz; "could live without" sets a low weight (0.25) and its follow-up is never asked. A follow-up overrides the
+  coarse weight. The trade-off round then compares bundles.
+- **Every follow-up shows a real difference** (the swing): two real places and what they measure, in everyday units:
+  minutes to work, dollars left after rent, hours of daylight on the shortest day, homicides per 100,000, what time it
+  is at home when you call. One place is the person's home (or its country), the other a well-known place near the far
+  end: the 15th or 85th percentile of the 40 best-known places with a figure, so a freak value is never the example.
+  Only published figures, and only pairs measured the same way (the same source, or sources that report the same
+  thing). Where no natural unit exists (making friends, women's rights) the two places' 1-5 scores are shown.
+- **"I'm not sure" is an answer.** The factor counts as average. On the results screen the page re-scores the top 40
+  places with each unsure factor counting little (0.5) and a lot (2.5) and says whether the top match would change, and
+  for which factor. The trade-off round asks about unsure factors first.
+- Roughly a dozen questions in the short quiz (9 to 15 depending on the path); "Sharpen it" asks the rest of the 33.
+  Until the path is settled the counter shows "Question 6", not "6 of 12", so the total never appears to grow.
+- One thing per question, and no two questions for one measure: political freedom and honest officials are one question
+  (their scores correlate 0.75 or more). Life satisfaction is largely an outcome of the other factors; it counts at half
+  weight by default. City life ("always something on") now has its own question, because people who aren't asked about
+  jobs still need it; older saved answers keep their reading (jobs answer × 0.6).
+- Weather has six answers, including "cold, snowy winters are a plus" (scored coldest first). Marking weather "most" or
+  "could live without" scales the weights that answer sets (×1.6 or ×0.3).
 - Answers without a natural order are shuffled, with "other / doesn't matter" kept last.
-- A 7-question version is the default (languages, passports and home are pickers: any language, any passport, any place);
-  "Sharpen it" asks the remaining questions of the 25. Every question that was skipped or not asked shows its default on
-  the results screen, where it can be answered. Unanswered, languages default to the browser's and passports to none.
+- Every question that was not asked or not answered shows its default on the results screen (with the calculations on),
+  where it can be answered. Unanswered, languages default to the browser's and passports to none.
 - Every place lookup (home bases, passports, job offers) uses the same searchable list.
 - After the quiz, the answers live in the "What matters to you" panel next to the results: each factor is off, counts
   (weight 1) or ★ counts double (2), so a change shows up in the ranking straight away. Sliders remain for finer weights.
@@ -249,17 +295,36 @@ compound over a career. (Until Nov 2026 the quiz asked how far ahead you were pl
 - A note before the first question: people tend to overweight weather and short visits and underweight commutes and
   friendships. An optional setting moves 30% of the climate and daylight weight to commute and making friends.
 - Each city page lists three questions to ask a resident, picked from its weakest and least certain factors.
-- Trade-offs ("Sharpen with 5 trade-offs", after the quiz): rating factors one at a time makes almost everything
-  important, so the weights come out flat. Five pairs of made-up cities, each strong on two things and average on the rest,
-  ask which sounds better (definitely A … definitely B). The factors are the ones you weigh where your current top 15 cities
-  differ most (spread × √weight, top 8); each appears two or three times, never on both sides of one question. Each answer
-  multiplies the winning side's weights by 1.15 per step (two steps for "definitely") and divides the losing side's; the
-  total per factor is capped at ×2 or ÷2, so the quiz still sets the shape. Personal settings and gates (politics, family,
-  home, passports, language) are left out. The answers are saved with the quiz answers; redoing the round replaces them,
-  and "Undo" restores the weights from before.
+- Trade-offs ("Sharpen with 5 trade-offs", after the quiz): five pairs of made-up cities, each strong on two things and
+  average on the rest, ask which sounds better (definitely A … definitely B). The factors are the ones you weigh where
+  your current top 15 cities differ most (spread × √weight, top 8; a factor you were unsure about counts triple); each
+  appears two or three times, never on both sides of one question. Each answer multiplies the winning side's weights by
+  1.15 per step (two steps for "definitely") and divides the losing side's; the total per factor is capped at ×2 or ÷2,
+  so the quiz still sets the shape. Personal settings and gates (politics, family, the clock, home, passports,
+  language) are left out. The answers are saved with the quiz answers; redoing the round replaces them, and "Undo"
+  restores the weights from before.
 - Fact lines on a place's page: up to two strengths and one weakness, only from published figures, only for factors you
   weigh, when the place is better (or weaker) than at least 80% of the same kind of place in the atlas with a published
   figure (at least 30 of them). Shown as a share rounded down to 5%, not as "the best", so the line stays true.
+
+### Two factors worked out from the map
+
+- **Same hours as home** (off unless asked for): each city's standard-time UTC offset (timezonefinder, which packages
+  the timezone-boundary-builder shapes; `pipeline/import_geo.py`), compared with the home bases. Up to 1 hour apart = 5,
+  3 = 4, 6 = 3, 9 = 2, more = 1; a country takes its first listed city's clock. Daylight saving can add an hour.
+- **The sea nearby** (off unless asked for): km from the city centre to the nearest sea coast (Natural Earth 1:10m
+  coastline) or the shore of one of the world's largest lakes. 10 km = 5, 40 = 4, 100 = 3, 250 = 2, more = 1. Cities
+  only. Mountains were tried and dropped: Natural Earth's range outlines and named peaks put Kyoto and Los Angeles far
+  from any mountain; that needs an elevation grid.
+
+### What the research says matters and the atlas still lacks
+
+- **Social support** (someone to count on; the largest of the World Happiness Report's six). The worldwide figure is
+  Gallup's and is not published free of charge; the OECD publishes it for its member regions.
+- **Schools** (for families), **internet speed** (for remote work), **noise and green space** (people do not adapt to
+  noise). Each needs a source file downloaded by hand: the World Bank's harmonized learning outcomes, Ookla's open
+  speed-test tiles and the OECD regional well-being file.
+
 ## How the 744 cities were chosen, and what's under-covered
 
 The list started from places Adriano has lived, visited or considered, then added the largest tech hubs, capitals and

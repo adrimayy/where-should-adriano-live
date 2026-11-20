@@ -17,6 +17,8 @@ function factorsOf(s) {
   o.fam = null;
   o.pol = null;
   o.kin = null;
+  o.tz = null;
+  o.sea = null;
   return o;
 }
 const srcSet = s => new Set((s || '').split(',').filter(Boolean));
@@ -80,11 +82,19 @@ const cities = DATA.cities.map(([name, lat, lon, iso, s, note, src, noteEs, name
 }));
 cities.forEach(c => {
   c.countryEnt = byIso[c.iso];
+  const g = (DATA.geo || {})[c.name];
+  if (g) {
+    c.utc = g[0]; // hours from UTC in standard time
+    c.coast = g[1]; // km to the sea or a great lake
+  }
   setGeo(c, c.lat, c.lon, false);
   ents.push(c);
   byKey[c.key] = c;
   const ce = c.countryEnt;
-  if (ce && !ce.hasGeo) setGeo(ce, c.lat, c.lon, false);
+  if (ce && !ce.hasGeo) {
+    ce.utc = c.utc; // a country's clock is its first listed city's
+    setGeo(ce, c.lat, c.lon, false);
+  }
 });
 ents.forEach(e => {
   e.base = { lang: e.sc.lang, perm: e.sc.perm, jobs: e.sc.jobs, clim: e.sc.clim, pay: e.sc.pay };
