@@ -29,7 +29,7 @@ function setAdriano() {
   FIELD = 'tech';
   CLIMMODE = 'mild';
   POLMODE = 'd';
-  gate = gateOpen = norm = gateFar = gateHot = true;
+  gate = gateOpen = norm = gateFar = gateHot = gateSmall = true;
   useEst = false;
   useImp = true;
   REACH = false;
@@ -202,6 +202,12 @@ $('gateFar').onchange = e => {
 $('gateHot').onchange = e => {
   becomeYours();
   gateHot = e.target.checked;
+  refreshAll();
+  saveTake();
+};
+$('gateSmall').onchange = e => {
+  becomeYours();
+  gateSmall = e.target.checked;
   refreshAll();
   saveTake();
 };

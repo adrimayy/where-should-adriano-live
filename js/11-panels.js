@@ -848,6 +848,7 @@ function weightsUI() {
   $('gateOpen').checked = gateOpen;
   $('gateFar').checked = gateFar;
   $('gateHot').checked = gateHot;
+  $('gateSmall').checked = gateSmall;
 }
 const HIST = [];
 let _lastState = null,
@@ -866,6 +867,7 @@ function snapState() {
     gateOpen,
     gateFar,
     gateHot,
+    gateSmall,
     norm,
     useEst,
     useImp,
@@ -908,6 +910,7 @@ function undo() {
     gateOpen,
     gateFar,
     gateHot,
+    gateSmall,
     norm,
     useEst,
     useImp,
@@ -965,7 +968,7 @@ function setNeutral() {
   FIELD = 'general';
   CLIMMODE = 'mild';
   POLMODE = 'd';
-  gate = gateOpen = norm = gateFar = gateHot = true;
+  gate = gateOpen = norm = gateFar = gateHot = gateSmall = true;
   useEst = false;
   useImp = true;
   REACH = false;

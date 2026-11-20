@@ -237,6 +237,8 @@ I18N({
       'Viagens de mais de 18 horas até uma base de casa são quase eliminatórias: limitado a Cautela',
     gateHotLabel:
       'Verões quentes são quase eliminatórios (mês mais quente com média de 27 °C / 81 °F ou mais): limitado a Cautela, a menos que você tenha escolhido calor',
+    gateSmallLabel:
+      'Lugares pequenos são quase eliminatórios quando ter o que fazer conta em dobro ou mais para você (região metropolitana com menos de 500 mil habitantes): limitado a Cautela',
     presets: {
       mine: 'Prioridades do Adriano',
       quiz: 'Do seu questionário',

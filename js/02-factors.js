@@ -48,7 +48,7 @@ const PRESETS = {
     commute: 2.5,
     move: 2.5,
     happy: 0.5,
-    cult: 1.5,
+    cult: 2.5,
     open: 1.5,
     pay: 2.5,
     hours: 2.5,

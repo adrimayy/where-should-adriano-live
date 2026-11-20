@@ -239,6 +239,8 @@ I18N({
       'Un trajet de plus de 18 heures vers un point d’attache est presque rédhibitoire : plafonné à Prudence',
     gateHotLabel:
       'Les étés chauds sont presque rédhibitoires (mois le plus chaud à 27 °C / 81 °F de moyenne ou plus) : plafonné à Prudence, sauf si vous avez choisi la chaleur',
+    gateSmallLabel:
+      'Les petites villes sont presque rédhibitoires quand l’animation compte double ou plus pour vous (agglomération de moins de 500 000 habitants) : plafonné à Prudence',
     presets: {
       mine: 'Priorités d’Adriano',
       quiz: 'D’après votre questionnaire',

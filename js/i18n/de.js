@@ -237,6 +237,8 @@ I18N({
       'Reisen von mehr als 18 Stunden zu einer Heimatbasis sind fast K.-o.: begrenzt auf Vorsicht',
     gateHotLabel:
       'Heiße Sommer sind fast K.-o. (wärmster Monat im Mittel 27 °C / 81 °F oder mehr): begrenzt auf Vorsicht, außer du hast heißes Wetter gewählt',
+    gateSmallLabel:
+      'Kleine Orte sind fast K.-o., wenn dir „viel los“ doppelt oder mehr zählt (Großraum unter 500.000 Einwohnern): begrenzt auf Vorsicht',
     presets: {
       mine: 'Adrianos Prioritäten',
       quiz: 'Aus deinem Quiz',

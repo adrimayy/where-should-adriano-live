@@ -236,6 +236,8 @@ const STR = {
     gateFarLabel: 'Trips of more than 18 hours to a home base are near-dealbreakers: capped at Caution',
     gateHotLabel:
       'Hot summers are near-dealbreakers (hottest month averaging 27 °C / 81 °F or more): capped at Caution, unless you chose hot weather',
+    gateSmallLabel:
+      'Small places are near-dealbreakers when things happening counts double or more for you (metro area under 500,000 people): capped at Caution',
     presets: {
       mine: 'Adriano’s priorities',
       quiz: 'From your quiz',
@@ -698,6 +700,8 @@ const STR = {
     gateFarLabel: 'Los viajes de más de 18 horas a un hogar casi descartan: se limitan a Con reservas',
     gateHotLabel:
       'Los veranos calurosos casi descartan (mes más cálido con media de 27 °C o más): se limitan a Con reservas, salvo que elijas clima caluroso',
+    gateSmallLabel:
+      'Los lugares pequeños casi descartan cuando que pasen cosas te cuenta el doble o más (área metropolitana de menos de 500 mil habitantes): se limitan a Con reservas',
     presets: {
       mine: 'Prioridades de Adriano',
       quiz: 'Según tu cuestionario',
