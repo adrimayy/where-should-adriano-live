@@ -4,6 +4,7 @@ let KNOWS = store.get('knows', '') === '1';
 const vsAd = () => MODE === 'yours' && KNOWS;
 /* ---------------- scoring ---------------- */
 let gateHot = true,
+  gateSmall = true,
   gateFar = true,
   W = { ...PRESETS.mine },
   gate = true,
@@ -242,6 +243,19 @@ function evaluate(e) {
     tier = 'caution';
     gated = true;
     lim = 'clim';
+  } else if (
+    // "lots to do" counting double or more is a floor as well as a weight: a metro under 500,000 people (the lowest
+    // band) can do well on everything else and still not be what the person asked for
+    gateSmall &&
+    W.cult >= 2 &&
+    e.type === 'city' &&
+    e.how.cult === 'obs' &&
+    sc.cult === 1 &&
+    (tier === 'fit' || tier === 'ok')
+  ) {
+    tier = 'caution';
+    gated = true;
+    lim = 'cult';
   } else {
     let worst = -1;
     FACTORS.forEach(f => {
@@ -550,6 +564,7 @@ function snapshotAdriano() {
     norm,
     gateFar,
     gateHot,
+    gateSmall,
     useEst,
     useImp,
     REACH,
@@ -564,7 +579,7 @@ function snapshotAdriano() {
   FIELD = 'tech';
   CLIMMODE = 'mild';
   POLMODE = 'd';
-  gate = gateOpen = norm = gateFar = gateHot = true;
+  gate = gateOpen = norm = gateFar = gateHot = gateSmall = true;
   useEst = false;
   useImp = true;
   REACH = false;
@@ -598,6 +613,7 @@ function snapshotAdriano() {
     norm,
     gateFar,
     gateHot,
+    gateSmall,
     useEst,
     useImp,
     REACH,

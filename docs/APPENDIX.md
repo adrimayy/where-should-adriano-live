@@ -27,8 +27,10 @@ The short version is in [METHODS.md](METHODS.md). This file has the statistics, 
    - Limited freedoms (2 or lower) or active war cap a place at Poor match. A filled-in freedom value that is more likely
      than not at 2 or below (most of its 20 versions are) gets the same cap, marked "likely".
    - Capped at Caution: the hardest places to make friends, trips home over 18 hours, the highest crime (also applied to a
-     filled-in safety value that is more likely than not the lowest), and hot summers (hottest month averaging 27 °C or
-     more, unless the person chose hot weather).
+     filled-in safety value that is more likely than not the lowest), hot summers (hottest month averaging 27 °C or
+     more, unless the person chose hot weather), and, only when things happening counts double or more for the person,
+     metro areas under 500,000 people. A weight alone can't say "not a village": with things happening at the maximum
+     weight, towns of 120,000 to 230,000 people still reached Adriano's top 14 on commutes, rent and housing.
    - A place can only be a Strong fit if housing, jobs, healthcare, safety, freedom and money after rent all have published
      figures there and filled-in values make up less than a fifth of its score.
    - Within a verdict, places sort by the low end of their likely range (cautious) or, if chosen, the middle (best guess).

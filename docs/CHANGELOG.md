@@ -53,6 +53,15 @@ How the method changed, and what it did to the top of Adriano's list.
   loading wheel covers the page until it is drawn, and the map until its outlines arrive. On phones: the four results
   actions sit in a 2 x 2 grid, ranking rows are one line of name, one swipeable line of reasons and the drawback, and the
   priorities button stays off the first screen.
+- **Adriano's priorities, from his own quiz (v58):** his saved weights are now the result of his run of the v56 quiz on
+  19 Nov 2026. Up: housing availability 1 → 2.5, safety 1 → 2.5, time off 1 → 2.5, women's safety and rights 1 → 2.5,
+  money after rent 1.75 → 2.5, healthcare 2.25 → 3, winter daylight 1 → 2. Down: climate 2.25 → 0.75, reported life
+  satisfaction 1 → 0.5, close to home 1.5 → 1. New for him: the sea nearby 1, same hours as home 1, cultural familiarity
+  0.75. Same homes, passports, languages and field. His top five: Amsterdam, Madrid, Valencia, Barcelona, Edinburgh. The
+  "My top priorities" box is now read off his weights (2.5 and up), not a hand-written list. Things happening then went
+  to 2.5 at his request, with a new dealbreaker rule for anyone who weighs it double or more: metro areas under 500,000
+  people are capped at Caution (a switch under the dealbreaker rules, saved with a take). For him that moves 29 small
+  towns out of the way and New York from 112th to 19th; with default weights nothing changes.
   Region pills also move the map, replacing the separate row of map-view buttons in the plain view.
 - **Layout after the NYT "Where should you live" quiz (v52):** what matters to you sits beside the map and ranking (a
   sticky panel on wide screens, a bottom sheet behind a "Priorities" button on phones), one tap per factor: off, counts

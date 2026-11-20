@@ -39,13 +39,6 @@ I18N({
     intro1:
       'Jedes Land und {NCITIES} Städte, nach denselben 25 Kriterien aus veröffentlichten Daten bewertet. Beantworte etwa ein Dutzend Fragen, und die Karte sortiert sie für dich.',
     prioTitle: 'Meine wichtigsten Prioritäten',
-    prio: [
-      'Effizienz und Fußläufigkeit',
-      'Gesundheitsversorgung, die nicht vom Job abhängt',
-      'Im Alltag glücklich sein',
-      'Es ist etwas los',
-      'Bezahlbarkeit',
-    ],
     startQuiz: 'Das 2-Minuten-Quiz machen',
     skipQuiz: 'Gleich die Karte zeigen',
     resume: 'Mit meiner Karte weitermachen',
@@ -244,6 +237,8 @@ I18N({
       'Reisen von mehr als 18 Stunden zu einer Heimatbasis sind fast K.-o.: begrenzt auf Vorsicht',
     gateHotLabel:
       'Heiße Sommer sind fast K.-o. (wärmster Monat im Mittel 27 °C / 81 °F oder mehr): begrenzt auf Vorsicht, außer du hast heißes Wetter gewählt',
+    gateSmallLabel:
+      'Kleine Orte sind fast K.-o., wenn dir „viel los“ doppelt oder mehr zählt (Großraum unter 500.000 Einwohnern): begrenzt auf Vorsicht',
     presets: {
       mine: 'Adrianos Prioritäten',
       quiz: 'Aus deinem Quiz',
