@@ -15,7 +15,7 @@ const STR = {
     intro1:
       'Every country and ' +
       DATA.cities.length +
-      ' cities, scored on the same 23 things from published data. Answer seven questions and the map ranks them for you.',
+      ' cities, scored on the same 25 things from published data. Answer about a dozen questions and the map ranks them for you.',
     prioTitle: 'My top priorities',
     prio: [
       'Efficiency and walkability',
@@ -87,7 +87,7 @@ const STR = {
     impNote:
       'Errors were measured by hiding known values and predicting them: at random (5-fold for countries, leave-one-out for cities), and, for countries, a second time hiding values the way real gaps happen, more often in poorer and smaller countries. The table shows the worse of the two. An error of 0.5 means a filled-in score is typically half a point off.',
     whyNoData: 'Not enough published data about this place to give a reliable verdict.',
-    unsure: 'Not sure, skip',
+    unsure: 'I’m not sure',
     estLabel:
       'Also count estimated factors (things happening, jobs by field, and walkability or LGBTQ+ scores where no published figure exists). They have no published data, so they\u2019re off by default.',
     whyGood: 'Good for you: {x}.',
@@ -181,6 +181,36 @@ const STR = {
     factBadC: '{f}: weaker than {p}% of the cities in the atlas',
     factGoodN: '{f}: better than {p}% of the countries in the atlas',
     factBadN: '{f}: weaker than {p}% of the countries in the atlas',
+    topHint: 'Tap once for what matters most (up to {n}). Tap again for what you could live without.',
+    topLow: 'could live without',
+    topMax: 'That’s {n} already. Take one off to add another.',
+    topAreas: { jobs: 'Finding good work', pay: 'Money left after rent', home: 'An easy apartment hunt', commute: 'A short trip to work', hours: 'Free time', cult: 'Lots to do', clim: 'Weather I like', air: 'Clean air', sea: 'The sea nearby', safe: 'Feeling safe', hlth: 'Good healthcare', open: 'Making friends', fam: 'Being close to home', free: 'Freedom and honest officials' },
+    unsureGot: 'That’s fine. It counts as average for now, and your results will say if it changes anything.',
+    unsureHead: 'You weren’t sure about: {f}.',
+    unsureHolds: 'Your top match stays the same whichever way you’d answer.',
+    unsureHi: 'It could change your top match: if {f} matters a lot to you, {p} comes first.',
+    unsureLo: 'It could change your top match: if {f} matters little to you, {p} comes first.',
+    unsureHint: 'The 5 trade-offs can settle it.',
+    swCommute: 'One way to work, on average: {x} minutes in {a}, {y} in {b}. Over a year, that’s about {h} hours’ difference.',
+    swAir: 'Fine dust in the air, yearly average: {x} µg/m³ in {a}, {y} in {b}. The WHO’s guideline is 5.',
+    swSafe: 'Homicides per 100,000 people a year: {x} in {a}, {y} in {b}.',
+    swPay: 'On a typical salary, after rent on a one-bedroom: about {x} a month left in {a}, {y} in {b} (in New York prices).',
+    swHours: 'A full-time worker puts in about {x} hours a year in {a} and {y} in {b}: about {w} working weeks apart.',
+    swJobs: 'Out of work and looking: {x}% of the workforce in {a}, {y}% in {b}.',
+    swHlth: 'The WHO’s index of how much essential care people actually get, out of 100: {x} in {a}, {y} in {b}.',
+    swHome: 'Of every 100 rental homes, about {x} stand empty and on offer in {a}; {y} in {b}.',
+    swMove: 'People who live near rapid transit (metro, rail or fast bus): {x}% in {a}, {y}% in {b}.',
+    swCult: 'People in the metro area: {x} million in {a}, {y} million in {b}.',
+    swFree: 'Freedom House scores political rights and civil liberties out of 100: {x} in {a}, {y} in {b}.',
+    swRisk: 'WorldRiskIndex (higher means more exposed to disasters): {x} in {a}, {y} in {b}.',
+    swDay: 'Daylight on the shortest day of the year, in hours and minutes: {x} in {a}, {y} in {b}.',
+    swFam: 'Door to door to {h}: about {x} hours from {a}, {y} from {b}.',
+    swTz: 'When it’s {t} in {h}, it’s {x} in {a} and {y} in {b}.',
+    swSea: 'To the sea or a great lake: about {x} km from {a}, {y} km from {b}.',
+    swCost: 'Prices, rent included, with New York at 100: {x} in {a}, {y} in {b}.',
+    qN: 'Question {n}',
+    calcTz: 'clocks {h}h apart from home',
+    calcSea: '{km} km to the sea or a great lake',
     ppHead: 'What matters to you',
     ppHow: 'Tap once and it counts. Tap again for ★, which counts double. A third tap turns it off.',
     ppLv: ['off', 'counts', 'counts double'],
@@ -451,7 +481,7 @@ const STR = {
     intro1:
       'Todos los países y ' +
       DATA.cities.length +
-      ' ciudades, calificados en las mismas 23 cosas con datos publicados. Responde siete preguntas y el mapa los ordena para ti.',
+      ' ciudades, calificados en las mismas 25 cosas con datos publicados. Responde una docena de preguntas y el mapa los ordena para ti.',
     prioTitle: 'Mis prioridades principales',
     prio: [
       'Eficiencia y poder caminar a todo',
@@ -525,7 +555,7 @@ const STR = {
     impNote:
       'Los errores se midieron ocultando valores conocidos y prediciéndolos: al azar (5 partes para países, uno por uno para ciudades) y, para países, una segunda vez ocultando valores como ocurren los huecos reales, más seguido en países más pobres y pequeños. La tabla muestra el peor de los dos. Un error de 0.5 significa que un valor estimado suele desviarse medio punto.',
     whyNoData: 'No hay suficientes datos publicados sobre este lugar para dar un veredicto confiable.',
-    unsure: 'No estoy seguro, saltar',
+    unsure: 'No estoy seguro',
     estLabel:
       'Contar también los factores estimados (que pasen cosas, empleos por campo, y movilidad o puntajes LGBTQ+ donde no hay cifra publicada). No tienen datos publicados, así que están apagados por defecto.',
     whyGood: 'Bueno para ti: {x}.',
@@ -619,6 +649,36 @@ const STR = {
     factBadC: '{f}: peor que el {p}% de las ciudades del atlas',
     factGoodN: '{f}: mejor que el {p}% de los países del atlas',
     factBadN: '{f}: peor que el {p}% de los países del atlas',
+    topHint: 'Toca una vez lo que más importa (hasta {n}). Toca otra vez lo que podrías no tener.',
+    topLow: 'podría no tenerlo',
+    topMax: 'Ya van {n}. Quita uno para agregar otro.',
+    topAreas: { jobs: 'Encontrar buen trabajo', pay: 'Dinero después de la renta', home: 'Encontrar casa fácil', commute: 'Trayecto corto al trabajo', hours: 'Tiempo libre', cult: 'Mucho que hacer', clim: 'Un clima que me guste', air: 'Aire limpio', sea: 'El mar cerca', safe: 'Sentirme seguro', hlth: 'Buena atención médica', open: 'Hacer amigos', fam: 'Estar cerca de casa', free: 'Libertad y autoridades honestas' },
+    unsureGot: 'Está bien. Por ahora cuenta como promedio, y tus resultados dirán si cambia algo.',
+    unsureHead: 'No estabas seguro sobre: {f}.',
+    unsureHolds: 'Tu mejor opción es la misma respondas lo que respondas.',
+    unsureHi: 'Podría cambiar tu mejor opción: si {f} te importa mucho, {p} queda en primer lugar.',
+    unsureLo: 'Podría cambiar tu mejor opción: si {f} te importa poco, {p} queda en primer lugar.',
+    unsureHint: 'Los 5 dilemas pueden resolverlo.',
+    swCommute: 'Solo de ida al trabajo, en promedio: {x} minutos en {a}, {y} en {b}. En un año son unas {h} horas de diferencia.',
+    swAir: 'Partículas finas en el aire, media anual: {x} µg/m³ en {a}, {y} en {b}. La OMS recomienda 5.',
+    swSafe: 'Homicidios por cada 100 mil habitantes al año: {x} en {a}, {y} en {b}.',
+    swPay: 'Con un sueldo típico, después de la renta de una recámara: quedan unos {x} al mes en {a} y {y} en {b} (a precios de Nueva York).',
+    swHours: 'Quien trabaja tiempo completo suma unas {x} horas al año en {a} y {y} en {b}: unas {w} semanas laborales de diferencia.',
+    swJobs: 'Sin trabajo y buscando: {x}% de la fuerza laboral en {a}, {y}% en {b}.',
+    swHlth: 'Índice de la OMS sobre cuánta atención esencial recibe la gente en realidad, sobre 100: {x} en {a}, {y} en {b}.',
+    swHome: 'De cada 100 viviendas en renta, unas {x} están vacías y disponibles en {a}; {y} en {b}.',
+    swMove: 'Personas que viven cerca de transporte rápido (metro, tren o autobús rápido): {x}% en {a}, {y}% en {b}.',
+    swCult: 'Habitantes del área metropolitana: {x} millones en {a}, {y} millones en {b}.',
+    swFree: 'Freedom House califica los derechos políticos y las libertades civiles sobre 100: {x} en {a}, {y} en {b}.',
+    swRisk: 'WorldRiskIndex (más alto es más expuesto a desastres): {x} en {a}, {y} en {b}.',
+    swDay: 'Luz de día en el día más corto del año, en horas y minutos: {x} en {a}, {y} en {b}.',
+    swFam: 'De puerta a puerta hasta {h}: unas {x} horas desde {a}, {y} desde {b}.',
+    swTz: 'Cuando son las {t} en {h}, son las {x} en {a} y las {y} en {b}.',
+    swSea: 'Hasta el mar o un gran lago: unos {x} km desde {a}, {y} km desde {b}.',
+    swCost: 'Precios, renta incluida, con Nueva York en 100: {x} en {a}, {y} en {b}.',
+    qN: 'Pregunta {n}',
+    calcTz: '{h} h de diferencia horaria con casa',
+    calcSea: '{km} km hasta el mar o un gran lago',
     ppHead: 'Lo que te importa',
     ppHow: 'Toca una vez y cuenta. Otra vez para ★, que cuenta doble. Una tercera vez lo apaga.',
     ppLv: ['apagado', 'cuenta', 'cuenta doble'],
@@ -913,6 +973,8 @@ const FSTR = {
     lang: ['Language', 'Language barrier'],
     fam: ['Close to home', 'Far from home'],
     kin: ['Cultural familiarity', 'Culturally unfamiliar'],
+    tz: ['Same hours as home', 'Big time difference from home'],
+    sea: ['The sea nearby', 'Far from the sea'],
   },
   es: {
     commute: ['Trayectos cortos', 'Trayectos largos'],
@@ -939,176 +1001,293 @@ const FSTR = {
     lang: ['Idioma', 'Barrera del idioma'],
     fam: ['Cerca de casa', 'Lejos de casa'],
     kin: ['Familiaridad cultural', 'Culturalmente desconocido'],
+    tz: ['Mismo horario que en casa', 'Mucha diferencia horaria con casa'],
+    sea: ['El mar cerca', 'Lejos del mar'],
   },
 };
 const QSTR = {
   en: {
-    where: ['Where is home for you?', []],
+    where: [
+      'Where do you live now?',
+      [],
+    ],
+    perm: [
+      'Which passports do you hold?',
+      ['US and Mexican, like Adriano', 'US only', 'Mexican only', 'An EU passport', 'Other (ignore this)'],
+    ],
+    lang: [
+      'Which languages could you live in? (Enough to call a landlord or see a doctor, not just order coffee.)',
+      ['English and Spanish', 'English only', 'Some English', 'Spanish only', 'Spanish, plus some English', 'I’d learn whatever’s needed'],
+    ],
+    work: [
+      'After the move, where will your pay come from?',
+      ['A job there, with a local employer', 'Remote work: my pay comes from somewhere else', 'I’ll be studying', 'I’m retired or won’t be working', 'I don’t know yet'],
+    ],
+    who: [
+      'Who’s moving with you?',
+      ['Just me', 'My partner and me', 'My family, with kids'],
+    ],
+    partner: [
+      'Will your partner need to find a job there?',
+      ['Yes', 'No'],
+    ],
+    top: [
+      'Picture an ordinary Tuesday in your new city. Which of these would you miss most if they were bad?',
+      [],
+    ],
     field: [
-      'What’s your field?',
-      [
-        'Computer science or software',
-        'Finance or business',
-        'Healthcare',
-        'Creative work, media or the arts',
-        'Research or academia',
-        'Something else, or a mix',
-        'Fully remote, for an employer elsewhere',
-      ],
+      'What kind of work do you do?',
+      ['Computer science or software', 'Finance or business', 'Healthcare', 'Creative work, media or the arts', 'Research or academia', 'Something else, or a mix', 'Fully remote, for an employer elsewhere'],
+    ],
+    jobs: [
+      'Say your job ended next year. How much would it matter to find another without moving again?',
+      ['Not much', 'Somewhat', 'A lot'],
     ],
     reach: [
-      'Would you commute to a bigger city a few days a week?',
+      'Would you take a train to a bigger city nearby, up to an hour and a half each way, a few days a week?',
       ['Yes, up to 1.5 hours each way', 'No, I’d work where I live'],
     ],
-    jobs: ['How much does a big, busy city matter? (More jobs and more going on.)', ['Not much', 'Somewhat', 'A lot']],
-    pay: ['How much does money left after rent matter?', ['Not much', 'Somewhat', 'A lot']],
-    home: ['How much does an easy apartment hunt matter?', ['Not much', 'Somewhat', 'A lot']],
+    pay: [
+      'Rent is paid. How much does it matter what’s left of your paycheck for everything else?',
+      ['Not much', 'Somewhat', 'A lot'],
+    ],
+    pay_r: [
+      'Your income comes with you. How much does it matter that it buys more there?',
+      ['Not much', 'Somewhat', 'A lot'],
+    ],
+    home: [
+      'You need an apartment within a month. How much does it matter that finding one is easy?',
+      ['Not much', 'Somewhat', 'A lot'],
+    ],
     move: [
-      'How do you want to get around?',
+      'In a normal week, how do you want to get around?',
       ['Driving is fine', 'Transit, plus some driving', 'No car at all'],
     ],
     commute: [
-      'How much does a short commute matter? (20 minutes instead of 45.)',
+      'Twice a day, every workday: how much would a longer trip to work wear on you?',
       ['Not much', 'Somewhat', 'A lot'],
     ],
-    hlth: ['How much does good healthcare that everyone can get matter?', ['Not much', 'Somewhat', 'A lot']],
-    clim: ['What weather suits you?', [
-        'Mild all year (San Francisco, Lisbon)',
-        'Hot and sunny (Miami, Singapore)',
-        'Four seasons, snow is fine (Toronto, Berlin)',
-        'Sunny winters (Madrid, Los Angeles)',
-        'Weather doesn’t matter much', 'Cold, snowy winters are a plus (Oslo, Montreal)']],
-    open: ['How much does making friends easily matter?', ['Not much', 'Somewhat', 'A lot']],
-    kin: [
-      'Should places that feel culturally familiar count more? (Same language or region as where you’re from.)',
-      ['No', 'A little', 'A lot'],
+    hours: [
+      'How much do free evenings, weekends and real vacations matter to you?',
+      ['Not much', 'Somewhat', 'A lot'],
+    ],
+    cult: [
+      'It’s Friday night. How much do you want a city where there’s always something on?',
+      ['Not much', 'Somewhat', 'A lot'],
+    ],
+    clim: [
+      'What weather would you be happy to wake up to?',
+      ['Mild all year (San Francisco, Lisbon)', 'Hot and sunny (Miami, Singapore)', 'Four seasons, snow is fine (Toronto, Berlin)', 'Sunny winters (Madrid, Los Angeles)', 'Weather doesn’t matter much', 'Cold, snowy winters are a plus (Oslo, Montreal)'],
+    ],
+    day: [
+      'You leave work at five in December and it’s already dark. How much would that get to you?',
+      ['Not much', 'Somewhat', 'A lot'],
+    ],
+    sea: [
+      'A free Saturday: how much do you want the sea, or a lake too wide to see across, within easy reach?',
+      ['I don’t need it', 'It would be nice', 'I really want it'],
+    ],
+    air: [
+      'How much would it bother you to live where the air is often hazy and smells of traffic?',
+      ['Not much', 'Somewhat', 'A lot'],
+    ],
+    risk: [
+      'Earthquakes, hurricanes, floods, wildfires. How much does living somewhere low-risk matter to you?',
+      ['Not much', 'Somewhat', 'A lot'],
+    ],
+    open: [
+      'You arrive knowing no one. How much does it matter that people there are easy to befriend?',
+      ['Not much', 'Somewhat', 'A lot'],
     ],
     fam: [
-      'How much does a short trip home matter? (3 hours instead of 12.)',
+      'A birthday, a wedding, a bad week back home. How much does a quick trip home matter?',
       ['Not much', 'Somewhat', 'A lot'],
     ],
-    safe: ['How much does low crime matter?', ['Not much', 'Somewhat', 'A lot']],
-    air: ['How much does clean air matter?', ['Not much', 'Somewhat', 'A lot']],
-    hours: ['How much does time off matter?', ['Not much', 'Somewhat', 'A lot']],
-    risk: ['How much does a low risk of natural disasters matter?', ['Not much', 'Somewhat', 'A lot']],
+    tz: [
+      'You call home after dinner. How much does it matter that they’re awake?',
+      ['Not much', 'Somewhat', 'A lot'],
+    ],
+    tz_r: [
+      'Your work runs on another clock. How much does it matter to keep normal hours?',
+      ['Not much', 'Somewhat', 'A lot'],
+    ],
+    kin: [
+      'Should places that feel familiar count for more? (Your language, food you know, a similar way of doing things.)',
+      ['No', 'A little', 'A lot'],
+    ],
+    safe: [
+      'Walking home alone at eleven at night. How much does it matter that you wouldn’t think twice?',
+      ['Not much', 'Somewhat', 'A lot'],
+    ],
+    hlth: [
+      'You wake up sick on a Monday. How much does it matter that seeing a doctor is easy and doesn’t depend on your job?',
+      ['Not much', 'Somewhat', 'A lot'],
+    ],
+    free: [
+      'How much does it matter that you can criticize the government out loud and never have to pay a bribe?',
+      ['Not much', 'Somewhat', 'A lot'],
+    ],
+    women: [
+      'How much should it count that women are safe there and treated as equals?',
+      ['Not at all', 'A little', 'Quite a bit', 'A lot: it affects me or people I’d live with'],
+    ],
+    lgbt: [
+      'How much should it count that LGBTQ+ people can live openly there?',
+      ['Not at all', 'A little', 'Quite a bit', 'A lot: it affects me or people I’d live with'],
+    ],
+    pol: [
+      'In the US, would you rather live where most of your neighbors vote like you?',
+      ['Yes, I prefer Democratic-leaning areas', 'Yes, I prefer Republican-leaning areas', 'No'],
+    ],
     weak: [
-      'Can a place’s strengths make up for one serious weak spot? (Great jobs but poor safety, say.)',
+      'A city has almost everything you want and one serious flaw. Could you still be happy there? (Great jobs but unsafe streets, say.)',
       ['Yes, strengths can make up for it', 'No, one serious weak spot spoils a place'],
     ],
     sure: [
-      'When the data on a place is thin, how should it rank?',
+      'For some places there’s little data, so part of the score is an estimate. How should they rank?',
       ['Lower: I prefer well-measured places', 'By its best guess: I’ll take the chance'],
-    ],
-    free: ['How much do political freedom and honest officials matter? (A free press, the right to protest, police and officials who don’t take bribes.)', ['Not much', 'Somewhat', 'A lot']],
-    women: [
-      'How much should women’s safety and rights count?',
-      ['Not at all', 'A little', 'Quite a bit', 'A lot: it affects me or people I’d live with'],
-    ],
-    lgbt: [
-      'How much should LGBTQ+ acceptance count?',
-      ['Not at all', 'A little', 'Quite a bit', 'A lot: it affects me or people I’d live with'],
-    ],
-    pol: [
-      'If you lived in the US, should local politics count?',
-      ['Yes, I prefer Democratic-leaning areas', 'Yes, I prefer Republican-leaning areas', 'No'],
-    ],
-    lang: [
-      'Which languages could you live in day to day?',
-      [
-        'English and Spanish',
-        'English only',
-        'Some English',
-        'Spanish only',
-        'Spanish, plus some English',
-        'I’d learn whatever’s needed',
-      ],
-    ],
-    perm: [
-      'Which passports do you have?',
-      ['US and Mexican, like Adriano', 'US only', 'Mexican only', 'An EU passport', 'Other (ignore this)'],
     ],
   },
   es: {
-    where: ['¿Dónde está tu hogar?', []],
-    field: [
-      '¿A qué te dedicas?',
-      [
-        'Computación o software',
-        'Finanzas o negocios',
-        'Salud',
-        'Trabajo creativo, medios o artes',
-        'Investigación o academia',
-        'Otra cosa, o una mezcla',
-        '100% remoto, para una empresa de otro lugar',
-      ],
-    ],
-    reach: [
-      '¿Viajarías a una ciudad más grande algunos días a la semana?',
-      ['Sí, hasta 1.5 horas por trayecto', 'No, trabajaría donde vivo'],
-    ],
-    jobs: ['¿Cuánto te importa una ciudad grande y con mucha vida? (Más empleo y más cosas que hacer.)', ['Poco', 'Algo', 'Mucho']],
-    pay: ['¿Cuánto te importa el dinero que queda tras la renta?', ['Poco', 'Algo', 'Mucho']],
-    home: ['¿Cuánto te importa encontrar departamento fácilmente?', ['Poco', 'Algo', 'Mucho']],
-    move: ['¿Cómo quieres moverte?', ['Manejar está bien', 'Transporte público y algo de auto', 'Sin auto']],
-    commute: ['¿Cuánto te importa un trayecto corto? (20 minutos en vez de 45.)', ['Poco', 'Algo', 'Mucho']],
-    hlth: ['¿Cuánto te importa una buena atención médica al alcance de todos?', ['Poco', 'Algo', 'Mucho']],
-    clim: ['¿Qué clima te va?', [
-        'Templado todo el año (San Francisco, Lisboa)',
-        'Calor y sol (Miami, Singapur)',
-        'Cuatro estaciones, con nieve (Toronto, Berlín)',
-        'Inviernos soleados (Madrid, Los Ángeles)',
-        'El clima me da casi igual', 'Inviernos fríos y con nieve, mejor (Oslo, Montreal)']],
-    open: ['¿Cuánto te importa hacer amigos fácilmente?', ['Poco', 'Algo', 'Mucho']],
-    kin: [
-      '¿Deberían contar más los lugares culturalmente familiares? (Mismo idioma o región que tu origen.)',
-      ['No', 'Un poco', 'Mucho'],
-    ],
-    fam: ['¿Cuánto te importa un viaje corto a casa? (3 horas en vez de 12.)', ['Poco', 'Algo', 'Mucho']],
-    safe: ['¿Cuánto te importa que haya poca delincuencia?', ['Poco', 'Algo', 'Mucho']],
-    air: ['¿Cuánto importa el aire limpio?', ['Poco', 'Algo', 'Mucho']],
-    hours: ['¿Cuánto importa el tiempo libre?', ['Poco', 'Algo', 'Mucho']],
-    risk: ['¿Cuánto importa un riesgo bajo de desastres naturales?', ['Poco', 'Algo', 'Mucho']],
-    weak: [
-      '¿Pueden las ventajas de un lugar compensar un punto débil serio? (Buen empleo pero poca seguridad, por ejemplo.)',
-      ['Sí, las ventajas pueden compensarlo', 'No, un punto débil serio arruina un lugar'],
-    ],
-    sure: [
-      'Cuando hay pocos datos sobre un lugar, ¿cómo debe ordenarse?',
-      ['Más abajo: prefiero lugares bien medidos', 'Según su mejor estimación: me arriesgo'],
-    ],
-    free: ['¿Cuánto te importan la libertad política y funcionarios honestos? (Prensa libre, derecho a protestar, policías y funcionarios que no aceptan mordidas.)', ['Poco', 'Algo', 'Mucho']],
-    women: [
-      '¿Cuánto deben contar la seguridad y los derechos de las mujeres?',
-      ['Nada', 'Un poco', 'Bastante', 'Mucho: me afecta a mí o a quienes vivirían conmigo'],
-    ],
-    lgbt: [
-      '¿Cuánto debe contar la aceptación LGBTQ+?',
-      ['Nada', 'Un poco', 'Bastante', 'Mucho: me afecta a mí o a quienes vivirían conmigo'],
-    ],
-    pol: [
-      'Si vivieras en EE. UU., ¿debería contar la política local?',
-      ['Sí, prefiero zonas demócratas', 'Sí, prefiero zonas republicanas', 'No'],
-    ],
-    lang: [
-      '¿En qué idiomas podrías vivir tu día a día?',
-      [
-        'Inglés y español',
-        'Solo inglés',
-        'Algo de inglés',
-        'Solo español',
-        'Español y algo de inglés',
-        'Aprendería lo que haga falta',
-      ],
+    where: [
+      '¿Dónde vives ahora?',
+      [],
     ],
     perm: [
       '¿Qué pasaportes tienes?',
-      [
-        'Estadounidense y mexicano, como Adriano',
-        'Solo estadounidense',
-        'Solo mexicano',
-        'Uno de la UE',
-        'Otro (ignorar)',
-      ],
+      ['Estadounidense y mexicano, como Adriano', 'Solo estadounidense', 'Solo mexicano', 'Uno de la UE', 'Otro (ignorar)'],
+    ],
+    lang: [
+      '¿En qué idiomas podrías vivir? (Lo suficiente para llamar a un casero o ir al médico, no solo para pedir un café.)',
+      ['Inglés y español', 'Solo inglés', 'Algo de inglés', 'Solo español', 'Español y algo de inglés', 'Aprendería lo que haga falta'],
+    ],
+    work: [
+      'Después de mudarte, ¿de dónde vendrá tu sueldo?',
+      ['Un empleo ahí, con un empleador local', 'Trabajo remoto: mi sueldo viene de otro lugar', 'Voy a estudiar', 'Estoy jubilado o no voy a trabajar', 'Todavía no lo sé'],
+    ],
+    who: [
+      '¿Quién se muda contigo?',
+      ['Solo yo', 'Mi pareja y yo', 'Mi familia, con hijos'],
+    ],
+    partner: [
+      '¿Tu pareja tendrá que buscar trabajo ahí?',
+      ['Sí', 'No'],
+    ],
+    top: [
+      'Imagina un martes cualquiera en tu nueva ciudad. ¿Cuáles de estas cosas echarías más de menos si fueran malas?',
+      [],
+    ],
+    field: [
+      '¿A qué te dedicas?',
+      ['Computación o software', 'Finanzas o negocios', 'Salud', 'Trabajo creativo, medios o artes', 'Investigación o academia', 'Otra cosa, o una mezcla', '100% remoto, para una empresa de otro lugar'],
+    ],
+    jobs: [
+      'Supón que tu trabajo se acaba el año que viene. ¿Cuánto importa poder encontrar otro sin volver a mudarte?',
+      ['Poco', 'Algo', 'Mucho'],
+    ],
+    reach: [
+      '¿Tomarías un tren a una ciudad más grande cercana, hasta hora y media por trayecto, unos días a la semana?',
+      ['Sí, hasta 1.5 horas por trayecto', 'No, trabajaría donde vivo'],
+    ],
+    pay: [
+      'Ya pagaste la renta. ¿Cuánto importa lo que te queda del sueldo para todo lo demás?',
+      ['Poco', 'Algo', 'Mucho'],
+    ],
+    pay_r: [
+      'Tu ingreso viaja contigo. ¿Cuánto importa que ahí rinda más?',
+      ['Poco', 'Algo', 'Mucho'],
+    ],
+    home: [
+      'Necesitas un departamento en un mes. ¿Cuánto importa que sea fácil encontrarlo?',
+      ['Poco', 'Algo', 'Mucho'],
+    ],
+    move: [
+      'En una semana normal, ¿cómo quieres moverte?',
+      ['Manejar está bien', 'Transporte público y algo de auto', 'Sin auto'],
+    ],
+    commute: [
+      'Dos veces al día, cada día de trabajo: ¿cuánto te desgastaría un trayecto más largo?',
+      ['Poco', 'Algo', 'Mucho'],
+    ],
+    hours: [
+      '¿Cuánto te importan las tardes libres, los fines de semana y unas vacaciones de verdad?',
+      ['Poco', 'Algo', 'Mucho'],
+    ],
+    cult: [
+      'Es viernes por la noche. ¿Cuánto quieres una ciudad donde siempre haya algo que hacer?',
+      ['Poco', 'Algo', 'Mucho'],
+    ],
+    clim: [
+      '¿Con qué clima te gustaría despertar?',
+      ['Templado todo el año (San Francisco, Lisboa)', 'Calor y sol (Miami, Singapur)', 'Cuatro estaciones, con nieve (Toronto, Berlín)', 'Inviernos soleados (Madrid, Los Ángeles)', 'El clima me da casi igual', 'Inviernos fríos y con nieve, mejor (Oslo, Montreal)'],
+    ],
+    day: [
+      'Sales del trabajo a las cinco en diciembre y ya es de noche. ¿Cuánto te afectaría?',
+      ['Poco', 'Algo', 'Mucho'],
+    ],
+    sea: [
+      'Un sábado libre: ¿cuánto quieres tener cerca el mar, o un lago tan grande que no se ve la otra orilla?',
+      ['No lo necesito', 'Estaría bien', 'Lo quiero de verdad'],
+    ],
+    air: [
+      '¿Cuánto te molestaría vivir donde el aire suele estar turbio y huele a tráfico?',
+      ['Poco', 'Algo', 'Mucho'],
+    ],
+    risk: [
+      'Terremotos, huracanes, inundaciones, incendios. ¿Cuánto te importa vivir en un lugar de bajo riesgo?',
+      ['Poco', 'Algo', 'Mucho'],
+    ],
+    open: [
+      'Llegas sin conocer a nadie. ¿Cuánto importa que ahí sea fácil hacer amigos?',
+      ['Poco', 'Algo', 'Mucho'],
+    ],
+    fam: [
+      'Un cumpleaños, una boda, una mala semana en casa. ¿Cuánto importa poder volver rápido?',
+      ['Poco', 'Algo', 'Mucho'],
+    ],
+    tz: [
+      'Llamas a casa después de cenar. ¿Cuánto importa que estén despiertos?',
+      ['Poco', 'Algo', 'Mucho'],
+    ],
+    tz_r: [
+      'Tu trabajo sigue otro reloj. ¿Cuánto importa tener un horario normal?',
+      ['Poco', 'Algo', 'Mucho'],
+    ],
+    kin: [
+      '¿Deben contar más los lugares que se sienten familiares? (Tu idioma, comida que conoces, una forma parecida de hacer las cosas.)',
+      ['No', 'Un poco', 'Mucho'],
+    ],
+    safe: [
+      'Vuelves a casa a pie, a solas, a las once de la noche. ¿Cuánto importa hacerlo sin pensarlo dos veces?',
+      ['Poco', 'Algo', 'Mucho'],
+    ],
+    hlth: [
+      'Amaneces enfermo un lunes. ¿Cuánto importa que ver a un médico sea fácil y no dependa de tu trabajo?',
+      ['Poco', 'Algo', 'Mucho'],
+    ],
+    free: [
+      '¿Cuánto importa poder criticar al gobierno en voz alta y no tener que pagar nunca una mordida?',
+      ['Poco', 'Algo', 'Mucho'],
+    ],
+    women: [
+      '¿Cuánto debe contar que ahí las mujeres estén seguras y reciban un trato igual?',
+      ['Nada', 'Un poco', 'Bastante', 'Mucho: me afecta a mí o a quienes vivirían conmigo'],
+    ],
+    lgbt: [
+      '¿Cuánto debe contar que ahí las personas LGBTQ+ puedan vivir abiertamente?',
+      ['Nada', 'Un poco', 'Bastante', 'Mucho: me afecta a mí o a quienes vivirían conmigo'],
+    ],
+    pol: [
+      'En EE. UU., ¿preferirías vivir donde la mayoría de tus vecinos vota como tú?',
+      ['Sí, prefiero zonas demócratas', 'Sí, prefiero zonas republicanas', 'No'],
+    ],
+    weak: [
+      'Una ciudad tiene casi todo lo que quieres y un defecto serio. ¿Podrías ser feliz ahí? (Muy buenos empleos pero calles inseguras, por ejemplo.)',
+      ['Sí, las ventajas pueden compensarlo', 'No, un punto débil serio arruina un lugar'],
+    ],
+    sure: [
+      'De algunos lugares hay pocos datos, así que parte de la nota es una estimación. ¿Cómo deben ordenarse?',
+      ['Más abajo: prefiero lugares bien medidos', 'Según su mejor estimación: me arriesgo'],
     ],
   },
 };

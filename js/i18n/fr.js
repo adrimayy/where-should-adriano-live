@@ -37,7 +37,7 @@ I18N({
     eyebrow: 'Atlas de qualité de vie · novembre 2026',
     h1: 'Où devriez-vous vivre ?',
     intro1:
-      'Tous les pays et {NCITIES} villes, notés sur les mêmes 23 critères à partir de données publiées. Répondez à sept questions et la carte les classe pour vous.',
+      'Tous les pays et {NCITIES} villes, notés sur les mêmes 25 critères à partir de données publiées. Répondez à une douzaine de questions et la carte les classe pour vous.',
     prioTitle: 'Mes priorités',
     prio: [
       'Efficacité et ville marchable',
@@ -87,7 +87,7 @@ I18N({
     impNote:
       'Les erreurs ont été mesurées en masquant des valeurs connues puis en les prédisant : au hasard (5 blocs pour les pays, une par une pour les villes) et, pour les pays, une seconde fois en masquant les valeurs comme les vraies lacunes, plus souvent dans les pays pauvres et petits. Le tableau montre la pire des deux. Une erreur de 0,5 signifie qu’un score complété est en général décalé d’un demi-point.',
     whyNoData: 'Pas assez de données publiées sur ce lieu pour un verdict fiable.',
-    unsure: 'Je ne sais pas, passer',
+    unsure: 'Je ne suis pas sûr',
     estLabel:
       'Compter aussi les critères estimés (choses qui se passent, emplois par domaine, et scores de marchabilité ou LGBTQ+ sans chiffre publié). Ils n’ont pas de données publiées, ils sont donc désactivés par défaut.',
     whyGood: 'Bien pour vous : {x}.',
@@ -182,6 +182,36 @@ I18N({
     factBadC: '{f} : moins bien que {p} % des villes de l’atlas',
     factGoodN: '{f} : mieux que {p} % des pays de l’atlas',
     factBadN: '{f} : moins bien que {p} % des pays de l’atlas',
+    topHint: 'Touchez une fois ce qui compte le plus ({n} au maximum). Touchez encore ce dont vous pourriez vous passer.',
+    topLow: 'je pourrais m’en passer',
+    topMax: 'Vous en avez déjà {n}. Retirez-en un pour en ajouter un autre.',
+    topAreas: { jobs: 'Trouver un bon travail', pay: 'L’argent restant après le loyer', home: 'Trouver un logement facilement', commute: 'Un trajet court vers le travail', hours: 'Du temps libre', cult: 'Beaucoup à faire', clim: 'Un temps qui me plaît', air: 'Un air pur', sea: 'La mer à proximité', safe: 'Me sentir en sécurité', hlth: 'De bons soins', open: 'Me faire des amis', fam: 'Rester près de chez moi', free: 'Liberté et responsables honnêtes' },
+    unsureGot: 'Pas de souci. Cela compte comme moyen pour l’instant, et vos résultats diront si cela change quelque chose.',
+    unsureHead: 'Vous n’étiez pas sûr pour : {f}.',
+    unsureHolds: 'Votre meilleur choix reste le même quelle que soit votre réponse.',
+    unsureHi: 'Cela pourrait changer votre meilleur choix : si {f} compte beaucoup pour vous, {p} passe en tête.',
+    unsureLo: 'Cela pourrait changer votre meilleur choix : si {f} compte peu pour vous, {p} passe en tête.',
+    unsureHint: 'Les 5 dilemmes peuvent trancher.',
+    swCommute: 'Aller simple vers le travail, en moyenne : {x} minutes à {a}, {y} à {b}. Sur un an, environ {h} heures d’écart.',
+    swAir: 'Particules fines dans l’air, moyenne annuelle : {x} µg/m³ à {a}, {y} à {b}. L’OMS recommande 5.',
+    swSafe: 'Homicides pour 100 000 habitants par an : {x} à {a}, {y} à {b}.',
+    swPay: 'Avec un salaire courant, après le loyer d’un deux-pièces : il reste environ {x} par mois à {a}, {y} à {b} (aux prix de New York).',
+    swHours: 'Un salarié à temps plein travaille environ {x} heures par an à {a} et {y} à {b} : environ {w} semaines de travail d’écart.',
+    swJobs: 'Sans emploi et en recherche : {x} % des actifs à {a}, {y} % à {b}.',
+    swHlth: 'Indice de l’OMS sur les soins essentiels réellement reçus, sur 100 : {x} à {a}, {y} à {b}.',
+    swHome: 'Sur 100 logements à louer, environ {x} sont vides et disponibles à {a} ; {y} à {b}.',
+    swMove: 'Habitants proches d’un transport rapide (métro, train ou bus rapide) : {x} % à {a}, {y} % à {b}.',
+    swCult: 'Habitants de l’agglomération : {x} millions à {a}, {y} millions à {b}.',
+    swFree: 'Freedom House note les droits politiques et les libertés civiles sur 100 : {x} à {a}, {y} à {b}.',
+    swRisk: 'WorldRiskIndex (plus élevé = plus exposé aux catastrophes) : {x} à {a}, {y} à {b}.',
+    swDay: 'Durée du jour le plus court de l’année, en heures et minutes : {x} à {a}, {y} à {b}.',
+    swFam: 'De porte à porte jusqu’à {h} : environ {x} heures depuis {a}, {y} depuis {b}.',
+    swTz: 'Quand il est {t} à {h}, il est {x} à {a} et {y} à {b}.',
+    swSea: 'Jusqu’à la mer ou un grand lac : environ {x} km depuis {a}, {y} km depuis {b}.',
+    swCost: 'Prix, loyer compris, avec New York à 100 : {x} à {a}, {y} à {b}.',
+    qN: 'Question {n}',
+    calcTz: '{h} h de décalage avec chez vous',
+    calcSea: '{km} km de la mer ou d’un grand lac',
     ppHead: 'Ce qui compte pour vous',
     ppHow: 'Un appui : ça compte. Un deuxième : ★, ça compte double. Un troisième : désactivé.',
     ppLv: ['désactivé', 'compte', 'compte double'],
@@ -475,97 +505,149 @@ I18N({
     lang: ['Langue', 'Barrière de la langue'],
     fam: ['Près de chez vous', 'Loin de chez vous'],
     kin: ['Familiarité culturelle', 'Culturellement peu familier'],
+    tz: ['Mêmes horaires que chez vous', 'Grand décalage horaire avec chez vous'],
+    sea: ['La mer à proximité', 'Loin de la mer'],
   },
   QSTR: {
-    where: ['Où est votre chez-vous ?', []],
-    kin: [
-      'Les lieux culturellement familiers doivent-ils compter davantage ? (Même langue ou région que vos origines.)',
-      ['Non', 'Un peu', 'Beaucoup'],
-    ],
-    field: [
-      'Quel est votre domaine ?',
-      [
-        'Informatique ou logiciel',
-        'Finance ou commerce',
-        'Santé',
-        'Création, médias ou arts',
-        'Recherche ou université',
-        'Autre chose, ou un mélange',
-        'Entièrement à distance, pour un employeur ailleurs',
-      ],
-    ],
-    reach: [
-      'Iriez-vous dans une grande ville quelques jours par semaine ?',
-      ['Oui, jusqu’à 1 h 30 par trajet', 'Non, je travaillerais là où je vis'],
-    ],
-    jobs: ['À quel point compte une grande ville animée ? (Plus d’emplois et plus de choses à faire.)', ['Peu', 'Assez', 'Beaucoup']],
-    pay: ['À quel point compte l’argent qui reste après le loyer ?', ['Peu', 'Assez', 'Beaucoup']],
-    home: ['À quel point compte trouver un logement facilement ?', ['Peu', 'Assez', 'Beaucoup']],
-    move: [
-      'Comment voulez-vous vous déplacer ?',
-      ['La voiture me va', 'Transports en commun et un peu de voiture', 'Sans voiture'],
-    ],
-    commute: [
-      'À quel point compte un trajet court ? (20 minutes au lieu de 45.)',
-      ['Peu', 'Assez', 'Beaucoup'],
-    ],
-    hlth: ['À quel point comptent des soins de qualité accessibles à tous ?', ['Peu', 'Assez', 'Beaucoup']],
-    clim: ['Quel climat vous convient ?', [
-        'Doux toute l’année (San Francisco, Lisbonne)',
-        'Chaud et ensoleillé (Miami, Singapour)',
-        'Quatre saisons, neige comprise (Toronto, Berlin)',
-        'Hivers ensoleillés (Madrid, Los Angeles)',
-        'Le climat compte peu', 'Des hivers froids et enneigés, tant mieux (Oslo, Montréal)']],
-    open: ['À quel point compte se faire des amis facilement ?', ['Peu', 'Assez', 'Beaucoup']],
-    fam: [
-      'À quel point compte un trajet court pour rentrer chez vous ? (3 heures au lieu de 12.)',
-      ['Peu', 'Assez', 'Beaucoup'],
-    ],
-    safe: ['À quel point compte une faible criminalité ?', ['Peu', 'Assez', 'Beaucoup']],
-    air: ['À quel point compte un air pur ?', ['Peu', 'Assez', 'Beaucoup']],
-    hours: ['À quel point compte le temps libre ?', ['Peu', 'Assez', 'Beaucoup']],
-    risk: ['À quel point compte un faible risque de catastrophes naturelles ?', ['Peu', 'Assez', 'Beaucoup']],
-    weak: [
-      'Les atouts d’un lieu peuvent-ils compenser un point faible sérieux ? (De bons emplois mais peu de sécurité, par exemple.)',
-      ['Oui, les atouts peuvent compenser', 'Non, un point faible sérieux gâche un lieu'],
-    ],
-    sure: [
-      'Quand les données sur un lieu sont minces, comment le classer ?',
-      ['Plus bas : je préfère les lieux bien mesurés', 'Selon la meilleure estimation : je prends le risque'],
-    ],
-    free: ['À quel point comptent la liberté politique et des responsables intègres ? (Presse libre, droit de manifester, policiers et fonctionnaires qui ne touchent pas de pots-de-vin.)', ['Peu', 'Assez', 'Beaucoup']],
-    women: [
-      'Combien doivent compter la sécurité et les droits des femmes ?',
-      ['Pas du tout', 'Un peu', 'Assez', 'Beaucoup : cela me concerne, moi ou mes proches'],
-    ],
-    lgbt: [
-      'Combien doit compter l’acceptation LGBTQ+ ?',
-      ['Pas du tout', 'Un peu', 'Assez', 'Beaucoup : cela me concerne, moi ou mes proches'],
-    ],
-    pol: [
-      'Si vous viviez aux États-Unis, la politique locale devrait-elle compter ?',
-      ['Oui, je préfère les zones démocrates', 'Oui, je préfère les zones républicaines', 'Non'],
-    ],
-    lang: [
-      'Dans quelles langues pourriez-vous vivre au quotidien ?',
-      [
-        'Anglais et espagnol',
-        'Anglais seulement',
-        'Un peu d’anglais',
-        'Espagnol seulement',
-        'Espagnol, plus un peu d’anglais',
-        'J’apprendrai ce qu’il faut',
-      ],
+    where: [
+      'Où vivez-vous aujourd’hui ?',
+      [],
     ],
     perm: [
       'Quels passeports avez-vous ?',
-      [
-        'Américain et mexicain, comme Adriano',
-        'Américain seulement',
-        'Mexicain seulement',
-        'Un passeport de l’UE',
-        'Autre (ignorer)',
-      ],
+      ['Américain et mexicain, comme Adriano', 'Américain seulement', 'Mexicain seulement', 'Un passeport de l’UE', 'Autre (ignorer)'],
+    ],
+    lang: [
+      'Dans quelles langues pourriez-vous vivre ? (Assez pour appeler un propriétaire ou voir un médecin, pas seulement commander un café.)',
+      ['Anglais et espagnol', 'Anglais seulement', 'Un peu d’anglais', 'Espagnol seulement', 'Espagnol, plus un peu d’anglais', 'J’apprendrai ce qu’il faut'],
+    ],
+    work: [
+      'Après le déménagement, d’où viendra votre salaire ?',
+      ['Un emploi sur place, chez un employeur local', 'Du télétravail : mon salaire vient d’ailleurs', 'Je ferai des études', 'Je suis à la retraite ou ne travaillerai pas', 'Je ne sais pas encore'],
+    ],
+    who: [
+      'Qui déménage avec vous ?',
+      ['Moi seulement', 'Mon ou ma partenaire et moi', 'Ma famille, avec des enfants'],
+    ],
+    partner: [
+      'Votre partenaire devra-t-il ou elle trouver un emploi sur place ?',
+      ['Oui', 'Non'],
+    ],
+    top: [
+      'Imaginez un mardi ordinaire dans votre nouvelle ville. Qu’est-ce qui vous manquerait le plus si c’était mauvais ?',
+      [],
+    ],
+    field: [
+      'Quel est votre métier ?',
+      ['Informatique ou logiciel', 'Finance ou commerce', 'Santé', 'Création, médias ou arts', 'Recherche ou université', 'Autre chose, ou un mélange', 'Entièrement à distance, pour un employeur ailleurs'],
+    ],
+    jobs: [
+      'Supposons que votre poste s’arrête l’an prochain. À quel point compte le fait d’en retrouver un sans redéménager ?',
+      ['Peu', 'Assez', 'Beaucoup'],
+    ],
+    reach: [
+      'Prendriez-vous le train vers une plus grande ville voisine, jusqu’à une heure et demie par trajet, quelques jours par semaine ?',
+      ['Oui, jusqu’à 1 h 30 par trajet', 'Non, je travaillerais là où je vis'],
+    ],
+    pay: [
+      'Le loyer est payé. À quel point compte ce qu’il reste de votre salaire pour tout le reste ?',
+      ['Peu', 'Assez', 'Beaucoup'],
+    ],
+    pay_r: [
+      'Votre revenu vous suit. À quel point compte le fait qu’il permette d’acheter plus là-bas ?',
+      ['Peu', 'Assez', 'Beaucoup'],
+    ],
+    home: [
+      'Il vous faut un appartement d’ici un mois. À quel point compte le fait d’en trouver un facilement ?',
+      ['Peu', 'Assez', 'Beaucoup'],
+    ],
+    move: [
+      'Dans une semaine normale, comment voulez-vous vous déplacer ?',
+      ['La voiture me va', 'Transports en commun et un peu de voiture', 'Sans voiture'],
+    ],
+    commute: [
+      'Deux fois par jour, chaque jour de travail : à quel point un trajet plus long vous pèserait-il ?',
+      ['Peu', 'Assez', 'Beaucoup'],
+    ],
+    hours: [
+      'À quel point comptent pour vous les soirées libres, les week-ends et de vraies vacances ?',
+      ['Peu', 'Assez', 'Beaucoup'],
+    ],
+    cult: [
+      'C’est vendredi soir. À quel point voulez-vous une ville où il se passe toujours quelque chose ?',
+      ['Peu', 'Assez', 'Beaucoup'],
+    ],
+    clim: [
+      'Avec quel temps aimeriez-vous vous réveiller ?',
+      ['Doux toute l’année (San Francisco, Lisbonne)', 'Chaud et ensoleillé (Miami, Singapour)', 'Quatre saisons, neige comprise (Toronto, Berlin)', 'Hivers ensoleillés (Madrid, Los Angeles)', 'Le climat compte peu', 'Des hivers froids et enneigés, tant mieux (Oslo, Montréal)'],
+    ],
+    day: [
+      'Vous sortez du travail à 17 h en décembre et il fait déjà nuit. À quel point cela vous pèserait-il ?',
+      ['Peu', 'Assez', 'Beaucoup'],
+    ],
+    sea: [
+      'Un samedi libre : à quel point voulez-vous la mer, ou un lac dont on ne voit pas l’autre rive, à portée de main ?',
+      ['Je n’en ai pas besoin', 'Ce serait bien', 'J’y tiens vraiment'],
+    ],
+    air: [
+      'À quel point cela vous gênerait-il de vivre là où l’air est souvent voilé et sent la circulation ?',
+      ['Peu', 'Assez', 'Beaucoup'],
+    ],
+    risk: [
+      'Séismes, ouragans, inondations, incendies. À quel point compte pour vous le fait de vivre dans un endroit peu exposé ?',
+      ['Peu', 'Assez', 'Beaucoup'],
+    ],
+    open: [
+      'Vous arrivez sans connaître personne. À quel point compte le fait qu’on s’y fasse facilement des amis ?',
+      ['Peu', 'Assez', 'Beaucoup'],
+    ],
+    fam: [
+      'Un anniversaire, un mariage, une mauvaise semaine chez vos proches. À quel point compte un retour rapide ?',
+      ['Peu', 'Assez', 'Beaucoup'],
+    ],
+    tz: [
+      'Vous appelez vos proches après le dîner. À quel point compte le fait qu’ils soient réveillés ?',
+      ['Peu', 'Assez', 'Beaucoup'],
+    ],
+    tz_r: [
+      'Votre travail suit une autre horloge. À quel point compte le fait de garder des horaires normaux ?',
+      ['Peu', 'Assez', 'Beaucoup'],
+    ],
+    kin: [
+      'Les lieux qui vous semblent familiers doivent-ils compter davantage ? (Votre langue, une cuisine connue, une façon de faire semblable.)',
+      ['Non', 'Un peu', 'Beaucoup'],
+    ],
+    safe: [
+      'Rentrer à pied, seul, à 23 h. À quel point compte le fait de ne pas y réfléchir à deux fois ?',
+      ['Peu', 'Assez', 'Beaucoup'],
+    ],
+    hlth: [
+      'Vous vous réveillez malade un lundi. À quel point compte le fait que voir un médecin soit facile et ne dépende pas de votre emploi ?',
+      ['Peu', 'Assez', 'Beaucoup'],
+    ],
+    free: [
+      'À quel point compte le fait de pouvoir critiquer le gouvernement à voix haute et de ne jamais devoir verser de pot-de-vin ?',
+      ['Peu', 'Assez', 'Beaucoup'],
+    ],
+    women: [
+      'À quel point doit compter le fait que les femmes y soient en sécurité et traitées en égales ?',
+      ['Pas du tout', 'Un peu', 'Assez', 'Beaucoup : cela me concerne, moi ou mes proches'],
+    ],
+    lgbt: [
+      'À quel point doit compter le fait que les personnes LGBTQ+ puissent y vivre ouvertement ?',
+      ['Pas du tout', 'Un peu', 'Assez', 'Beaucoup : cela me concerne, moi ou mes proches'],
+    ],
+    pol: [
+      'Aux États-Unis, préféreriez-vous vivre là où la plupart de vos voisins votent comme vous ?',
+      ['Oui, je préfère les zones démocrates', 'Oui, je préfère les zones républicaines', 'Non'],
+    ],
+    weak: [
+      'Une ville a presque tout ce que vous voulez et un défaut sérieux. Pourriez-vous y être heureux ? (De très bons emplois mais des rues peu sûres, par exemple.)',
+      ['Oui, les atouts peuvent compenser', 'Non, un point faible sérieux gâche un lieu'],
+    ],
+    sure: [
+      'Pour certains lieux, les données sont rares et une partie de la note est une estimation. Comment les classer ?',
+      ['Plus bas : je préfère les lieux bien mesurés', 'Selon la meilleure estimation : je prends le risque'],
     ],
   },
 });

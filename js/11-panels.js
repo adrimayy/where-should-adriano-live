@@ -184,6 +184,8 @@ function calcTable(e) {
         });
       else if (k === 'fam' && e.flights && e.flights.length)
         src = fmt(L('calcTrip'), { h: e.flights.map(x => Math.round(x)).join(' / ') });
+      else if (k === 'tz' && e.gaps && e.gaps.length) src = fmt(L('calcTz'), { h: e.gaps.map(x => +x.toFixed(1)).join(' / ') });
+      else if (k === 'sea' && e.coast != null) src = fmt(L('calcSea'), { km: e.coast });
       else if (k === 'perm') {
         const v0 = e.sc.perm;
         src = `<div>${L('permRight')}: <b>${v0 >= 5 ? L('yes') : L('no')}</b></div><div>${L('permRoute')}: <b>${v0 >= 5 ? '—' : v0 >= 4 ? L('routeEasy') : v0 >= 3 ? L('routeSome') : L('routeHard')}</b></div><div class="muted">${L('calcRule')} · ${L('verified')}</div>`;
@@ -1028,6 +1030,7 @@ function refreshAll(fast) {
   renderEff();
   renderOffers();
   renderLive();
+  renderUnsure();
   prioUI();
   if (!fast) trackState();
 }
