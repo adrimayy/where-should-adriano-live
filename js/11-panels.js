@@ -1254,8 +1254,14 @@ function applyLang() {
   document.querySelectorAll('[data-th]').forEach(el => {
     el.innerHTML = L(el.dataset.th);
   });
-  $('prio').innerHTML = L('prio')
-    .map((p, i) => `<span><b>${i + 1}</b>${p}</span>`)
+  // "My top priorities": read off Adriano's weights (2.5 and up), so the box can't drift from what the scores use.
+  // The number is the place by weight; factors that weigh the same share it.
+  const mine = PRESETS.mine,
+    tops = FACTORS.map(f => f.k)
+      .filter(k => mine[k] >= 2.5)
+      .sort((a, b) => mine[b] - mine[a]);
+  $('prio').innerHTML = tops
+    .map(k => `<span><b>${1 + tops.filter(x => mine[x] > mine[k]).length}</b>${FL(k)}</span>`)
     .join('');
   $('howInner').innerHTML =
     (HOW[LANG] ? '' : `<p class="meta"><i>${L('howEnglish')}</i></p>`) +

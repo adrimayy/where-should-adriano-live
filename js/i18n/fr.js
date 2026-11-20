@@ -39,13 +39,6 @@ I18N({
     intro1:
       'Tous les pays et {NCITIES} villes, notés sur les mêmes 25 critères à partir de données publiées. Répondez à une douzaine de questions et la carte les classe pour vous.',
     prioTitle: 'Mes priorités',
-    prio: [
-      'Efficacité et ville marchable',
-      'Une santé qui ne dépend pas de mon emploi',
-      'Être heureux au quotidien',
-      'Des choses qui se passent',
-      'Des prix abordables',
-    ],
     startQuiz: 'Faire le questionnaire de deux minutes',
     skipQuiz: 'Voir directement la carte',
     resume: 'Reprendre ma carte',

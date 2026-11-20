@@ -39,13 +39,6 @@ I18N({
     intro1:
       'Todos os países e {NCITIES} cidades, avaliados nos mesmos 25 critérios com dados publicados. Responda cerca de uma dúzia de perguntas e o mapa os ordena para você.',
     prioTitle: 'Minhas prioridades',
-    prio: [
-      'Eficiência e poder andar a pé',
-      'Saúde que não dependa do meu emprego',
-      'Ser feliz no dia a dia',
-      'Coisas acontecendo',
-      'Custo acessível',
-    ],
     startQuiz: 'Fazer o questionário de 2 minutos',
     skipQuiz: 'Só mostrar o mapa',
     resume: 'Continuar com meu mapa',

@@ -39,13 +39,6 @@ I18N({
     intro1:
       'Jedes Land und {NCITIES} Städte, nach denselben 25 Kriterien aus veröffentlichten Daten bewertet. Beantworte etwa ein Dutzend Fragen, und die Karte sortiert sie für dich.',
     prioTitle: 'Meine wichtigsten Prioritäten',
-    prio: [
-      'Effizienz und Fußläufigkeit',
-      'Gesundheitsversorgung, die nicht vom Job abhängt',
-      'Im Alltag glücklich sein',
-      'Es ist etwas los',
-      'Bezahlbarkeit',
-    ],
     startQuiz: 'Das 2-Minuten-Quiz machen',
     skipQuiz: 'Gleich die Karte zeigen',
     resume: 'Mit meiner Karte weitermachen',

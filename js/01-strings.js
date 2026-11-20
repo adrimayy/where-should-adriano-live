@@ -17,13 +17,6 @@ const STR = {
       DATA.cities.length +
       ' cities, scored on the same 25 things from published data. Answer about a dozen questions and the map ranks them for you.',
     prioTitle: 'My top priorities',
-    prio: [
-      'Efficiency and walkability',
-      'Healthcare that doesn’t depend on my job',
-      'Being happy day to day',
-      'Things going on',
-      'Affordability',
-    ],
     startQuiz: 'Take the 2-minute quiz',
     skipQuiz: 'Just show the map',
     resume: 'Continue with my map',
@@ -483,13 +476,6 @@ const STR = {
       DATA.cities.length +
       ' ciudades, calificados en las mismas 25 cosas con datos publicados. Responde una docena de preguntas y el mapa los ordena para ti.',
     prioTitle: 'Mis prioridades principales',
-    prio: [
-      'Eficiencia y poder caminar a todo',
-      'Salud que no dependa de mi trabajo',
-      'Ser feliz en el día a día',
-      'Que pasen cosas',
-      'Que sea asequible',
-    ],
     startQuiz: 'Hacer el cuestionario de 2 minutos',
     skipQuiz: 'Ver el mapa directamente',
     resume: 'Seguir con mi mapa',
