@@ -18,7 +18,7 @@
     try {
       loadTake(dec(params.get('t')));
       applyHomes();
-      recompute();
+      recompute(true);
       $('vsPanel').hidden = false;
       setTimeout(() => toast(L('sharedView')), 60);
     } catch (e) {}
@@ -38,6 +38,7 @@
   devUI();
   refreshAll();
   offersUI();
+  document.documentElement.classList.add('ready'); // the page is drawn: the loading wheel goes
 })();
 
 getWorld()
@@ -84,8 +85,10 @@ getWorld()
     selectsUI();
     rebuild();
     refreshAll();
+    $('mapbox').classList.remove('loading');
   })
   .catch(() => {
+    $('mapbox').classList.remove('loading');
     $('mapbox').insertAdjacentHTML('beforeend', `<p class="maperr">${L('mapErr')}</p>`);
   });
 // a language other than English/Spanish loads its strings after the first paint

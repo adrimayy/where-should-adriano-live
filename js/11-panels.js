@@ -497,7 +497,7 @@ function whyChips(e, n) {
       const v = e.v[k];
       if (v == null) return '';
       const im = e.how && e.how[k] !== 'obs';
-      return `<span class="why5" style="--c:${barCol(Math.round(v))}" title="${FL(k)}${im ? ' (' + L('tagImp') + ')' : ''}">${FL(k)} <b>${Math.round(v)}/5</b>${im ? '*' : ''}</span>`;
+      return `<span class="why5" style="--c:${barCol(Math.round(v))}" title="${FL(k)}${im ? ' (' + L('tagImp') + ')' : ''}">${FL(k)} <b>${Math.round(v)}/5</b>${im ? '<span class="calc-only">*</span>' : ''}</span>`;
     })
     .join('');
 }
@@ -580,6 +580,8 @@ function list() {
 // sliders show up here; fine-tuning stays on the sliders.
 const PLEVEL = w => (w >= 1.75 ? 2 : w > 0 ? 1 : 0);
 function prioUI() {
+  const act = document.activeElement,
+    focusK = act && act.classList && act.classList.contains('pchip') ? act.dataset.k : null;
   const P = $('ppanel');
   if (!P) return;
   const n = FACTORS.filter(f => (W[f.k] || 0) > 0).length;
@@ -611,10 +613,9 @@ function prioUI() {
           $('o-' + k).textContent = fmtW(W[k]);
         }
         goalShares();
-        refreshAll();
-        saveTake();
-        const nb = $('ppanel').querySelector(`[data-k="${k}"]`);
-        if (nb) nb.focus();
+        // the chip shows its new state at once; the scores follow on the next frame (refreshSoon also saves)
+        prioUI();
+        refreshSoon(false);
       })
   );
   $('preset2').onclick = () => {
@@ -631,6 +632,7 @@ function prioUI() {
     $('weightsBox').scrollIntoView({ block: 'start' });
   };
   $('pclose').onclick = () => setSheet(false);
+  if (focusK) $('ppanel').querySelector(`.pchip[data-k="${focusK}"]`)?.focus();
 }
 // How the scores are calculated (ranges, legends, method boxes, the calculation table): hidden unless asked for
 function setAdv(on) {
@@ -1019,8 +1021,35 @@ function refreshSoon(fast) {
     if (!f) saveTake();
   });
 }
+// what the ranking shows first, to tell whether the background simulation changed anything on screen
+const topKeysNow = () =>
+  ents
+    .filter(e => e.type === ui.rankType && listable(e) && passes(e))
+    .sort(byRank)
+    .slice(0, 40)
+    .map(e => e.key + ':' + e.tier)
+    .join();
+let TOPSIG = '';
+// the new likely ranges are in: redraw what shows them. The plain view only shows the order, which usually hasn't moved.
+function afterSim() {
+  const adv = document.body.classList.contains('adv');
+  if (!adv && topKeysNow() === TOPSIG) return;
+  list();
+  detail(ui.sel);
+  if (adv) {
+    renderCmp();
+    renderVs();
+    renderEff();
+  }
+  renderUnsure();
+  TOPSIG = topKeysNow();
+}
 function refreshAll(fast) {
-  recompute(fast);
+  // scores and verdicts now (fast); the likely ranges follow from the background and never hold up a tap
+  recompute(true);
+  carryRanges();
+  TOPSIG = topKeysNow();
+  if (!fast) simulateSoon(afterSim);
   syncMode();
   paint();
   list();
@@ -1112,6 +1141,7 @@ function renderOffers() {
     .join('')}</tbody></table></div><p class="meta">${L('offerNote')}</p>`;
 }
 function showMap() {
+  document.body.classList.add('engaged'); // past the first screen: the priorities button may show on phones
   $('mapSec').scrollIntoView({ block: 'start' });
 }
 function tierFilters() {
@@ -1199,6 +1229,7 @@ function impSection() {
 function heroNow() {
   const el = $('heroNow');
   if (!el) return;
+  if (KNOWS) adSimSoon(); // his ranges arrive from the background; this line is redrawn when they do
   const top = ents
     .filter(e => e.type === 'city' && listable(e) && e.ad)
     .sort(byAdRank)

@@ -172,6 +172,17 @@ Changes made because of overlap:
 The priorities panel also shows each factor's **real influence**: its share of the variance of scores across places
 (covariance of its points with the total). A heavy slider on a factor where places hardly differ moves little.
 
+## Speed
+
+The slow part of the page is the likely range of each score: 120 recalculations of every place with its filled-in values
+redrawn and its published values moved by their measurement error (`simSteps` in `js/06-scoring.js`). It is written as a
+generator. `simulate()` runs it all at once (tests); `simulateSoon()` runs about 10 ms of it at a time between taps, and a
+change of weights cancels a run in progress. Both give identical output (checked field by field for all 919 places). Until
+a run finishes, a place keeps its last range shifted by its change in score (`carryRanges`): a range's width comes from
+how well a place is measured, not from the weights, so the order on screen rarely moves when the new ranges land, and the
+list is only redrawn if it did. Adriano's own ranges, used to order "his top three", come from a second background run
+over inputs frozen when his snapshot is taken (`adSimSteps`), also identical to a full simulation under his settings.
+
 ## Sensitivity
 
 `tests/robustness.py` varies five groups of choices together, 1,792 runs: weights (×0.5 to ×2, 15% chance of dropping a

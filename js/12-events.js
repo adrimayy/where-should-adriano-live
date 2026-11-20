@@ -5,6 +5,17 @@ $('langSel').innerHTML = Object.entries(UI_LANGS)
   .join('');
 $('langSel').onchange = e => setLang(e.target.value);
 $('startQuiz').onclick = () => startQuiz(false);
+// Every tap shows at once, on the way down, whatever the button then has to work out
+document.addEventListener(
+  'pointerdown',
+  ev => {
+    const b = ev.target.closest && ev.target.closest('button, .opt, .row, .pill, summary, .hprow');
+    if (!b) return;
+    b.classList.add('tapped');
+    setTimeout(() => b.classList.remove('tapped'), 160);
+  },
+  { passive: true }
+);
 $('advBtn').onclick = () => setAdv(!document.body.classList.contains('adv'));
 document.body.classList.toggle('adv', !!store.get('adv', false));
 $('fullQuiz').onclick = () => sharpenQuiz();

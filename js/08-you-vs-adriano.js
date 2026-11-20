@@ -51,6 +51,7 @@ function renderVs() {
     cs.map(e => e.ad.score)
   );
   $('matchPct').textContent = Math.max(0, Math.round(r * 100)) + '%';
+  if (document.body.classList.contains('adv')) adSimSoon(); // the lists are only on screen with the calculations
   const yours = [...cs].sort(byRank).slice(0, 5),
     ad = [...cs].sort(byAdRank).slice(0, 5);
   const both = new Set(yours.filter(e => ad.includes(e)));

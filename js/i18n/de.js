@@ -46,7 +46,7 @@ I18N({
       'Es ist etwas los',
       'Bezahlbarkeit',
     ],
-    startQuiz: 'Das 1-Minuten-Quiz machen',
+    startQuiz: 'Das 2-Minuten-Quiz machen',
     skipQuiz: 'Gleich die Karte zeigen',
     resume: 'Mit meiner Karte weitermachen',
     startNote: 'Nichts wird gesendet. Deine Antworten bleiben in diesem Browser, außer du teilst einen Link.',

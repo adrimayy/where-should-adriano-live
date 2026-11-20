@@ -13,6 +13,7 @@ with sync_playwright() as p:
         url='file://'+PAGE+('' if pr is None else '#t='+enc({**pr,'g':1,'o':1,'n':1,'f':1,'a':{}}))
         pg.goto(url); pg.wait_for_timeout(700)
         if pr is None: pg.click('#skipQuiz'); pg.wait_for_timeout(300)
+        pg.wait_for_function("()=>document.documentElement.dataset.sim==='done'"); pg.wait_for_timeout(100)
         rows=pg.evaluate("()=>[...document.querySelectorAll('#list .row')].slice(0,10).map(r=>r.querySelector('b').textContent+' '+r.querySelector('.sn').textContent)")
         print(name+':', ' | '.join(rows))
     b.close()

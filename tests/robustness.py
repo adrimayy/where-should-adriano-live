@@ -37,7 +37,7 @@ JS = r"""(N)=>{
 }"""
 with sync_playwright() as p:
     b = p.chromium.launch(executable_path=CHROME); pg = b.new_page(); pg.route('**/*', route)
-    pg.goto('file://' + PAGE); pg.wait_for_timeout(800); pg.click('#skipQuiz'); pg.wait_for_timeout(300)
+    pg.goto('file://' + PAGE); pg.wait_for_timeout(800); pg.click('#skipQuiz'); pg.wait_for_timeout(300); pg.wait_for_function("()=>document.documentElement.dataset.sim==='done'")
     out = pg.evaluate(JS, N)
     print(f"{2*N} runs with every choice varied. City, share of runs in the top 10, typical rank, rank with Adriano's settings")
     for r in out['rows']:

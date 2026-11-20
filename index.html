@@ -4,12 +4,25 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Where Should You Live?</title>
-<meta name="description" content="Every country and hundreds of cities scored on twenty-three factors from published data. Take a one-minute quiz to get your own map.">
+<meta name="description" content="Every country and hundreds of cities scored on twenty-five factors from published data. Take a short quiz to get your own map.">
 <meta property="og:title" content="Where Should You Live?">
-<meta property="og:description" content="Take a one-minute quiz and get a map of where you’d fit best, from published data.">
+<meta property="og:description" content="Take a short quiz and get a map of where you’d fit best, from published data.">
+<!-- the loading wheel: styled here, not in the stylesheet, so it is on screen before anything else has arrived -->
+<style>
+#boot{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#f2f2f7}
+#boot i,.mapbox.loading::after{width:40px;height:40px;border-radius:50%;border:4px solid rgba(15,118,110,.18);border-top-color:#0f766e;animation:bootspin .8s linear infinite}
+@keyframes bootspin{to{transform:rotate(360deg)}}
+@media (prefers-color-scheme:dark){#boot{background:#000}#boot i{border-color:rgba(60,198,180,.2);border-top-color:#3cc6b4}}
+html.ready #boot{display:none}
+</style>
+<script>
+// never leave the wheel up: it goes when the page is drawn (js/13-startup.js), on an error, or after 15 seconds
+(function(){var done=function(){document.documentElement.classList.add('ready')};window.addEventListener('error',done);setTimeout(done,15000)})();
+</script>
 <link rel="stylesheet" href="css/atlas.css">
 </head>
 <body>
+<div id="boot" role="status" aria-label="Loading"><i></i></div>
 <div class="wrap">
   <div class="topbar">
     <span class="brand" data-t="brand"></span>
@@ -73,7 +86,7 @@
       </div>
     </details>
     <div class="toggles calc-only" id="regions" role="group" aria-label="Map view"></div>
-    <div class="mapbox" id="mapbox">
+    <div class="mapbox loading" id="mapbox">
       <canvas id="map" role="img" aria-label="World map"></canvas>
       <svg id="overlay" aria-label="Cities"></svg>
       <span class="maphint" id="maphint"></span>
