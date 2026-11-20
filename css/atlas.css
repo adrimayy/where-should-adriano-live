@@ -1870,3 +1870,32 @@ button.lchip.tchip.lv1 > span { text-decoration: line-through; }
 .unsure[hidden] { display: none; }
 button.lchip.tchip { flex-wrap: wrap; justify-content: center; }
 button.lchip.tchip.lv1 small { flex-basis: 100%; }
+
+/* ---------- instant taps ---------- */
+/* no double-tap-zoom wait, no grey flash; the pressed look comes from .tapped, set the moment a finger lands */
+button, summary, select, .opt, .row, .pill, .lchip, .pchip, .hprow, a { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+button, .opt, .pill, .lchip, .pchip { transition: transform 0.08s, opacity 0.08s, background-color 0.08s; }
+.tapped { filter: brightness(0.93); }
+@media (prefers-color-scheme: dark) { .tapped { filter: brightness(1.25); } }
+.progress span { transition: width 0.2s ease; }
+/* the map area shows a wheel until the outlines arrive */
+.mapbox.loading::after { content: ''; position: absolute; left: 50%; top: 50%; margin: -20px 0 0 -20px; box-sizing: border-box; pointer-events: none; }
+
+/* ---------- tidier on phones ---------- */
+@media (max-width: 640px) {
+  /* results header: four actions in a 2 x 2 grid of equal buttons, not a column of links; the ranking is right below, so no jump link */
+  #vsPanel .toggles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  #vsPanel .toggles button { width: 100%; white-space: normal; line-height: 1.2; padding: 10px 8px; min-height: 44px; }
+  #vsPanel .toggles .ghost { background: var(--fill); color: var(--fg); }
+  #vsPanel #toMap { display: none; }
+  /* ranking rows: name and country on one line, the reasons on one line you can swipe */
+  .row .nm { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .row .chips5 { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .row .chips5::-webkit-scrollbar { display: none; }
+  .why5 { flex: none; white-space: nowrap; }
+  .hero1 .chips5 { flex-wrap: wrap; }
+  .rw .row { row-gap: 4px; padding-block: 10px; }
+  /* the priorities button waits until there is a ranking to adjust: not over the first screen */
+  body:not(.engaged):not(:has(#vsPanel:not([hidden]))) .pfab { display: none; }
+  .pfab { padding: 9px 14px; font-size: 13.5px; }
+}

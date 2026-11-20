@@ -46,7 +46,7 @@ I18N({
       'Coisas acontecendo',
       'Custo acessível',
     ],
-    startQuiz: 'Fazer o questionário de 1 minuto',
+    startQuiz: 'Fazer o questionário de 2 minutos',
     skipQuiz: 'Só mostrar o mapa',
     resume: 'Continuar com meu mapa',
     startNote: 'Nada é enviado. Suas respostas ficam neste navegador, a menos que você compartilhe um link.',

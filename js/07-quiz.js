@@ -677,6 +677,8 @@ function renderDone() {
   };
   $('doneMore').onclick = sharpenQuiz;
 }
+// how long an answer stays on screen, ticked, before the next question: long enough to see it land, too short to wait for
+const QPAUSE = 240;
 let QDIR = 1; // which way the person last moved, so a question that doesn't apply is skipped in that direction
 function renderQuiz() {
   if (QDONE) return renderDone();
@@ -730,7 +732,7 @@ function renderQuiz() {
           QDIR = 1;
           QSTEP++;
           renderQuiz();
-        }, 600);
+        }, QPAUSE);
       })
   );
   if (cur.picker) wirePicker(cur);
@@ -758,7 +760,7 @@ function renderQuiz() {
         QDIR = 1;
         QSTEP++;
         renderQuiz();
-      }, 1400);
+      }, 900);
     };
   $('qSkip').onclick = () => {
     if (QMORE) return finishQuiz();
@@ -1000,7 +1002,7 @@ function renderTrade() {
           t.i++;
           if (t.i >= n) finishTrades();
           else renderTrade();
-        }, 600);
+        }, QPAUSE);
       })
   );
   $('tBack').onclick = () => {

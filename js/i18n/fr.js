@@ -46,7 +46,7 @@ I18N({
       'Des choses qui se passent',
       'Des prix abordables',
     ],
-    startQuiz: 'Faire le questionnaire d’une minute',
+    startQuiz: 'Faire le questionnaire de deux minutes',
     skipQuiz: 'Voir directement la carte',
     resume: 'Reprendre ma carte',
     startNote: 'Rien n’est envoyé. Vos réponses restent dans ce navigateur, sauf si vous partagez un lien.',

@@ -27,7 +27,7 @@ check('factors with test error above 1.0 are never model-filled for countries', 
 imp_draws = [x for v in D['countries'].values() for x in (v[6] or {}).values() if len(x) > 2]
 check('every country gap has 20 imputed draws', imp_draws and all(len(x[2]) == 20 for x in imp_draws), len(imp_draws))
 # ---- the page
-JS = r"""()=>{const A=window.__atlas,L=A.ents().filter(e=>A.listable(e));const band=x=>x>=70?3:x>=60?2:x>=48?1:0;
+JS = r"""()=>{const A=window.__atlas,L=A.ents().filter(e=>A.listable(e));A.adFull();const band=x=>x>=70?3:x>=60?2:x>=48?1:0;
  const r5=x=>{const r=Math.round(x/5)*5;return band(r)===band(x)?r:Math.floor(x/5)*5;};
  const TR={fit:0,ok:1,caution:2,avoid:3,nodata:4};const cs=L.filter(e=>e.type==='city').sort((a,b)=>TR[a.ad.tier]-TR[b.ad.tier]||b.ad.lo-a.ad.lo);
  const by=n=>A.ents().find(e=>e.name===n);
@@ -40,6 +40,7 @@ JS = r"""()=>{const A=window.__atlas,L=A.ents().filter(e=>A.listable(e));const b
 with sync_playwright() as p:
     b = p.chromium.launch(executable_path=CHROME); pg = b.new_page(); pg.route('**/*', route)
     pg.goto('file://' + PAGE); pg.wait_for_timeout(800); pg.click('#skipQuiz'); pg.wait_for_timeout(300)
+    pg.wait_for_function("()=>document.documentElement.dataset.sim==='done'")   # the likely ranges are worked out in the background
     r = pg.evaluate(JS); b.close()
 check('no rounded score crosses its verdict line', r['cross'] == 0, r['cross'])
 check('no Strong fit below 70', r['fitBad'] == 0)

@@ -327,7 +327,10 @@ function scoreWith(e, pick) {
   return aggScore(vals);
 }
 let SIM = { R: 0, top: {} };
-function simulate() {
+// The likely ranges take 120 recalculations of every place: by far the slowest thing the page does (seconds on a phone).
+// It is written as steps so it can run all at once (simulate: tests, Adriano's snapshot) or a few milliseconds at a time
+// in the background (simulateSoon: every tap), with the same result either way.
+function* simSteps() {
   // 120 recalculations. Filled-in values take one of their 20 imputed draws per run (multiple imputation);
   // published values move by their measurement error, so fully measured places get a range too.
   const R = 120,
@@ -340,8 +343,10 @@ function simulate() {
     };
   const cl = x => Math.max(1, Math.min(5, x));
   const list = ents.filter(listable),
-    D = list.map(() => new Float32Array(R));
+    D = list.map(() => new Float32Array(R)),
+    S0 = list.map(e => e.score); // the scores these ranges belong to (see carryRanges)
   for (let r = 0; r < R; r++) {
+    if (r) yield;
     list.forEach((e, i) => {
       D[i][r] = scoreWith(e, k => {
         const v = e.v[k];
@@ -356,11 +361,14 @@ function simulate() {
     });
   }
   const q = (a, p) => a[Math.min(a.length - 1, Math.max(0, Math.round(p * (a.length - 1))))];
-  list.forEach((e, i) => {
+  for (let i = 0; i < list.length; i++) {
+    if (i % 48 === 47) yield;
+    const e = list[i];
     const s = Array.from(D[i]).sort((a, b) => a - b);
     e.lo = Math.round(q(s, 0.1));
     e.hi = Math.round(q(s, 0.9));
     e.med = Math.round(q(s, 0.5));
+    e.sim0 = { lo: e.lo, hi: e.hi, med: e.med, score: S0[i] };
     e.rk = [];
     e.pFit = e.cap && e.cap !== 'fit' ? 0 : D[i].filter(x => x >= CUT.fit).length / R;
     // Rubin's rules: score each of the 20 completed datasets; total variance = within (measurement error) + (1 + 1/M) x between
@@ -386,14 +394,16 @@ function simulate() {
         }
       });
     e.rubin = { sd: Math.sqrt(U + (1 + 1 / M) * B), between: Math.sqrt(B), within: Math.sqrt(U) };
-  });
+  }
   SIM = { R };
-  ['city', 'country'].forEach(tp => {
+  const K = new Float64Array(list.length);
+  for (const tp of ['city', 'country']) {
     const idx = list.map((e, i) => i).filter(i => list[i].type === tp);
     for (let r = 0; r < R; r++) {
-      const ord = idx
-        .slice()
-        .sort((a, b) => TR[tierAt(D[a][r], list[a])] - TR[tierAt(D[b][r], list[b])] || D[b][r] - D[a][r]);
+      yield;
+      // verdict first, then score: one number per place, worked out once per run, not once per comparison
+      idx.forEach(i => (K[i] = TR[tierAt(D[i][r], list[i])] * 1000 - D[i][r]));
+      const ord = idx.slice().sort((a, b) => K[a] - K[b]);
       ord.forEach((i, pos) => list[i].rk.push(pos + 1));
     }
     idx.forEach(i => {
@@ -404,6 +414,43 @@ function simulate() {
       list[i].pTop = s.filter(x => x <= 10).length / R;
       delete list[i].rk;
     });
+  }
+}
+function simulate() {
+  SIMJOB++;
+  for (const _ of simSteps());
+  document.documentElement.dataset.sim = 'done';
+}
+// The same simulation in the background: about 10 ms of work, then a pause so taps and scrolling get through.
+// Anything that changes the scores (recompute) cancels a run in progress; done() is called only if it finished.
+let SIMJOB = 0;
+function simulateSoon(done) {
+  const my = ++SIMJOB,
+    it = simSteps();
+  document.documentElement.dataset.sim = 'busy';
+  const step = () => {
+    if (my !== SIMJOB) return;
+    const t = performance.now();
+    let r;
+    do r = it.next();
+    while (!r.done && performance.now() - t < 10);
+    if (!r.done) return setTimeout(step, 0);
+    document.documentElement.dataset.sim = 'done';
+    if (done) done();
+  };
+  setTimeout(step, 40);
+}
+// Until a background run finishes, each place keeps its last likely range, moved by however much its score just changed.
+// The width of a range comes from how well a place is measured, which a change of weights barely alters, so the order
+// on screen is already close to final and rarely moves when the new ranges arrive.
+function carryRanges() {
+  ents.forEach(e => {
+    const s = e.sim0;
+    if (!s) return;
+    const d = e.score - s.score;
+    e.lo = s.lo + d;
+    e.hi = s.hi + d;
+    e.med = s.med + d;
   });
 }
 // for hybrid work, a city also gets the job market of the best hub within 120 km (about 1.5 hours)
@@ -430,6 +477,7 @@ function applyReach() {
   });
 }
 function recompute(fast) {
+  SIMJOB++; // a background simulation of the old scores is out of date
   applyPersonal();
   ents.forEach(resolve);
   applyReach();
@@ -475,12 +523,19 @@ window.__atlas = {
     ents.forEach(e => Object.assign(e, evaluate(e), { lo: null }));
   },
   full: () => recompute(),
+  adFull: () => adFull(),
   sim: () => SIM,
   strings: () => ({ STR, QSTR, FSTR }),
 };
 function homesFromKeys(keys) {
   return (keys || []).map(k => byKey[k] || ents.find(x => x.name === k)).filter(e => e && e.hasGeo);
 }
+// Adriano's scores under his own settings, for the comparisons. Scores and verdicts are worked out on the spot. His
+// likely ranges (which order "Adriano's top 5" and the line in the hero) come from adSimSoon, in the background, from
+// the inputs frozen here: the visitor's settings can change underneath without disturbing that run.
+let AD_FULL = false,
+  AD_IN = null,
+  ADJOB = 0;
 function snapshotAdriano() {
   const save = {
     POLMODE,
@@ -517,10 +572,19 @@ function snapshotAdriano() {
   AGG = 'mean';
   NORMM = 'z';
   applyHomes();
-  recompute();
+  recompute(true);
   ents.forEach(e => {
-    e.ad = { score: e.score, tier: e.tier, lo: e.lo, hi: e.hi, med: e.med };
+    e.ad = { score: e.score, tier: e.tier, lo: null, hi: null, med: null };
   });
+  // resolve() and computeStats() make new objects every time, so these stay as they are now
+  AD_IN = {
+    W,
+    STATS,
+    useME,
+    list: ents.filter(listable).map(e => ({ e, v: e.v, how: e.how, sd: e.sd, dr: e.dr, me: e.me })),
+  };
+  AD_FULL = false;
+  ADJOB++;
   ({
     POLMODE,
     W,
@@ -542,9 +606,81 @@ function snapshotAdriano() {
     NORMM,
   } = save);
   applyHomes();
-  recompute();
+  recompute(true);
+  carryRanges();
+}
+// The same 120 recalculations as simSteps, for Adriano's frozen inputs: his settings are z-scores and a weighted mean.
+function* adSimSteps(A) {
+  const R = 120,
+    rand = mulberry32(20261109),
+    gauss = () => {
+      const u = 1 - rand(),
+        v = rand();
+      return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+    },
+    cl = x => Math.max(1, Math.min(5, x));
+  const score = pick => {
+    let t = 0,
+      sw = 0;
+    for (const f of FACTORS) {
+      const w = A.W[f.k];
+      if (!(w > 0)) continue;
+      const x = pick(f.k);
+      if (x == null) continue;
+      const st = A.STATS[f.k];
+      t += (w * (cl(3 + (warp(x) - st.m) / st.sd) - 1)) / 4;
+      sw += w;
+    }
+    return sw ? (t / sw) * 100 : 0;
+  };
+  const D = A.list.map(() => new Float32Array(R));
+  for (let r = 0; r < R; r++) {
+    if (r) yield;
+    A.list.forEach((o, i) => {
+      D[i][r] = score(k => {
+        const v = o.v[k];
+        if (v == null) return null;
+        if (o.how[k] === 'imp') {
+          const d = o.dr[k];
+          return d ? d[r % d.length] : cl(v + (o.sd[k] || 0) * gauss());
+        }
+        if (A.useME && o.how[k] === 'obs' && o.me[k]) return cl(v + o.me[k] * gauss());
+        return v;
+      });
+    });
+  }
+  const q = (a, p) => a[Math.min(a.length - 1, Math.max(0, Math.round(p * (a.length - 1))))];
+  A.list.forEach((o, i) => {
+    const s = Array.from(D[i]).sort((a, b) => a - b);
+    Object.assign(o.e.ad, { lo: Math.round(q(s, 0.1)), hi: Math.round(q(s, 0.9)), med: Math.round(q(s, 0.5)) });
+  });
+}
+// all at once (tests)
+function adFull() {
+  if (AD_FULL) return;
+  ADJOB++;
+  for (const _ of adSimSteps(AD_IN));
+  AD_FULL = true;
+}
+// in the background, the first time something that ranks places Adriano's way is on screen
+function adSimSoon() {
+  if (AD_FULL || adSimSoon.job === ADJOB) return;
+  const my = (adSimSoon.job = ADJOB),
+    it = adSimSteps(AD_IN);
+  const step = () => {
+    if (my !== ADJOB) return;
+    const t = performance.now();
+    let r;
+    do r = it.next();
+    while (!r.done && performance.now() - t < 8);
+    if (!r.done) return setTimeout(step, 0);
+    AD_FULL = true;
+    if (typeof heroNow === 'function') heroNow();
+    if (typeof renderVs === 'function' && document.body.classList.contains('adv')) renderVs();
+  };
+  setTimeout(step, 500);
 }
 HOMES = homesFromKeys(ADRIANO_HOMES);
 applyHomes();
-recompute();
+recompute(true);
 snapshotAdriano();

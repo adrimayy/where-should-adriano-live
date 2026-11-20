@@ -24,7 +24,7 @@ const STR = {
       'Things going on',
       'Affordability',
     ],
-    startQuiz: 'Take the 1-minute quiz',
+    startQuiz: 'Take the 2-minute quiz',
     skipQuiz: 'Just show the map',
     resume: 'Continue with my map',
     startNote: 'Nothing is sent anywhere. Your answers stay in this browser unless you share a link.',
@@ -490,7 +490,7 @@ const STR = {
       'Que pasen cosas',
       'Que sea asequible',
     ],
-    startQuiz: 'Hacer el cuestionario de 1 minuto',
+    startQuiz: 'Hacer el cuestionario de 2 minutos',
     skipQuiz: 'Ver el mapa directamente',
     resume: 'Seguir con mi mapa',
     startNote:

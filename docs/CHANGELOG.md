@@ -45,6 +45,14 @@ How the method changed, and what it did to the top of Adriano's list.
   top match. Two new factors worked out from the map, off unless asked for: same hours as home (time zones) and the sea
   nearby (distance to the coast). 33 questions in all, about a dozen in the short quiz. Method and reading list in
   docs/APPENDIX.md, "Quiz design".
+- **Instant taps, a loading wheel, tidier phones (v57):** the likely ranges (120 recalculations of every place) used to run
+  inside every tap and seven times at startup. They now run in the background a few milliseconds at a time, with the
+  same results to the digit; until they arrive each place keeps its last range, moved by its score change. On a
+  phone-speed processor: page ready in 2.0 s (was 12.6), a priority tap answers in 0.02 s (was 3.1), quiz to results in
+  0.3 s (was 3.1). Buttons show pressed the moment a finger lands; a quiz answer moves on after 0.24 s (was 0.6). A
+  loading wheel covers the page until it is drawn, and the map until its outlines arrive. On phones: the four results
+  actions sit in a 2 x 2 grid, ranking rows are one line of name, one swipeable line of reasons and the drawback, and the
+  priorities button stays off the first screen.
   Region pills also move the map, replacing the separate row of map-view buttons in the plain view.
 - **Layout after the NYT "Where should you live" quiz (v52):** what matters to you sits beside the map and ranking (a
   sticky panel on wide screens, a bottom sheet behind a "Priorities" button on phones), one tap per factor: off, counts
