@@ -123,7 +123,21 @@ const CRUCIAL = ['home', 'jobs', 'hlth', 'safe', 'free', 'pay'];
 // Every factor sits under exactly one of three goals
 const GOALS = {
   growth: ['jobs', 'pay', 'perm', 'lang'],
-  happiness: ['happy', 'open', 'cult', 'clim', 'day', 'sea', 'fam', 'tz', 'kin', 'women', 'lgbt', 'pol', 'hours'],
+  happiness: [
+    'happy',
+    'open',
+    'cult',
+    'clim',
+    'day',
+    'sea',
+    'fam',
+    'tz',
+    'kin',
+    'women',
+    'lgbt',
+    'pol',
+    'hours',
+  ],
   ease: ['home', 'commute', 'move', 'hlth', 'safe', 'free', 'air', 'honest', 'risk'],
 };
 const GOALOF = Object.fromEntries(Object.entries(GOALS).flatMap(([g, ks]) => ks.map(k => [k, g])));
@@ -209,11 +223,24 @@ const CONTV = DATA.cont || {},
 const TIERS = ['fit', 'ok', 'caution', 'avoid', 'nodata'];
 const TR = { fit: 0, ok: 1, caution: 2, avoid: 3, nodata: 4 };
 const EST_ONLY = new Set();
-// within a verdict, order by the low end of the likely range: a well-measured 68 outranks an uncertain 68
-const lo_ = e => (RANKBY === 'mid' ? (e.med != null ? e.med : e.score) : e.lo != null ? e.lo : e.score);
-// and within a verdict, places with published data on what matters come before places that lean on filled-in values
-const byRank = (a, b) => TR[a.tier] - TR[b.tier] || a.thin - b.thin || lo_(b) - lo_(a) || b.score - a.score;
 const CUT = { fit: 70, ok: 60, caution: 48 };
+// scores round to 5 without crossing a verdict line: 68 shows as 65 (Workable), never 70 next to a Workable chip
+const bandOf = x => (x >= CUT.fit ? 3 : x >= CUT.ok ? 2 : x >= CUT.caution ? 1 : 0);
+const r5 = x => {
+  const r = Math.round(x / 5) * 5;
+  return bandOf(r) === bandOf(x) ? r : Math.floor(x / 5) * 5;
+};
+// among places that show the same score, order by the low end of the likely range: a well-measured 68 outranks an uncertain 68
+const lo_ = e => (RANKBY === 'mid' ? (e.med != null ? e.med : e.score) : e.lo != null ? e.lo : e.score);
+// The order of every list: the verdict; then places with published data on what matters before places that lean on
+// filled-in values; then the score as it is shown (rounded to 5), so the list never puts a 60 above a 65 without saying
+// why; then the low end of the likely range.
+const byRank = (a, b) =>
+  TR[a.tier] - TR[b.tier] ||
+  a.thin - b.thin ||
+  r5(b.score) - r5(a.score) ||
+  lo_(b) - lo_(a) ||
+  b.score - a.score;
 const CATS = [...FACTORS.map(f => f.k), 'none'];
 const CATPAL = [
   '#b5651d',
@@ -257,7 +284,10 @@ const ICONS = {
   plus: '<path d="M12 5v14M5 12h14"/>',
   minus: '<path d="M5 12h14"/>',
   down: '<path d="M12 5v13M6.5 12.5L12 18l5.5-5.5"/>',
-  heart: '<path d="M12 19.5s-7.5-4.6-7.5-10.2A4.1 4.1 0 0 1 12 6.9a4.1 4.1 0 0 1 7.5 2.4c0 5.6-7.5 10.2-7.5 10.2z"/>',
+  left: '<path d="M14.5 6l-6 6 6 6"/>',
+  right: '<path d="M9.5 6l6 6-6 6"/>',
+  heart:
+    '<path d="M12 19.5s-7.5-4.6-7.5-10.2A4.1 4.1 0 0 1 12 6.9a4.1 4.1 0 0 1 7.5 2.4c0 5.6-7.5 10.2-7.5 10.2z"/>',
 };
 const IC = (n, sz = 14, sw = 2.4) =>
   `<svg class="ic" width="${sz}" height="${sz}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]}</svg>`;

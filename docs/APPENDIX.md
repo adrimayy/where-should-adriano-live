@@ -33,8 +33,12 @@ The short version is in [METHODS.md](METHODS.md). This file has the statistics, 
      weight, towns of 120,000 to 230,000 people still reached the sample take's top 14 on commutes, rent and housing.
    - A place can only be a Strong fit if housing, jobs, healthcare, safety, freedom and money after rent all have published
      figures there and filled-in values make up less than a fifth of its score.
-   - Within a verdict, places sort by the low end of their likely range (cautious) or, if chosen, the middle (best guess).
-     The low end favors well-measured places; the middle treats every place as its best guess, so uncertain places rise.
+   - Within a verdict, places with more than a fifth of their score filled in come after the rest. Then places sort by
+     the score as it is shown (rounded to 5) and, among places showing the same score, by the low end of their likely
+     range (cautious) or, if chosen, the middle (best guess). The low end favors well-measured places; the middle treats
+     every place as its best guess, so uncertain places rise. Until v64 the low end came before the shown score, so
+     about a dozen of the 744 cities sat above a place showing a higher score (a 60 above a 65) with nothing on screen
+     to say why.
    - Screening: minimums can be set per factor. Any place below a minimum is removed, and the rest are ranked by weighted
      score, so a strength elsewhere can't make up for falling short where it matters most.
 6. **Display.** Scores show rounded to the nearest 5 in the list and on the map (a 1-point gap is inside the measurement
@@ -308,6 +312,9 @@ What the quiz does with that:
 - Nothing is scored on screen before there is a take: the quiz finished, a saved take in this browser, or a shared
   link. Until then the page is one card with the question and the quiz button; there is no map to skip to. "Close"
   inside the quiz changes nothing: it goes back to the results there were, or to the first card.
+- The last answer of the quiz opens the results directly. (A card used to stand in between, offering more questions
+  before showing anything.) The offer to answer the rest sits under the list, with how many answers the results rest
+  on. A saved take opens straight on its results.
 - A place's details compare it with the home given in the quiz ("Compared with New York City"), because a 3/5 says
   little on its own: for each factor the person weighs, the place's published figure next to the same figure for their
   home, in the sentences the quiz uses for its examples (minutes each way, dollars left after rent on typical pay for
@@ -331,7 +338,19 @@ What the quiz does with that:
 - By default the page shows only the results: scores, chips, map and ranking. "Show how the scores are calculated"
   brings back the likely ranges, legends, the factor table, the sliders and the method notes.
 - Filters ("Only show": region, cost band, big cities of about 1.5 million or more, can work freely) never change a score;
-  they hide places. Ties: places in a row with the same displayed score share a rank, shown as "=2".
+  they hide places. They fold away under their name until wanted, and show how many are on. A search box sits next to
+  them (it used to need the calculations switched on).
+- The results are laid out in the order people read them (v64): the title and the list first, with the best match as
+  the first card; then how to make it more precise; then the map. On wide screens the list and the map sit side by
+  side, the way maps of places usually do, and the map stays in view while the list scrolls.
+- Rows are numbered 1, 2, 3 in list order. Each gives up to two strengths (+) and the main drawback (−) in words. A
+  line in the list marks where the verdict changes and where the well-measured places end ("Less certain: over a fifth
+  of the score is filled in"); a place held below the verdict its score would give says why on its own row.
+- Tapping a row opens that place's details in the list's own column, with a way back and arrows to the place before
+  and after. Closing returns to the same spot in the list. Until v64 a tap jumped to the map and the details sat
+  below the whole ranking. The phone's Back button closes the details, and inside the quiz goes to the question
+  before, instead of leaving the page (one history entry while either is open).
+- The verdict colours are explained under the map in the plain view too.
 - A note before the first question: people tend to overweight weather and short visits and underweight commutes and
   friendships. An optional setting moves 30% of the climate and daylight weight to commute and making friends.
 - Each city page lists three questions to ask a resident, picked from its weakest and least certain factors.

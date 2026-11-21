@@ -95,6 +95,17 @@ in `js/07-quiz.js`).
   and 23 in Amsterdam. In a year, that is about 155 hours of difference." Only like-for-like published figures; a gap
   inside the measurement error is called about the same; and a figure that points the other way from the page's own
   score for that factor is left out. No score changes.
+- **The answer first (v64):** a walk through every screen on a phone and a desktop turned up 34 problems; this fixes
+  30 of them and reorders the results around how people read them. The list now leads, with the best match as its first
+  card, and on wide screens the map sits beside it. A tap on a row opens the place's details where the list is, with
+  a way back to the same spot and arrows to the next place; before, it jumped to the map and the details sat under
+  the whole ranking. The card between the last quiz answer and the results is gone. The list is ordered by the score
+  it shows, and says where the verdict changes or the well-measured places end, so a 65 no longer sits under a 60
+  unexplained. Rows give reasons in words (+ strengths, − the drawback). Filters fold away; search no longer needs
+  the calculations on; the verdict colours are explained under the map. The phone's Back button now steps back inside
+  the quiz and out of a place's details instead of leaving the page. Also fixed: Compare showed unrounded scores (66
+  beside 65); German sentences lower-cased their nouns; the method note said 23 factors; touch targets under 44 px.
+  The sample take's top seven are unchanged but for Málaga moving up to seventh.
 - **Layout after the NYT "Where should you live" quiz (v52):** what matters to you sits beside the map and ranking (a
   sticky panel on wide screens, a bottom sheet behind a "Priorities" button on phones), one tap per factor: off, counts
   (weight 1), ★ counts double (2), read from and written to the same weights as the sliders, which stay under "Fine-tune".

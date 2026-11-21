@@ -20,19 +20,32 @@ $('advBtn').onclick = () => setAdv(!document.body.classList.contains('adv'));
 document.body.classList.toggle('adv', !!store.get('adv', false));
 $('fullQuiz').onclick = () => sharpenQuiz();
 $('tradeBtn').onclick = () => startTrades();
-$('resumeTake').onclick = () => {
-  try {
-    loadTake(JSON.parse(store.get('take', 'null')));
-    applyHomes();
-    weightsUI();
-    refreshAll();
-    $('resPanel').hidden = false;
-    $('resPanel').scrollIntoView({ block: 'start' });
-  } catch (e) {}
-};
 $('retake').onclick = () => startQuiz(false);
 $('toMap').onclick = showMap;
-$('retakeHero').onclick = () => startQuiz();
+$('toCmp').onclick = () => {
+  if (ui.open) closePlace();
+  $('cmpPanel').scrollIntoView({ block: 'start' });
+};
+// with a place's details open: Escape goes back to the list, the arrow keys step to the place before or after
+document.addEventListener('keydown', ev => {
+  if (
+    !ui.open ||
+    ev.altKey ||
+    ev.ctrlKey ||
+    ev.metaKey ||
+    /^(INPUT|SELECT|TEXTAREA)$/.test(ev.target.tagName)
+  )
+    return;
+  if (ev.key === 'Escape') return closePlace();
+  const fwd = document.documentElement.dir === 'rtl' ? 'ArrowLeft' : 'ArrowRight',
+    back = fwd === 'ArrowLeft' ? 'ArrowRight' : 'ArrowLeft';
+  if (ev.key !== fwd && ev.key !== back) return;
+  const i = (ui.order || []).indexOf(ui.sel && ui.sel.key),
+    p = i < 0 ? null : byKey[ui.order[i + (ev.key === fwd ? 1 : -1)]];
+  if (p) openPlace(p);
+});
+// the name in the top bar goes back to the top, like a site's logo
+$('brand').onclick = () => window.scrollTo({ top: 0 });
 // the unmarked button at the foot of the page: one filled-in set of answers (SAMPLE, js/07-quiz.js)
 $('fillBtn').onclick = fillSample;
 $('shareTake').onclick = () => {
@@ -244,7 +257,7 @@ $('search').onkeydown = e => {
   const hit =
     ok.find(x => dn(x).toLowerCase() === v || x.name.toLowerCase() === v) ||
     ok.find(x => dn(x).toLowerCase().startsWith(v));
-  if (hit) select(hit, true);
+  if (hit) openPlace(hit);
 };
 $('zin').onclick = () => zoom && zsel.transition().duration(300).call(zoom.scaleBy, 1.6);
 $('zout').onclick = () =>

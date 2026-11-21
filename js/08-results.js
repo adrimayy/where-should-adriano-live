@@ -1,12 +1,18 @@
 'use strict';
-/* ---------------- your results: the header above the map and ranking ---------------- */
+/* ---------------- your results: the title above the list, and what comes after the answer ---------------- */
 function renderResults() {
   if (MODE !== 'yours') {
     $('resPanel').hidden = true;
     return;
   }
-  // the plain view is a header for the map and ranking below; the two short lists come with the calculations
-  $('resHead').textContent = L(document.body.classList.contains('adv') ? 'resTitle' : 'resEyebrow');
+  $('resHead').textContent = L('resTitle');
+  // after the answer: how many answers it rests on, and the two ways to make it more precise
+  const n = QUIZ.filter(answered).length,
+    m = moreLeft().length;
+  $('sharpen').hidden = !n;
+  $('sharpenNote').textContent = fmt(L('madeFrom'), { n });
+  $('fullQuiz').textContent = fmt(L('doneMore'), { m });
+  $('fullQuiz').hidden = !m;
   const top = t =>
     ents
       .filter(e => e.type === t && listable(e) && (t !== 'city' || inScope(e)))
@@ -24,11 +30,5 @@ function renderResults() {
     .join('');
   $('resLists')
     .querySelectorAll('button[data-key]')
-    .forEach(
-      b =>
-        (b.onclick = () => {
-          select(byKey[b.dataset.key], true);
-          $('mapSec').scrollIntoView({ block: 'start' });
-        })
-    );
+    .forEach(b => (b.onclick = () => openPlace(byKey[b.dataset.key])));
 }

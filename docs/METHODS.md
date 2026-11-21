@@ -5,11 +5,12 @@ How the atlas turns published numbers into a ranking. Every statistic, source an
 
 ## The score
 
-Each place gets a 1–5 value on up to 23 factors, grouped under three goals:
+Each place gets a 1–5 value on up to 26 factors, grouped under three goals:
 
 - **Growth:** job market, money left after rent, work permit, language.
-- **Happiness:** life satisfaction, welcoming to newcomers, things happening, climate, daylight, distance from home,
-  women's rights, LGBTQ+ acceptance, time off, and (optional) US politics and cultural familiarity.
+- **Happiness:** life satisfaction, welcoming to newcomers, things happening, climate, winter daylight, the sea nearby,
+  distance from home, same hours as home, cultural familiarity, women's rights, LGBTQ+ acceptance, time off, and
+  (for people tied to the US) state politics.
 - **Efficiency and security:** housing availability, commute, car dependence, healthcare, safety, freedom, clean
   air, honest institutions, low disaster risk.
 
@@ -40,8 +41,10 @@ filled at all. Filled-in values are marked on every page and can be switched off
 
 Each score is recalculated 120 times, moving published values by their likely measurement error and swapping in each of
 the 20 fills. That gives every place a likely range, a rank range and a chance of being a Strong fit. Scores show rounded
-to 5, because a one-point gap is inside the error. Within a verdict, places sort by the low end of their range, so a
-well-measured 68 ranks above an uncertain 68.
+to 5, because a one-point gap is inside the error. Within a verdict, places with more than a fifth of their score filled
+in come after the rest; then places sort by the score as shown and, among places showing the same score, by the low end
+of their range, so a well-measured 68 ranks above an uncertain 68. The list says so wherever the verdict changes or the
+well-measured places end.
 
 ## What it can't tell you
 

@@ -1823,10 +1823,6 @@ button, .opt, .pill, .lchip, .pchip { transition: transform 0.08s, opacity 0.08s
 /* ---------- tidier on phones ---------- */
 @media (max-width: 640px) {
   /* results header: four actions in a 2 x 2 grid of equal buttons, not a column of links; the ranking is right below, so no jump link */
-  #resPanel .toggles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  #resPanel .toggles button { width: 100%; white-space: normal; line-height: 1.2; padding: 10px 8px; min-height: 44px; }
-  #resPanel .toggles .ghost { background: var(--fill); color: var(--fg); }
-  #resPanel #toMap { display: none; }
   /* ranking rows: name and country on one line, the reasons on one line you can swipe */
   .row .nm { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .row .chips5 { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
@@ -1834,8 +1830,6 @@ button, .opt, .pill, .lchip, .pchip { transition: transform 0.08s, opacity 0.08s
   .why5 { flex: none; white-space: nowrap; }
   .hero1 .chips5 { flex-wrap: wrap; }
   .rw .row { row-gap: 4px; padding-block: 10px; }
-  /* the priorities button waits until there is a ranking to adjust: not over the first screen */
-  body:not(.engaged):not(:has(#resPanel:not([hidden]))) .pfab { display: none; }
   .pfab { padding: 9px 14px; font-size: 13.5px; }
 }
 
@@ -1872,3 +1866,92 @@ body:not(.took) .hero { margin-top: 6vh; padding-block: 34px; }
 .vshome .facts li.bad::before { content: '−'; text-indent: 0; }
 .vshome .facts li.same { color: var(--muted); }
 .vshome .facts li.same::before { content: '≈'; text-indent: 0; font-weight: 400; }
+
+/* ---------- v64: the answer first; the list beside the map; a place's details in the list's own column ---------- */
+/* The title is a heading with two quiet actions, not a card of buttons: what comes first on the page is the list. */
+.reshead { display: flex; flex-direction: column; gap: 8px; }
+.resrow { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2px 14px; }
+.resrow h2 { margin: 0; font-family: var(--display); font-size: 26px; line-height: 1.15; }
+.resacts { display: flex; flex-wrap: wrap; gap: 0 4px; margin-inline: -6px; }
+.resacts .ghost { min-height: 40px; font-size: 14px; }
+.split { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+#rankSec, #mapSec, .listpane { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.listpane[hidden] { display: none; }
+@media (max-width: 640px) {
+  #mapSec, .after { order: 0; }
+  #resPanel #toMap { display: inline-flex; }
+  .resrow h2 { font-size: 23px; }
+}
+@media (min-width: 1180px) {
+  .wrap { max-width: 1560px; }
+  .work { grid-template-columns: 264px minmax(0, 1fr); }
+  .split { display: grid; grid-template-columns: minmax(340px, 440px) minmax(0, 1fr); align-items: start; }
+  /* the map stays in view while the list (or a place's details) scrolls beside it */
+  #mapSec { position: sticky; top: 64px; }
+  #resPanel #toMap { display: none; }
+}
+/* above the list: cities or countries, a search box, and the filters folded under their name */
+.listpane .rankhead { align-items: center; justify-content: flex-start; }
+.rankhead #search { flex: 1 1 150px; min-width: 0; min-height: 40px; padding: 6px 14px; border: 1px solid var(--line); border-radius: 999px;
+  background: var(--panel); color: var(--fg); font: inherit; font-size: 14.5px; }
+.filt > summary { list-style: none; display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 4px 12px;
+  border: 1px solid var(--line); border-radius: 999px; font-size: 13.5px; color: var(--muted); cursor: pointer; user-select: none; }
+.filt > summary::-webkit-details-marker { display: none; }
+.filt > summary b { color: var(--bg); background: var(--fg); border-radius: 999px; padding: 0 6px; font-weight: 600; }
+.filt[open] > summary svg { transform: rotate(180deg); }
+.filt .pills { margin-top: 10px; }
+#rankmeta:empty { display: none; }
+/* rows: number, name, score at the end of the line, then one line of why in words */
+.rw .row:not(.hero1) { grid-template-columns: 30px minmax(0, 1fr) auto; grid-template-areas: 'n nm sc' '. why why'; row-gap: 3px; align-items: center;
+  padding-block: 12px; padding-inline: 14px 52px; min-height: 0; }
+.row .sc { display: inline-flex; align-items: center; gap: 6px; justify-self: end; }
+.row .sc .sn { font-weight: 600; font-variant-numeric: tabular-nums; }
+body.adv .rw .row:not(.hero1) { grid-template-columns: 30px minmax(0, 1fr) minmax(150px, 0.8fr); }
+body.adv .row .sc { justify-self: stretch; }
+.row .n { font-variant-numeric: tabular-nums; }
+.row .why { white-space: normal; overflow: visible; font-size: 13px; line-height: 1.35; }
+.rw .row:not(.hero1) .why { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+.row .why .why5 { white-space: normal; flex: 0 1 auto; color: var(--fg); }
+.why5.pro { --c: #2f9e5b; }
+.why5.con { --c: #cf3f3f; }
+.capnote { flex-basis: 100%; }
+@media (max-width: 640px) {
+  .rw .row:not(.hero1) { grid-template-areas: 'n nm sc' 'why why why'; row-gap: 7px; }
+}
+.hero1 .why { color: var(--fg); font-size: 14.5px; line-height: 1.4; }
+/* where the verdict changes, or the well-measured places end, the list says so */
+.lgroup { display: flex; align-items: center; gap: 8px; padding: 9px 14px; background: var(--fill); color: var(--muted); font-size: 12.5px;
+  border-bottom: 0.5px solid var(--line); }
+.lgroup .chip { background: transparent; padding: 0; color: var(--fg); font-weight: 600; font-size: 13px; }
+/* a place's details: back to the list on the left, the place before and after on the right, always in reach */
+.dnav { position: sticky; top: calc(54px + env(safe-area-inset-top, 0px)); z-index: 6; display: flex; justify-content: space-between; align-items: center;
+  margin: -18px -18px 0; padding: 4px 8px; background: var(--panel); border-bottom: 0.5px solid var(--line); border-radius: 18px 18px 0 0; }
+.dnav #dBack { display: inline-flex; align-items: center; gap: 2px; min-height: 44px; padding-inline: 6px 12px; font-weight: 600; font-size: 15px; }
+.dsteps { display: inline-flex; align-items: center; gap: 2px; }
+.dstep { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; padding: 0; }
+.dstep[disabled] { opacity: 0.25; }
+[dir='rtl'] .dnav svg { transform: scaleX(-1); }
+/* after the answer: how to make it more precise */
+.sharpen { display: flex; flex-direction: column; gap: 8px; padding: 14px 16px; border: 1px dashed var(--line); border-radius: 16px; }
+.sharpen .meta { margin: 0; }
+/* the name in the top bar is a button back to the top */
+button.brand { background: none; border: 0; padding: 0; min-height: 0; color: inherit; cursor: pointer; text-align: start; }
+/* quiz: on a phone the buttons stay in reach under a long question (30 languages), and Next looks like the next step */
+@media (max-width: 640px) {
+  #quizPanel .qnav { position: sticky; bottom: 0; z-index: 2; background: var(--panel); margin-inline: -4px; padding: 10px 4px max(10px, env(safe-area-inset-bottom)); }
+}
+/* the priorities button sits in the middle on small screens, clear of the scores and hearts at the end of each row */
+@media (max-width: 1179px) {
+  .pfab { right: auto; left: 50%; transform: translateX(-50%); }
+  .pfab:active { transform: translateX(-50%) scale(0.97); }
+  .wrap { padding-bottom: 76px; }
+}
+/* thumb-sized targets on touch screens */
+@media (pointer: coarse) {
+  .langsel { min-height: 44px; }
+  .seg button, .scopebar .seg button { min-height: 44px; }
+  .pill, .filt > summary { min-height: 44px; }
+  .pchip { min-height: 40px; padding-block: 8px; }
+  .pclose { min-width: 44px; min-height: 44px; }
+  .rankhead #search { min-height: 44px; }
+}

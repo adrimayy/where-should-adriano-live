@@ -69,7 +69,8 @@ const QUIZ = [
     mk: 'scope',
     m: ['stay', 'go', 'any'],
     // asked when the map has cities in that country to choose between
-    show: () => homeIso() != null && ents.some(e => e.type === 'city' && listable(e) && +isoOf(e) === homeIso()),
+    show: () =>
+      homeIso() != null && ents.some(e => e.type === 'city' && listable(e) && +isoOf(e) === homeIso()),
     core: true,
     c: 1,
   },
@@ -112,7 +113,14 @@ const QUIZ = [
     ex: 'jobs',
     show: () => workIs('local', 'student', 'unknown') || ANS.partner === 0,
   },
-  { id: 'reach', nominal: 0, w: [{}, {}], mk: 'reach', m: ['yes', 'no'], show: () => workIs('local', 'unknown') },
+  {
+    id: 'reach',
+    nominal: 0,
+    w: [{}, {}],
+    mk: 'reach',
+    m: ['yes', 'no'],
+    show: () => workIs('local', 'unknown'),
+  },
   {
     id: 'pay',
     a: 'pay',
@@ -124,8 +132,20 @@ const QUIZ = [
   },
   { id: 'home', a: 'home', w: SW.map(x => ({ home: x })), ex: 'home' },
   { id: 'move', w: [{ move: 0.75 }, { move: 1.5 }, { move: 2.5 }], ex: 'move', core: true },
-  { id: 'commute', a: 'commute', w: SW.map(x => ({ commute: x })), ex: 'commute', show: () => !workIs('remote', 'retired') },
-  { id: 'hours', a: 'hours', w: SW.map(x => ({ hours: x })), ex: 'hours', show: () => !workIs('retired', 'student') },
+  {
+    id: 'commute',
+    a: 'commute',
+    w: SW.map(x => ({ commute: x })),
+    ex: 'commute',
+    show: () => !workIs('remote', 'retired'),
+  },
+  {
+    id: 'hours',
+    a: 'hours',
+    w: SW.map(x => ({ hours: x })),
+    ex: 'hours',
+    show: () => !workIs('retired', 'student'),
+  },
   { id: 'cult', a: 'cult', w: SW.map(x => ({ cult: x })), ex: 'cult' },
   {
     id: 'clim',
@@ -160,7 +180,13 @@ const QUIZ = [
   },
   { id: 'kin', w: [{ kin: 0 }, { kin: 0.75 }, { kin: 2 }] },
   { id: 'safe', a: 'safe', w: SW.map(x => ({ safe: x })), ex: 'safe', core: withKids },
-  { id: 'hlth', a: 'hlth', w: [{ hlth: 0.75 }, { hlth: 1.75 }, { hlth: 3 }], ex: 'hlth', core: () => withKids() || workIs('retired') },
+  {
+    id: 'hlth',
+    a: 'hlth',
+    w: [{ hlth: 0.75 }, { hlth: 1.75 }, { hlth: 3 }],
+    ex: 'hlth',
+    core: () => withKids() || workIs('retired'),
+  },
   { id: 'free', a: 'free', w: SW.map(x => ({ free: x * 0.75, honest: x * 0.75 })), ex: 'free' },
   { id: 'women', w: [{ women: 0 }, { women: 0.75 }, { women: 1.5 }, { women: 2.5 }], ex: 'women' },
   { id: 'lgbt', w: [{ lgbt: 0 }, { lgbt: 0.75 }, { lgbt: 1.5 }, { lgbt: 2.5 }], ex: 'lgbt' },
@@ -188,7 +214,8 @@ let ANS = {},
   HOMEKEYS = [];
 const qText = id => (QSTR[LANG] || {})[id] || QSTR.en[id];
 // a question that names the person's country: {c} becomes its name
-const qFill = (q, t) => (q.c && homeIso() != null && byIso[homeIso()] ? fmt(t, { c: dn(byIso[homeIso()]) }) : t);
+const qFill = (q, t) =>
+  q.c && homeIso() != null && byIso[homeIso()] ? fmt(t, { c: dn(byIso[homeIso()]) }) : t;
 const QBASE = { ...PRESETS.equal, pol: 0, happy: 0.5, women: 0.75, lgbt: 0.75 };
 // "picker" questions (languages, passports) take any number of answers; older saved answers are numbers and still work
 const picked = v => v && typeof v === 'object';
@@ -276,10 +303,10 @@ function pickerBody(q) {
     : q.picker === 'top'
       ? { sel: {} }
       : q.picker === 'lang'
-      ? { sel: browserLangs() }
-      : q.picker === 'where'
-        ? { keys: HOMEKEYS.slice() }
-        : { sel: [] });
+        ? { sel: browserLangs() }
+        : q.picker === 'where'
+          ? { keys: HOMEKEYS.slice() }
+          : { sel: [] });
   const [head, sub] = splitTitle(qText(q.id)[0]),
     title = head + (sub ? `</div><p class="meta qsub">${sub}</p><div hidden>` : '');
   if (q.picker === 'top') {
@@ -383,7 +410,8 @@ function usLinked() {
 // A line under a question built from the data: how the visitor's home (or passport country) scores on that factor,
 // and the best place of the same kind in its world region. Nothing when we don't know where they're from.
 function qExample(k) {
-  let ref = HOMEKEYS.map(x => byKey[x]).find(Boolean) || (picked(ANS.perm) ? byIso[(ANS.perm.sel || [])[0]] : null);
+  let ref =
+    HOMEKEYS.map(x => byKey[x]).find(Boolean) || (picked(ANS.perm) ? byIso[(ANS.perm.sel || [])[0]] : null);
   // measured figures only (filled-in estimates are left out): a city without one falls back to its country
   const sc = e => (e && e.sc && e.sc[k] != null ? Math.round(e.sc[k]) : null);
   if (ref && sc(ref) == null && ref.type === 'city') ref = byIso[isoOf(ref)];
@@ -412,12 +440,41 @@ function qExample(k) {
 // lo: lower is better.
 const SWING = {
   commute: { g: [{ s: ['nqolt'] }, { s: ['acscomm'], t: 'city' }], lo: 1 },
-  air: { g: [{ s: ['who', 'epa'], t: 'city' }, { s: ['wbpm'], t: 'country' }], lo: 1 },
-  safe: { g: [{ s: ['chrhom', 'fbi'], t: 'city' }, { s: ['hom'], t: 'country' }], lo: 1 },
-  pay: { g: [{ s: ['items', 'itemsn', 'nidx', 'acspay'], t: 'city' }, { s: ['money'], t: 'country' }] },
-  cost: { g: [{ s: ['ncol'], t: 'city' }, { s: ['ncolc'], t: 'country' }], lo: 1 },
+  air: {
+    g: [
+      { s: ['who', 'epa'], t: 'city' },
+      { s: ['wbpm'], t: 'country' },
+    ],
+    lo: 1,
+  },
+  safe: {
+    g: [
+      { s: ['chrhom', 'fbi'], t: 'city' },
+      { s: ['hom'], t: 'country' },
+    ],
+    lo: 1,
+  },
+  pay: {
+    g: [
+      { s: ['items', 'itemsn', 'nidx', 'acspay'], t: 'city' },
+      { s: ['money'], t: 'country' },
+    ],
+  },
+  cost: {
+    g: [
+      { s: ['ncol'], t: 'city' },
+      { s: ['ncolc'], t: 'country' },
+    ],
+    lo: 1,
+  },
   hours: { g: [{ s: ['pwt', 'oecdh'], t: 'country' }], lo: 1 },
-  jobs: { g: [{ s: ['laus', 'eurostat'], t: 'city' }, { s: ['ilo'], t: 'country' }], lo: 1 },
+  jobs: {
+    g: [
+      { s: ['laus', 'eurostat'], t: 'city' },
+      { s: ['ilo'], t: 'country' },
+    ],
+    lo: 1,
+  },
   hlth: { g: [{ s: ['uhc'], t: 'country' }] },
   home: { g: [{ s: ['acsvac', 'censusmsa', 'cmhc', 'nychvs'], t: 'city' }] },
   move: { g: [{ s: ['itdp'], t: 'city' }] },
@@ -426,12 +483,17 @@ const SWING = {
   risk: { g: [{ s: ['wri'], t: 'country' }], lo: 1 },
 };
 function rawNum(k, str) {
-  const m = k === 'pay' ? /=\s*\$(-?[\d,.]+)/.exec(str) || /\$(-?[\d,.]+)/.exec(str) : /(-?[\d,]*\.?\d+)/.exec(str);
+  const m =
+    k === 'pay' ? /=\s*\$(-?[\d,.]+)/.exec(str) || /\$(-?[\d,.]+)/.exec(str) : /(-?[\d,]*\.?\d+)/.exec(str);
   return m ? +m[1].replace(/,/g, '') : null;
 }
 // a place's own published figure for a factor, from the first of the given sources that has one: [source, text, 1-5 band, exact 1-5 value]
 function swingRow(e, k, srcs) {
-  return ((RAWD[e.type === 'city' ? 'city:' + e.name : 'c:' + e.id] || {})[k] || []).find(r => srcs.includes(r[0])) || null;
+  return (
+    ((RAWD[e.type === 'city' ? 'city:' + e.name : 'c:' + e.id] || {})[k] || []).find(r =>
+      srcs.includes(r[0])
+    ) || null
+  );
 }
 function swingVal(e, k, srcs) {
   const r = swingRow(e, k, srcs);
@@ -472,13 +534,16 @@ const usd = v => (v < 0 ? '−$' : '$') + nfmt(Math.abs(v));
 // One figure for two places, in everyday words (the sw* strings). kind: a factor, or 'payjob' (money left on typical
 // pay for the person's kind of work) or 'cost' (prices with rent). '' when both places read the same.
 function swText(kind, A, B, x, y) {
-  const line = (id, xs, ys, more) => (xs === ys ? '' : fmt(L(id), { a: dn(A), b: dn(B), x: xs, y: ys, ...more }));
+  const line = (id, xs, ys, more) =>
+    xs === ys ? '' : fmt(L(id), { a: dn(A), b: dn(B), x: xs, y: ys, ...more });
   if (kind === 'day') return line('swDay', hm(x), hm(y));
   if (kind === 'sea') return line('swSea', nfmt(Math.max(1, x)), nfmt(Math.max(1, y)));
   if (kind === 'payjob') return line('swPayJob', usd(x), usd(y));
   if (kind === 'pay') return line('swPay', usd(x), usd(y));
   if (kind === 'commute')
-    return line('swCommute', nfmt(x), nfmt(y), { h: nfmt(Math.round((Math.abs(x - y) * 2 * 230) / 60 / 5) * 5) });
+    return line('swCommute', nfmt(x), nfmt(y), {
+      h: nfmt(Math.round((Math.abs(x - y) * 2 * 230) / 60 / 5) * 5),
+    });
   if (kind === 'hours') return line('swHours', nfmt(x), nfmt(y), { w: nfmt(Math.abs(x - y) / 40) });
   const d = ['cult', 'air', 'jobs', 'safe', 'home'].includes(kind) ? 1 : 0;
   return line('sw' + kind[0].toUpperCase() + kind.slice(1), nfmt(x, d), nfmt(y, d));
@@ -489,7 +554,8 @@ function payJobLeft(e, jb) {
   return sh ? Math.round(moneyLeftAt(e, sh.r) / 10) * 10 : null;
 }
 function qSwing(k) {
-  const ref = HOMEKEYS.map(x => byKey[x]).find(Boolean) || (picked(ANS.perm) ? byIso[(ANS.perm.sel || [])[0]] : null),
+  const ref =
+      HOMEKEYS.map(x => byKey[x]).find(Boolean) || (picked(ANS.perm) ? byIso[(ANS.perm.sel || [])[0]] : null),
     refCity = ref && ref.type === 'city' ? ref : null,
     refCountry = ref ? (ref.type === 'city' ? byIso[isoOf(ref)] : ref) : null,
     T = id => L(id);
@@ -510,7 +576,10 @@ function qSwing(k) {
       .sort((a, b) => fame(b) - fame(a))
       .slice(0, 40);
     if (k === 'fam') {
-      const far = known.map(e => [e, tripH(e, ref)]).filter(o => o[1] > 1.5).sort((a, b) => a[1] - b[1]);
+      const far = known
+        .map(e => [e, tripH(e, ref)])
+        .filter(o => o[1] > 1.5)
+        .sort((a, b) => a[1] - b[1]);
       if (far.length < 8) return '';
       const A = far[Math.round(0.15 * (far.length - 1))],
         B = far[Math.round(0.85 * (far.length - 1))];
@@ -574,7 +643,11 @@ function renderUnsure() {
     return;
   }
   const w0 = W,
-    first = () => pool.reduce((b, e) => ((e._s = scoreWith(e, k => e.v[k])) > b._s ? e : b), ((pool[0]._s = -1), pool[0])),
+    first = () =>
+      pool.reduce(
+        (b, e) => ((e._s = scoreWith(e, k => e.v[k])) > b._s ? e : b),
+        ((pool[0]._s = -1), pool[0])
+      ),
     base = first();
   let flip = null;
   for (const k of ks) {
@@ -589,7 +662,9 @@ function renderUnsure() {
   el.innerHTML =
     fmt(L('unsureHead'), { f: ks.map(FL).join(', ') }) +
     ' ' +
-    (flip ? fmt(L(flip.hi ? 'unsureHi' : 'unsureLo'), { f: FL(flip.k), p: dn(flip.e) }) + ' ' + L('unsureHint') : L('unsureHolds'));
+    (flip
+      ? fmt(L(flip.hi ? 'unsureHi' : 'unsureLo'), { f: FL(flip.k), p: dn(flip.e) }) + ' ' + L('unsureHint')
+      : L('unsureHolds'));
 }
 // ---- place picker: search box, a short "Suggested" list, then every place A–Z with letter headers and a letter rail.
 // Suggested places also keep their alphabetical spot. The value lives in a hidden input.
@@ -707,33 +782,18 @@ document.addEventListener('click', ev => {
   const b = ev.target.closest('.hpbtn');
   if (b) openPicker(b.dataset.for);
 });
-// after the short quiz: the map is ready (and shown below); answering the rest is offered once, never required
-let QDONE = false,
-  QMORE = false;
+// QMORE: the quiz is open again for the questions not answered yet ("answer N more" under the results)
+let QMORE = false;
 const applies = q => (!q.show || q.show()) && !(q.a && lowIs(q.a));
 const isCore = q => q.core === true || (typeof q.core === 'function' && q.core()) || !!(q.a && topIs(q.a));
 const inPath = q => applies(q) && (!QSHORT || isCore(q));
 // "not sure" ('unsure'; 'skip' in older saved answers) is an answer: the question isn't asked again
 const passed = q => ANS[q.id] === 'unsure' || ANS[q.id] === 'skip';
 const moreLeft = () => QUIZ.filter(q => !answered(q) && !passed(q) && applies(q));
-function renderDone() {
-  const Q = $('qwrap'),
-    m = moreLeft().length;
-  Q.innerHTML = `<span class="lab">${L('doneLab')}</span><div class="qtitle">${L('doneTitle')}</div><p class="meta qsub">${fmt(L('doneSub'), { n: QUIZ.filter(answered).length, m })}</p>
-  <div class="donenav"><button id="doneMore">${fmt(L('doneMore'), { m })}</button><button id="doneTrade">${L('tradeBtn')}</button><button class="primary" id="doneMap">${L('doneMap')}</button></div>`;
-  $('doneTrade').onclick = startTrades;
-  $('doneMap').onclick = () => {
-    QDONE = false;
-    $('quizPanel').hidden = true;
-    window.scrollTo({ top: 0 });
-  };
-  $('doneMore').onclick = sharpenQuiz;
-}
 // how long an answer stays on screen, ticked, before the next question: long enough to see it land, too short to wait for
 const QPAUSE = 240;
 let QDIR = 1; // which way the person last moved, so a question that doesn't apply is skipped in that direction
 function renderQuiz() {
-  if (QDONE) return renderDone();
   if (QSTEP >= QLIST.length) return finishQuiz();
   const cur = QLIST[QSTEP];
   if (!inPath(cur)) {
@@ -749,7 +809,8 @@ function renderQuiz() {
     last = n === total;
   const Q = $('qwrap');
   let body;
-  if (cur.picker) body = (n === 1 && !QMORE ? `<p class="meta qtip">${L('qtip')}</p>` : '') + pickerBody(cur);
+  if (cur.picker)
+    body = (cur.id === 'top' && !QMORE ? `<p class="meta qtip">${L('qtip')}</p>` : '') + pickerBody(cur);
   else {
     const q = cur,
       [title0, opts] = qText((q.alt && q.alt()) || q.id),
@@ -760,11 +821,11 @@ function renderQuiz() {
     const [head, sub] = splitTitle(title),
       exk = typeof q.ex === 'function' ? q.ex() : q.ex,
       ex = exk ? qSwing(exk) || qExample(exk === 'cost' ? 'pay' : exk) : '';
-    body = `${n === 1 && !QMORE ? `<p class="meta qtip">${L('qtip')}</p>` : ''}<div class="qtitle">${head}</div>${sub ? `<p class="meta qsub">${sub}</p>` : ''}${ex ? `<p class="meta qsub qex">${ex}</p>` : ''}<div class="opts${ord.length > 8 ? ' many' : ''}">${ord.map(i => `<button class="opt" data-i="${i}" aria-pressed="${ANS[q.id] === i}"><span class="dot"></span><span>${opts[i]}</span></button>`).join('')}</div>`;
+    body = `${cur.id === 'top' && !QMORE ? `<p class="meta qtip">${L('qtip')}</p>` : ''}<div class="qtitle">${head}</div>${sub ? `<p class="meta qsub">${sub}</p>` : ''}${ex ? `<p class="meta qsub qex">${ex}</p>` : ''}<div class="opts${ord.length > 8 ? ' many' : ''}">${ord.map(i => `<button class="opt" data-i="${i}" aria-pressed="${ANS[q.id] === i}"><span class="dot"></span><span>${opts[i]}</span></button>`).join('')}</div>`;
   }
-  Q.innerHTML = `<div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><span class="lab">${QSHORT && QSTEP <= QLIST.findIndex(q => q.id === 'top') ? fmt(L('qN'), { n }) : fmt(L('qOf'), { n, t: total })}</span><button class="ghost" id="qSkip">${QMORE ? L('doneMap') : L('ppClose')}</button></div>
+  Q.innerHTML = `<div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><span class="lab">${QSHORT && QSTEP <= QLIST.findIndex(q => q.id === 'top') ? fmt(L('qN'), { n }) : fmt(L('qOf'), { n, t: total })}</span><button class="ghost" id="qSkip">${QMORE ? L('finish') : L('ppClose')}</button></div>
   <div class="progress"><span style="width:${Math.round(((n - 1) / total) * 100)}%"></span></div>${body}<p class="qgot" id="qGot" role="status"></p>
-  <div class="qnav"><button id="qBack" ${n === 1 ? 'style="visibility:hidden" tabindex="-1" aria-hidden="true"' : ''}>${L('back')}</button><span class="toggles"><button class="ghost" id="qUnsure">${L('unsure')}</button>${answered(cur) ? `<button id="qNext" ${last ? 'class="primary"' : ''}>${last ? L('finish') : L('next')}</button>` : ''}</span></div>`;
+  <div class="qnav"><button id="qBack" ${n === 1 ? 'style="visibility:hidden" tabindex="-1" aria-hidden="true"' : ''}>${L('back')}</button><span class="toggles"><button class="ghost" id="qUnsure">${L('unsure')}</button>${answered(cur) ? `<button id="qNext" class="primary">${last ? L('finish') : L('next')}</button>` : ''}</span></div>`;
   Q.querySelectorAll('.opt').forEach(
     b =>
       (b.onclick = () => {
@@ -815,17 +876,36 @@ function renderQuiz() {
         renderQuiz();
       }, 900);
     };
-  $('qSkip').onclick = () => {
-    if (QMORE) return finishQuiz();
-    // closing an unfinished quiz changes nothing: back to the results there were, or to the start
-    $('quizPanel').hidden = true;
-    if (MODE === 'yours') {
-      ANS = QPREV || ANS;
-      HOMEKEYS = HOMES.map(h => h.key);
-      $('resPanel').hidden = false;
-    }
-    window.scrollTo({ top: 0 });
-  };
+  $('qSkip').onclick = () => closeQuiz();
+}
+// Closing an unfinished quiz changes nothing: back to the results there were, or to the start. (Closing the extra
+// questions keeps the ones answered.)
+function closeQuiz(fromHistory) {
+  if (QMORE) return finishQuiz();
+  $('quizPanel').hidden = true;
+  if (MODE === 'yours') {
+    ANS = QPREV || ANS;
+    HOMEKEYS = HOMES.map(h => h.key);
+    $('resPanel').hidden = false;
+  }
+  if (fromHistory !== true) navClose('quiz');
+  window.scrollTo({ top: 0 });
+}
+// The phone's Back button inside the quiz: close a list that is open, else the question before, else leave the quiz.
+function quizBack() {
+  const D = $('hpDialog');
+  if (D.open) {
+    D.close();
+    return navOpen('quiz');
+  }
+  if (TRADE) return closeTrades(true);
+  if (QLIST.slice(0, QSTEP).some(inPath)) {
+    QDIR = -1;
+    QSTEP--;
+    renderQuiz();
+    return navOpen('quiz');
+  }
+  closeQuiz(true);
 }
 // Shuffle once per person and keep that order on later visits, so the quiz doesn't rearrange itself
 let QSEED = +store.get('qseed', 0);
@@ -847,10 +927,10 @@ function sharpenQuiz() {
   QSHORT = false;
   QLIST = moreLeft();
   if (!QLIST.length) return;
-  QDONE = false;
   QMORE = true;
   $('resPanel').hidden = true;
   $('quizPanel').hidden = false;
+  navOpen('quiz');
   renderQuiz();
   $('quizPanel').scrollIntoView({ block: 'start' });
 }
@@ -861,7 +941,7 @@ function startQuiz(full) {
   ANS = {};
   QSTEP = 0;
   QDIR = 1;
-  QDONE = QMORE = false;
+  QMORE = false;
   HOMEKEYS = [];
   QSHORT = full !== true;
   QLIST = QUIZ.slice();
@@ -876,6 +956,7 @@ function startQuiz(full) {
     }
   });
   $('quizPanel').hidden = false;
+  navOpen('quiz');
   renderQuiz();
   $('quizPanel').scrollIntoView({ block: 'start' });
 }
@@ -950,13 +1031,14 @@ function finishQuiz() {
   scopeView(false); // staying in your country: the map opens on it
   saveTake();
   renderDefaults();
-  // first time through, say it's done and offer the rest; the results and the map are already underneath
-  QDONE = !QMORE && moreLeft().length > 0;
+  // straight to the results: the answer is the reward for the quiz. Answering the rest is offered under it.
   QMORE = false;
+  ui.open = false;
   $('resPanel').hidden = false;
-  $('quizPanel').hidden = !QDONE;
-  if (QDONE) renderDone();
-  $(QDONE ? 'quizPanel' : 'resPanel').scrollIntoView({ block: 'start' });
+  $('quizPanel').hidden = true;
+  navClose('quiz');
+  renderResults();
+  window.scrollTo({ top: 0 });
 }
 // One filled-in set of answers, put in by the unmarked button at the foot of the page: the whole quiz in one tap, for
 // checking the page from start to finish. The tests use it as their fixed case.
@@ -1024,7 +1106,10 @@ function applyTrades(w, tr) {
 }
 // the factors you weigh where your current top places differ most: those are the trade-offs that change the ranking
 function tradeFactors() {
-  const top = ents.filter(e => e.type === 'city' && listable(e) && passes(e)).sort(byRank).slice(0, 15),
+  const top = ents
+      .filter(e => e.type === 'city' && listable(e) && passes(e))
+      .sort(byRank)
+      .slice(0, 15),
     un = new Set(unsureKeys());
   return FACTORS.map(f => f.k)
     .filter(k => !TRADE_SKIP.has(k) && (W[k] || 0) > 0)
@@ -1042,11 +1127,26 @@ function tradeFactors() {
 }
 // five pairs, two strengths a side; every factor shows up two or three times, never on both sides of one question
 const TRADE_PLAN = [
-  [[0, 1], [2, 3]],
-  [[4, 5], [6, 7]],
-  [[0, 2], [5, 7]],
-  [[1, 3], [4, 6]],
-  [[0, 6], [3, 5]],
+  [
+    [0, 1],
+    [2, 3],
+  ],
+  [
+    [4, 5],
+    [6, 7],
+  ],
+  [
+    [0, 2],
+    [5, 7],
+  ],
+  [
+    [1, 3],
+    [4, 6],
+  ],
+  [
+    [0, 6],
+    [3, 5],
+  ],
 ];
 function tradePairs() {
   const ks = tradeFactors(),
@@ -1068,13 +1168,16 @@ function tradePairs() {
 const TRADE_V = [-2, -1, 0, 1, 2];
 let TRADE = null;
 const topMatch = () =>
-  ents.filter(e => e.type === ui.rankType && listable(e) && passes(e)).sort((a, b) => byRank(a, b) || dn(a).localeCompare(dn(b)))[0];
+  ents
+    .filter(e => e.type === ui.rankType && listable(e) && passes(e))
+    .sort((a, b) => byRank(a, b) || dn(a).localeCompare(dn(b)))[0];
 function startTrades() {
   const qs = tradePairs();
   if (qs.length < 3) return toast(L('tradeNone'));
   TRADE = { qs, i: 0, ans: [], w0: { ...W }, tr0: ANS.tr || [], top0: topMatch() };
   $('resPanel').hidden = true;
   $('quizPanel').hidden = false;
+  navOpen('quiz');
   renderTrade();
   window.scrollTo({ top: 0 });
 }
@@ -1085,7 +1188,8 @@ function renderTrade() {
   if (t.done) return renderTradeDone();
   const n = t.qs.length,
     q = t.qs[t.i],
-    side = (lab, ks) => `<div class="tside"><span class="lab">${lab}</span><ul>${ks.map(k => `<li>${FL(k)}</li>`).join('')}</ul></div>`;
+    side = (lab, ks) =>
+      `<div class="tside"><span class="lab">${lab}</span><ul>${ks.map(k => `<li>${FL(k)}</li>`).join('')}</ul></div>`;
   const opts = L('tradeOpts');
   Q.innerHTML = `<div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><span class="lab">${fmt(L('qOf'), { n: t.i + 1, t: n })}</span><button class="ghost" id="tStop">${L('tradeStop')}</button></div>
   <div class="progress"><span style="width:${Math.round((t.i / n) * 100)}%"></span></div>
@@ -1123,7 +1227,10 @@ function renderTrade() {
 function setTrades(tr) {
   // undo the previous round's nudges, then apply the new ones: slider changes made in between are kept
   W = applyTrades(
-    applyTrades({ ...W }, (ANS.tr || []).map(x => ({ ...x, v: -x.v }))),
+    applyTrades(
+      { ...W },
+      (ANS.tr || []).map(x => ({ ...x, v: -x.v }))
+    ),
     tr
   );
   ANS.tr = tr;
@@ -1147,12 +1254,13 @@ function renderTradeDone() {
   const up = moved.filter(k => W[k] > t.w0[k]),
     down = moved.filter(k => W[k] < t.w0[k]),
     top = topMatch();
-  const line = (ks, cls, sym) => (ks.length ? `<p class="tmove ${cls}"><b>${sym}</b> ${ks.map(FL).join(', ')}</p>` : '');
+  const line = (ks, cls, sym) =>
+    ks.length ? `<p class="tmove ${cls}"><b>${sym}</b> ${ks.map(FL).join(', ')}</p>` : '';
   Q.innerHTML = `<span class="lab">${L('doneLab')}</span><div class="qtitle">${L('tradeDoneT')}</div>
   ${moved.length ? `<div class="tmoves"><p class="meta">${L('tradeMoved')}</p>${line(up, 'up', '↑ ' + L('tradeUp'))}${line(down, 'down', '↓ ' + L('tradeDown'))}</div>` : `<p class="meta qsub">${L('tradeSame')}</p>`}
   ${top ? `<p class="meta qsub">${t.top0 && t.top0 !== top ? fmt(L('tradeTopNew'), { p: dn(top), o: dn(t.top0) }) : fmt(L('tradeTopSame'), { p: dn(top) })}</p>` : ''}
-  <div class="donenav"><button id="tUndo">${L('tradeUndo')}</button><button class="primary" id="tSee">${L('doneMap')}</button></div>`;
-  $('tSee').onclick = closeTrades;
+  <div class="donenav"><button id="tUndo">${L('tradeUndo')}</button><button class="primary" id="tSee">${L('finish')}</button></div>`;
+  $('tSee').onclick = () => closeTrades();
   $('tUndo').onclick = () => {
     ANS.tr = t.tr0;
     QUIZW = weightsFromQuiz(ANS);
@@ -1164,10 +1272,10 @@ function renderTradeDone() {
     closeTrades();
   };
 }
-function closeTrades() {
+function closeTrades(fromHistory) {
   TRADE = null;
-  QDONE = false;
   $('quizPanel').hidden = true;
   $('resPanel').hidden = false;
+  if (fromHistory !== true) navClose('quiz');
   window.scrollTo({ top: 0 });
 }
