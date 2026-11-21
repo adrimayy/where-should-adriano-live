@@ -211,7 +211,8 @@ def images(files):
 
 
 def slug(s):
-    return re.sub(r'-+', '-', re.sub(r"[^a-z0-9]+", '-', s.lower())).strip('-')
+    # Zillow's rule for a city's address: apostrophes and full stops go (Coeur d'Alene is coeur-dalene), spaces become hyphens
+    return re.sub(r'-+', '-', re.sub(r"[^a-z0-9]+", '-', re.sub(r"['’.]", '', s.lower()))).strip('-')
 
 
 def main():

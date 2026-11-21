@@ -64,7 +64,7 @@ Working files (`build/`, `dist/`) are not part of the repository. Code is format
   NUTS 2 boundaries from github.com/eurostat/Nuts2json (needs `shapely`).
 - **Car dependence (ITDP Atlas):** `pipeline/import_itdp.py` with the `atlas_cities_*.csv` files from atlas.itdp.org.
 - **Freedom House, UNODC homicides, ILO working hours:** `pipeline/import_world.py`.
-- **Outside links and photos:** `python3 pipeline/import_places.py` (needs the network; asks Wikidata and Wikimedia Commons, and writes a report of matches to look at), then `python3 pipeline/write_places.py`.
+- **Outside links and photos:** `python3 pipeline/import_places.py` (needs the network; asks Wikidata and Wikimedia Commons, and writes a report of matches to look at), then `python3 pipeline/write_places.py`. Reddit only answers a home connection: `python3 pipeline/check_reddit.py`, then copy `build/reddit_check.json` to `pipeline/input/`.
 - **Map lakes:** `pipeline/import_lakes.py` with Natural Earth's `ne_110m_lakes.geojson` and `ne_50m_lakes.geojson`.
 - Each importer's docstring lists the exact files and where to download them; each output file records the files' checksums.
 - **Where a language works, or a visa rule:** `pipeline/sources/languages.py` or `work_rights.py`, then `python3 build.py`.

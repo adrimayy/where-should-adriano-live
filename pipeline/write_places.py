@@ -4,8 +4,14 @@
 
 The page loads data/places.js only when someone opens a place. Only what was checked goes out:
   - a Wikipedia article: the article Wikidata lists for the place, in each of the page's languages that has one
-  - a subreddit: only when Reddit answered for it and it is public (rstat 200 in places.json)
-  - a housing page: only when the page itself answered and names the city (zstat 200)
+  - a subreddit: only when Reddit answered for it, it is public, not 18+ and has at least 200 members. Reddit
+    refuses automated checks from servers, so that check is pipeline/check_reddit.py, run from a home connection;
+    its result is pipeline/input/reddit_check.json. No result for a subreddit, no link.
+  - a housing page (US cities, Zillow): Zillow refuses automated visits altogether, so its pages cannot be opened
+    one by one. A city gets the link when it is in Zillow's own published list of cities under the same name and
+    state (zlist in places.json), with the address built by Zillow's rule: lower case, hyphens for spaces,
+    apostrophes and full stops dropped, "Saint" spelled out, then the state. The rule was checked on 21 Nov 2026
+    against Chicago (opened) and Saint Cloud, Washington DC and Coeur d'Alene (Zillow's addresses in search results).
   - a photo: only one that passed the size checks and is not in pipeline/input/photos_skipped.txt
 Per city:    [Wikidata id, English article, other-language articles, subreddit, housing page, photo file, author, licence]
 Per country: [Wikidata id, English article, other-language articles]
@@ -39,6 +45,9 @@ def main():
     t = (ROOT / 'data' / 'atlas.js').read_text(encoding='utf8')
     A = json.loads(t[t.index('=') + 1:].rstrip().rstrip(';'))
     names = [c[0] for c in A['cities']]
+    f = INPUT / 'reddit_check.json'
+    RC = json.loads(f.read_text(encoding='utf8')).get('subs', {}) if f.exists() else {}
+    live = lambda r: bool(r) and r.get('status') == 200 and r.get('type') == 'public' and not r.get('over18') and (r.get('subscribers') or 0) >= 200
     out = dict(asof=P['asof'], c={}, n={})
     n = dict(article=0, sub=0, home=0, photo=0)
     for name in names:
@@ -46,8 +55,8 @@ def main():
         en, alt = articles(v)
         if not v.get('q') or not en:
             continue
-        sub = v['sub'] if v.get('rstat') == 200 and v.get('rtype') == 'public' and not v.get('r18') else 0
-        home = v['zslug'] if v.get('zstat') == 200 and fold(v.get('label') or name).split(' ')[0] in fold(v.get('ztitle', '')) else 0
+        sub = v['sub'] if v.get('sub') and live(RC.get(v['sub'])) else 0
+        home = v['zslug'] if v.get('zlist') and v.get('zslug') else 0
         row = [v['q'], en, alt, sub, home]
         if v.get('img') and name not in skip:
             row += [v['img'], v.get('artist', ''), v.get('lic', '')]
