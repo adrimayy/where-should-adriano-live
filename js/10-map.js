@@ -242,7 +242,7 @@ function maybeHires() {
         if (t && t !== before && t.objects) {
           if (!window.ATLAS_LAKES_HI)
             try {
-              await loadScript('data/lakes-hires.js');
+              await loadScript('data/lakes-hires.js?v=' + VER);
             } catch (e) {} // without them the standard lakes stay, slightly off the detailed shores
           HIRES = true;
           bindCountries(topoFeatures(t));

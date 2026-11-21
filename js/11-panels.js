@@ -488,7 +488,7 @@ const placesData = () =>
     _plP ||
     (window.ATLAS_PLACES // the one-file copy carries it along
       ? Promise.resolve(window.ATLAS_PLACES)
-      : loadScript('data/places.js').then(
+      : loadScript('data/places.js?v=' + VER).then(
           () => window.ATLAS_PLACES || {},
           () => ((_plP = null), {})
         )));

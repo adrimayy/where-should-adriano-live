@@ -64,6 +64,7 @@ Working files (`build/`, `dist/`) are not part of the repository. Code is format
   NUTS 2 boundaries from github.com/eurostat/Nuts2json (needs `shapely`).
 - **Car dependence (ITDP Atlas):** `pipeline/import_itdp.py` with the `atlas_cities_*.csv` files from atlas.itdp.org.
 - **Freedom House, UNODC homicides, ILO working hours:** `pipeline/import_world.py`.
+- **Each release:** raise the release number in `index.html` (`data-v` on `<html>` and every `?v=`) and add the release to `docs/CHANGELOG.md`. Browsers keep files by address, so the number is what makes them fetch the new ones. `tests/test_place.py` checks the two agree.
 - **Outside links and photos:** `python3 pipeline/import_places.py` (needs the network; asks Wikidata and Wikimedia Commons, and writes a report of matches to look at), then `python3 pipeline/write_places.py`.
 - **Map lakes:** `pipeline/import_lakes.py` with Natural Earth's `ne_110m_lakes.geojson` and `ne_50m_lakes.geojson`.
 - Each importer's docstring lists the exact files and where to download them; each output file records the files' checksums.

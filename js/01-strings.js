@@ -1846,7 +1846,7 @@ function loadLang(k, done) {
     return;
   }
   const s = document.createElement('script');
-  s.src = 'js/i18n/' + k + '.js';
+  s.src = 'js/i18n/' + k + '.js?v=' + VER;
   s.onload = done;
   s.onerror = done;
   document.head.appendChild(s);
