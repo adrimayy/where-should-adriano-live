@@ -145,6 +145,13 @@ in `js/07-quiz.js`).
   overlap, zoom limited by how close the nearest cities are.
 - Interface in 8 languages; a 6-question quiz with "Sharpen it" for the rest; a searchable place picker.
 - Code split into `index.html`, `css/`, `js/` and one data file made by `build.py`.
+- **What the score is made of, and a look at the place (v65):** a place's details listed all 26 factors in one run;
+  they now sit under eight groups, the group that counts most for the visitor first, each with how much of the score
+  rests on it. A group opens to its factors and, new on the plain page, the published figure behind each with its
+  source and year. Below that, a block that looks outside the page: a photo of the city (Wikimedia Commons, credited),
+  a real map of the place and its surroundings (OpenStreetMap data through OpenFreeMap) and links that go to that
+  place's own page elsewhere (Google Maps on its coordinates, its Wikipedia article in the page's language). Nothing in
+  the block is scored and none of it loads until a place is opened. No score changes.
 
 ## What held up
 

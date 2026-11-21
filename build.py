@@ -1,6 +1,6 @@
 """Rebuild the data file from the sources:
 
-    python3 build.py      # pipeline/sources + pipeline/input  ->  data/atlas.js, plus data/lakes-hires.js for the zoomed-in map
+    python3 build.py      # pipeline/sources + pipeline/input  ->  data/atlas.js, plus data/lakes-hires.js for the zoomed-in map and data/places.js for a place's outside links
 
 Steps: published numbers become 1-5 values (pipeline/score_published.py), then gaps are estimated (pipeline/fill_gaps.py).
 Only needed when data changes; a change to the page (index.html, css/, js/) needs no build.
@@ -57,4 +57,6 @@ out.write_text('// Every number the page shows. Made by build.py from pipeline/s
 hi = ROOT / 'data' / 'lakes-hires.js'
 hi.write_text('// Lakes for the detailed map outlines (Natural Earth 1:50m). Made by build.py from pipeline/input/lakes_50m.json.\n'
               'window.ATLAS_LAKES_HI=' + (INPUT / 'lakes_50m.json').read_text(encoding='utf8') + ';\n', encoding='utf8')
+# outside links and photo credits for a place's details: their own file, loaded when a place is opened
+run(ROOT / 'pipeline/write_places.py')
 print(f"built: {len(D['cities'])} cities, {len(D['countries'])} countries; data/atlas.js {out.stat().st_size // 1024} KB")

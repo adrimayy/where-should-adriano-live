@@ -15,6 +15,7 @@ index.html          The page's structure. It loads the three things below, in or
 css/atlas.css       How it looks.
 data/atlas.js       Every number the page shows, in one file. Made by build.py; don't edit by hand.
 data/lakes-hires.js Detailed lakes for the zoomed-in map, loaded on demand. Also made by build.py.
+data/places.js      Outside links and photo credits for a place's details, loaded when a place is opened. Also made by build.py.
 js/                 The page's code, one file per part, run in name order:
                     00 setup, 01 strings (English and Spanish), 02 factors and presets, 03 geography,
                     04 language and passport, 05 places, 06 scoring and the 120 recalculations, 07 quiz,
@@ -63,6 +64,7 @@ Working files (`build/`, `dist/`) are not part of the repository. Code is format
   NUTS 2 boundaries from github.com/eurostat/Nuts2json (needs `shapely`).
 - **Car dependence (ITDP Atlas):** `pipeline/import_itdp.py` with the `atlas_cities_*.csv` files from atlas.itdp.org.
 - **Freedom House, UNODC homicides, ILO working hours:** `pipeline/import_world.py`.
+- **Outside links and photos:** `python3 pipeline/import_places.py` (needs the network; asks Wikidata and Wikimedia Commons, and writes a report of matches to look at), then `python3 pipeline/write_places.py`.
 - **Map lakes:** `pipeline/import_lakes.py` with Natural Earth's `ne_110m_lakes.geojson` and `ne_50m_lakes.geojson`.
 - Each importer's docstring lists the exact files and where to download them; each output file records the files' checksums.
 - **Where a language works, or a visa rule:** `pipeline/sources/languages.py` or `work_rights.py`, then `python3 build.py`.
@@ -72,6 +74,8 @@ Working files (`build/`, `dist/`) are not part of the repository. Code is format
 ```
 python3 tests/test_page.py      # clicks through the quiz, results, a place's details and the language switch on desktop and mobile
 python3 tests/test_walk.py      # the visitor's path on a phone in all eight languages, the Back button, reload, reset, shared links
+python3 tests/test_place.py     # a place's details: the score in eight groups adds back to the score; outside links, photo and real map (stubbed)
+python3 tests/live_check.py     # by hand, with the network open: the real map, a real photo, screenshots to look at
 python3 tests/test_numbers.py   # checks specific numbers (money after rent, bands, rounding, rules)
 python3 tests/test_gestures.py  # pinch and pan keep the map under your fingers
 python3 tests/profiles.py       # top 10 for the sample take and three very different people
