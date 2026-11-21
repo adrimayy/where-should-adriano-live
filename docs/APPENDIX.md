@@ -569,12 +569,20 @@ None of this is scored. It is there so a person can look at a place the numbers 
   seal or locator map) with its author and licence from Wikimedia Commons. 641 cities have a photo; the others had
   none, or only one that was too small, a tall strip, or set aside when the photos were looked through
   (`pipeline/input/photos_skipped.txt`). Collected 21 Nov 2026.
-- **Links are exact or absent.** Google Maps opens on the place's own coordinates. Wikipedia opens the place's article,
-  in the page's language where one exists. A subreddit or a housing-listings page is shown only when that site itself
-  answered for that exact page when the data was collected; both Reddit and Zillow refuse automated checks from where
-  the data is built, so on 21 Nov 2026 neither has a button. `pipeline/import_places.py` records what it could and could not
-  check, and `pipeline/write_places.py` lets through only what was checked. Other countries' housing sites are not
-  covered. There are no search links.
+- **Links go to the place's own page or are absent.** Google Maps opens on the place's own coordinates. Wikipedia
+  opens the place's article, in the page's language where one exists. There are no search links.
+  - **Reddit:** the subreddit Wikidata records for the city, shown only when Reddit itself answered for it: it
+    exists, is public, is not marked 18+ and has at least 200 members. Reddit refuses automated checks from servers
+    and from automated browsers, so the check is `pipeline/check_reddit.py`, run from a home connection; its result is
+    kept in `pipeline/input/reddit_check.json`. A subreddit with no result has no button.
+  - **Housing (US cities, Zillow rentals):** Zillow refuses automated visits altogether (it let one page load, then
+    answered "access denied"), so its 395 pages could not be opened one by one. A city has the button when it is in
+    Zillow's own published list of cities under the same name and state, with the address built by Zillow's rule:
+    lower case, hyphens for spaces, apostrophes and full stops dropped, "Saint" spelled out, then the state. On
+    21 Nov 2026 the rule was checked against Chicago (opened) and against Zillow's own addresses in search results
+    for Saint Cloud, Washington DC and Coeur d'Alene; that last one showed the apostrophe rule, which had been wrong.
+    So a wrong address among the other cities is possible, though none is known. Housing sites for other countries
+    are not covered.
 - **The real map** is drawn by MapLibre GL JS (version 5.24.1, the last that loads as a plain script) from OpenFreeMap's
   tiles, which need no key. The world map of scores stays as it is: its job is colour by fit, and streets under it would
   compete with that. The real map loads only when its box is about to scroll into view and takes itself away if the

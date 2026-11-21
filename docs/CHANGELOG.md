@@ -162,6 +162,9 @@ in `js/07-quiz.js`).
   and a full-screen view; the photo opens the Wikipedia article and credits author, licence and source. Fixed along
   the way: Enter in the find box opened a place and closed it again; a shortest day of 9 hours 59.6 minutes showed as
   "9:60". No score changes.
+- **Housing links (v67):** a "Homes for rent" button for the 395 US cities that are in Zillow's own list of cities.
+  Zillow refuses automated visits, so the addresses follow its rule and were checked on four cities, not one by
+  one. The Reddit button waits for `pipeline/check_reddit.py`, which has to be run from a home connection.
 
 ## What held up
 

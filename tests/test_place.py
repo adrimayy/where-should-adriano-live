@@ -109,8 +109,14 @@ RAW = json.loads((ROOT / 'pipeline' / 'input' / 'places.json').read_text(encodin
 names = {c[0] for c in A['cities']}
 check('places: every entry is a place in the atlas, with a Wikidata id and an English article', set(P['c']) <= names and set(P['n']) <= {str(int(k)) for k in A['countries']} and all(re.fullmatch(r'Q\d+', v[0]) and v[1] for v in list(P['c'].values()) + list(P['n'].values())))
 check('places: nearly every city and country has its article', len(P['c']) >= len(names) - 5 and len(P['n']) >= len(A['countries']) - 3, (len(P['c']), len(P['n'])))
-check('places: a subreddit or a housing page is listed only where the site itself answered for it',
-      all((len(v) < 4 or not v[3] or RAW['cities'][k].get('rstat') == 200) and (len(v) < 5 or not v[4] or RAW['cities'][k].get('zstat') == 200) for k, v in P['c'].items()))
+RCF = ROOT / 'pipeline' / 'input' / 'reddit_check.json'
+RC = json.loads(RCF.read_text(encoding='utf8'))['subs'] if RCF.exists() else {}
+live = lambda r: bool(r) and r.get('status') == 200 and r.get('type') == 'public' and not r.get('over18') and (r.get('subscribers') or 0) >= 200
+check('places: a subreddit is listed only where Reddit itself answered for it (public, not 18+, 200 members or more)',
+      all(len(v) < 4 or not v[3] or live(RC.get(v[3])) for v in P['c'].values()))
+homes = {k: v[4] for k, v in P['c'].items() if len(v) > 4 and v[4]}
+check('places: a housing page is listed only for a city in Zillow\'s own list, at an address in Zillow\'s form',
+      all(RAW['cities'][k].get('zlist') and re.fullmatch(r'[a-z]+(-[a-z]+)*-[a-z]{2}', s) for k, s in homes.items()) and homes.get("Coeur d'Alene") == 'coeur-dalene-id' and homes.get('St. Louis') == 'saint-louis-mo' and homes.get('Chicago') == 'chicago-il' and homes.get('Washington DC') == 'washington-dc', (len(homes), homes.get("Coeur d'Alene")))
 ph = [v for v in P['c'].values() if len(v) > 5 and v[5]]
 check('places: every photo has a licence, and a file that is a picture', len(ph) > 400 and all(len(v) > 7 and v[7] and re.search(r'\.(jpe?g|png|webp)$', v[5], re.I) for v in ph), len(ph))
 print(f"\n{len(fails)} failed" if fails else "\nall passed"); sys.exit(1 if fails else 0)
