@@ -246,6 +246,87 @@ function calcTable(e) {
   return `<details class="calc" id="calcT" open><summary><b>${L('calcTitle')}</b></summary><div class="biastable"><table><thead><tr><th>${L('calcFactor')}</th><th>${L('calcSrc')}</th><th>${L('calcUsed')}</th><th>${L('calcW')}</th><th>${L('calcPts')}</th></tr></thead><tbody>${body}<tr><td><b>${L('calcTotal')}</b></td><td></td><td></td><td></td><td class="mono"><b>${AGG === 'geo' ? e.score : tot.toFixed(1)}</b></td></tr></tbody></table></div><p class="meta">${L('calcNote')}${AGG === 'geo' ? ' ' + L('geoNote') : ''}</p>
   ${e.rubin ? `<p class="meta mono">${fmt(L('rubinLine'), { t: e.rubin.sd.toFixed(1), b: e.rubin.between.toFixed(1), w: e.rubin.within.toFixed(1) })}</p>` : ''}</details>`;
 }
+// ---- compared with where you live now ----
+// A score out of 5 says little on its own; "43 minutes there, 30 here" says what would change. For the factors the
+// person weighs: this place's published figure next to the same figure for their home, in the plain words of the
+// quiz's examples (swText). Only figures measured the same way in both places (SWING: the same source, or sources that
+// report the same thing; a city against a city, a country against a country), never a filled-in value, and nothing
+// when the two places share the figure.
+// Each line is better (good), worse, or about the same. "About the same" takes both tests: the two figures are within
+// 10% of each other, and on the page's 1-5 scale they are closer than the factor's assumed measurement error (ME).
+// A factor is often scored from more than the one figure a sentence can hold (healthcare: three sources; access to
+// transit: five figures in one). Where the figure points one way and the page's own score for the two places points
+// the other, the figure alone would mislead, so nothing is said about that factor.
+// Real differences come first, most important first.
+function homeFigures(e) {
+  const h = MODE === 'yours' ? HOMES[0] : null;
+  if (!h || h === e) return [];
+  const city = x => (x.type === 'city' ? x : null),
+    country = x => (x.type === 'city' ? x.countryEnt || null : x),
+    out = [];
+  // o.val: the figure shown (o.lo: lower is better); o.score: the page's 1-5 value for it; o.tol: the smallest gap
+  // that counts; o.same: its own test for "about the same"; o.k: the factor, to check the figure against its score
+  const pair = (kind, A, B, o) => {
+    if (!A || !B || A === B) return null;
+    const x = o.val(A),
+      y = o.val(B);
+    if (x == null || y == null) return null;
+    const t = swText(kind, A, B, x, y);
+    if (!t) return null;
+    const good = o.lo ? y < x : y > x,
+      d = o.score(B) - o.score(A),
+      close = Math.abs(x - y) <= 0.1 * Math.max(Math.abs(x), Math.abs(y)),
+      whole = X => (o.k && X.how && X.how[o.k] === 'obs' && X.v[o.k] != null ? X.v[o.k] : null),
+      D = whole(A) != null && whole(B) != null ? whole(B) - whole(A) : 0;
+    if ((Math.abs(d) >= o.tol && d > 0 !== good) || (Math.abs(D) >= o.tol && D > 0 !== good)) return null;
+    return { t, good, same: o.same ? o.same(x, y) : close && Math.abs(d) < o.tol, a: A.key, b: B.key };
+  };
+  [...FACTORS]
+    .filter(f => W[f.k] > 0)
+    .sort((a, b) => W[b.k] - W[a.k])
+    .forEach(f => {
+      const k = f.k;
+      let r = null;
+      // worked out from the map: under half an hour of daylight, or the same distance band from the sea, is no difference
+      if (k === 'day')
+        r = pair('day', city(h), city(e), {
+          val: x => (x.hasGeo ? x.dayH : null),
+          score: x => x.dayH,
+          tol: 0.5,
+          same: (x, y) => Math.abs(x - y) < 0.5,
+        });
+      else if (k === 'sea')
+        r = pair('sea', city(h), city(e), {
+          val: x => (x.coast != null ? x.coast : null),
+          lo: 1,
+          score: x => seaBand(x.coast),
+          tol: 0.5,
+          same: (x, y) => seaBand(x) === seaBand(y),
+        });
+      else {
+        // pay that comes from elsewhere (remote work, a pension, a student budget): what counts is prices there
+        const kind = k === 'pay' && FIELD === 'remote' ? 'cost' : k,
+          S = SWING[kind],
+          tol = ME[kind] || 0.25;
+        if (!S) return;
+        // typical pay for the person's kind of work, where both cities have pay and rent figures
+        if (k === 'pay' && e.payAdj) {
+          const val = x => payJobLeft(x, PAYJOB);
+          r = pair('payjob', city(h), city(e), { val, score: x => moneyScore(val(x)), tol, k });
+        }
+        for (const g of r ? [] : S.g) {
+          const val = x => swingVal(x, kind, g.s),
+            score = x => ((x = swingRow(x, kind, g.s)), x[3] != null ? x[3] : x[2]),
+            both = city(h) && city(e) && val(h) != null && val(e) != null,
+            at = (g.t || (both ? 'city' : 'country')) === 'city' ? city : country;
+          r = pair(kind, at(h), at(e), { val, lo: S.lo, score, tol, k });
+          if (r) break;
+        }
+      }
+      if (r) out.push({ k, ...r });
+    });
+  return out.filter(x => !x.same).concat(out.filter(x => x.same));
+}
 // Two or three plain sentences, from published figures only: where this place sits among the others in the atlas,
 // on factors you weigh. Comparisons within the atlas, not superlatives, so they hold up; rounded down to 5%.
 function factLines(e) {
@@ -293,8 +374,13 @@ function detail(e) {
   const big = `<div class="big">${r5(e.score)}<small>/100</small></div>`;
   const rangeLine = `<div class="calc-only"><div class="drange">${rbar(e)}</div><p class="mono muted">${fmt(L('rangeLine'), { lo: e.lo, hi: e.hi, rlo: e.rlo, rhi: e.rhi, n: e.rn })} · ${fmt(L('probLine'), { f: pct(e.pFit), t: pct(e.pTop) })}${e.impShare > 0.005 ? ' · ' + fmt(L('impShare'), { p: Math.round(e.impShare * 100) }) : ''}</p><p class="meta">${L('roundNote')} <button class="ghost linkbtn" id="toCalc">${L('seeCalc')}</button></p></div>`;
   const mins = Math.round((e.dayH % 1) * 60);
+  // the five that matter most to the person; the rest come with the calculations
+  const hf = homeFigures(e),
+    vsHome = hf.length
+      ? `<div class="vshome"><span class="lab">${fmt(L('vsHomeT'), { a: dn(HOMES[0]) })}</span><ul class="facts">${hf.map((x, i) => `<li class="${x.same ? 'same' : x.good ? 'good' : 'bad'}${i >= 5 ? ' calc-only' : ''}">${x.t}</li>`).join('')}</ul><p class="meta calc-only">${L('vsHomeNote')}</p></div>`
+      : '';
   D.innerHTML = `<div class="dhead"><div style="display:flex;flex-direction:column;gap:6px;min-width:0"><span class="eyebrow">${e.type === 'city' ? L('city') + ' · ' + countryOf(e) : L('country')}${e.est ? ' · ' + L('estimated') : ''}</span><h2 style="font-size:24px">${dn(e)}</h2><div class="toggles">${chip(e.tier)}<button class="chipbtn" id="cmpBtn">${ui.cmp.includes(e) ? L('removeCmp') : L('addCmp')}</button></div></div>${big}</div>
-  ${rangeLine}<p style="font-weight:500">${whyLine(e)}${e.gated ? L('dealRule') : ''}</p>${factLines(e)}<p class="meta">${noteOf(e) || ''}</p>${e.natl ? `<p class="meta">${L('natlNote')}</p>` : ''}
+  ${rangeLine}<p style="font-weight:500">${whyLine(e)}${e.gated ? L('dealRule') : ''}</p>${factLines(e)}${vsHome}<p class="meta">${noteOf(e) || ''}</p>${e.natl ? `<p class="meta">${L('natlNote')}</p>` : ''}
   ${
     e.hasGeo
       ? `<p class="mono muted">${fmt(L('shortest'), { h: Math.floor(e.dayH), m: String(mins).padStart(2, '0') })}${

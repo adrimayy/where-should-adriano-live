@@ -620,6 +620,7 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | passHere | I am allowed to work in the country where I live now ({c}) | Tengo permiso para trabajar en el país donde vivo ahora ({c}) | |
 | swTz | When it is {t} in {h}, it is {x} in {a} and {y} in {b}. | Cuando son las {t} en {h}, son las {x} en {a} y las {y} en {b}. | |
 | swCost | Prices with rent (New York = 100): {x} in {a}, {y} in {b}. | Precios con renta (Nueva York = 100): {x} en {a}, {y} en {b}. | |
+| vsHomeT | Compared with {a} | Comparado con {a} | |
 | qN | Question {n} | Pregunta {n} | |
 | calcTz | clocks {h}h apart from home | {h} h de diferencia horaria con casa | |
 | calcSea | {km} km to the sea or a great lake | {km} km hasta el mar o un gran lago | |

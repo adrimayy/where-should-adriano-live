@@ -429,9 +429,13 @@ function rawNum(k, str) {
   const m = k === 'pay' ? /=\s*\$(-?[\d,.]+)/.exec(str) || /\$(-?[\d,.]+)/.exec(str) : /(-?[\d,]*\.?\d+)/.exec(str);
   return m ? +m[1].replace(/,/g, '') : null;
 }
+// a place's own published figure for a factor, from the first of the given sources that has one: [source, text, 1-5 band, exact 1-5 value]
+function swingRow(e, k, srcs) {
+  return ((RAWD[e.type === 'city' ? 'city:' + e.name : 'c:' + e.id] || {})[k] || []).find(r => srcs.includes(r[0])) || null;
+}
 function swingVal(e, k, srcs) {
-  const rows = ((RAWD[e.type === 'city' ? 'city:' + e.name : 'c:' + e.id] || {})[k] || []).filter(r => srcs.includes(r[0]));
-  return rows.length ? rawNum(k, String(rows[0][1])) : null;
+  const r = swingRow(e, k, srcs);
+  return r ? rawNum(k, String(r[1])) : null;
 }
 let FAME = null;
 // how widely known a place is: a city's metro population, a country's number of cities on the map
@@ -464,21 +468,40 @@ function swingPair(anchor, type, val, lo, far = 0.15) {
 const numLoc = () => (LANG === 'es' ? 'es-MX' : LANG);
 const nfmt = (x, d = 0) => x.toLocaleString(numLoc(), { maximumFractionDigits: d, minimumFractionDigits: 0 });
 const hm = h => Math.floor(h) + ':' + String(Math.round((h % 1) * 60)).padStart(2, '0');
+const usd = v => (v < 0 ? '−$' : '$') + nfmt(Math.abs(v));
+// One figure for two places, in everyday words (the sw* strings). kind: a factor, or 'payjob' (money left on typical
+// pay for the person's kind of work) or 'cost' (prices with rent). '' when both places read the same.
+function swText(kind, A, B, x, y) {
+  const line = (id, xs, ys, more) => (xs === ys ? '' : fmt(L(id), { a: dn(A), b: dn(B), x: xs, y: ys, ...more }));
+  if (kind === 'day') return line('swDay', hm(x), hm(y));
+  if (kind === 'sea') return line('swSea', nfmt(Math.max(1, x)), nfmt(Math.max(1, y)));
+  if (kind === 'payjob') return line('swPayJob', usd(x), usd(y));
+  if (kind === 'pay') return line('swPay', usd(x), usd(y));
+  if (kind === 'commute')
+    return line('swCommute', nfmt(x), nfmt(y), { h: nfmt(Math.round((Math.abs(x - y) * 2 * 230) / 60 / 5) * 5) });
+  if (kind === 'hours') return line('swHours', nfmt(x), nfmt(y), { w: nfmt(Math.abs(x - y) / 40) });
+  const d = ['cult', 'air', 'jobs', 'safe', 'home'].includes(kind) ? 1 : 0;
+  return line('sw' + kind[0].toUpperCase() + kind.slice(1), nfmt(x, d), nfmt(y, d));
+}
+// money left after rent on typical pay for a kind of work (rounded to $10), where the city's pay and rent are both known
+function payJobLeft(e, jb) {
+  const sh = e.type === 'city' && MONEYD[e.name] && JOBS[jb] && JOBS[jb][3] ? jobShare(e, jb) : null;
+  return sh ? Math.round(moneyLeftAt(e, sh.r) / 10) * 10 : null;
+}
 function qSwing(k) {
   const ref = HOMEKEYS.map(x => byKey[x]).find(Boolean) || (picked(ANS.perm) ? byIso[(ANS.perm.sel || [])[0]] : null),
     refCity = ref && ref.type === 'city' ? ref : null,
     refCountry = ref ? (ref.type === 'city' ? byIso[isoOf(ref)] : ref) : null,
     T = id => L(id);
-  const line = (id, A, B, x, y, more) => (x === y ? '' : fmt(T(id), { a: dn(A), b: dn(B), x, y, ...more }));
   // worked out from the map, not from a published table
   if (k === 'day') {
     // daylight is geometry, so there are no freak values to avoid: take the far end
     const pr = swingPair(refCity, 'city', e => (e.hasGeo ? e.dayH : null), 0, 0.03);
-    return pr ? line('swDay', pr[0], pr[1], hm(pr[0].dayH), hm(pr[1].dayH)) : '';
+    return pr ? swText('day', pr[0], pr[1], pr[0].dayH, pr[1].dayH) : '';
   }
   if (k === 'sea') {
     const pr = swingPair(refCity, 'city', e => e.coast, 1);
-    return pr ? line('swSea', pr[0], pr[1], nfmt(Math.max(1, pr[0].coast)), nfmt(Math.max(1, pr[1].coast))) : '';
+    return pr ? swText('sea', pr[0], pr[1], pr[0].coast, pr[1].coast) : '';
   }
   if (k === 'fam' || k === 'tz') {
     if (!ref || !ref.hasGeo) return '';
@@ -507,16 +530,12 @@ function qSwing(k) {
   }
   const S = SWING[k];
   if (!S) return '';
-  const usd = v => (v < 0 ? '−$' : '$') + nfmt(Math.abs(v));
-  // money left after rent on typical pay for the person's kind of work (rounded to $10), where pay and rent are both known
+  // money left after rent on typical pay for the person's kind of work, where pay and rent are both known
   const jb = typeof ANS.job === 'number' ? ANS.job : -1;
   if (k === 'pay' && JOBS[jb] && JOBS[jb][3]) {
-    const val = e => {
-      const sh = MONEYD[e.name] ? jobShare(e, jb) : null;
-      return sh ? Math.round(moneyLeftAt(e, sh.r) / 10) * 10 : null;
-    },
+    const val = e => payJobLeft(e, jb),
       pr = swingPair(refCity && val(refCity) != null ? refCity : null, 'city', val, 0);
-    if (pr) return line('swPayJob', pr[0], pr[1], usd(val(pr[0])), usd(val(pr[1])));
+    if (pr) return swText('payjob', pr[0], pr[1], val(pr[0]), val(pr[1]));
   }
   for (const g of S.g) {
     const type = g.t || (refCity && swingVal(refCity, k, g.s) != null ? 'city' : 'country'),
@@ -525,15 +544,7 @@ function qSwing(k) {
     if (anchor && val(anchor) == null && g !== S.g[S.g.length - 1]) continue; // try the next kind of figure
     const pr = swingPair(anchor && val(anchor) != null ? anchor : null, type, val, S.lo);
     if (!pr) continue;
-    const [A, B] = pr,
-      x = val(A),
-      y = val(B);
-    if (k === 'commute') return line('swCommute', A, B, nfmt(x), nfmt(y), { h: nfmt(Math.round((Math.abs(x - y) * 2 * 230) / 60 / 5) * 5) });
-    if (k === 'hours') return line('swHours', A, B, nfmt(x), nfmt(y), { w: nfmt(Math.abs(x - y) / 40) });
-    if (k === 'pay') return line('swPay', A, B, usd(x), usd(y));
-    const id = 'sw' + k[0].toUpperCase() + k.slice(1),
-      d = k === 'cult' || k === 'air' || k === 'jobs' || k === 'safe' || k === 'home' ? 1 : 0;
-    return line(id, A, B, nfmt(x, d), nfmt(y, d));
+    return swText(k, pr[0], pr[1], val(pr[0]), val(pr[1]));
   }
   return '';
 }

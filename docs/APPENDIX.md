@@ -308,6 +308,23 @@ What the quiz does with that:
 - Nothing is scored on screen before there is a take: the quiz finished, a saved take in this browser, or a shared
   link. Until then the page is one card with the question and the quiz button; there is no map to skip to. "Close"
   inside the quiz changes nothing: it goes back to the results there were, or to the first card.
+- A place's details compare it with the home given in the quiz ("Compared with New York City"), because a 3/5 says
+  little on its own: for each factor the person weighs, the place's published figure next to the same figure for their
+  home, in the sentences the quiz uses for its examples (minutes each way, dollars left after rent on typical pay for
+  their kind of work, murders per 100,000, hours worked a year, and so on). Rules (`homeFigures`, `js/11-panels.js`):
+  - Only figures measured the same way in both places: the same source, or sources that report the same thing, and a
+    city against a city or a country against a country. Never a filled-in value. Two places in the same country get
+    no line for a figure that only exists for the country.
+  - Each line is marked better, worse or about the same. "About the same" needs both: the two figures within 10% of
+    each other, and closer on the 1–5 scale than the factor's assumed measurement error.
+  - Many factors are scored from more than the one figure a sentence can hold (healthcare from three sources, access
+    to transit from five figures). Where that figure points one way and the page's score for the two places points
+    the other, the line is left out: the WHO coverage index is 88 for the United States and 85 for the Netherlands,
+    but with its other two sources the page scores healthcare in the Netherlands well above the United States
+    (4.95 against 2.85 out of 5), so nothing is said.
+  - Real differences come first, the person's most important factors first; the plain view shows five, the rest come
+    with the calculations. With New York City as home a typical place gets 8 lines (2 to 14); with a home that has few
+    published figures of its own, such as East Hampton, 4, mostly country against country.
 - Every place lookup (home bases, passports) uses the same searchable list.
 - After the quiz, the answers live in the "What matters to you" panel next to the results: each factor is off, counts
   (weight 1) or ★ counts double (2), so a change shows up in the ranking straight away. Sliders remain for finer weights.
