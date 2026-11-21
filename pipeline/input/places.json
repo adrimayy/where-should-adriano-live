@@ -197,10 +197,17 @@
 }
 },
 "Ahvaz": {
+"artist": "Milad Hamadi",
 "editions": 94,
+"h": 490,
+"img": "1399011818071582320074684_زمین_نفس_می_کشد.jpg",
 "km": 1.4,
 "label": "Ahvaz",
+"lic": "CC BY 4.0",
+"licurl": "https://creativecommons.org/licenses/by/4.0",
 "q": "Q170366",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e1/1399011818071582320074684_%D8%B2%D9%85%DB%8C%D9%86_%D9%86%D9%81%D8%B3_%D9%85%DB%8C_%DA%A9%D8%B4%D8%AF.jpg/250px-1399011818071582320074684_%D8%B2%D9%85%DB%8C%D9%86_%D9%86%D9%81%D8%B3_%D9%85%DB%8C_%DA%A9%D8%B4%D8%AF.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 800,
 "wiki": {
 "ar": "الأهواز",
 "de": "Ahvaz",
@@ -508,19 +515,12 @@
 "zslug": "amarillo-tx"
 },
 "Ames": {
-"artist": "User:Raivena",
 "editions": 61,
-"h": 3002,
-"img": "Ames_Montage.jpg",
 "km": 1.0,
 "label": "Ames",
-"lic": "CC BY 3.0",
-"licurl": "https://creativecommons.org/licenses/by/3.0",
 "q": "Q470273",
 "st": "IA",
 "sub": "ames",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/15/Ames_Montage.jpg/250px-Ames_Montage.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1856,
 "wiki": {
 "ar": "أيمز",
 "de": "Ames (Iowa)",
@@ -791,25 +791,26 @@
 "zslug": "asheville-nc"
 },
 "Ashgabat": {
-"artist": "P. Hughes",
-"editions": 33,
-"h": 1970,
-"img": "Ashgabat_-_Main_airport_terminal.jpg",
-"km": 4.0,
-"label": "Ashgabat International Airport",
-"lic": "CC BY 4.0",
-"licurl": "https://creativecommons.org/licenses/by/4.0",
-"q": "Q1148527",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5b/Ashgabat_-_Main_airport_terminal.jpg/250px-Ashgabat_-_Main_airport_terminal.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 3549,
+"artist": "Bjørn Christian Tørrissen",
+"editions": 187,
+"h": 3754,
+"img": "Neutrality-Road-Ashgabat-2015.JPG",
+"km": 4.8,
+"label": "Ashgabat",
+"lic": "CC BY-SA 4.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
+"q": "Q23438",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ea/Neutrality-Road-Ashgabat-2015.JPG/250px-Neutrality-Road-Ashgabat-2015.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 5106,
 "wiki": {
-"ar": "مطار عشق آباد الدولي",
-"de": "Flughafen Aşgabat",
-"en": "Ashgabat International Airport",
-"es": "Aeropuerto Internacional de Asjabad",
-"fr": "Aéroport d'Achgabat",
-"pt": "Aeroporto Internacional de Asgabade",
-"zh": "阿什哈巴德国际机场"
+"ar": "عشق آباد",
+"de": "Aşgabat",
+"en": "Ashgabat",
+"es": "Asjabad",
+"fr": "Achgabat",
+"hi": "अश्क़ाबाद",
+"pt": "Asgabade",
+"zh": "阿什哈巴德"
 }
 },
 "Asmara": {
@@ -1173,18 +1174,11 @@
 "zslug": "bakersfield-ca"
 },
 "Baku": {
-"artist": "Ludvig14",
 "editions": 249,
-"h": 4795,
-"img": "Baku_004_1953c.jpg",
 "km": 5.7,
 "label": "Baku",
-"lic": "CC BY-SA 4.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
 "q": "Q9248",
 "sub": "baku",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e4/Baku_004_1953c.jpg/250px-Baku_004_1953c.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 4000,
 "wiki": {
 "ar": "باكو",
 "de": "Baku",
@@ -1224,49 +1218,65 @@
 "zslug": "baltimore-md"
 },
 "Bamako": {
-"artist": "Lin Diallo",
-"editions": 32,
-"h": 2604,
-"img": "L'aéroport_international_Président_Modibo_Keïta_de_Bamako-Senou.jpg",
-"km": 12.9,
-"label": "Bamako-Sénou International Airport",
+"artist": "Mark Fischer",
+"editions": 177,
+"h": 2906,
+"img": "Bamako_ACI_2000_Aeriel.jpg",
+"km": 1.1,
+"label": "Bamako",
 "lic": "CC BY-SA 4.0",
 "licurl": "https://creativecommons.org/licenses/by-sa/4.0",
-"q": "Q721258",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/67/L%27a%C3%A9roport_international_Pr%C3%A9sident_Modibo_Ke%C3%AFta_de_Bamako-Senou.jpg/250px-L%27a%C3%A9roport_international_Pr%C3%A9sident_Modibo_Ke%C3%AFta_de_Bamako-Senou.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 4624,
+"q": "Q3703",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e5/Bamako_ACI_2000_Aeriel.jpg/250px-Bamako_ACI_2000_Aeriel.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 5172,
 "wiki": {
-"ar": "مطار باماكو موديبو كيتا الدولي",
-"de": "Flughafen Bamako",
-"en": "Modibo Keita International Airport",
-"es": "Aeropuerto Internacional de Bamako-Sénou",
-"fr": "Aéroport international Modibo-Keïta",
-"pt": "Aeroporto Internacional Modibo Keita",
-"zh": "巴馬科國際機場"
+"ar": "باماكو",
+"de": "Bamako",
+"en": "Bamako",
+"es": "Bamako",
+"fr": "Bamako",
+"hi": "बमाको",
+"pt": "Bamaco",
+"zh": "巴馬科"
 }
 },
 "Bangkok": {
-"artist": "Diego Delso",
-"editions": 4,
-"h": 4239,
-"img": "Hotel_Dusit_Thani,_Bangkok,_Tailandia,_2013-08-22,_DD_01.jpg",
-"km": 5.4,
-"label": "Dusit Thani Bangkok",
-"lic": "CC BY-SA 3.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
-"q": "Q6673698",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/82/Hotel_Dusit_Thani%2C_Bangkok%2C_Tailandia%2C_2013-08-22%2C_DD_01.jpg/250px-Hotel_Dusit_Thani%2C_Bangkok%2C_Tailandia%2C_2013-08-22%2C_DD_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 3076,
+"artist": "Preecha.MJ",
+"editions": 263,
+"h": 1200,
+"img": "Temple_of_the_Emerald_of_buddha_or_Wat_Phra_Kaew_(cropped).jpg",
+"km": 2.1,
+"label": "Bangkok",
+"lic": "CC BY-SA 4.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
+"q": "Q1861",
+"sub": "bangkok",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/20/Temple_of_the_Emerald_of_buddha_or_Wat_Phra_Kaew_%28cropped%29.jpg/250px-Temple_of_the_Emerald_of_buddha_or_Wat_Phra_Kaew_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 1800,
 "wiki": {
-"en": "Dusit Thani Bangkok"
+"ar": "بانكوك",
+"de": "Bangkok",
+"en": "Bangkok",
+"es": "Bangkok",
+"fr": "Bangkok",
+"hi": "बैंकॉक",
+"pt": "Banguecoque",
+"zh": "曼谷"
 }
 },
 "Bangor": {
+"artist": "",
 "editions": 64,
+"h": 480,
+"img": "BangorME_Downtown.jpg",
 "km": 0.4,
 "label": "Bangor",
+"lic": "CC BY 2.0",
+"licurl": "https://creativecommons.org/licenses/by/2.0",
 "q": "Q327012",
 "st": "ME",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/60/BangorME_Downtown.jpg/250px-BangorME_Downtown.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 640,
 "wiki": {
 "ar": "بانجور (مين)",
 "de": "Bangor (Maine)",
@@ -1351,51 +1361,35 @@
 },
 "Barnstable": {
 "artist": "John Phelan",
-"editions": 53,
+"editions": 52,
 "h": 2448,
 "img": "Barnstable_County_Courthouse,_Barnstable_MA.jpg",
-"km": 5.5,
-"label": "Barnstable County",
+"km": 5.6,
+"label": "Barnstable",
 "lic": "CC BY-SA 3.0",
 "licurl": "https://creativecommons.org/licenses/by-sa/3.0",
-"q": "Q54089",
+"q": "Q808535",
 "st": "MA",
 "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4a/Barnstable_County_Courthouse%2C_Barnstable_MA.jpg/250px-Barnstable_County_Courthouse%2C_Barnstable_MA.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
 "w": 3264,
 "wiki": {
-"ar": "مقاطعة بارنستابل (ماساتشوستس)",
-"de": "Barnstable County",
-"en": "Barnstable County, Massachusetts",
-"es": "Condado de Barnstable",
-"fr": "Comté de Barnstable",
-"pt": "Condado de Barnstable",
-"zh": "巴恩斯特布爾縣"
+"ar": "بارنستابل",
+"de": "Barnstable",
+"en": "Barnstable, Massachusetts",
+"es": "Barnstable (Massachusetts)",
+"fr": "Barnstable (Massachusetts)",
+"pt": "Barnstable (Massachusetts)",
+"zh": "巴恩斯特布尔 (马萨诸塞州)"
 },
-"zlist": false,
-"zslug": "barnstable-county-ma"
+"zlist": true,
+"zslug": "barnstable-ma"
 },
 "Barranquilla": {
-"artist": "Mr.Jhosimar",
-"editions": 103,
-"h": 1201,
-"img": "Barranquilla_Montage.jpg",
-"km": 1.5,
+"editions": 1,
+"km": 2.0,
 "label": "Barranquilla",
-"lic": "CC BY-SA 3.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
-"q": "Q62823",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9f/Barranquilla_Montage.jpg/250px-Barranquilla_Montage.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1001,
-"wiki": {
-"ar": "بارانكيا",
-"de": "Barranquilla",
-"en": "Barranquilla",
-"es": "Barranquilla",
-"fr": "Barranquilla",
-"hi": "बैरेंक्विला",
-"pt": "Barranquilla",
-"zh": "巴兰基亚"
-}
+"q": "Q23696589",
+"wiki": {}
 },
 "Baton Rouge": {
 "artist": "Michael Maples, U.S. Army Corps of Engineers",
@@ -1474,12 +1468,19 @@
 }
 },
 "Bay City": {
+"artist": "Smezzy",
 "editions": 63,
+"h": 494,
+"img": "Midland_St._Bay_City,_West_Side.PNG",
 "km": 0.6,
 "label": "Bay City",
+"lic": "Public domain",
+"licurl": "",
 "q": "Q746820",
 "st": "MI",
 "sub": "BayCityMichigan",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c9/Midland_St._Bay_City%2C_West_Side.PNG/250px-Midland_St._Bay_City%2C_West_Side.PNG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 713,
 "wiki": {
 "ar": "باي سيتي (ميشيغان)",
 "de": "Bay City (Michigan)",
@@ -1519,28 +1520,12 @@
 "zslug": "beaumont-tx"
 },
 "Beckley": {
-"artist": "Quintin Soloviev",
-"editions": 47,
-"h": 5392,
-"img": "Beckley,_West_Virginia.jpg",
-"km": 0.6,
+"editions": 0,
+"km": 6.6,
 "label": "Beckley",
-"lic": "CC BY 4.0",
-"licurl": "https://creativecommons.org/licenses/by/4.0",
-"q": "Q813745",
+"q": "Q137859442",
 "st": "WV",
-"sub": "BeckleyOnReddit",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/25/Beckley%2C_West_Virginia.jpg/250px-Beckley%2C_West_Virginia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 8088,
-"wiki": {
-"ar": "بيكلي (فرجينيا الغربية)",
-"de": "Beckley",
-"en": "Beckley, West Virginia",
-"es": "Beckley (Virginia Occidental)",
-"fr": "Beckley (Virginie-Occidentale)",
-"pt": "Beckley (Virgínia Ocidental)",
-"zh": "贝克利 (西弗吉尼亚州)"
-},
+"wiki": {},
 "zlist": true,
 "zslug": "beckley-wv"
 },
@@ -1610,27 +1595,11 @@
 }
 },
 "Belize City": {
-"artist": "Studentbz",
-"editions": 89,
-"h": 768,
-"img": "Belize_City_Aerial_Shots.jpg",
-"km": 1.2,
+"editions": 0,
+"km": 1.8,
 "label": "Belize City",
-"lic": "CC BY-SA 3.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
-"q": "Q108223",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ad/Belize_City_Aerial_Shots.jpg/250px-Belize_City_Aerial_Shots.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1024,
-"wiki": {
-"ar": "مدينة بليز",
-"de": "Belize City",
-"en": "Belize City",
-"es": "Ciudad de Belice",
-"fr": "Belize City",
-"hi": "बेलीज़ नगर",
-"pt": "Cidade de Belize",
-"zh": "伯利兹城"
-}
+"q": "Q111387584",
+"wiki": {}
 },
 "Bellingham": {
 "artist": "Nick Kelly / Faithlife Corporation",
@@ -1659,52 +1628,18 @@
 "zslug": "bellingham-wa"
 },
 "Belo Horizonte": {
-"artist": "copagov",
-"editions": 138,
-"h": 683,
-"img": "Belo_Horizonte,_Brasil_horizon_view.jpg",
+"editions": 1,
 "km": 0.9,
 "label": "Belo Horizonte",
-"lic": "CC BY-SA 2.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/2.0",
-"q": "Q42800",
-"sub": "BeloHorizonte",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/37/Belo_Horizonte%2C_Brasil_horizon_view.jpg/250px-Belo_Horizonte%2C_Brasil_horizon_view.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1024,
-"wiki": {
-"ar": "بيلو هوريزونتي",
-"de": "Belo Horizonte",
-"en": "Belo Horizonte",
-"es": "Belo Horizonte",
-"fr": "Belo Horizonte",
-"hi": "बेलो होरिज़ोंटे",
-"pt": "Belo Horizonte",
-"zh": "贝洛奥里藏特"
-}
+"q": "Q31859976",
+"wiki": {}
 },
 "Belém": {
-"artist": "Heitor Carvalho Jorge",
-"editions": 110,
-"h": 800,
-"img": "Montagem_Belém.jpg",
-"km": 1.6,
+"editions": 1,
+"km": 1.7,
 "label": "Belém",
-"lic": "CC BY-SA 3.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
-"q": "Q12829733",
-"sub": "belempa",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/Montagem_Bel%C3%A9m.jpg/250px-Montagem_Bel%C3%A9m.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 800,
-"wiki": {
-"ar": "بليم",
-"de": "Belém (Pará)",
-"en": "Belém",
-"es": "Belém (Brasil)",
-"fr": "Belém",
-"hi": "बेलेम",
-"pt": "Belém (Pará)",
-"zh": "贝伦 (帕拉州)"
-}
+"q": "Q22060306",
+"wiki": {}
 },
 "Bend": {
 "artist": "Cacophony",
@@ -1757,10 +1692,17 @@
 }
 },
 "Benghazi": {
+"artist": "Dennixo.",
 "editions": 104,
+"h": 466,
+"img": "The_Old_Town,_Benghazi,_Libya.jpg",
 "km": 2.2,
 "label": "Benghazi",
+"lic": "CC BY-SA 3.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
 "q": "Q40816",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/The_Old_Town%2C_Benghazi%2C_Libya.jpg/250px-The_Old_Town%2C_Benghazi%2C_Libya.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 633,
 "wiki": {
 "ar": "بنغازي",
 "de": "Bengasi",
@@ -1821,11 +1763,18 @@
 }
 },
 "Bern": {
+"artist": "de:Benutzer:Reaast",
 "editions": 207,
+"h": 490,
+"img": "Bern_luftaufnahme.png",
 "km": 0.3,
 "label": "Bern",
+"lic": "Public domain",
+"licurl": "",
 "q": "Q70",
 "sub": "bern",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/Bern_luftaufnahme.png/250px-Bern_luftaufnahme.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 728,
 "wiki": {
 "ar": "برن",
 "de": "Bern",
@@ -1938,23 +1887,27 @@
 "zslug": "birmingham-al"
 },
 "Bishkek": {
-"artist": "Kober",
-"editions": 13,
-"h": 1836,
-"img": "View_of_Bishkek_with_the_Central_Mosque_in_the_background_(2017).jpg",
-"km": 2.9,
-"label": "Bishkek Central Mosque",
-"lic": "CC BY-SA 4.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
-"q": "Q48945129",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/11/View_of_Bishkek_with_the_Central_Mosque_in_the_background_%282017%29.jpg/250px-View_of_Bishkek_with_the_Central_Mosque_in_the_background_%282017%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 3264,
+"artist": "Aitenir",
+"editions": 187,
+"h": 1067,
+"img": "Bishkek_City's_business_center.jpg",
+"km": 1.9,
+"label": "Bishkek",
+"lic": "CC0",
+"licurl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+"q": "Q9361",
+"sub": "bishkek",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/42/Bishkek_City%27s_business_center.jpg/250px-Bishkek_City%27s_business_center.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 1600,
 "wiki": {
-"ar": "مسجد بيشكيك المركزي",
-"de": "Bischkeker Zentralmoschee",
-"en": "Bishkek Central Mosque",
-"es": "Mezquita Central de Biskek",
-"fr": "Mosquée centrale (Bichkek)"
+"ar": "بيشكك",
+"de": "Bischkek",
+"en": "Bishkek",
+"es": "Biskek",
+"fr": "Bichkek",
+"hi": "बिश्केक",
+"pt": "Bisqueque",
+"zh": "比什凯克"
 }
 },
 "Bismarck": {
@@ -2131,26 +2084,27 @@
 "zslug": "bloomington-in"
 },
 "Bogotá": {
-"artist": "Pablo Andrés Ortega Chávez",
-"editions": 41,
-"h": 683,
-"img": "Vista_aérea_Aeropuerto_Internacional_Eldorado_Bogotá_(SKBO-BOG)_(8204598528).jpg",
-"km": 8.6,
-"label": "El Dorado International Airport",
-"lic": "GFDL 1.2",
-"licurl": "http://www.gnu.org/licenses/old-licenses/fdl-1.2.html",
-"q": "Q201785",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d9/Vista_a%C3%A9rea_Aeropuerto_Internacional_Eldorado_Bogot%C3%A1_%28SKBO-BOG%29_%288204598528%29.jpg/250px-Vista_a%C3%A9rea_Aeropuerto_Internacional_Eldorado_Bogot%C3%A1_%28SKBO-BOG%29_%288204598528%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1024,
+"artist": "Felipe Restrepo Acosta",
+"editions": 284,
+"h": 1080,
+"img": "Centro_internacional.JPG",
+"km": 11.2,
+"label": "Bogotá",
+"lic": "CC BY-SA 3.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
+"q": "Q2841",
+"sub": "Bogota",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4c/Centro_internacional.JPG/250px-Centro_internacional.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 1920,
 "wiki": {
-"ar": "مطار إلدورادو الدولي",
-"de": "Flughafen Bogotá",
-"en": "El Dorado International Airport",
-"es": "Aeropuerto Internacional El Dorado",
-"fr": "Aéroport international El Dorado",
-"hi": "अलडोराडो हवाई अड्डा",
-"pt": "Aeroporto Internacional El Dorado",
-"zh": "埃尔多拉多国际机场"
+"ar": "بوغوتا",
+"de": "Bogotá",
+"en": "Bogotá",
+"es": "Bogotá",
+"fr": "Bogota",
+"hi": "बोगोटा",
+"pt": "Bogotá",
+"zh": "波哥大"
 }
 },
 "Boise": {
@@ -2580,25 +2534,27 @@
 }
 },
 "Bucharest": {
-"artist": "",
-"editions": 49,
-"h": 1944,
-"img": "Bucharest_university.jpg",
-"km": 0.6,
-"label": "University of Bucharest",
-"lic": "CC BY-SA 3.0",
-"licurl": "http://creativecommons.org/licenses/by-sa/3.0/",
-"q": "Q608338",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cd/Bucharest_university.jpg/250px-Bucharest_university.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 2592,
+"artist": "seisdeagosto",
+"editions": 238,
+"h": 2160,
+"img": "Bucharest-Skyline-01.jpg",
+"km": 1.9,
+"label": "Bucharest",
+"lic": "CC BY-SA 2.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/2.0",
+"q": "Q19660",
+"sub": "bucuresti",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d3/Bucharest-Skyline-01.jpg/250px-Bucharest-Skyline-01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 3840,
 "wiki": {
-"ar": "جامعة بوخارست",
-"de": "Universität Bukarest",
-"en": "University of Bucharest",
-"es": "Universidad de Bucarest",
-"fr": "Université de Bucarest",
-"pt": "Universidade de Bucareste",
-"zh": "布加勒斯特大学"
+"ar": "بوخارست",
+"de": "Bukarest",
+"en": "Bucharest",
+"es": "Bucarest",
+"fr": "Bucarest",
+"hi": "बुखारेस्ट",
+"pt": "Bucareste",
+"zh": "布加勒斯特"
 }
 },
 "Budapest": {
@@ -2626,21 +2582,27 @@
 }
 },
 "Buenos Aires": {
-"artist": "Geogast",
-"editions": 6,
-"h": 2112,
-"img": "Estación_Buenos_Aires_(LBS),_frente.jpg",
-"km": 5.2,
-"label": "Buenos Aires train station",
-"lic": "CC BY 3.0",
-"licurl": "https://creativecommons.org/licenses/by/3.0",
-"q": "Q4985538",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cd/Estaci%C3%B3n_Buenos_Aires_%28LBS%29%2C_frente.jpg/250px-Estaci%C3%B3n_Buenos_Aires_%28LBS%29%2C_frente.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 2816,
+"artist": "ProtoplasmaKid",
+"editions": 276,
+"h": 3018,
+"img": "Vista_aérea_de_la_Plaza_del_Congreso_10.jpg",
+"km": 0.2,
+"label": "Buenos Aires",
+"lic": "CC BY-SA 4.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
+"q": "Q1486",
+"sub": "buenosaires",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b7/Vista_a%C3%A9rea_de_la_Plaza_del_Congreso_10.jpg/250px-Vista_a%C3%A9rea_de_la_Plaza_del_Congreso_10.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 4024,
 "wiki": {
-"en": "Buenos Aires Belgrano Sur Line railway station",
-"es": "Estación Buenos Aires",
-"pt": "Estação Buenos Aires (Argentina)"
+"ar": "بوينس آيرس",
+"de": "Buenos Aires",
+"en": "Buenos Aires",
+"es": "Buenos Aires",
+"fr": "Buenos Aires",
+"hi": "ब्यूनस आयर्स",
+"pt": "Buenos Aires",
+"zh": "布宜諾斯艾利斯"
 }
 },
 "Buffalo": {
@@ -2671,17 +2633,10 @@
 "zslug": "buffalo-ny"
 },
 "Bujumbura": {
-"artist": "Edouard mhg",
 "editions": 156,
-"h": 3678,
-"img": "BUJUMBURA_MAIRIE_3.jpg",
 "km": 0.3,
 "label": "Bujumbura",
-"lic": "CC BY-SA 4.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
 "q": "Q3854",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/BUJUMBURA_MAIRIE_3.jpg/250px-BUJUMBURA_MAIRIE_3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 2797,
 "wiki": {
 "ar": "بوجومبورا",
 "de": "Bujumbura",
@@ -2926,18 +2881,11 @@
 }
 },
 "Cancún": {
-"artist": "Microstar",
 "editions": 105,
-"h": 1800,
-"img": "CancúnCollage.jpg",
 "km": 2.6,
 "label": "Cancun",
-"lic": "CC BY-SA 4.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
 "q": "Q8969",
 "sub": "cancun",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b9/Canc%C3%BAnCollage.jpg/250px-Canc%C3%BAnCollage.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1200,
 "wiki": {
 "ar": "كانكون",
 "de": "Cancún",
@@ -3075,28 +3023,12 @@
 }
 },
 "Carson City": {
-"artist": "Scott Schrantz",
-"editions": 128,
-"h": 1667,
-"img": "Nevada_State_Museum.jpg",
-"km": 1.4,
+"editions": 1,
+"km": 0.7,
 "label": "Carson City",
-"lic": "CC BY-SA 3.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
-"q": "Q40881",
+"q": "Q49298054",
 "st": "NV",
-"sub": "carsoncity",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b5/Nevada_State_Museum.jpg/250px-Nevada_State_Museum.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 2500,
-"wiki": {
-"ar": "كارسون سيتي (نيفادا)",
-"de": "Carson City",
-"en": "Carson City, Nevada",
-"es": "Carson City",
-"fr": "Carson City",
-"pt": "Carson City",
-"zh": "卡森城"
-},
+"wiki": {},
 "zlist": true,
 "zslug": "carson-city-nv"
 },
@@ -3125,18 +3057,11 @@
 }
 },
 "Casper": {
-"artist": "Adbay Original uploader was Adbay at en.wikipedia",
 "editions": 70,
-"h": 1200,
-"img": "Casperskyline.jpg",
 "km": 4.1,
 "label": "Casper",
-"lic": "Public domain",
-"licurl": "",
 "q": "Q223177",
 "st": "WY",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/Casperskyline.jpg/250px-Casperskyline.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 800,
 "wiki": {
 "ar": "كاسبر",
 "de": "Casper (Wyoming)",
@@ -3220,27 +3145,11 @@
 "zslug": "champaign-il"
 },
 "Changsha": {
-"artist": "Calton",
-"editions": 106,
-"h": 1041,
-"img": "Helong_Stadium.jpg",
-"km": 4.6,
+"editions": 0,
+"km": 5.1,
 "label": "Changsha",
-"lic": "CC BY-SA 3.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
-"q": "Q174091",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/Helong_Stadium.jpg/250px-Helong_Stadium.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 2002,
-"wiki": {
-"ar": "تشانغشا",
-"de": "Changsha",
-"en": "Changsha",
-"es": "Changsha",
-"fr": "Changsha",
-"hi": "चांगशा",
-"pt": "Changsha",
-"zh": "长沙市"
-}
+"q": "Q113491646",
+"wiki": {}
 },
 "Charleston": {
 "artist": "Khanrak",
@@ -3288,19 +3197,12 @@
 "zslug": "charleston-wv"
 },
 "Charlotte": {
-"artist": "Greengrass090",
 "editions": 127,
-"h": 2792,
-"img": "Charlotte_collage.jpg",
 "km": 0.5,
 "label": "Charlotte",
-"lic": "CC BY-SA 3.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
 "q": "Q16565",
 "st": "NC",
 "sub": "Charlotte",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/Charlotte_collage.jpg/250px-Charlotte_collage.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1886,
 "wiki": {
 "ar": "شارلوت (كارولاينا الشمالية)",
 "de": "Charlotte (North Carolina)",
@@ -3492,12 +3394,19 @@
 "zslug": "chicago-il"
 },
 "Chico": {
+"artist": "Travisthurston",
 "editions": 61,
+"h": 480,
+"img": "ChicoSquare.jpg",
 "km": 1.2,
 "label": "Chico",
+"lic": "CC BY-SA 3.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
 "q": "Q432152",
 "st": "CA",
 "sub": "ChicoCA",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a2/ChicoSquare.jpg/250px-ChicoSquare.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 640,
 "wiki": {
 "ar": "تشيكو (كاليفورنيا)",
 "de": "Chico (Kalifornien)",
@@ -3773,12 +3682,19 @@
 "zslug": "coeur-d-alene-id"
 },
 "College Station": {
+"artist": "Aggie0083 at English Wikipedia",
 "editions": 56,
+"h": 477,
+"img": "TAMUcampus.jpg",
 "km": 3.5,
 "label": "College Station",
+"lic": "CC BY-SA 3.0",
+"licurl": "http://creativecommons.org/licenses/by-sa/3.0/",
 "q": "Q695511",
 "st": "TX",
 "sub": "collegestation",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/TAMUcampus.jpg/250px-TAMUcampus.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 699,
 "wiki": {
 "ar": "كوليج ستيشن (تكساس)",
 "de": "College Station",
@@ -3968,27 +3884,11 @@
 "zslug": "columbus-in"
 },
 "Conakry": {
-"artist": "Alpha hmd",
-"editions": 163,
-"h": 1500,
-"img": "Un_aperçu_de_la_ville_de_conakry.jpg",
-"km": 20.5,
-"label": "Conakry",
-"lic": "CC BY-SA 4.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
-"q": "Q3733",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/42/Un_aper%C3%A7u_de_la_ville_de_conakry.jpg/250px-Un_aper%C3%A7u_de_la_ville_de_conakry.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 2000,
-"wiki": {
-"ar": "كوناكري",
-"de": "Conakry",
-"en": "Conakry",
-"es": "Conakri",
-"fr": "Conakry",
-"hi": "कोनाक्री",
-"pt": "Conacri",
-"zh": "科納克里"
-}
+"editions": 1,
+"km": 4.5,
+"label": "Conakry Special Zone",
+"q": "Q24853717",
+"wiki": {}
 },
 "Concepción": {
 "artist": "",
@@ -4038,28 +3938,12 @@
 }
 },
 "Corpus Christi": {
-"artist": "Quintin Soloviev",
-"editions": 94,
-"h": 4827,
-"img": "Corpus_Christi_skyline.jpg",
-"km": 6.4,
+"editions": 1,
+"km": 5.6,
 "label": "Corpus Christi",
-"lic": "CC BY 4.0",
-"licurl": "https://creativecommons.org/licenses/by/4.0",
-"q": "Q49242",
+"q": "Q22083544",
 "st": "TX",
-"sub": "corpus",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/11/Corpus_Christi_skyline.jpg/250px-Corpus_Christi_skyline.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 8064,
-"wiki": {
-"ar": "كوربوس كريستي",
-"de": "Corpus Christi (Texas)",
-"en": "Corpus Christi, Texas",
-"es": "Corpus Christi (Texas)",
-"fr": "Corpus Christi (États-Unis)",
-"pt": "Corpus Christi (Texas)",
-"zh": "科珀斯克里斯蒂 (得克萨斯州)"
-},
+"wiki": {},
 "zlist": true,
 "zslug": "corpus-christi-tx"
 },
@@ -4137,18 +4021,11 @@
 }
 },
 "Córdoba (Argentina)": {
-"artist": "Alakasam",
 "editions": 109,
-"h": 1600,
-"img": "Montaje_CBA_9.jpg",
 "km": 0.5,
 "label": "Córdoba",
-"lic": "CC BY-SA 3.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
 "q": "Q44210",
 "sub": "cordoba",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/91/Montaje_CBA_9.jpg/250px-Montaje_CBA_9.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1100,
 "wiki": {
 "ar": "قرطبة (الأرجنتين)",
 "de": "Córdoba (Argentinien)",
@@ -4252,17 +4129,10 @@
 "zslug": "dalton-ga"
 },
 "Damascus": {
-"artist": "See above.",
 "editions": 243,
-"h": 4436,
-"img": "Damascus_coll.jpg",
 "km": 1.2,
 "label": "Damascus",
-"lic": "CC BY-SA 3.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
 "q": "Q3766",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e5/Damascus_coll.jpg/250px-Damascus_coll.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 2874,
 "wiki": {
 "ar": "دمشق",
 "de": "Damaskus",
@@ -4275,11 +4145,18 @@
 }
 },
 "Daphne": {
+"artist": "JodyB",
 "editions": 46,
+"h": 481,
+"img": "Daphne_Alabama_City_Hall.jpg",
 "km": 3.7,
 "label": "Daphne",
+"lic": "Public domain",
+"licurl": "",
 "q": "Q79461",
 "st": "AL",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/38/Daphne_Alabama_City_Hall.jpg/250px-Daphne_Alabama_City_Hall.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 783,
 "wiki": {
 "ar": "ديفني",
 "de": "Daphne (Alabama)",
@@ -4556,19 +4433,12 @@
 "zslug": "des-moines-ia"
 },
 "Detroit": {
-"artist": "User21343321",
 "editions": 175,
-"h": 3400,
-"img": "Detroit_montage_2020.jpg",
 "km": 0.3,
 "label": "Detroit",
-"lic": "CC BY-SA 4.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
 "q": "Q12439",
 "st": "MI",
 "sub": "Detroit",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5a/Detroit_montage_2020.jpg/250px-Detroit_montage_2020.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 2761,
 "wiki": {
 "ar": "ديترويت",
 "de": "Detroit",
@@ -4600,10 +4470,17 @@
 }
 },
 "Dili": {
+"artist": "Jose Fernando Real",
 "editions": 159,
+"h": 540,
+"img": "Aussenministerium_und_Avenida_de_Portugal.jpg",
 "km": 1.2,
 "label": "Dili",
+"lic": "CC BY-SA 4.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
 "q": "Q9310",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/aa/Aussenministerium_und_Avenida_de_Portugal.jpg/250px-Aussenministerium_und_Avenida_de_Portugal.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 720,
 "wiki": {
 "ar": "ديلي",
 "de": "Dili",
@@ -4616,25 +4493,26 @@
 }
 },
 "Djibouti": {
-"artist": "Keo the Younger",
-"editions": 32,
-"h": 689,
-"img": "Djibouti_airport.jpg",
-"km": 4.8,
-"label": "Djibouti-Ambouli International Airport",
-"lic": "CC BY-SA 2.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/2.0",
-"q": "Q620706",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/Djibouti_airport.jpg/250px-Djibouti_airport.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1024,
+"artist": "Skilla1st",
+"editions": 149,
+"h": 510,
+"img": "Djibouti_City.jpg",
+"km": 0.6,
+"label": "Djibouti",
+"lic": "CC BY-SA 3.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
+"q": "Q3604",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2a/Djibouti_City.jpg/250px-Djibouti_City.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 698,
 "wiki": {
-"ar": "مطار جيبوتي الدولي",
-"de": "Flughafen Dschibuti",
-"en": "Djibouti–Ambouli International Airport",
-"es": "Aeropuerto Internacional de Yibuti-Ambouli",
-"fr": "Aéroport international Ambouli",
-"pt": "Aeroporto Internacional de Djibuti-Ambouli",
-"zh": "吉布提-安布利国际机场"
+"ar": "جيبوتي (مدينة)",
+"de": "Dschibuti (Stadt)",
+"en": "Djibouti City",
+"es": "Ciudad de Yibuti",
+"fr": "Djibouti (ville)",
+"hi": "जिबूती सिटी",
+"pt": "Djibuti (cidade)",
+"zh": "吉布地市"
 }
 },
 "Dodoma": {
@@ -4684,18 +4562,11 @@
 }
 },
 "Dongguan": {
-"artist": "ASDFGH (talk)",
 "editions": 85,
-"h": 1650,
-"img": "Dongguan_montage.jpg",
 "km": 3.1,
 "label": "Dongguan",
-"lic": "CC BY-SA 3.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
 "q": "Q59218",
 "sub": "dongguan",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/81/Dongguan_montage.jpg/250px-Dongguan_montage.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1280,
 "wiki": {
 "ar": "دونغ غوان",
 "de": "Dongguan",
@@ -4973,27 +4844,12 @@
 }
 },
 "Eagle Pass": {
-"artist": "Billy Hathorn at en.wikipedia",
-"editions": 52,
-"h": 1944,
-"img": "Bienvenidos,_Eagle_Pass,_TX_IMG_0442.JPG",
-"km": 1.1,
+"editions": 0,
+"km": 12.6,
 "label": "Eagle Pass",
-"lic": "CC BY-SA 3.0",
-"licurl": "http://creativecommons.org/licenses/by-sa/3.0/",
-"q": "Q982486",
+"q": "Q137859644",
 "st": "TX",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0a/Bienvenidos%2C_Eagle_Pass%2C_TX_IMG_0442.JPG/250px-Bienvenidos%2C_Eagle_Pass%2C_TX_IMG_0442.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 2592,
-"wiki": {
-"ar": "إيغل باس",
-"de": "Eagle Pass (Texas)",
-"en": "Eagle Pass, Texas",
-"es": "Eagle Pass (Texas)",
-"fr": "Eagle Pass (Texas)",
-"pt": "Eagle Pass",
-"zh": "伊格爾帕斯 (德克薩斯州)"
-},
+"wiki": {},
 "zlist": true,
 "zslug": "eagle-pass-tx"
 },
@@ -5113,12 +4969,19 @@
 "zslug": "el-centro-ca"
 },
 "El Paso": {
+"artist": "",
 "editions": 122,
+"h": 570,
+"img": "El_Paso_Skyline.jpg",
 "km": 0.2,
 "label": "El Paso",
+"lic": "CC BY-SA 3.0",
+"licurl": "http://creativecommons.org/licenses/by-sa/3.0/",
 "q": "Q16562",
 "st": "TX",
 "sub": "elpaso",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/89/El_Paso_Skyline.jpg/250px-El_Paso_Skyline.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 760,
 "wiki": {
 "ar": "إل باسو (تكساس)",
 "de": "El Paso (Texas)",
@@ -5234,10 +5097,17 @@
 "zslug": "enid-ok"
 },
 "Erbil": {
+"artist": "Jim Gordon",
 "editions": 105,
+"h": 576,
+"img": "Citadel_(old_city)_of_Hewlêr_(Erbil).jpg",
 "km": 0.1,
 "label": "Erbil",
+"lic": "CC BY 2.0",
+"licurl": "https://creativecommons.org/licenses/by/2.0",
 "q": "Q132754",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/40/Citadel_%28old_city%29_of_Hewl%C3%AAr_%28Erbil%29.jpg/250px-Citadel_%28old_city%29_of_Hewl%C3%AAr_%28Erbil%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 768,
 "wiki": {
 "ar": "أربيل",
 "de": "Erbil",
@@ -5250,12 +5120,19 @@
 }
 },
 "Erie": {
+"artist": "Pnoble805 at English Wikipedia",
 "editions": 78,
+"h": 487,
+"img": "Eriesky2.jpg",
 "km": 0.4,
 "label": "Erie",
+"lic": "CC BY-SA 3.0",
+"licurl": "http://creativecommons.org/licenses/by-sa/3.0/",
 "q": "Q234061",
 "st": "PA",
 "sub": "Erie",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/Eriesky2.jpg/250px-Eriesky2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 1560,
 "wiki": {
 "ar": "إيري (بنسلفانيا)",
 "de": "Erie (Pennsylvania)",
@@ -5295,12 +5172,19 @@
 "zslug": "eugene-or"
 },
 "Evansville": {
+"artist": "The original uploader was Randella at English Wikipedia.",
 "editions": 82,
+"h": 400,
+"img": "Evilleriverfront.jpg",
 "km": 1.3,
 "label": "Evansville",
+"lic": "CC BY-SA 3.0",
+"licurl": "http://creativecommons.org/licenses/by-sa/3.0/",
 "q": "Q486459",
 "st": "IN",
 "sub": "evansville",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/35/Evilleriverfront.jpg/250px-Evilleriverfront.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 600,
 "wiki": {
 "ar": "إيفانسفيل",
 "de": "Evansville (Indiana)",
@@ -5444,12 +5328,19 @@
 "zslug": "fayetteville-nc"
 },
 "Flagstaff": {
+"artist": "Derek Cashman at en.wikipedia",
 "editions": 88,
+"h": 418,
+"img": "Flagstaff_downtown_SFmtn.jpg",
 "km": 1.7,
 "label": "Flagstaff",
+"lic": "CC BY-SA 3.0",
+"licurl": "http://creativecommons.org/licenses/by-sa/3.0/",
 "q": "Q79842",
 "st": "AZ",
 "sub": "Flagstaff",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/Flagstaff_downtown_SFmtn.jpg/250px-Flagstaff_downtown_SFmtn.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 800,
 "wiki": {
 "ar": "فلاغستاف",
 "de": "Flagstaff",
@@ -5540,28 +5431,11 @@
 "zslug": "florence-sc"
 },
 "Florianópolis": {
-"artist": "Herr stahlhoefer",
-"editions": 94,
-"h": 1704,
-"img": "Floripa_Beira_Mar_Norte.jpg",
-"km": 0.8,
+"editions": 1,
+"km": 0.4,
 "label": "Florianópolis",
-"lic": "Public domain",
-"licurl": "",
-"q": "Q132997",
-"sub": "florianopolis",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/Floripa_Beira_Mar_Norte.jpg/250px-Floripa_Beira_Mar_Norte.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 2272,
-"wiki": {
-"ar": "فلوريانوبوليس",
-"de": "Florianópolis",
-"en": "Florianópolis",
-"es": "Florianópolis",
-"fr": "Florianópolis",
-"hi": "फ्लोरिआनोपोलिस",
-"pt": "Florianópolis",
-"zh": "弗洛里亚诺波利斯"
-}
+"q": "Q32124221",
+"wiki": {}
 },
 "Fond du Lac": {
 "artist": "Royalbroil",
@@ -5667,54 +5541,27 @@
 "zslug": "fort-walton-beach-fl"
 },
 "Fort Wayne": {
-"artist": "Momoneymoproblemz",
-"editions": 96,
-"h": 1304,
-"img": "Downtown_Fort_Wayne,_Indiana_Skyline_from_Old_Fort,_May_2014.jpg",
-"km": 0.1,
+"editions": 3,
+"km": 0.7,
 "label": "Fort Wayne",
-"lic": "Public domain",
-"licurl": "",
-"q": "Q49268",
+"q": "Q527175",
 "st": "IN",
-"sub": "fortwayne",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/21/Downtown_Fort_Wayne%2C_Indiana_Skyline_from_Old_Fort%2C_May_2014.jpg/250px-Downtown_Fort_Wayne%2C_Indiana_Skyline_from_Old_Fort%2C_May_2014.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 2880,
 "wiki": {
-"ar": "فورت واين",
-"de": "Fort Wayne",
-"en": "Fort Wayne, Indiana",
-"es": "Fort Wayne",
-"fr": "Fort Wayne (Indiana)",
-"hi": "फोर्ट वेन, इंडियाना",
-"pt": "Fort Wayne",
-"zh": "韋恩堡"
+"en": "Fort Wayne (Indiana fort)",
+"fr": "Forts de Fort Wayne"
 },
 "zlist": true,
 "zslug": "fort-wayne-in"
 },
 "Fortaleza": {
-"artist": "Rafael Ramos e David Andrade",
-"editions": 125,
-"h": 919,
-"img": "Praia_do_Mucuripe.jpg",
-"km": 0.4,
+"editions": 9,
+"km": 8.7,
 "label": "Fortaleza",
-"lic": "CC BY-SA 3.0",
-"licurl": "http://creativecommons.org/licenses/by-sa/3.0/",
-"q": "Q43463",
-"sub": "fortaleza",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9f/Praia_do_Mucuripe.jpg/250px-Praia_do_Mucuripe.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1509,
+"q": "Q1125532",
 "wiki": {
-"ar": "فورتاليزا",
-"de": "Fortaleza",
-"en": "Fortaleza",
-"es": "Fortaleza (Brasil)",
-"fr": "Fortaleza",
-"hi": "फोर्टलेज़ा",
-"pt": "Fortaleza",
-"zh": "福塔莱萨"
+"es": "Microrregión de Fortaleza",
+"fr": "Microrégion de Fortaleza",
+"pt": "Microrregião de Fortaleza"
 }
 },
 "Foshan": {
@@ -5765,12 +5612,19 @@
 }
 },
 "Fresno": {
+"artist": "JMora24",
 "editions": 120,
+"h": 384,
+"img": "Downtown_Fresno_Night.png",
 "km": 4.6,
 "label": "Fresno",
+"lic": "CC BY-SA 4.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
 "q": "Q43301",
 "st": "CA",
 "sub": "fresno",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4d/Downtown_Fresno_Night.png/250px-Downtown_Fresno_Night.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 960,
 "wiki": {
 "ar": "فريسنو (كاليفورنيا)",
 "de": "Fresno",
@@ -5883,11 +5737,18 @@
 "zslug": "gainesville-fl"
 },
 "Gainesville GA": {
+"artist": "Calvin Beale",
 "editions": 52,
+"h": 441,
+"img": "Hall_County_Georgia_Courthouse.jpg",
 "km": 1.4,
 "label": "Gainesville",
+"lic": "Public domain",
+"licurl": "",
 "q": "Q651051",
 "st": "GA",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/80/Hall_County_Georgia_Courthouse.jpg/250px-Hall_County_Georgia_Courthouse.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 672,
 "wiki": {
 "ar": "غينسفيل (جورجيا)",
 "de": "Gainesville (Georgia)",
@@ -5950,10 +5811,17 @@
 }
 },
 "Georgetown": {
+"artist": "Johnldasilva",
 "editions": 146,
+"h": 640,
+"img": "St_George's_Cathedral.jpg",
 "km": 1.2,
 "label": "Georgetown",
+"lic": "CC BY 3.0",
+"licurl": "https://creativecommons.org/licenses/by/3.0",
 "q": "Q10717",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/St_George%27s_Cathedral.jpg/250px-St_George%27s_Cathedral.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 2609,
 "wiki": {
 "ar": "جورج تاون",
 "de": "Georgetown (Guyana)",
@@ -6040,35 +5908,25 @@
 "zslug": "glens-falls-ny"
 },
 "Goiânia": {
-"editions": 97,
-"km": 1.1,
+"editions": 12,
+"km": 2.8,
 "label": "Goiânia",
-"q": "Q83189",
+"q": "Q1319835",
 "wiki": {
-"ar": "غويانيا",
-"de": "Goiânia",
-"en": "Goiânia",
-"es": "Goiânia",
-"fr": "Goiânia",
-"hi": "गोइयानीया",
-"pt": "Goiânia",
-"zh": "戈亚尼亚"
+"de": "Mikroregion Goiânia",
+"en": "Microregion of Goiânia",
+"es": "Microrregión de Goiânia",
+"fr": "Microrégion de Goiânia",
+"pt": "Microrregião de Goiânia"
 }
 },
 "Goldsboro": {
-"artist": "Indy beetle",
 "editions": 45,
-"h": 2048,
-"img": "Fountain_in_Goldsboro.jpg",
 "km": 0.6,
 "label": "Goldsboro",
-"lic": "CC0",
-"licurl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
 "q": "Q367400",
 "st": "NC",
 "sub": "goldsboronc",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/35/Fountain_in_Goldsboro.jpg/250px-Fountain_in_Goldsboro.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1536,
 "wiki": {
 "ar": "غولدزبورو",
 "de": "Goldsboro (North Carolina)",
@@ -6235,27 +6093,22 @@
 "zslug": "grants-pass-or"
 },
 "Great Falls": {
-"artist": "Montanabw",
-"editions": 63,
-"h": 3229,
-"img": "Panorama_Great_Falls.JPG",
-"km": 1.2,
+"artist": "Tim1965",
+"editions": 10,
+"h": 594,
+"img": "Great_falls_of_missouri_river.jpg",
+"km": 14.9,
 "label": "Great Falls",
-"lic": "CC BY-SA 3.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
-"q": "Q466190",
+"lic": "Public domain",
+"licurl": "",
+"q": "Q37774",
 "st": "MT",
-"sub": "greatfalls",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/70/Panorama_Great_Falls.JPG/250px-Panorama_Great_Falls.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 4306,
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a2/Great_falls_of_missouri_river.jpg/250px-Great_falls_of_missouri_river.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 875,
 "wiki": {
-"ar": "غريت فولز (مونتانا)",
-"de": "Great Falls (Montana)",
-"en": "Great Falls, Montana",
-"es": "Great Falls (Montana)",
-"fr": "Great Falls (Montana)",
-"pt": "Great Falls (Montana)",
-"zh": "大瀑布城 (蒙大拿州)"
+"ar": "الشلالات العظيمة (نهر ميزوري)",
+"en": "Great Falls (Missouri River)",
+"zh": "密苏里河大瀑布"
 },
 "zlist": true,
 "zslug": "great-falls-mt"
@@ -6454,17 +6307,10 @@
 }
 },
 "Guayaquil": {
-"artist": "Yyntl",
 "editions": 116,
-"h": 2880,
-"img": "Gye13.jpg",
 "km": 4.2,
 "label": "Guayaquil",
-"lic": "CC BY-SA 4.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
 "q": "Q43509",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Gye13.jpg/250px-Gye13.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 2160,
 "wiki": {
 "ar": "غواياكيل",
 "de": "Guayaquil",
@@ -6528,27 +6374,19 @@
 "zslug": "hagerstown-md"
 },
 "Halifax": {
-"artist": "WayeMason",
-"editions": 125,
-"h": 2500,
-"img": "Halifax_City_Hall,_summer_2014.jpg",
-"km": 0.7,
+"artist": "Derekrodgers at English Wikipedia",
+"editions": 4,
+"h": 835,
+"img": "Halifax_Canada_Day_2007.jpg",
+"km": 1.6,
 "label": "Halifax",
-"lic": "CC BY-SA 3.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
-"q": "Q2141",
-"sub": "halifax",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ed/Halifax_City_Hall%2C_summer_2014.jpg/250px-Halifax_City_Hall%2C_summer_2014.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 3608,
+"lic": "Public domain",
+"licurl": "",
+"q": "Q3246744",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/aa/Halifax_Canada_Day_2007.jpg/250px-Halifax_Canada_Day_2007.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 2592,
 "wiki": {
-"ar": "هاليفاكس",
-"de": "Halifax (Nova Scotia)",
-"en": "Halifax, Nova Scotia",
-"es": "Halifax",
-"fr": "Halifax (Nouvelle-Écosse)",
-"hi": "हैलीफ़ैक्स",
-"pt": "Halifax (Nova Escócia)",
-"zh": "哈利法克斯"
+"fr": "Halifax (ancienne ville)"
 }
 },
 "Hamburg": {
@@ -6651,28 +6489,11 @@
 "zslug": "hanford-ca"
 },
 "Hangzhou": {
-"artist": "User:CatOnMars",
-"editions": 131,
-"h": 2624,
-"img": "Huanglong_&_Broken_Bridge_-_Hangzhou_City_&_West_Lake_near_Broken_Bridge.jpg",
-"km": 2.3,
+"editions": 0,
+"km": 0.7,
 "label": "Hangzhou",
-"lic": "CC BY 4.0",
-"licurl": "https://creativecommons.org/licenses/by/4.0",
-"q": "Q4970",
-"sub": "hangzhou",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a0/Huanglong_%26_Broken_Bridge_-_Hangzhou_City_%26_West_Lake_near_Broken_Bridge.jpg/250px-Huanglong_%26_Broken_Bridge_-_Hangzhou_City_%26_West_Lake_near_Broken_Bridge.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 3936,
-"wiki": {
-"ar": "هانغتشو",
-"de": "Hangzhou",
-"en": "Hangzhou",
-"es": "Hangzhou",
-"fr": "Hangzhou",
-"hi": "हांगझोऊ",
-"pt": "Hancheu",
-"zh": "杭州市"
-}
+"q": "Q112246115",
+"wiki": {}
 },
 "Hanoi": {
 "artist": "NKSTTSSHNVN",
@@ -6699,10 +6520,17 @@
 }
 },
 "Harare": {
+"artist": "Radozw at Serbian Wikipedia",
 "editions": 175,
+"h": 442,
+"img": "Harare_skyline.jpg",
 "km": 0.3,
 "label": "Harare",
+"lic": "CC BY-SA 3.0",
+"licurl": "http://creativecommons.org/licenses/by-sa/3.0/",
 "q": "Q3921",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8c/Harare_skyline.jpg/250px-Harare_skyline.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 800,
 "wiki": {
 "ar": "هراري",
 "de": "Harare",
@@ -6715,18 +6543,11 @@
 }
 },
 "Harbin": {
-"artist": "xiquinhosilva",
 "editions": 134,
-"h": 3000,
-"img": "26941-Harbin_(49027716202).jpg",
 "km": 9.8,
 "label": "Harbin",
-"lic": "CC BY 2.0",
-"licurl": "https://creativecommons.org/licenses/by/2.0",
 "q": "Q42956",
 "sub": "harbin_china",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7e/26941-Harbin_%2849027716202%29.jpg/250px-26941-Harbin_%2849027716202%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 2053,
 "wiki": {
 "ar": "هاربن",
 "de": "Harbin",
@@ -6939,10 +6760,17 @@
 }
 },
 "Heraklion": {
+"artist": "Bernard Gagnon",
 "editions": 101,
+"h": 1075,
+"img": "Panoramic_of_Heraklion.jpg",
 "km": 0.5,
 "label": "Heraklion",
+"lic": "CC BY-SA 3.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
 "q": "Q160544",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a7/Panoramic_of_Heraklion.jpg/250px-Panoramic_of_Heraklion.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 4488,
 "wiki": {
 "ar": "كاندية",
 "de": "Iraklio",
@@ -6972,30 +6800,14 @@
 "zslug": "hickory-nc"
 },
 "Hilton Head": {
-"artist": "MoodyGroove of English Wikipedia",
-"editions": 40,
-"h": 972,
-"img": "Harbour_Town_July_2007.jpg",
-"km": 4.6,
-"label": "Hilton Head Island",
-"lic": "CC BY-SA 3.0",
-"licurl": "http://creativecommons.org/licenses/by-sa/3.0/",
-"q": "Q1001134",
+"editions": 1,
+"km": 7.7,
+"label": "Hilton Head",
+"q": "Q34929412",
 "st": "SC",
-"sub": "hiltonhead",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a4/Harbour_Town_July_2007.jpg/250px-Harbour_Town_July_2007.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1296,
-"wiki": {
-"ar": "جزيرة هيلتون هيد (كارولاينا الجنوبية)",
-"de": "Hilton Head Island",
-"en": "Hilton Head Island, South Carolina",
-"es": "Hilton Head Island",
-"fr": "Île de Hilton-Head",
-"pt": "Hilton Head Island",
-"zh": "希尔顿黑德岛 (南卡罗来纳州)"
-},
-"zlist": true,
-"zslug": "hilton-head-island-sc"
+"wiki": {},
+"zlist": false,
+"zslug": "hilton-head-sc"
 },
 "Hinesville": {
 "artist": "Michael Rivera",
@@ -7141,46 +6953,22 @@
 }
 },
 "Honolulu": {
-"artist": "Farragutful",
-"editions": 192,
-"h": 4000,
-"img": "2022_Views_from_Diamond_Head_02.jpg",
-"km": 0.7,
+"editions": 1,
+"km": 1.3,
 "label": "Honolulu",
-"lic": "CC BY-SA 4.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
-"q": "Q18094",
+"q": "Q12071146",
 "st": "HI",
-"sub": "honolulu",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e8/2022_Views_from_Diamond_Head_02.jpg/250px-2022_Views_from_Diamond_Head_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 6000,
-"wiki": {
-"ar": "هونولولو",
-"de": "Honolulu",
-"en": "Honolulu",
-"es": "Honolulu",
-"fr": "Honolulu",
-"hi": "होनोलूलू",
-"pt": "Honolulu",
-"zh": "檀香山"
-},
+"wiki": {},
 "zlist": true,
 "zslug": "honolulu-hi"
 },
 "Hot Springs": {
-"artist": "Brandonrush",
 "editions": 60,
-"h": 1416,
-"img": "Hot_Springs_collage.png",
 "km": 0.6,
 "label": "Hot Springs",
-"lic": "CC BY-SA 3.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
 "q": "Q79924",
 "st": "AR",
 "sub": "hotsprings",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9c/Hot_Springs_collage.png/250px-Hot_Springs_collage.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 933,
 "wiki": {
 "ar": "هت سبرينغز",
 "de": "Hot Springs (Arkansas)",
@@ -7220,19 +7008,12 @@
 "zslug": "houma-la"
 },
 "Houston": {
-"artist": "Hequals2henry",
 "editions": 192,
-"h": 1879,
-"img": "Houston_montage.jpg",
 "km": 1.3,
 "label": "Houston",
-"lic": "CC BY-SA 3.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
 "q": "Q16555",
 "st": "TX",
 "sub": "houston",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/78/Houston_montage.jpg/250px-Houston_montage.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1500,
 "wiki": {
 "ar": "هيوستن",
 "de": "Houston",
@@ -7299,19 +7080,12 @@
 "zslug": "huntington-wv"
 },
 "Huntsville": {
-"artist": "Larry Wilbourn",
 "editions": 94,
-"h": 1478,
-"img": "HsvMontage.jpg",
 "km": 1.9,
 "label": "Huntsville",
-"lic": "CC BY-SA 3.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
 "q": "Q79860",
 "st": "AL",
 "sub": "HuntsvilleAlabama",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/28/HsvMontage.jpg/250px-HsvMontage.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1195,
 "wiki": {
 "ar": "هنتسفيل (ألاباما)",
 "de": "Huntsville (Alabama)",
@@ -7445,18 +7219,11 @@
 }
 },
 "Istanbul": {
-"artist": "AlexTref871, Piotr Matyja, Alexxx1979, Moyan Brenn, Far-gh, İhsan Deniz Kılıçoğlu, Carlos ",
 "editions": 290,
-"h": 1400,
-"img": "Istanbul_Montage_2016.png",
 "km": 1.7,
 "label": "Istanbul",
-"lic": "CC BY-SA 4.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
 "q": "Q406",
 "sub": "istanbul",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b4/Istanbul_Montage_2016.png/250px-Istanbul_Montage_2016.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1000,
 "wiki": {
 "ar": "إسطنبول",
 "de": "Istanbul",
@@ -7661,18 +7428,11 @@
 "zslug": "janesville-wi"
 },
 "Jefferson City": {
-"artist": "Sarah Minor, USDA Natural Resources Conservation Service",
 "editions": 124,
-"h": 2100,
-"img": "Jefferson_City.jpg",
 "km": 0.5,
 "label": "Jefferson City",
-"lic": "Public domain",
-"licurl": "",
 "q": "Q28180",
 "st": "MO",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a3/Jefferson_City.jpg/250px-Jefferson_City.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1500,
 "wiki": {
 "ar": "جفرسون سيتي (ميزوري)",
 "de": "Jefferson City",
@@ -7782,12 +7542,19 @@
 "zslug": "jonesboro-ar"
 },
 "Joplin": {
+"artist": "Turnej1",
 "editions": 60,
+"h": 480,
+"img": "DowntownJoplinMo.JPG",
 "km": 0.5,
 "label": "Joplin",
+"lic": "Public domain",
+"licurl": "",
 "q": "Q317865",
 "st": "MO",
 "sub": "joplinmo",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f0/DowntownJoplinMo.JPG/250px-DowntownJoplinMo.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 640,
 "wiki": {
 "ar": "جوبلن",
 "de": "Joplin (Missouri)",
@@ -7921,18 +7688,11 @@
 }
 },
 "Kankakee": {
-"artist": "MrHarman at English Wikipedia",
 "editions": 54,
-"h": 2180,
-"img": "Kankakee_County_Courthouse.jpg",
 "km": 0.0,
 "label": "Kankakee",
-"lic": "Public domain",
-"licurl": "",
 "q": "Q578351",
 "st": "IL",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/78/Kankakee_County_Courthouse.jpg/250px-Kankakee_County_Courthouse.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1698,
 "wiki": {
 "ar": "كانكاكي",
 "de": "Kankakee",
@@ -8110,33 +7870,41 @@
 }
 },
 "Kigali": {
-"artist": "SteveRwanda",
-"editions": 36,
-"h": 1704,
-"img": "KigaliAirport.jpg",
-"km": 9.3,
-"label": "Kigali International Airport",
-"lic": "CC BY-SA 3.0",
-"licurl": "http://creativecommons.org/licenses/by-sa/3.0/",
-"q": "Q1322696",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b2/KigaliAirport.jpg/250px-KigaliAirport.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 2272,
+"artist": "Adrien K",
+"editions": 165,
+"h": 2000,
+"img": "Kigali2018Cropped.jpg",
+"km": 6.3,
+"label": "Kigali",
+"lic": "CC BY 2.0",
+"licurl": "https://creativecommons.org/licenses/by/2.0",
+"q": "Q3859",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/83/Kigali2018Cropped.jpg/250px-Kigali2018Cropped.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 3000,
 "wiki": {
-"ar": "مطار كيغالي الدولي",
-"de": "Flughafen Kigali",
-"en": "Kigali International Airport",
-"es": "Aeropuerto Internacional de Kigali",
-"fr": "Aéroport international de Kigali",
-"pt": "Aeroporto Internacional de Quigali",
-"zh": "基加利国际机场"
+"ar": "كيغالي",
+"de": "Kigali",
+"en": "Kigali",
+"es": "Kigali",
+"fr": "Kigali",
+"hi": "किगाली",
+"pt": "Quigali",
+"zh": "吉佳利"
 }
 },
 "Killeen": {
+"artist": "Victorenriqueagosto",
 "editions": 56,
+"h": 480,
+"img": "D_Avenue.JPG",
 "km": 1.6,
 "label": "Killeen",
+"lic": "CC BY-SA 3.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
 "q": "Q128228",
 "st": "TX",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/D_Avenue.JPG/250px-D_Avenue.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 640,
 "wiki": {
 "ar": "كيلين (تكساس)",
 "de": "Killeen",
@@ -8216,26 +7984,26 @@
 "zslug": "kingston-ny"
 },
 "Kinshasa": {
-"artist": "",
-"editions": 33,
-"h": 690,
-"img": "KIH01.jpg",
-"km": 16.5,
-"label": "N'Djili International Airport",
-"lic": "Public domain",
-"licurl": "",
-"q": "Q645492",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/65/KIH01.jpg/250px-KIH01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 919,
+"artist": "Garcia-Pavilion",
+"editions": 208,
+"h": 405,
+"img": "Vue_Kinshasa.jpg",
+"km": 0.3,
+"label": "Kinshasa",
+"lic": "CC BY-SA 4.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
+"q": "Q3838",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3c/Vue_Kinshasa.jpg/250px-Vue_Kinshasa.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 720,
 "wiki": {
-"ar": "مطار ندجيلي",
-"de": "Flughafen Ndjili",
-"en": "N'djili International Airport",
-"es": "Aeropuerto Internacional de N'Djili",
-"fr": "Aéroport international de Kinshasa-Ndjili",
-"hi": "न्जीली हवाई अड्डा",
-"pt": "Aeroporto de N'djili",
-"zh": "恩吉利國際機場"
+"ar": "كينشاسا",
+"de": "Kinshasa",
+"en": "Kinshasa",
+"es": "Kinsasa",
+"fr": "Kinshasa",
+"hi": "किन्शासा",
+"pt": "Quinxassa",
+"zh": "金夏沙"
 }
 },
 "Knoxville": {
@@ -8426,10 +8194,17 @@
 }
 },
 "Kuwait City": {
+"artist": "User:Deepak",
 "editions": 169,
+"h": 450,
+"img": "LiberationTower.jpg",
 "km": 1.1,
 "label": "Kuwait City",
+"lic": "CC BY-SA 3.0",
+"licurl": "http://creativecommons.org/licenses/by-sa/3.0/",
 "q": "Q35178",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/da/LiberationTower.jpg/250px-LiberationTower.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 600,
 "wiki": {
 "ar": "مدينة الكويت",
 "de": "Kuwait (Stadt)",
@@ -8466,27 +8241,12 @@
 }
 },
 "Kyoto": {
-"artist": "Basile Morin",
-"editions": 260,
-"h": 3932,
-"img": "Pedestrian_road_with_pavements,_paper_umbrellas_and_people_in_yukata,_Higashiyama-ku,_Kyoto,_Japan.jpg",
-"km": 0.2,
-"label": "Kyoto",
-"lic": "CC BY-SA 4.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
-"q": "Q34600",
-"sub": "Kyoto",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/Pedestrian_road_with_pavements%2C_paper_umbrellas_and_people_in_yukata%2C_Higashiyama-ku%2C_Kyoto%2C_Japan.jpg/250px-Pedestrian_road_with_pavements%2C_paper_umbrellas_and_people_in_yukata%2C_Higashiyama-ku%2C_Kyoto%2C_Japan.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 5898,
+"editions": 1,
+"km": 0.3,
+"label": "Kyōto",
+"q": "Q740246",
 "wiki": {
-"ar": "كيوتو",
-"de": "Kyōto",
-"en": "Kyoto",
-"es": "Kioto",
-"fr": "Kyoto",
-"hi": "क्योटो",
-"pt": "Quioto",
-"zh": "京都市"
+"zh": "京都"
 }
 },
 "La Crosse": {
@@ -8699,12 +8459,19 @@
 "zslug": "lake-havasu-city-az"
 },
 "Lakeland": {
+"artist": "Contrib123456",
 "editions": 57,
+"h": 537,
+"img": "Downtownlakeland_fl.JPG",
 "km": 0.9,
 "label": "Lakeland",
+"lic": "Public domain",
+"licurl": "",
 "q": "Q639452",
 "st": "FL",
 "sub": "lakeland",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/be/Downtownlakeland_fl.JPG/250px-Downtownlakeland_fl.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 2280,
 "wiki": {
 "ar": "ليكلاند (فلوريدا)",
 "de": "Lakeland (Florida)",
@@ -9369,19 +9136,12 @@
 "zslug": "los-angeles-ca"
 },
 "Louisville": {
-"artist": "Peter2006son (talk)",
 "editions": 117,
-"h": 1600,
-"img": "Louisville_montage.jpg",
 "km": 1.0,
 "label": "Louisville",
-"lic": "Public domain",
-"licurl": "",
 "q": "Q43668",
 "st": "KY",
 "sub": "Louisville",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/74/Louisville_montage.jpg/250px-Louisville_montage.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1280,
 "wiki": {
 "ar": "لويفيل (كنتاكي)",
 "de": "Louisville (Kentucky)",
@@ -9663,27 +9423,11 @@
 }
 },
 "Makassar": {
-"artist": "Bluesatellite",
-"editions": 96,
-"h": 558,
-"img": "Makassar,_March_2019.jpg",
-"km": 2.6,
+"editions": 1,
+"km": 1.4,
 "label": "Makassar",
-"lic": "CC BY-SA 4.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
-"q": "Q14634",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9e/Makassar%2C_March_2019.jpg/250px-Makassar%2C_March_2019.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1130,
-"wiki": {
-"ar": "ماكاسار",
-"de": "Makassar",
-"en": "Makassar",
-"es": "Macasar (Indonesia)",
-"fr": "Makassar (ville)",
-"hi": "मकास्सर",
-"pt": "Macáçar",
-"zh": "望加錫"
-}
+"q": "Q24828295",
+"wiki": {}
 },
 "Malabo": {
 "artist": "Ipisking at English Wikipedia",
@@ -9732,19 +9476,14 @@
 }
 },
 "Manaus": {
-"editions": 129,
-"km": 0.2,
+"editions": 11,
+"km": 1.0,
 "label": "Manaus",
-"q": "Q40236",
+"q": "Q1827037",
 "wiki": {
-"ar": "ماناوس",
-"de": "Manaus",
-"en": "Manaus",
-"es": "Manaos (Brasil)",
-"fr": "Manaus",
-"hi": "मनौस",
-"pt": "Manaus",
-"zh": "马瑙斯"
+"es": "Microrregión de Manaos",
+"fr": "Microrégion de Manaus",
+"pt": "Microrregião de Manaus"
 }
 },
 "Manchester": {
@@ -9944,73 +9683,25 @@
 }
 },
 "Mar del Plata": {
-"artist": "Quilmeño89",
-"editions": 87,
-"h": 1457,
-"img": "MDQMontage.jpg",
-"km": 0.9,
+"editions": 0,
+"km": 4.4,
 "label": "Mar del Plata",
-"lic": "CC BY-SA 4.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
-"q": "Q52607",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/78/MDQMontage.jpg/250px-MDQMontage.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1004,
-"wiki": {
-"ar": "مار دل بلاتا",
-"de": "Mar del Plata",
-"en": "Mar del Plata",
-"es": "Mar del Plata",
-"fr": "Mar del Plata",
-"pt": "Mar del Plata",
-"zh": "马德普拉塔"
-}
+"q": "Q111387438",
+"wiki": {}
 },
 "Maracaibo": {
-"artist": "Maracaibo_panoramica_avenida_Cecilio_Acosta.jpg: Wilfredor derivative work: Wilfredor",
-"editions": 94,
-"h": 1178,
-"img": "Maracaibo_panoramica_avenida_Cecilio_Acosta_cuted.jpg",
-"km": 2.0,
+"editions": 0,
+"km": 4.7,
 "label": "Maracaibo",
-"lic": "CC0",
-"licurl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-"q": "Q171632",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/69/Maracaibo_panoramica_avenida_Cecilio_Acosta_cuted.jpg/250px-Maracaibo_panoramica_avenida_Cecilio_Acosta_cuted.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 3358,
-"wiki": {
-"ar": "ماراكايبو",
-"de": "Maracaibo",
-"en": "Maracaibo",
-"es": "Maracaibo",
-"fr": "Maracaibo",
-"hi": "माराकाइबो",
-"pt": "Maracaibo",
-"zh": "马拉开波"
-}
+"q": "Q111387215",
+"wiki": {}
 },
 "Marrakesh": {
-"artist": "Donar Reiskoffer",
-"editions": 142,
-"h": 1023,
-"img": "Djemaa_el_Fna,_evening.JPG",
-"km": 2.7,
-"label": "Marrakech",
-"lic": "CC BY 3.0",
-"licurl": "https://creativecommons.org/licenses/by/3.0",
-"q": "Q101625",
-"sub": "marrakech",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/78/Djemaa_el_Fna%2C_evening.JPG/250px-Djemaa_el_Fna%2C_evening.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1596,
-"wiki": {
-"ar": "مراكش",
-"de": "Marrakesch",
-"en": "Marrakesh",
-"es": "Marrakech",
-"fr": "Marrakech",
-"hi": "मराकेश",
-"pt": "Marraquexe",
-"zh": "马拉喀什"
-}
+"editions": 0,
+"km": 7.9,
+"label": "Marrakesh",
+"q": "Q138238260",
+"wiki": {}
 },
 "Marseille": {
 "artist": "kallerna",
@@ -10206,43 +9897,36 @@
 }
 },
 "Merced": {
-"artist": "Ron Johnson",
-"editions": 65,
-"h": 1944,
-"img": "Merced_CA_Historic_Courthouse7.jpg",
-"km": 23.8,
-"label": "Merced County",
-"lic": "Copyrighted free use",
-"licurl": "",
-"q": "Q109690",
-"st": "CA",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/83/Merced_CA_Historic_Courthouse7.jpg/250px-Merced_CA_Historic_Courthouse7.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 2592,
-"wiki": {
-"ar": "مقاطعة ميرسيد (كاليفورنيا)",
-"de": "Merced County",
-"en": "Merced County, California",
-"es": "Condado de Merced",
-"fr": "Comté de Merced",
-"pt": "Condado de Merced",
-"zh": "默塞德縣"
-},
-"zlist": false,
-"zslug": "merced-county-ca"
-},
-"Mexicali": {
-"artist": "el.mariano, Hlecuanda, El bart089, Usfirstgov",
-"editions": 89,
-"h": 5120,
-"img": "MexicaliMontage.jpg",
-"km": 3.0,
-"label": "Mexicali",
+"artist": "Mark Miller",
+"editions": 62,
+"h": 3216,
+"img": "Merced_Theatre.JPG",
+"km": 0.4,
+"label": "Merced",
 "lic": "CC BY-SA 3.0",
 "licurl": "https://creativecommons.org/licenses/by-sa/3.0",
+"q": "Q499189",
+"st": "CA",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cc/Merced_Theatre.JPG/250px-Merced_Theatre.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 4288,
+"wiki": {
+"ar": "ميرسيد (كاليفورنيا)",
+"de": "Merced (Kalifornien)",
+"en": "Merced, California",
+"es": "Merced (California)",
+"fr": "Merced (États-Unis)",
+"pt": "Merced (Califórnia)",
+"zh": "美熹德"
+},
+"zlist": true,
+"zslug": "merced-ca"
+},
+"Mexicali": {
+"editions": 89,
+"km": 3.0,
+"label": "Mexicali",
 "q": "Q199440",
 "sub": "mexicali",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/74/MexicaliMontage.jpg/250px-MexicaliMontage.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 3200,
 "wiki": {
 "ar": "مكسيكالي",
 "de": "Mexicali",
@@ -10406,28 +10090,13 @@
 }
 },
 "Milwaukee": {
-"artist": "",
-"editions": 141,
-"h": 958,
-"img": "Milwaukee_June_2026_(cropped).jpg",
-"km": 3.4,
+"editions": 1,
+"km": 4.8,
 "label": "Milwaukee",
-"lic": "CC BY 4.0",
-"licurl": "https://creativecommons.org/licenses/by/4.0",
-"q": "Q37836",
+"q": "Q6861654",
 "st": "WI",
-"sub": "milwaukee",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/61/Milwaukee_June_2026_%28cropped%29.jpg/250px-Milwaukee_June_2026_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1638,
 "wiki": {
-"ar": "ميلواكي",
-"de": "Milwaukee",
-"en": "Milwaukee",
-"es": "Milwaukee",
-"fr": "Milwaukee",
-"hi": "मिल्वौकी, विस्कॉन्सिन",
-"pt": "Milwaukee",
-"zh": "密尔沃基"
+"en": "Milwaukee (Greenamyer)"
 },
 "zlist": true,
 "zslug": "milwaukee-wi"
@@ -10486,25 +10155,26 @@
 "zslug": "minot-nd"
 },
 "Minsk": {
-"artist": "Alexxx Malev",
-"editions": 84,
-"h": 1388,
-"img": "Belarus_Nesvizh_Castle_(247658199).jpeg",
-"km": 28.8,
-"label": "Minsk region",
+"artist": "Zedlik",
+"editions": 232,
+"h": 1577,
+"img": "Мінск._Сквер_па_плошчы_Незалежнасці.jpg",
+"km": 0.3,
+"label": "Minsk",
 "lic": "CC BY-SA 3.0",
 "licurl": "https://creativecommons.org/licenses/by-sa/3.0",
-"q": "Q192959",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a1/Belarus_Nesvizh_Castle_%28247658199%29.jpeg/250px-Belarus_Nesvizh_Castle_%28247658199%29.jpeg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 2048,
+"q": "Q2280",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ca/%D0%9C%D1%96%D0%BD%D1%81%D0%BA._%D0%A1%D0%BA%D0%B2%D0%B5%D1%80_%D0%BF%D0%B0_%D0%BF%D0%BB%D0%BE%D1%88%D1%87%D1%8B_%D0%9D%D0%B5%D0%B7%D0%B0%D0%BB%D0%B5%D0%B6%D0%BD%D0%B0%D1%81%D1%86%D1%96.jpg/250px-%D0%9C%D1%96%D0%BD%D1%81%D0%BA._%D0%A1%D0%BA%D0%B2%D0%B5%D1%80_%D0%BF%D0%B0_%D0%BF%D0%BB%D0%BE%D1%88%D1%87%D1%8B_%D0%9D%D0%B5%D0%B7%D0%B0%D0%BB%D0%B5%D0%B6%D0%BD%D0%B0%D1%81%D1%86%D1%96.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 2506,
 "wiki": {
-"ar": "إقليم مينسك",
-"de": "Minskaja Woblasz",
-"en": "Minsk region",
-"es": "Óblast de Minsk",
-"fr": "Voblast de Minsk",
-"pt": "Minsk (voblast)",
-"zh": "明斯克州"
+"ar": "مينسك",
+"de": "Minsk",
+"en": "Minsk",
+"es": "Minsk",
+"fr": "Minsk",
+"hi": "मिन्‍स्‍क",
+"pt": "Minsk",
+"zh": "明斯克"
 }
 },
 "Missoula": {
@@ -10674,29 +10344,30 @@
 "zslug": "monroe-la"
 },
 "Monroe MI": {
-"artist": "User:Notorious4life",
-"editions": 48,
-"h": 1080,
-"img": "MonroeMIcourthouse.jpg",
-"km": 8.3,
-"label": "Monroe County",
+"artist": "Notorious4life at en.wikipedia",
+"editions": 44,
+"h": 2052,
+"img": "MonroeDowntown.jpg",
+"km": 0.4,
+"label": "Monroe",
 "lic": "Public domain",
 "licurl": "",
-"q": "Q195658",
+"q": "Q995533",
 "st": "MI",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bd/MonroeMIcourthouse.jpg/250px-MonroeMIcourthouse.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1920,
+"sub": "MonroeMI",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ca/MonroeDowntown.jpg/250px-MonroeDowntown.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 3648,
 "wiki": {
-"ar": "مقاطعة مونرو (ميشيغان)",
-"de": "Monroe County (Michigan)",
-"en": "Monroe County, Michigan",
-"es": "Condado de Monroe (Míchigan)",
-"fr": "Comté de Monroe (Michigan)",
-"pt": "Condado de Monroe (Michigan)",
-"zh": "門羅縣 (密西根州)"
+"ar": "مونرو (ميشيغان)",
+"de": "Monroe (Michigan)",
+"en": "Monroe, Michigan",
+"es": "Monroe (Míchigan)",
+"fr": "Monroe (Michigan)",
+"pt": "Monroe (Michigan)",
+"zh": "門羅 (密歇根州)"
 },
-"zlist": false,
-"zslug": "monroe-county-mi"
+"zlist": true,
+"zslug": "monroe-mi"
 },
 "Montauk": {
 "artist": "Anthony Montemurro",
@@ -10796,11 +10467,18 @@
 "zslug": "montgomery-al"
 },
 "Montreal": {
+"artist": "https://www.pxfuel.com/",
 "editions": 195,
+"h": 461,
+"img": "Montreal-canada-parc-urban.jpg",
 "km": 1.4,
 "label": "Montreal",
+"lic": "CC0",
+"licurl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
 "q": "Q340",
 "sub": "montreal",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4f/Montreal-canada-parc-urban.jpg/250px-Montreal-canada-parc-urban.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 874,
 "wiki": {
 "ar": "مونتريال",
 "de": "Montreal",
@@ -10980,26 +10658,26 @@
 }
 },
 "Muscat": {
-"artist": "Leon petrosyan",
-"editions": 159,
-"h": 944,
-"img": "Old_city_of_Maskat.jpg",
-"km": 18.8,
-"label": "Muscat",
+"artist": "Andrea Tabanelli",
+"editions": 43,
+"h": 800,
+"img": "Aerial_view_of_Muscat_Airport.jpg",
+"km": 12.6,
+"label": "Muscat International Airport",
 "lic": "CC BY-SA 4.0",
 "licurl": "https://creativecommons.org/licenses/by-sa/4.0",
-"q": "Q3826",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1a/Old_city_of_Maskat.jpg/250px-Old_city_of_Maskat.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1259,
+"q": "Q1133357",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b4/Aerial_view_of_Muscat_Airport.jpg/250px-Aerial_view_of_Muscat_Airport.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 1200,
 "wiki": {
-"ar": "مسقط",
-"de": "Maskat",
-"en": "Muscat",
-"es": "Mascate",
-"fr": "Mascate",
-"hi": "मस्क़त",
-"pt": "Mascate",
-"zh": "马斯喀特"
+"ar": "مطار مسقط الدولي",
+"de": "Flughafen Maskat",
+"en": "Muscat International Airport",
+"es": "Aeropuerto Internacional de Mascate",
+"fr": "Aéroport international de Mascate",
+"hi": "मस्कट अन्तर्राष्ट्रीय विमानक्षेत्र",
+"pt": "Aeroporto Internacional de Mascate",
+"zh": "馬斯喀特國際機場"
 }
 },
 "Muskegon": {
@@ -11055,41 +10733,21 @@
 "zslug": "myrtle-beach-sc"
 },
 "Málaga": {
-"artist": "Viktar Palstsiuk",
-"editions": 148,
-"h": 2448,
-"img": "Malaga_2023.jpg",
+"editions": 4,
 "km": 0.5,
 "label": "Málaga",
-"lic": "CC BY-SA 4.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
-"q": "Q8851",
-"sub": "Malaga",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/Malaga_2023.jpg/250px-Malaga_2023.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 3264,
+"q": "Q5680327",
 "wiki": {
-"ar": "مالقة",
-"de": "Málaga",
-"en": "Málaga",
-"es": "Málaga",
-"fr": "Malaga",
-"hi": "मलागा",
-"pt": "Málaga",
-"zh": "马拉加"
+"en": "Málaga (Congress of Deputies constituency)",
+"es": "Circunscripción electoral de Málaga",
+"fr": "Circonscription électorale de Malaga"
 }
 },
 "Mérida": {
-"artist": "the above mentioned",
 "editions": 86,
-"h": 2277,
-"img": "Collage_Merida_Yucatan.jpg",
 "km": 0.0,
 "label": "Mérida",
-"lic": "CC BY-SA 4.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
 "q": "Q165204",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ef/Collage_Merida_Yucatan.jpg/250px-Collage_Merida_Yucatan.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1367,
 "wiki": {
 "ar": "ماردة (المكسيك)",
 "de": "Mérida (Mexiko)",
@@ -11124,18 +10782,11 @@
 }
 },
 "Nagoya": {
-"artist": "File:Ferris Wheel - Port of Nagoya.JPG by Gnsin File:Higashiyama botanical gardens-01.jpg ",
 "editions": 160,
-"h": 1669,
-"img": "Japan_Nagoya.png",
 "km": 0.4,
 "label": "Nagoya",
-"lic": "CC BY-SA 3.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
 "q": "Q11751",
 "sub": "Nagoya",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/Japan_Nagoya.png/250px-Japan_Nagoya.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1220,
 "wiki": {
 "ar": "ناغويا",
 "de": "Nagoya",
@@ -11216,54 +10867,37 @@
 }
 },
 "Nanjing": {
-"artist": "xiquinhosilva",
-"editions": 143,
-"h": 1707,
-"img": "Nanjing_CBD_from_City_Wall.jpg",
-"km": 2.0,
+"editions": 0,
+"km": 3.3,
 "label": "Nanjing",
-"lic": "CC BY 2.0",
-"licurl": "https://creativecommons.org/licenses/by/2.0",
-"q": "Q16666",
-"sub": "nanjing",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/82/Nanjing_CBD_from_City_Wall.jpg/250px-Nanjing_CBD_from_City_Wall.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 2560,
-"wiki": {
-"ar": "نانجينغ",
-"de": "Nanjing",
-"en": "Nanjing",
-"es": "Nankín",
-"fr": "Nankin",
-"hi": "नानजिंग",
-"pt": "Nanquim",
-"zh": "南京市"
-}
+"q": "Q114949732",
+"wiki": {}
 },
 "Napa": {
-"artist": "Stan Shebs",
-"editions": 68,
-"h": 1600,
-"img": "Napa_Valley_from_Auberge_du_Soleil_1.jpg",
-"km": 22.4,
-"label": "Napa County",
-"lic": "CC BY-SA 3.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
-"q": "Q108137",
+"artist": "Oleg Alexandrov",
+"editions": 61,
+"h": 3072,
+"img": "City_of_Napa_by_the_Napa_River.JPG",
+"km": 0.9,
+"label": "Napa",
+"lic": "CC BY-SA 4.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
+"q": "Q60537",
 "st": "CA",
-"sub": "napavalley",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/Napa_Valley_from_Auberge_du_Soleil_1.jpg/250px-Napa_Valley_from_Auberge_du_Soleil_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 2400,
+"sub": "napa",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f0/City_of_Napa_by_the_Napa_River.JPG/250px-City_of_Napa_by_the_Napa_River.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 4608,
 "wiki": {
-"ar": "مقاطعة نابا (كاليفورنيا)",
-"de": "Napa County",
-"en": "Napa County, California",
-"es": "Condado de Napa",
-"fr": "Comté de Napa",
-"pt": "Condado de Napa",
-"zh": "纳帕县"
+"ar": "نابا (كاليفورنيا)",
+"de": "Napa",
+"en": "Napa, California",
+"es": "Napa",
+"fr": "Napa (Californie)",
+"pt": "Napa (Califórnia)",
+"zh": "纳帕"
 },
-"zlist": false,
-"zslug": "napa-county-ca"
+"zlist": true,
+"zslug": "napa-ca"
 },
 "Naples": {
 "artist": "This Photo was taken by Wolfgang Moroder. Feel free to use my photos, but please mention m",
@@ -11474,25 +11108,26 @@
 "zstat": 403
 },
 "Niamey": {
-"artist": "Rolanda Jundt U.S. Department of Energy's Atmospheric Radiation Measurement Program",
-"editions": 34,
-"h": 912,
-"img": "Niameyairport_2005_crop.JPG",
-"km": 7.2,
-"label": "Diori Hamani International Airport",
-"lic": "Public domain",
-"licurl": "",
-"q": "Q905933",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/84/Niameyairport_2005_crop.JPG/250px-Niameyairport_2005_crop.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1552,
+"artist": "Roland Huziaker",
+"editions": 164,
+"h": 1996,
+"img": "Niamey_from_grand_mosque_theatre_2006.jpg",
+"km": 1.0,
+"label": "Niamey",
+"lic": "CC BY-SA 2.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/2.0",
+"q": "Q3674",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/26/Niamey_from_grand_mosque_theatre_2006.jpg/250px-Niamey_from_grand_mosque_theatre_2006.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 2589,
 "wiki": {
-"ar": "مطار ديوري حماني",
-"de": "Flughafen Niamey",
-"en": "Diori Hamani International Airport",
-"es": "Aeropuerto Internacional Diori Hamani",
-"fr": "Aéroport international Diori-Hamani",
-"pt": "Aeroporto Internacional Diori Hamani",
-"zh": "迪奥里·哈马尼国际机场"
+"ar": "نيامي",
+"de": "Niamey",
+"en": "Niamey",
+"es": "Niamey",
+"fr": "Niamey",
+"hi": "नियामे",
+"pt": "Niamei",
+"zh": "尼亞美"
 }
 },
 "Nicosia": {
@@ -11520,25 +11155,25 @@
 }
 },
 "Niigata": {
-"artist": "るーと16",
-"editions": 100,
-"h": 2736,
-"img": "Niigata_city_night_view.jpg",
-"km": 2.4,
-"label": "Niigata Prefecture",
+"artist": "皓月旗",
+"editions": 92,
+"h": 3948,
+"img": "Niigata_from_Bandaijima_Building_20200906_P4.jpg",
+"km": 0.5,
+"label": "Niigata",
 "lic": "CC BY-SA 4.0",
 "licurl": "https://creativecommons.org/licenses/by-sa/4.0",
-"q": "Q132705",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bc/Niigata_city_night_view.jpg/250px-Niigata_city_night_view.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 3648,
+"q": "Q179691",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fd/Niigata_from_Bandaijima_Building_20200906_P4.jpg/250px-Niigata_from_Bandaijima_Building_20200906_P4.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 5915,
 "wiki": {
-"ar": "نييغاتا (محافظة)",
-"de": "Präfektur Niigata",
-"en": "Niigata Prefecture",
-"es": "Prefectura de Niigata",
-"fr": "Préfecture de Niigata",
-"pt": "Niigata (prefeitura)",
-"zh": "新潟县"
+"ar": "نيغاتا",
+"de": "Niigata",
+"en": "Niigata (city)",
+"es": "Niigata (Niigata)",
+"fr": "Niigata",
+"pt": "Niigata",
+"zh": "新潟市"
 }
 },
 "Niles": {
@@ -11664,18 +11299,11 @@
 "zslug": "ocala-fl"
 },
 "Odesa": {
-"artist": "Natanaval, Haidamac, Posterrr, Brizhnichenko, J budissin, Alex Levitsky & Dmitry Shamatazh",
 "editions": 177,
-"h": 1400,
-"img": "Odesa-Montage-2016.png",
 "km": 1.1,
 "label": "Odesa",
-"lic": "CC BY-SA 4.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
 "q": "Q1874",
 "sub": "odesa",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d7/Odesa-Montage-2016.png/250px-Odesa-Montage-2016.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1000,
 "wiki": {
 "ar": "أوديسا",
 "de": "Odessa",
@@ -11713,12 +11341,19 @@
 "zslug": "odessa-tx"
 },
 "Ogden": {
+"artist": "Weberstate",
 "editions": 55,
+"h": 424,
+"img": "Downtown_ogden.jpg",
 "km": 1.1,
 "label": "Ogden",
+"lic": "Public domain",
+"licurl": "",
 "q": "Q52471",
 "st": "UT",
 "sub": "ogden",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/Downtown_ogden.jpg/250px-Downtown_ogden.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 600,
 "wiki": {
 "ar": "أوغدن (يوتا)",
 "de": "Ogden (Utah)",
@@ -12039,19 +11674,13 @@
 "zslug": "paducah-ky"
 },
 "Palembang": {
-"editions": 99,
+"editions": 19,
 "km": 0.6,
 "label": "Palembang",
-"q": "Q8131",
+"q": "Q12497929",
 "wiki": {
-"ar": "فلمبان",
-"de": "Palembang",
-"en": "Palembang",
-"es": "Palembang",
-"fr": "Palembang",
-"hi": "पालेमबांग",
-"pt": "Palimbão",
-"zh": "巨港"
+"ar": "لغة باليمبانغ",
+"en": "Palembang language"
 }
 },
 "Palermo": {
@@ -12078,29 +11707,23 @@
 }
 },
 "Palm Bay": {
-"artist": "Georgia Guercio",
-"editions": 56,
-"h": 2592,
-"img": "Titusville,_FL,_Courthouse,_Brevard_County,_08-07-2010_(5).JPG",
-"km": 31.9,
-"label": "Brevard County",
+"artist": "Leonard J. DeFrancisci",
+"editions": 2,
+"h": 2736,
+"img": "Palm_Bay_(Florida)_001.jpg",
+"km": 1.2,
+"label": "Palm Bay",
 "lic": "CC BY-SA 3.0",
 "licurl": "https://creativecommons.org/licenses/by-sa/3.0",
-"q": "Q488517",
+"q": "Q7127965",
 "st": "FL",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5b/Titusville%2C_FL%2C_Courthouse%2C_Brevard_County%2C_08-07-2010_%285%29.JPG/250px-Titusville%2C_FL%2C_Courthouse%2C_Brevard_County%2C_08-07-2010_%285%29.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 3888,
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b1/Palm_Bay_%28Florida%29_001.jpg/250px-Palm_Bay_%28Florida%29_001.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 3648,
 "wiki": {
-"ar": "مقاطعة بريفارد (فلوريدا)",
-"de": "Brevard County",
-"en": "Brevard County, Florida",
-"es": "Condado de Brevard",
-"fr": "Comté de Brevard",
-"pt": "Condado de Brevard",
-"zh": "布里瓦德縣 (佛羅里達州)"
+"en": "Palm Bay (Florida)"
 },
-"zlist": false,
-"zslug": "brevard-county-fl"
+"zlist": true,
+"zslug": "palm-bay-fl"
 },
 "Panama City": {
 "artist": "JAVR2020",
@@ -12199,12 +11822,19 @@
 }
 },
 "Parkersburg": {
+"artist": "Mgoudy85 (talk)",
 "editions": 56,
+"h": 410,
+"img": "Boreman_view.jpg",
 "km": 1.6,
 "label": "Parkersburg",
+"lic": "Public domain",
+"licurl": "",
 "q": "Q329485",
 "st": "WV",
 "sub": "parkersburg",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bd/Boreman_view.jpg/250px-Boreman_view.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 892,
 "wiki": {
 "ar": "باركرسبورغ",
 "de": "Parkersburg (West Virginia)",
@@ -12495,12 +12125,19 @@
 }
 },
 "Pocatello": {
+"artist": "",
 "editions": 60,
+"h": 431,
+"img": "Downtown_Pocatello_Idaho_2004.jpg",
 "km": 0.3,
 "label": "Pocatello",
+"lic": "CC BY-SA 3.0",
+"licurl": "http://creativecommons.org/licenses/by-sa/3.0/",
 "q": "Q320729",
 "st": "ID",
 "sub": "pocatello",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f4/Downtown_Pocatello_Idaho_2004.jpg/250px-Downtown_Pocatello_Idaho_2004.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 600,
 "wiki": {
 "ar": "بوكاتيلو",
 "de": "Pocatello",
@@ -12514,25 +12151,26 @@
 "zslug": "pocatello-id"
 },
 "Podgorica": {
-"artist": "Bjoertvedt",
-"editions": 45,
-"h": 1536,
-"img": "AerodromPodgorica.jpg",
-"km": 9.0,
-"label": "Podgorica Airport",
+"artist": "Milos58",
+"editions": 192,
+"h": 2448,
+"img": "Titograd.jpg",
+"km": 0.3,
+"label": "Podgorica",
 "lic": "CC BY-SA 3.0",
 "licurl": "https://creativecommons.org/licenses/by-sa/3.0",
-"q": "Q844825",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e4/AerodromPodgorica.jpg/250px-AerodromPodgorica.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 2048,
+"q": "Q23564",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/Titograd.jpg/250px-Titograd.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 3264,
 "wiki": {
-"ar": "مطار بودغوريتسا الدولي",
-"de": "Flughafen Podgorica",
-"en": "Podgorica Airport",
-"es": "Aeropuerto de Podgorica",
-"fr": "Aéroport de Podgorica",
-"pt": "Aeroporto de Podgoritza",
-"zh": "波德戈里察國際機場"
+"ar": "بودغوريتسا",
+"de": "Podgorica",
+"en": "Podgorica",
+"es": "Podgorica",
+"fr": "Podgorica",
+"hi": "पोडगोरिका",
+"pt": "Podgoritza",
+"zh": "波德戈里察"
 }
 },
 "Pointe-Noire": {
@@ -12645,19 +12283,12 @@
 "zslug": "port-st-lucie-fl"
 },
 "Portland": {
-"artist": "Kalinparsonsgaming",
 "editions": 141,
-"h": 1166,
-"img": "Portland,_Oregon_Collage.jpg",
 "km": 0.6,
 "label": "Portland",
-"lic": "CC BY-SA 4.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
 "q": "Q6106",
 "st": "OR",
 "sub": "Portland",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fc/Portland%2C_Oregon_Collage.jpg/250px-Portland%2C_Oregon_Collage.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 896,
 "wiki": {
 "ar": "بورتلاند (أوريغون)",
 "de": "Portland (Oregon)",
@@ -12672,18 +12303,11 @@
 "zslug": "portland-or"
 },
 "Portland ME": {
-"artist": "Karmos",
 "editions": 100,
-"h": 1826,
-"img": "Portland,_Maine_Montage.jpg",
 "km": 0.4,
 "label": "Portland",
-"lic": "CC BY-SA 3.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
 "q": "Q49201",
 "st": "ME",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c2/Portland%2C_Maine_Montage.jpg/250px-Portland%2C_Maine_Montage.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1600,
 "wiki": {
 "ar": "بورتلاند (مين)",
 "de": "Portland (Maine)",
@@ -12721,28 +12345,18 @@
 }
 },
 "Porto Alegre": {
-"artist": "TimBray",
-"editions": 126,
-"h": 600,
-"img": "Aerial_view_of_the_point_of_Porto_Alegre_extending_into_Guaíba_Lake.jpg",
+"artist": "Editorial J from Porto Alegre, Brasil",
+"editions": 1,
+"h": 1482,
+"img": "Vistas_de_Porto_Alegre_(cropped).jpg",
 "km": 0.3,
 "label": "Porto Alegre",
-"lic": "CC BY-SA 3.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
-"q": "Q40269",
-"sub": "portoalegre",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Aerial_view_of_the_point_of_Porto_Alegre_extending_into_Gua%C3%ADba_Lake.jpg/250px-Aerial_view_of_the_point_of_Porto_Alegre_extending_into_Gua%C3%ADba_Lake.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 800,
-"wiki": {
-"ar": "بورتو أليغري",
-"de": "Porto Alegre",
-"en": "Porto Alegre",
-"es": "Porto Alegre",
-"fr": "Porto Alegre",
-"hi": "पोर्टो अलैग्री",
-"pt": "Porto Alegre",
-"zh": "阿雷格里港"
-}
+"lic": "CC BY-SA 2.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/2.0",
+"q": "Q22067568",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9a/Vistas_de_Porto_Alegre_%28cropped%29.jpg/250px-Vistas_de_Porto_Alegre_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 3000,
+"wiki": {}
 },
 "Poughkeepsie": {
 "artist": "Daniel Case",
@@ -12794,19 +12408,12 @@
 }
 },
 "Prescott": {
-"artist": "Cityofprescott",
 "editions": 68,
-"h": 3504,
-"img": "Courthouseplaza_buckeyoneil.jpg",
 "km": 0.1,
 "label": "Prescott",
-"lic": "CC BY-SA 3.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
 "q": "Q79931",
 "st": "AZ",
 "sub": "Prescott",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/Courthouseplaza_buckeyoneil.jpg/250px-Courthouseplaza_buckeyoneil.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 2336,
 "wiki": {
 "ar": "بريسكوت (أريزونا)",
 "de": "Prescott (Arizona)",
@@ -12896,26 +12503,25 @@
 "zslug": "provo-ut"
 },
 "Puebla": {
-"artist": "Earth Science and Remote Sensing Unit, Lyndon B. Johnson Space Center",
-"editions": 109,
-"h": 2064,
-"img": "ISS006-E-26509_-_View_of_Mexico.jpg",
-"km": 34.1,
-"label": "Puebla",
+"artist": "Alejandro Quintanar",
+"editions": 103,
+"h": 681,
+"img": "Catedral_puebla_nocturna.jpg",
+"km": 1.5,
+"label": "Heroica Puebla de Zaragoza",
 "lic": "Public domain",
 "licurl": "",
-"q": "Q79923",
-"sub": "Puebla",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fd/ISS006-E-26509_-_View_of_Mexico.jpg/250px-ISS006-E-26509_-_View_of_Mexico.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 3032,
+"q": "Q125293",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2d/Catedral_puebla_nocturna.jpg/250px-Catedral_puebla_nocturna.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 1024,
 "wiki": {
-"ar": "ولاية بويبلا",
-"de": "Puebla (Bundesstaat)",
-"en": "Puebla",
-"es": "Puebla",
-"fr": "Puebla (État)",
-"pt": "Puebla (estado)",
-"zh": "普埃布拉州"
+"ar": "مدينة بويبلا",
+"de": "Heroica Puebla de Zaragoza",
+"en": "Puebla (city)",
+"es": "Puebla de Zaragoza",
+"fr": "Puebla",
+"pt": "Puebla de Zaragoza",
+"zh": "普埃布拉"
 }
 },
 "Pueblo": {
@@ -12994,18 +12600,11 @@
 "zslug": "punta-gorda-fl"
 },
 "Quebec City": {
-"artist": "Fabian Roudra Baroi",
 "editions": 149,
-"h": 6000,
-"img": "Buildings_and_Roads_of_Old_Quebec_City_14.jpg",
 "km": 1.3,
 "label": "Quebec City",
-"lic": "CC BY-SA 4.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
 "q": "Q2145",
 "sub": "quebeccity",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c5/Buildings_and_Roads_of_Old_Quebec_City_14.jpg/250px-Buildings_and_Roads_of_Old_Quebec_City_14.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 4000,
 "wiki": {
 "ar": "كيبك (مدينة)",
 "de": "Québec (Stadt)",
@@ -13166,19 +12765,12 @@
 "zslug": "rapid-city-sd"
 },
 "Reading": {
-"artist": "Marduk",
 "editions": 63,
-"h": 2048,
-"img": "Reading_Pennsylvania.jpg",
 "km": 0.4,
 "label": "Reading",
-"lic": "Public domain",
-"licurl": "",
 "q": "Q237896",
 "st": "PA",
 "sub": "ReadingPA",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b5/Reading_Pennsylvania.jpg/250px-Reading_Pennsylvania.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1536,
 "wiki": {
 "ar": "ريدينغ (بنسلفانيا)",
 "de": "Reading (Berks County, Pennsylvania)",
@@ -13192,43 +12784,19 @@
 "zslug": "reading-pa"
 },
 "Recife": {
-"artist": "Portal da Copa/ME",
-"editions": 131,
-"h": 2667,
-"img": "Recife_-_Início_da_Avenida_Boa_Viagem.jpg",
+"editions": 1,
 "km": 0.4,
 "label": "Recife",
-"lic": "CC BY 3.0 br",
-"licurl": "https://creativecommons.org/licenses/by/3.0/br/deed.en",
-"q": "Q48344",
-"sub": "recife",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b9/Recife_-_In%C3%ADcio_da_Avenida_Boa_Viagem.jpg/250px-Recife_-_In%C3%ADcio_da_Avenida_Boa_Viagem.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 4000,
-"wiki": {
-"ar": "ريسيفي",
-"de": "Recife",
-"en": "Recife",
-"es": "Recife",
-"fr": "Recife",
-"hi": "रिसीफ़ी",
-"pt": "Recife",
-"zh": "累西腓"
-}
+"q": "Q22061296",
+"wiki": {}
 },
 "Redding": {
-"artist": "Razster at English Wikipedia",
 "editions": 59,
-"h": 2598,
-"img": "Sundialbridge2.jpg",
 "km": 0.4,
 "label": "Redding",
-"lic": "CC BY 2.5",
-"licurl": "https://creativecommons.org/licenses/by/2.5",
 "q": "Q495361",
 "st": "CA",
 "sub": "Redding",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e8/Sundialbridge2.jpg/250px-Sundialbridge2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1731,
 "wiki": {
 "ar": "ردينغ (كاليفورنيا)",
 "de": "Redding (Kalifornien)",
@@ -13830,53 +13398,29 @@
 "zslug": "salisbury-md"
 },
 "Salt Lake City": {
-"artist": "",
-"editions": 160,
-"h": 1881,
-"img": "Salt_Lake_City_pan_1.jpg",
+"editions": 0,
 "km": 1.2,
 "label": "Salt Lake City",
-"lic": "Public domain",
-"licurl": "",
-"q": "Q23337",
+"q": "Q127431171",
 "st": "UT",
-"sub": "SaltLakeCity",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/ba/Salt_Lake_City_pan_1.jpg/250px-Salt_Lake_City_pan_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 4219,
-"wiki": {
-"ar": "سولت ليك (مدينة)",
-"de": "Salt Lake City",
-"en": "Salt Lake City",
-"es": "Salt Lake City",
-"fr": "Salt Lake City",
-"hi": "सॉल्ट लेक सिटी, यूटा",
-"pt": "Salt Lake City",
-"zh": "盐湖城"
-},
+"wiki": {},
 "zlist": true,
 "zslug": "salt-lake-city-ut"
 },
 "Salta": {
-"artist": "Artico2",
-"editions": 93,
-"h": 2592,
-"img": "Salta3.JPG",
-"km": 0.8,
-"label": "Salta Province",
-"lic": "CC BY-SA 3.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
-"q": "Q44803",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/be/Salta3.JPG/250px-Salta3.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1944,
+"editions": 79,
+"km": 0.9,
+"label": "Salta",
+"q": "Q36307",
 "wiki": {
-"ar": "سالتا (محافظة)",
-"de": "Provinz Salta",
-"en": "Salta Province",
-"es": "Provincia de Salta",
-"fr": "Province de Salta",
-"hi": "साल्टा प्रान्त",
-"pt": "Salta (província)",
-"zh": "萨尔塔省"
+"ar": "سالتا (الأرجنتين)",
+"de": "Salta (Stadt)",
+"en": "Salta",
+"es": "Salta",
+"fr": "Salta",
+"hi": "साल्टा",
+"pt": "Salta (cidade)",
+"zh": "萨尔塔"
 }
 },
 "Salvador": {
@@ -13923,19 +13467,12 @@
 "zslug": "san-angelo-tx"
 },
 "San Antonio": {
-"artist": "Zereshk",
 "editions": 151,
-"h": 1750,
-"img": "SA_Montage_Nima.png",
 "km": 0.7,
 "label": "",
-"lic": "Public domain",
-"licurl": "",
 "q": "Q975",
 "st": "TX",
 "sub": "sanantonio",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/be/SA_Montage_Nima.png/250px-SA_Montage_Nima.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1150,
 "wiki": {
 "ar": "سان أنطونيو",
 "de": "San Antonio",
@@ -14006,18 +13543,11 @@
 "zstat": 403
 },
 "San Jose": {
-"artist": "Sanjosecalifornia, EugeneZelenko, Luiz Eduardo, David Sawyer, Michael",
 "editions": 151,
-"h": 1728,
-"img": "SanJose_Infobox_Pic_Montage.jpg",
 "km": 4.3,
 "label": "San Jose",
-"lic": "CC BY-SA 3.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
 "q": "Q16553",
 "st": "CA",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/SanJose_Infobox_Pic_Montage.jpg/250px-SanJose_Infobox_Pic_Montage.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1230,
 "wiki": {
 "ar": "سان خوسيه (كاليفورنيا)",
 "de": "San José (Kalifornien)",
@@ -14165,29 +13695,29 @@
 }
 },
 "Sandusky": {
-"artist": "User:OHWiki",
-"editions": 47,
-"h": 1432,
-"img": "Sandusky_County_Ohio_Courthouse.JPG",
-"km": 38.0,
-"label": "Sandusky County",
-"lic": "Public domain",
-"licurl": "",
-"q": "Q485543",
+"artist": "Joseph42904",
+"editions": 46,
+"h": 419,
+"img": "City_of_Sandusky_Downtown.png",
+"km": 0.4,
+"label": "Sandusky",
+"lic": "CC BY-SA 4.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
+"q": "Q608207",
 "st": "OH",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a0/Sandusky_County_Ohio_Courthouse.JPG/250px-Sandusky_County_Ohio_Courthouse.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 2080,
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7d/City_of_Sandusky_Downtown.png/250px-City_of_Sandusky_Downtown.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 647,
 "wiki": {
-"ar": "مقاطعة ساندسكي (أوهايو)",
-"de": "Sandusky County",
-"en": "Sandusky County, Ohio",
-"es": "Condado de Sandusky",
-"fr": "Comté de Sandusky",
-"pt": "Condado de Sandusky",
-"zh": "桑達斯基縣 (俄亥俄州)"
+"ar": "ساندوسكي (أوهايو)",
+"de": "Sandusky (Ohio)",
+"en": "Sandusky, Ohio",
+"es": "Sandusky (Ohio)",
+"fr": "Sandusky (Ohio)",
+"pt": "Sandusky (Ohio)",
+"zh": "桑达斯基 (俄亥俄州)"
 },
-"zlist": false,
-"zslug": "sandusky-county-oh"
+"zlist": true,
+"zslug": "sandusky-oh"
 },
 "Santa Barbara": {
 "editions": 103,
@@ -14432,18 +13962,11 @@
 "zslug": "sarasota-fl"
 },
 "Saskatoon": {
-"artist": "Allice Hunter",
 "editions": 94,
-"h": 3581,
-"img": "Saskatoon_Montage_2020.jpg",
 "km": 1.0,
 "label": "Saskatoon",
-"lic": "CC BY-SA 4.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
 "q": "Q10566",
 "sub": "saskatoon",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/78/Saskatoon_Montage_2020.jpg/250px-Saskatoon_Montage_2020.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 2212,
 "wiki": {
 "ar": "ساسكاتون",
 "de": "Saskatoon",
@@ -14757,26 +14280,27 @@
 "zslug": "sierra-vista-az"
 },
 "Singapore": {
-"artist": "Adalal10",
-"editions": 54,
-"h": 552,
-"img": "2010_Summer_Youth_Olympic_Games_textlogo.jpg",
-"km": 8.2,
-"label": "2010 Summer Youth Olympics",
-"lic": "CC0",
-"licurl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-"q": "Q170422",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/70/2010_Summer_Youth_Olympic_Games_textlogo.jpg/250px-2010_Summer_Youth_Olympic_Games_textlogo.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1080,
+"artist": "Ramir Borja.",
+"editions": 333,
+"h": 1066,
+"img": "Raffles_Place.jpg",
+"km": 6.0,
+"label": "Singapore",
+"lic": "CC BY-SA 3.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
+"q": "Q334",
+"sub": "singapore",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/11/Raffles_Place.jpg/250px-Raffles_Place.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 1600,
 "wiki": {
-"ar": "الألعاب الأولمبية الصيفية للشباب 2010",
-"de": "Olympische Jugend-Sommerspiele 2010",
-"en": "2010 Summer Youth Olympics",
-"es": "Juegos Olímpicos de la Juventud de Singapur 2010",
-"fr": "Jeux olympiques de la jeunesse de 2010",
-"hi": "2010 ग्रीष्मकालीन युवा ओलंपिक",
-"pt": "Jogos Olímpicos de Verão da Juventude de 2010",
-"zh": "2010年夏季青年奧林匹克運動會"
+"ar": "سنغافورة",
+"de": "Singapur",
+"en": "Singapore",
+"es": "Singapur",
+"fr": "Singapour",
+"hi": "सिंगापुर",
+"pt": "Singapura",
+"zh": "新加坡"
 }
 },
 "Sioux City": {
@@ -14806,22 +14330,19 @@
 "zslug": "sioux-city-ia"
 },
 "Sioux Falls": {
-"editions": 96,
-"km": 0.7,
+"artist": "Clyde Charles Brown",
+"editions": 0,
+"h": 4000,
+"img": "Falls_of_the_Big_Sioux_River,_Sioux_Falls,_South_Dakota,_US.jpg",
+"km": 1.9,
 "label": "Sioux Falls",
-"q": "Q131335",
+"lic": "CC BY-SA 4.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
+"q": "Q111153196",
 "st": "SD",
-"sub": "siouxfalls",
-"wiki": {
-"ar": "سو فولز",
-"de": "Sioux Falls",
-"en": "Sioux Falls, South Dakota",
-"es": "Sioux Falls",
-"fr": "Sioux Falls",
-"hi": "सियुक फ़ॉल्स, दक्षिण डकोटा",
-"pt": "Sioux Falls",
-"zh": "苏瀑 (南达科他州)"
-},
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/80/Falls_of_the_Big_Sioux_River%2C_Sioux_Falls%2C_South_Dakota%2C_US.jpg/250px-Falls_of_the_Big_Sioux_River%2C_Sioux_Falls%2C_South_Dakota%2C_US.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 6000,
+"wiki": {},
 "zlist": true,
 "zslug": "sioux-falls-sd"
 },
@@ -14935,24 +14456,24 @@
 "zslug": "south-bend-in"
 },
 "Southampton": {
-"artist": "User:NHRHS2010",
-"editions": 34,
-"h": 2304,
-"img": "Southampton_Station.jpg",
+"artist": "The original uploader was Americasroof at English Wikipedia.",
+"editions": 13,
+"h": 886,
+"img": "Mercator-cooper-house.jpg",
 "km": 0.7,
 "label": "Southampton",
-"lic": "Public domain",
-"licurl": "",
-"q": "Q2631643",
+"lic": "CC BY-SA 2.5",
+"licurl": "https://creativecommons.org/licenses/by-sa/2.5",
+"q": "Q3826291",
 "st": "NY",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/84/Southampton_Station.jpg/250px-Southampton_Station.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 3072,
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f5/Mercator-cooper-house.jpg/250px-Mercator-cooper-house.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 1100,
 "wiki": {
-"de": "Southampton (New York)",
-"en": "Southampton, New York",
-"es": "Southampton (Nueva York)",
-"fr": "Southampton (New York)",
-"zh": "南安普敦 (紐約州)"
+"ar": "قرية ساوتهمبتون (نيويورك)",
+"en": "Southampton (village), New York",
+"es": "Southampton (villa)",
+"fr": "Southampton (village, New York)",
+"zh": "南安普敦 (紐約州村)"
 },
 "zlist": true,
 "zslug": "southampton-ny"
@@ -15159,8 +14680,8 @@
 "pt": "St. Cloud (Minnesota)",
 "zh": "圣克劳德 (明尼苏达州)"
 },
-"zlist": false,
-"zslug": "st-cloud-mn"
+"zlist": true,
+"zslug": "saint-cloud-mn"
 },
 "St. George": {
 "artist": "Stan Shebs",
@@ -15184,8 +14705,8 @@
 "pt": "St. George (Utah)",
 "zh": "圣乔治 (犹他州)"
 },
-"zlist": false,
-"zslug": "st-george-ut"
+"zlist": true,
+"zslug": "saint-george-ut"
 },
 "St. John's": {
 "editions": 98,
@@ -15226,8 +14747,8 @@
 "pt": "St. Joseph (Missouri)",
 "zh": "聖約瑟夫 (密蘇里州)"
 },
-"zlist": false,
-"zslug": "st-joseph-mo"
+"zlist": true,
+"zslug": "saint-joseph-mo"
 },
 "St. Louis": {
 "artist": "Sam valadi",
@@ -15253,8 +14774,8 @@
 "pt": "St. Louis (Missouri)",
 "zh": "圣路易斯 (密苏里州)"
 },
-"zlist": false,
-"zslug": "st-louis-mo"
+"zlist": true,
+"zslug": "saint-louis-mo"
 },
 "State College": {
 "artist": "Quintin Soloviev",
@@ -15334,11 +14855,18 @@
 "zslug": "steubenville-oh"
 },
 "Stockholm": {
+"artist": "JZ",
 "editions": 279,
+"h": 492,
+"img": "Stockholm_gamlastan_etc.jpg",
 "km": 0.1,
 "label": "Stockholm",
+"lic": "CC BY-SA 3.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
 "q": "Q1754",
 "sub": "stockholm",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7b/Stockholm_gamlastan_etc.jpg/250px-Stockholm_gamlastan_etc.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 700,
 "wiki": {
 "ar": "ستوكهولم",
 "de": "Stockholm",
@@ -15377,24 +14905,29 @@
 "zslug": "stockton-ca"
 },
 "Stony Brook": {
-"editions": 36,
-"km": 0.9,
-"label": "Stony Brook University",
-"q": "Q969850",
+"artist": "Myself for 4/5 photographs and creating the collage, Danski14 for the Simons Center photo",
+"editions": 34,
+"h": 1447,
+"img": "Stony_Brook_montage.jpg",
+"km": 0.8,
+"label": "Stony Brook",
+"lic": "CC BY-SA 1.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/1.0",
+"q": "Q1376559",
 "st": "NY",
-"sub": "SBU",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bc/Stony_Brook_montage.jpg/250px-Stony_Brook_montage.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 1436,
 "wiki": {
-"ar": "جامعة ستوني بروك",
-"de": "Stony Brook University",
-"en": "Stony Brook University",
-"es": "Universidad de Stony Brook",
-"fr": "Université d'État de New York à Stony Brook",
-"hi": "स्टोनी ब्रूक विश्वविद्यालय",
-"pt": "Universidade Stony Brook",
-"zh": "石溪大学"
+"ar": "ستوني بروك (نيويورك)",
+"de": "Stony Brook",
+"en": "Stony Brook, New York",
+"es": "Stony Brook",
+"fr": "Stony Brook (New York)",
+"pt": "Stony Brook (Nova Iorque)",
+"zh": "石溪 (紐約州)"
 },
-"zlist": false,
-"zslug": "stony-brook-university-ny"
+"zlist": true,
+"zslug": "stony-brook-ny"
 },
 "Sumter": {
 "editions": 46,
@@ -15484,27 +15017,12 @@
 }
 },
 "Suzhou": {
-"artist": "铁头娃蛤蛤",
-"editions": 100,
-"h": 1150,
-"img": "东方之门1.jpg",
-"km": 2.8,
+"editions": 2,
+"km": 2.5,
 "label": "Suzhou",
-"lic": "CC BY-SA 4.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
-"q": "Q42622",
-"sub": "Suzhou",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8f/%E4%B8%9C%E6%96%B9%E4%B9%8B%E9%97%A81.jpg/250px-%E4%B8%9C%E6%96%B9%E4%B9%8B%E9%97%A81.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1610,
+"q": "Q15940612",
 "wiki": {
-"ar": "سوجو (مدينة)",
-"de": "Suzhou (Jiangsu)",
-"en": "Suzhou",
-"es": "Suzhou",
-"fr": "Suzhou",
-"hi": "सूझोऊ",
-"pt": "Sucheu",
-"zh": "苏州市"
+"zh": "苏州 (隋至北宋)"
 }
 },
 "Sydney": {
@@ -15679,19 +15197,12 @@
 }
 },
 "Tampa": {
-"artist": "Averette (compilation)",
 "editions": 127,
-"h": 1546,
-"img": "City_of_Tampa_montage.jpg",
 "km": 0.3,
 "label": "",
-"lic": "CC BY-SA 3.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
 "q": "Q49255",
 "st": "FL",
 "sub": "tampa",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/de/City_of_Tampa_montage.jpg/250px-City_of_Tampa_montage.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1194,
 "wiki": {
 "ar": "تامبا (فلوريدا)",
 "de": "Tampa",
@@ -15727,26 +15238,26 @@
 }
 },
 "Tashkent": {
-"artist": "Ymblanter",
-"editions": 66,
-"h": 2736,
-"img": "Chirchik_River_in_Khodzhikent.jpg",
-"km": 45.2,
-"label": "Tashkent Region",
-"lic": "CC BY-SA 4.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
-"q": "Q487585",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Chirchik_River_in_Khodzhikent.jpg/250px-Chirchik_River_in_Khodzhikent.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 3648,
+"artist": "ssr (talk)",
+"editions": 195,
+"h": 480,
+"img": "Aerial_view_of_Tashkent,_Uzbekistan.JPG",
+"km": 3.5,
+"label": "Tashkent",
+"lic": "Public domain",
+"licurl": "",
+"q": "Q269",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/Aerial_view_of_Tashkent%2C_Uzbekistan.JPG/250px-Aerial_view_of_Tashkent%2C_Uzbekistan.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 640,
 "wiki": {
-"ar": "ولاية طشقند",
-"de": "Viloyat Taschkent",
-"en": "Tashkent Region",
-"es": "Provincia de Taskent",
-"fr": "Province de Tachkent",
-"hi": "ताशकेंत प्रान्त",
-"pt": "Tasquente (província)",
-"zh": "塔什干州"
+"ar": "طشقند",
+"de": "Taschkent",
+"en": "Tashkent",
+"es": "Taskent",
+"fr": "Tachkent",
+"hi": "ताशकन्द",
+"pt": "Tasquente",
+"zh": "塔什干"
 }
 },
 "Tbilisi": {
@@ -15865,27 +15376,13 @@
 "zslug": "terre-haute-in"
 },
 "Texarkana": {
-"artist": "Billy Hathorn (talk) 03:27, 28 June 2012, using Canon camera, on June 9, 2012. (UTC)",
-"editions": 55,
-"h": 3240,
-"img": "U.S._Courthouse_in_Texarkana_IMG_6360.jpg",
-"km": 2.8,
+"editions": 3,
+"km": 1.8,
 "label": "Texarkana",
-"lic": "CC BY 3.0",
-"licurl": "https://creativecommons.org/licenses/by/3.0",
-"q": "Q79438",
+"q": "Q10381020",
 "st": "TX",
-"sub": "texarkana",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/37/U.S._Courthouse_in_Texarkana_IMG_6360.jpg/250px-U.S._Courthouse_in_Texarkana_IMG_6360.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 4320,
 "wiki": {
-"ar": "تيكساركانا",
-"de": "Texarkana (Arkansas)",
-"en": "Texarkana, Arkansas",
-"es": "Texarkana (Arkansas)",
-"fr": "Texarkana (Arkansas)",
-"pt": "Texarkana (Arkansas)",
-"zh": "德克薩卡納 (阿肯色州)"
+"pt": "Texarkana"
 },
 "zlist": true,
 "zslug": "texarkana-tx"
@@ -15915,18 +15412,11 @@
 "zslug": "the-villages-fl"
 },
 "Thessaloniki": {
-"artist": "SilentResident (compilation, sources to attribute see above; if any of the sources used in",
 "editions": 159,
-"h": 1809,
-"img": "Thessalonica_Montage_L.png",
 "km": 0.4,
 "label": "Thessaloniki",
-"lic": "CC BY-SA 3.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
 "q": "Q17151",
 "sub": "thessaloniki",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/95/Thessalonica_Montage_L.png/250px-Thessalonica_Montage_L.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1200,
 "wiki": {
 "ar": "سالونيك",
 "de": "Thessaloniki",
@@ -16207,25 +15697,21 @@
 }
 },
 "Tromsø": {
-"artist": "Svein-Magne Tunli - tunliweb.no",
-"editions": 114,
-"h": 3744,
-"img": "Tromso_Tromsø_Norway_tunliweb_02.jpg",
-"km": 0.1,
-"label": "Tromsø Municipality",
-"lic": "CC BY-SA 4.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
-"q": "Q26087",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ce/Tromso_Troms%C3%B8_Norway_tunliweb_02.jpg/250px-Tromso_Troms%C3%B8_Norway_tunliweb_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 5616,
+"artist": "The Municipality of Tromsø from Tromsø, Norway",
+"editions": 18,
+"h": 1512,
+"img": "Tromsø_sentrum_(5835702754).jpg",
+"km": 0.3,
+"label": "Tromsø",
+"lic": "CC BY 2.0",
+"licurl": "https://creativecommons.org/licenses/by/2.0",
+"q": "Q42328401",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b0/Troms%C3%B8_sentrum_%285835702754%29.jpg/250px-Troms%C3%B8_sentrum_%285835702754%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 2268,
 "wiki": {
-"ar": "ترومسو",
-"de": "Tromsø",
-"en": "Tromsø Municipality",
-"es": "Tromsø",
-"fr": "Tromsø",
-"pt": "Tronso",
-"zh": "特罗姆瑟"
+"en": "Tromsø",
+"pt": "Tromsø (cidade)",
+"zh": "特隆瑟"
 }
 },
 "Tucson": {
@@ -16330,20 +15816,20 @@
 "zslug": "tuscaloosa-al"
 },
 "Twin Falls": {
-"editions": 56,
-"km": 2.4,
+"artist": "Charles Roscoe Savage",
+"editions": 7,
+"h": 1201,
+"img": "Twin_Falls_Snake_River_Idaho,_O.S.L.R.R._C.R._Savage,_Salt_Lake._(cropped).jpg",
+"km": 9.0,
 "label": "Twin Falls",
-"q": "Q548384",
+"lic": "Public domain",
+"licurl": "",
+"q": "Q38073",
 "st": "ID",
-"sub": "twinfalls",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0d/Twin_Falls_Snake_River_Idaho%2C_O.S.L.R.R._C.R._Savage%2C_Salt_Lake._%28cropped%29.jpg/250px-Twin_Falls_Snake_River_Idaho%2C_O.S.L.R.R._C.R._Savage%2C_Salt_Lake._%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 2318,
 "wiki": {
-"ar": "توين فولز",
-"de": "Twin Falls",
-"en": "Twin Falls, Idaho",
-"es": "Twin Falls (Idaho)",
-"fr": "Twin Falls",
-"pt": "Twin Falls",
-"zh": "特溫福爾斯"
+"en": "Twin Falls (Idaho)"
 },
 "zlist": true,
 "zslug": "twin-falls-id"
@@ -16368,39 +15854,34 @@
 "zslug": "tyler-tx"
 },
 "Ulaanbaatar": {
-"artist": "Orgio89",
-"editions": 21,
-"h": 2448,
-"img": "Ulaanbaatar_book_fair_2019.jpg",
-"km": 3.2,
-"label": "Ulaanbaatar Book Fair",
+"artist": "Zazaa Mongolia",
+"editions": 191,
+"h": 1200,
+"img": "UB_downtown.jpg",
+"km": 3.5,
+"label": "Ulaanbaatar",
 "lic": "CC BY-SA 4.0",
 "licurl": "https://creativecommons.org/licenses/by-sa/4.0",
-"q": "Q69772163",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e1/Ulaanbaatar_book_fair_2019.jpg/250px-Ulaanbaatar_book_fair_2019.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 3264,
+"q": "Q23430",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c2/UB_downtown.jpg/250px-UB_downtown.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 1800,
 "wiki": {
-"de": "Ulaanbaatar-Buchmesse",
-"en": "Ulaanbaatar Book Fair",
-"es": "Feria del Libro de Ulán Bator",
-"fr": "Salon du livre d'Oulan-Bator",
-"hi": "उलानबटार का पुस्तक मेला",
-"pt": "Feira do Livro de Ulã Bator"
+"ar": "أولان باتور",
+"de": "Ulaanbaatar",
+"en": "Ulaanbaatar",
+"es": "Ulán Bator",
+"fr": "Oulan-Bator",
+"hi": "उलान बतोर",
+"pt": "Ulã Bator",
+"zh": "乌兰巴托"
 }
 },
 "Umeå": {
-"artist": "Jonipoon",
 "editions": 104,
-"h": 1094,
-"img": "Umeå_collage.png",
 "km": 0.5,
 "label": "Umeå",
-"lic": "CC BY-SA 4.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
 "q": "Q25579",
 "sub": "umea",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/28/Ume%C3%A5_collage.png/250px-Ume%C3%A5_collage.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 908,
 "wiki": {
 "ar": "أوميو",
 "de": "Umeå",
@@ -16439,27 +15920,12 @@
 "zslug": "utica-ny"
 },
 "Utrecht": {
-"artist": "Pepijntje",
-"editions": 137,
-"h": 768,
-"img": "Neude_met_Domtoren.JPG",
+"editions": 3,
 "km": 0.1,
 "label": "Utrecht",
-"lic": "CC BY-SA 3.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
-"q": "Q803",
-"sub": "utrecht",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/Neude_met_Domtoren.JPG/250px-Neude_met_Domtoren.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1024,
+"q": "Q3040539",
 "wiki": {
-"ar": "أترخت",
-"de": "Utrecht",
-"en": "Utrecht",
-"es": "Utrecht",
-"fr": "Utrecht",
-"hi": "उट्रेच",
-"pt": "Utreque",
-"zh": "乌得勒支"
+"en": "Utrecht (agglomeration)"
 }
 },
 "Valdosta": {
@@ -16680,17 +16146,10 @@
 }
 },
 "Villahermosa": {
-"artist": "AdriLov",
 "editions": 68,
-"h": 2400,
-"img": "Villahermosa_collage.jpg",
 "km": 1.1,
 "label": "Villahermosa",
-"lic": "CC BY-SA 4.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
 "q": "Q210886",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/19/Villahermosa_collage.jpg/250px-Villahermosa_collage.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 1920,
 "wiki": {
 "ar": "فيلاهيرموسا",
 "de": "Villahermosa",
@@ -16869,27 +16328,22 @@
 "zslug": "waco-tx"
 },
 "Walla Walla": {
-"artist": "Williamborg",
-"editions": 54,
-"h": 1943,
-"img": "Walla_Walla_IMG_1490.JPG",
-"km": 0.9,
+"artist": "F.E. Winchester",
+"editions": 6,
+"h": 470,
+"img": "St_Patrick's_Church_interior,_Walla_Walla,_Washington_Territory,_ca_1888_(WASTATE_526).jpeg",
+"km": 1.0,
 "label": "Walla Walla",
 "lic": "Public domain",
 "licurl": "",
-"q": "Q222338",
+"q": "Q2542504",
 "st": "WA",
-"sub": "wallawalla",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/83/Walla_Walla_IMG_1490.JPG/250px-Walla_Walla_IMG_1490.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 3888,
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/58/St_Patrick%27s_Church_interior%2C_Walla_Walla%2C_Washington_Territory%2C_ca_1888_%28WASTATE_526%29.jpeg/250px-St_Patrick%27s_Church_interior%2C_Walla_Walla%2C_Washington_Territory%2C_ca_1888_%28WASTATE_526%29.jpeg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 768,
 "wiki": {
-"ar": "والا والا (واشنطن)",
-"de": "Walla Walla (Washington)",
-"en": "Walla Walla, Washington",
-"es": "Walla Walla (Washington)",
-"fr": "Walla Walla (États-Unis)",
-"pt": "Walla Walla (Washington)",
-"zh": "瓦拉瓦拉 (华盛顿州)"
+"de": "Titularbistum Walla Walla",
+"es": "Diócesis de Walla Walla",
+"fr": "Diocèse de Walla Walla"
 },
 "zlist": true,
 "zslug": "walla-walla-wa"
@@ -17051,27 +16505,16 @@
 "zslug": "watertown-ny"
 },
 "Wausau": {
-"artist": "Bobak Ha'Eri",
-"editions": 42,
-"h": 2736,
-"img": "2009-0620-WI017-Wausau-400block.jpg",
-"km": 1.1,
+"editions": 13,
+"km": 6.4,
 "label": "Wausau",
-"lic": "CC BY 3.0",
-"licurl": "https://creativecommons.org/licenses/by/3.0",
-"q": "Q998675",
+"q": "Q7975214",
 "st": "WI",
-"sub": "wausau",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/aa/2009-0620-WI017-Wausau-400block.jpg/250px-2009-0620-WI017-Wausau-400block.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 3648,
 "wiki": {
-"ar": "واوسو",
-"de": "Wausau",
-"en": "Wausau, Wisconsin",
-"es": "Wausau (Wisconsin)",
-"fr": "Wausau (Wisconsin)",
-"pt": "Wausau (Wisconsin)",
-"zh": "沃索 (威斯康辛州)"
+"ar": "بلدة واوسو (ويسكونسن)",
+"en": "Wausau (town), Wisconsin",
+"es": "Wausau (condado de Marathon, Wisconsin)",
+"fr": "Wausau (town, Wisconsin)"
 },
 "zlist": true,
 "zslug": "wausau-wi"
@@ -17094,12 +16537,19 @@
 }
 },
 "Wenatchee": {
+"artist": "MojaveNC (talk)",
 "editions": 48,
+"h": 401,
+"img": "Wenatchee.jpg",
 "km": 1.2,
 "label": "Wenatchee",
+"lic": "CC BY-SA 3.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
 "q": "Q958596",
 "st": "WA",
 "sub": "wenatchee",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0c/Wenatchee.jpg/250px-Wenatchee.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 1105,
 "wiki": {
 "ar": "وينتاتشي (واشنطن)",
 "de": "Wenatchee",
@@ -17534,25 +16984,27 @@
 }
 },
 "Yerevan": {
-"artist": "Beko",
-"editions": 46,
-"h": 4000,
-"img": "Main_building_of_Yerevan_State_University.png",
-"km": 1.4,
-"label": "Yerevan State University",
-"lic": "CC BY-SA 4.0",
-"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
-"q": "Q1474624",
-"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/be/Main_building_of_Yerevan_State_University.png/250px-Main_building_of_Yerevan_State_University.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-"w": 6000,
+"artist": "Սէրուժ Ուրիշեան (Serouj Ourishian)",
+"editions": 214,
+"h": 3456,
+"img": "Mount_Ararat_and_the_Yerevan_skyline_in_spring_(28mm).jpg",
+"km": 0.4,
+"label": "Yerevan",
+"lic": "CC BY 4.0",
+"licurl": "https://creativecommons.org/licenses/by/4.0",
+"q": "Q1953",
+"sub": "yerevan",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fe/Mount_Ararat_and_the_Yerevan_skyline_in_spring_%2828mm%29.jpg/250px-Mount_Ararat_and_the_Yerevan_skyline_in_spring_%2828mm%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 5184,
 "wiki": {
-"ar": "جامعة يريفان الحكومية",
-"de": "Staatliche Universität Jerewan",
-"en": "Yerevan State University",
-"es": "Universidad Estatal de Ereván",
-"fr": "Université d'État d'Erevan",
-"pt": "Universidade Estatal de Erevã",
-"zh": "埃里温国立大学"
+"ar": "يريفان",
+"de": "Jerewan",
+"en": "Yerevan",
+"es": "Ereván",
+"fr": "Erevan",
+"hi": "येरवान",
+"pt": "Erevã",
+"zh": "葉里溫"
 }
 },
 "York": {
