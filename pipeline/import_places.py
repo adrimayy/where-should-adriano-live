@@ -79,8 +79,14 @@ STATE_NAME = dict(AL='Alabama', AK='Alaska', AZ='Arizona', AR='Arkansas', CA='Ca
                   UT='Utah', VT='Vermont', VA='Virginia', WA='Washington', WV='West Virginia', WI='Wisconsin', WY='Wyoming')
 # the atlas's short name -> the name to look up, where they differ
 ALIAS = {'Washington DC': 'Washington, D.C.', 'New York City': 'New York City'}
-# items that are a country, a state or a region: not what a city's name should match while a settlement is on offer
-BROAD = {'Q6256', 'Q3624078', 'Q35657', 'Q10864048', 'Q107390', 'Q82794', 'Q13220204', 'Q47168', 'Q28575'}
+# words in an item's description that say it is something around or inside the city, not the city
+NOT_CITY = re.compile(r'\b(province|county|region|prefecture|oblast|governorate|department|voivodeship|canton|emirate|airport|'
+                      r'university|college|station|stadium|district|metropolitan area|urban area|state)\b', re.I)
+
+
+def fold(s):
+    import unicodedata
+    return re.sub(r'[^a-z0-9]+', ' ', unicodedata.normalize('NFKD', s).encode('ascii', 'ignore').decode().lower()).strip()
 
 
 def clean(name):
@@ -94,7 +100,7 @@ def clean(name):
 def search(q, limit=15):
     try:
         r = get(WD, dict(action='wbsearchentities', search=q, language='en', uselang='en', type='item', limit=limit, format='json'))
-        return [x['id'] for x in r.get('search', [])]
+        return [(x['id'], x.get('label', ''), x.get('description', '')) for x in r.get('search', [])]
     except Exception as e:  # noqa
         say('! search failed', q, e)
         return []
@@ -103,7 +109,7 @@ def search(q, limit=15):
 def fulltext(q, limit=10):
     try:
         r = get(WD, dict(action='query', list='search', srsearch=q, srnamespace=0, srlimit=limit, format='json'))
-        return [x['title'] for x in r.get('query', {}).get('search', [])]
+        return [(x['title'], '', '') for x in r.get('query', {}).get('search', [])]
     except Exception as e:  # noqa
         say('! fulltext failed', q, e)
         return []
@@ -231,7 +237,7 @@ def main():
             out['countries'][iso] = dict(q=cq[k][0], name=name)
         else:
             ids = search(name, 5)
-            out['countries'][iso] = dict(q=ids[0] if ids else None, name=name, how='by name')
+            out['countries'][iso] = dict(q=ids[0][0] if ids else None, name=name, how='by name')
             say('? country matched by name:', iso, name, ids[:1])
     cqids = {v['q'] for v in out['countries'].values() if v['q']}
 
@@ -240,43 +246,45 @@ def main():
     for name, lat, lon, iso in cities:
         cand[name] = search(clean(name))
         time.sleep(0.12)
-    F = facts([q for v in cand.values() for q in v])
+    F = facts([q for v in cand.values() for q, _, _ in v])
 
-    def choose(name, lat, lon, ids):
-        ok = []
-        for rank, q in enumerate(ids):
+    def choose(name, lat, lon, hits):
+        # Of the items with this name within 50 km of the atlas's point: one near the point before one far from it
+        # (a county's or a state's middle is far from its main city), the exact name before a longer one (the city
+        # before its airport or university), a description that reads like a place to live before one that reads
+        # like a province or a campus, and then the one more Wikipedias write about.
+        want, ok = fold(clean(name)), []
+        for rank, (q, label, desc) in enumerate(hits):
             f = F.get(q)
             if not f or f[0] is None:
                 continue
             d = km(lat, lon, f[0], f[1])
             if d <= 50:
-                ok.append((q, d, f[2], rank, bool(f[3] & BROAD) or q in cqids))
+                ok.append((q, d, f[2], rank, (d <= 15, fold(label) == want, q not in cqids, not NOT_CITY.search(desc), f[2])))
         if not ok:
             return None
-        narrow = [x for x in ok if not x[4]] or ok
-        return max(narrow, key=lambda x: (x[2], -x[1])), narrow
+        return max(ok, key=lambda x: x[4]), ok
 
     for name, lat, lon, iso in cities:
         got = choose(name, lat, lon, cand[name])
         if not got:
             st = STATE_NAME.get(STATES.get(name, ''), '')
             ids = fulltext(clean(name) + ' ' + (st or countries.get(iso, '')))
-            F.update(facts([q for q in ids if q not in F]))
+            F.update(facts([q for q, _, _ in ids if q not in F]))
             got = choose(name, lat, lon, ids)
             if got:
                 say('? matched by full-text search:', name, got[0][0])
         if not got:
-            say('!! no match:', name, lat, lon, cand[name][:5])
+            say('!! no match:', name, lat, lon, [c[0] for c in cand[name][:5]])
             out['cities'][name] = dict(q=None)
             continue
-        (q, d, sl, rank, broad), narrow = got
-        first = min(narrow, key=lambda x: x[3])
-        if first[0] != q:
-            say('? took', q, f'({sl} editions, {d:.0f} km) over the first hit', first[0], f'({first[2]} editions, {first[1]:.0f} km):', name)
-        if d > 20:
+        (q, d, sl, rank, key), narrow = got
+        if d > 15:
             say('? far from the atlas point:', name, q, f'{d:.0f} km')
-        if broad:
-            say('? only a country or region matched:', name, q)
+        if not key[1]:
+            say('? no item with exactly this name near the point:', name, q)
+        if not key[2]:
+            say('? matched the country itself:', name, q)
         out['cities'][name] = dict(q=q, km=round(d, 1), editions=sl)
 
     # ---- the chosen items: articles, subreddit, photo
@@ -305,7 +313,7 @@ def main():
                 want = out['countries'].get(iso, {}).get('q')
                 if want and cc and want not in cc:
                     say('? country differs:', key, v['q'], 'atlas', countries.get(iso), 'wikidata', cc[:2])
-                if v['label'] and slug(v['label']) != slug(clean(key)):
+                if v['label'] and fold(v['label']) != fold(clean(key)):
                     say('? label differs:', key, '->', v['label'], v['q'])
             if 'en' not in v['wiki']:
                 say('? no English article:', key, v.get('q'))
@@ -318,7 +326,7 @@ def main():
             say('? photo not found on Commons:', key, v['img'])
             del v['img']
             continue
-        if ii['w'] < 800 or ii['h'] < 500 or not (0.55 <= ii['w'] / ii['h'] <= 4):
+        if ii['w'] < 600 or ii['h'] < 360 or not (0.9 <= ii['w'] / ii['h'] <= 5.5):
             say('? photo passed over (small or an odd shape):', key, v['img'], ii['w'], ii['h'])
             del v['img']
             continue
@@ -361,8 +369,14 @@ def main():
         v = out['cities'][name]
         city = v.get('label') or clean(name)
         city = {'New York City': 'New York', 'Washington, D.C.': 'Washington'}.get(city, city)
+        # Zillow's own list of cities spells Saint out
+        for cand_name in (city, re.sub(r'^St\.? ', 'Saint ', city), clean(name), re.sub(r'^St\.? ', 'Saint ', clean(name))):
+            if (cand_name.lower(), st2) in zl:
+                city, v['zlist'] = cand_name, True
+                break
+        else:
+            v['zlist'] = False
         v['st'], v['zslug'] = st2, slug(city) + '-' + st2.lower()
-        v['zlist'] = (city.lower(), st2) in zl
         if zblocked <= 4:
             code, final, b = get('https://www.zillow.com/' + v['zslug'] + '/rentals/', ua=BROWSER, raw=True, tries=1, timeout=20)
             v['zstat'] = code
