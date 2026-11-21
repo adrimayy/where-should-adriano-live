@@ -5,7 +5,7 @@ import sys
 from harness import sync_playwright, route, CHROME, PAGE
 with sync_playwright() as p:
     b=p.chromium.launch(executable_path=CHROME); pg=b.new_page(viewport={'width':390,'height':844},is_mobile=True,has_touch=True); pg.route('**/*',route)
-    pg.goto('file://'+PAGE); pg.wait_for_timeout(900); pg.evaluate('fillSample()'); pg.wait_for_timeout(500); pg.locator('#mapbox').scroll_into_view_if_needed()
+    pg.goto('file://'+PAGE); pg.wait_for_timeout(900); pg.evaluate('fillSample()'); pg.wait_for_timeout(500); pg.evaluate("setPane('map')"); pg.locator('#mapbox').scroll_into_view_if_needed()
     r=pg.evaluate("""async()=>{const svg=document.querySelector('#overlay'),box=svg.getBoundingClientRect();let cx=box.x+box.width/2,cy=box.y+box.height/2;
       const c=[...svg.querySelectorAll('circle')].filter(x=>x.getAttribute('display')!=='none').map(x=>{const b=x.getBoundingClientRect();return {x,d:Math.hypot(b.x+b.width/2-cx,b.y+b.height/2-cy)};}).sort((a,b)=>a.d-b.d)[0].x;
       const pos=()=>{const b=c.getBoundingClientRect();return [b.x+b.width/2,b.y+b.height/2];};

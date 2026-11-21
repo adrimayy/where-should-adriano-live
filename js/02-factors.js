@@ -285,9 +285,19 @@ const ICONS = {
   minus: '<path d="M5 12h14"/>',
   down: '<path d="M12 5v13M6.5 12.5L12 18l5.5-5.5"/>',
   left: '<path d="M14.5 6l-6 6 6 6"/>',
+  search: '<circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l4.8 4.8"/>',
+  filter:
+    '<path d="M4 7h9M18.5 7H20M4 17h1.5M11 17h9"/><circle cx="15.8" cy="7" r="2.4"/><circle cx="8.2" cy="17" r="2.4"/>',
+  expand: '<path d="M9 4.5H4.5V9M15 4.5h4.5V9M9 19.5H4.5V15M15 19.5h4.5V15"/>',
+  shrink: '<path d="M4.5 9H9V4.5M19.5 9H15V4.5M4.5 15H9v4.5M19.5 15H15v4.5"/>',
   right: '<path d="M9.5 6l6 6-6 6"/>',
   heart:
     '<path d="M12 19.5s-7.5-4.6-7.5-10.2A4.1 4.1 0 0 1 12 6.9a4.1 4.1 0 0 1 7.5 2.4c0 5.6-7.5 10.2-7.5 10.2z"/>',
+};
+// hours as a decimal -> whole hours and two-digit minutes, rounded together: 9.997 hours is 10:00, never 9:60
+const hmOf = h => {
+  const t = Math.round(h * 60);
+  return [Math.floor(t / 60), String(t % 60).padStart(2, '0')];
 };
 const IC = (n, sz = 14, sw = 2.4) =>
   `<svg class="ic" width="${sz}" height="${sz}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]}</svg>`;

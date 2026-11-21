@@ -152,6 +152,16 @@ in `js/07-quiz.js`).
   a real map of the place and its surroundings (OpenStreetMap data through OpenFreeMap) and links that go to that
   place's own page elsewhere (Google Maps on its coordinates, its Wikipedia article in the page's language). Nothing in
   the block is scored and none of it loads until a place is opened. No score changes.
+- **One place for every control (v66):** filters were spread over five spots and the map sat below the list. Now one
+  panel holds what to show, where, the "only show" filters and what matters (left column on a wide screen; a sheet
+  behind a Filters button on a phone, which counts the filters that are on). On a phone a bar stays in reach with the
+  find box, Filters, list or map, and cities or countries; the list and the map are two views behind that switch. The
+  find box is on the map (above it on a phone), suggests places as you type and goes to the one picked; it no longer
+  empties the list while typing. A place's details open over the page on a phone and close back to the same spot.
+  The real map in a place's details now moves with two fingers like the page's own map, has a way back to the place
+  and a full-screen view; the photo opens the Wikipedia article and credits author, licence and source. Fixed along
+  the way: Enter in the find box opened a place and closed it again; a shortest day of 9 hours 59.6 minutes showed as
+  "9:60". No score changes.
 
 ## What held up
 

@@ -338,8 +338,18 @@ What the quiz does with that:
 - By default the page shows only the results: scores, chips, map and ranking. "Show how the scores are calculated"
   brings back the likely ranges, legends, the factor table, the sliders and the method notes.
 - Filters ("Only show": region, cost band, big cities of about 1.5 million or more, can work freely) never change a score;
-  they hide places. They fold away under their name until wanted, and show how many are on. A search box sits next to
-  them (it used to need the calculations switched on).
+  they hide places.
+- Every control is in one place (v66). Before, the stay-or-go tabs sat above the list, cities-or-countries and a find
+  box in the list's head, the "only show" filters folded under their name, the priorities behind a floating button,
+  and the map a screen or two below the list. Now one panel holds everything a person can change (what to show,
+  where, the "only show" filters, what matters): it is the left column on a wide screen and a sheet behind the
+  Filters button on a narrower one, and the button counts the filters that are on. On a phone one bar stays in reach
+  under the title: the find box, Filters, list or map, cities or countries. The list and the map are two views behind
+  that switch, so the map is one tap away instead of a scroll, and the list comes back where it was left.
+- The find box is on the map on a wide screen and directly above it on a phone, as on most maps. It suggests places
+  as you type (exact name, then names starting with it, then words inside names; ties by rank) and goes to the one
+  picked: its details open and the map moves there. It no longer takes rows out of the list while typing; only the
+  filters narrow the list.
 - The results are laid out in the order people read them (v64): the title and the list first, with the best match as
   the first card; then how to make it more precise; then the map. On wide screens the list and the map sit side by
   side, the way maps of places usually do, and the map stays in view while the list scrolls.
@@ -350,6 +360,8 @@ What the quiz does with that:
   and after. Closing returns to the same spot in the list. Until v64 a tap jumped to the map and the details sat
   below the whole ranking. The phone's Back button closes the details, and inside the quiz goes to the question
   before, instead of leaving the page (one history entry while either is open).
+  On a screen too narrow for the list and the map side by side the details open over the whole page (v66), which
+  stays exactly where it was underneath, and Back names where it returns to (the ranking or the map).
 - A place's details break the score into the page's eight groups of factors (v65): money, housing, jobs and
   permits, climate and daylight, getting around, rights safety and healthcare, people and things to do, distance from
   home. A group's line gives its share of this visitor's score (its weights over all the weights that count for the
@@ -565,11 +577,15 @@ None of this is scored. It is there so a person can look at a place the numbers 
   covered. There are no search links.
 - **The real map** is drawn by MapLibre GL JS (version 5.24.1, the last that loads as a plain script) from OpenFreeMap's
   tiles, which need no key. The world map of scores stays as it is: its job is colour by fit, and streets under it would
-  compete with that. The real map loads only when its box is about to scroll into view, does not take over the page's
-  scroll (the wheel and one finger scroll the page; two fingers and the buttons zoom), and takes itself away if the
-  library or the tiles do not arrive. Its credit is a line under the map, where it does not cover a map this small.
-- **Photos** load from Wikimedia Commons at a standard thumbnail width, with the author and licence under each as a
-  link to the file's page. A photo that fails to load takes its frame away. They sit below the page's own answer: a
+  compete with that. The real map loads only when its box is about to scroll into view and takes itself away if the
+  library or the tiles do not arrive. It follows the same rules as the page's own map, with the same hint when they
+  are needed (v66): one finger scrolls the page and two fingers move and pinch the map; the wheel scrolls the page and
+  Ctrl or ⌘ + wheel zooms; a double tap zooms in. It has buttons to zoom, to go back to the place, and to take the
+  whole screen, where one finger moves it like any map. In v65 a phone could only pinch it, not move it. Its credit is
+  a line under the map, where it does not cover a map this small.
+- **Photos** load from Wikimedia Commons at a standard thumbnail width. The photo itself opens the place's Wikipedia
+  article (v66). The line under it is the credit: the author, the licence (linked to its own page where it is a
+  Creative Commons one) and the file's page on Wikimedia Commons. A photo that fails to load takes its frame away. They sit below the page's own answer: a
   skyline persuades more than it informs.
 - **Privacy.** The answers never leave the browser. Opening a place does ask other sites for things (the map library
   from a CDN, tiles from OpenFreeMap, the photo from Wikimedia), so those sites can see which place was opened. The

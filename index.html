@@ -41,33 +41,48 @@ html.ready #boot{display:none}
     <div class="qwrap" id="qwrap"></div>
   </section>
 
-  <!-- the workspace: what matters (left, sticky; a bottom sheet on phones), the list of places, and the map beside it
-       on wide screens (below it on phones). A place's details open in the list's own column and close back to it. -->
+  <!-- the workspace. Everything a person can change sits in one panel (left and always open on wide screens; a sheet
+       behind the Filters button on phones): what to show, where, and what matters. On phones one bar stays in reach:
+       the find box, Filters, list or map, cities or countries. A place's details open over the page and close back to
+       exactly where the person was. -->
   <div class="work" id="work">
-  <aside class="ppanel" id="ppanel"></aside>
+  <aside class="ppanel" id="ppanel" aria-labelledby="ctlHead">
+    <div class="phead"><h2 id="ctlHead" data-t="filters"></h2><button class="ghost pclose" id="pclose"></button></div>
+    <div class="ctlsec" id="kindHome"><span class="lab" data-t="kindLab"></span></div>
+    <div class="scopebar" id="scopeBar" hidden></div>
+    <div class="filt" id="filt"><span class="lab" id="filtSum"></span><div class="pills" id="pills" role="group"></div></div>
+    <div class="prio" id="prio"></div>
+    <div class="pdone"><button class="primary" id="pdone" data-t="ctlDone"></button></div>
+  </aside>
   <div class="workmain">
     <!-- results: the answer comes first. A title and two quiet actions, then straight into the list. -->
     <section class="reshead" id="resPanel" hidden>
       <div class="resrow">
         <h2 id="resHead"></h2>
-        <div class="resacts"><button class="ghost" id="shareTake" data-t="share"></button><button class="ghost" id="retake" data-t="retake"></button><button class="ghost" id="toMap" data-t="toMap"></button><button class="ghost" id="toCmp" hidden></button></div>
+        <div class="resacts"><button class="ghost" id="shareTake" data-t="share"></button><button class="ghost" id="retake" data-t="retake"></button><button class="ghost" id="toCmp" hidden></button></div>
       </div>
       <div class="toast" id="toast" role="status"></div>
       <p class="meta unsure" id="unsureNote" role="status" hidden></p>
       <div class="tops calc-only" id="resLists"></div>
       <div id="resDefaults" class="calc-only"></div>
     </section>
-  <div class="scopebar" id="scopeBar" hidden></div>
-  <div class="split">
+  <div class="bar" id="bar">
+    <div class="barrow">
+      <div class="searchhome" id="searchHome"><div class="searchbox" id="searchBox" role="search"><span class="sico" id="sico"></span><input id="search" type="search" autocomplete="off" enterkeyhint="search" role="combobox" aria-expanded="false" aria-controls="sugg" aria-autocomplete="list"><ul class="sugg" id="sugg" role="listbox" hidden></ul></div></div>
+      <button class="ctlbtn" id="ctlBtn" aria-controls="ppanel" aria-expanded="false"></button>
+    </div>
+    <div class="barrow">
+      <div class="seg" id="paneSeg" role="group"><button id="vList" aria-pressed="true" data-t="paneList"></button><button id="vMap" aria-pressed="false" data-t="paneMap"></button></div>
+      <div id="kindBar"><div class="seg" id="kindSeg" role="group"><button id="rCities" aria-pressed="true" data-t="cities"></button><button id="rCountries" aria-pressed="false" data-t="countries"></button></div></div>
+    </div>
+  </div>
+  <div class="split" id="split" data-pane="list">
   <section id="rankSec">
     <div class="listpane" id="listPane">
       <div class="rankhead">
         <h2 class="sr" data-t="ranking"></h2>
-        <div class="seg" role="group"><button id="rCities" aria-pressed="true" data-t="cities"></button><button id="rCountries" aria-pressed="false" data-t="countries"></button></div>
         <div class="seg calc-only" role="group"><button id="vScore" aria-pressed="true" data-t="viewScore"></button><button id="vProfile" aria-pressed="false" data-t="viewProfile"></button></div>
-        <input id="search" type="search" autocomplete="off" enterkeyhint="search">
       </div>
-      <details class="filt" id="filt"><summary id="filtSum"></summary><div class="pills" id="pills" role="group"></div></details>
       <p class="meta" id="rankmeta"></p>
       <div class="list" id="list"></div>
       <div class="listfoot"><button id="more" data-t="showAll"></button><button class="linkbtn" id="advBtn" aria-pressed="false"></button></div>
@@ -161,7 +176,7 @@ html.ready #boot{display:none}
   <footer class="pagefoot"><button type="button" class="quiet" id="fillBtn" tabindex="-1" aria-hidden="true"></button></footer>
 </div>
 
-<button class="pfab" id="pfab" aria-controls="ppanel" aria-expanded="false"></button>
+<div class="sheetbg" id="sheetBg" hidden></div>
 <div class="gtoast" id="gtoast" role="status" hidden></div>
 <!-- Libraries, then the data (one file, made by build.py), then the page code in order. "defer" downloads them all at once and runs them in this order. -->
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>

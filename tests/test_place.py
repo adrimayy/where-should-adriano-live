@@ -14,8 +14,8 @@ STUB = {"asof": "2026-11-21",
               "Amsterdam": ["Q727", "Amsterdam", {"fr": 0}],
               "Boston": ["Q100", "Boston", {}, 0, 0, "Gone.jpg", "Someone", "CC0"]},
         "n": {"840": ["Q30", "United States", {"es": "Estados Unidos", "fr": "États-Unis"}]}}
-ML = """window.__ml={made:[],removed:0,markers:[]};window.maplibregl={Map:function(o){var me=this,rec={center:o.center,zoom:o.zoom,scrollZoom:o.scrollZoom,style:o.style};__ml.made.push(rec);me._h={};
-me.on=function(e,a,b){(me._h[e]=me._h[e]||[]).push(b||a);return me};me.addControl=function(){};me.fitBounds=function(b){rec.box=b};me.remove=function(){__ml.removed++};me.resize=function(){};
+ML = """window.__ml={made:[],removed:0,markers:[]};window.maplibregl={Map:function(o){var me=this,rec={center:o.center,zoom:o.zoom,coop:o.cooperativeGestures,hint:(o.locale||{})['CooperativeGesturesHandler.MobileHelpText'],style:o.style,full:null};__ml.made.push(rec);me._h={};
+me.on=function(e,a,b){(me._h[e]=me._h[e]||[]).push(b||a);return me};me.addControl=function(c){if(c&&c.onAdd)(me._ctl=me._ctl||[]).push(c.onAdd(me))};me.easeTo=function(){rec.eased=1};me.cooperativeGestures={enable:function(){rec.full=false},disable:function(){rec.full=true}};me.fitBounds=function(b){rec.box=b};me.remove=function(){__ml.removed++};me.resize=function(){};
 me.addSource=function(id,s){rec.pts=s.data.features.length};me.addLayer=function(){};me.getCanvas=function(){return{style:{}}};me.touchZoomRotate={disableRotation:function(){}};
 setTimeout(function(){(me._h.load||[]).forEach(function(f){f()})},30)},NavigationControl:function(){},Marker:function(){var m=this;m.setLngLat=function(l){__ml.markers.push(l);return m};m.addTo=function(){return m}}};"""
 PNG = bytes.fromhex('89504e470d0a1a0a0000000d49484452000000010000000108060000001f15c4890000000d49444154789c6360606060000000050001a5f645400000000049454e44ae426082')
@@ -32,7 +32,7 @@ def routes(maplib=True):
     return rt
 
 OPEN = """async k=>{openPlace(byKey[k]);await new Promise(r=>setTimeout(r,60));const s=document.querySelector('.see');s.scrollIntoView({block:'center',behavior:'instant'});await new Promise(r=>setTimeout(r,500));}"""
-SEE = """()=>{const s=document.querySelector('.see'),r=s.querySelector('.mapfig'),f=s.querySelector('figure.photo');return {links:[...s.querySelectorAll('.links a')].map(a=>[a.href,a.target,a.rel,a.textContent]),map:r&&!r.hidden,fig:f?f.querySelector('figcaption').innerHTML:null,img:f?f.querySelector('img').src:null,ml:window.__ml||null}}"""
+SEE = """()=>{const s=document.querySelector('.see'),r=s.querySelector('.mapfig'),f=s.querySelector('figure.photo');return {links:[...s.querySelectorAll('.links a')].map(a=>[a.href,a.target,a.rel,a.textContent]),map:r&&!r.hidden,fig:f?f.querySelector('figcaption').innerHTML:null,art:f&&f.querySelector('a.pimg')?f.querySelector('a.pimg').href:null,img:f?f.querySelector('img').src:null,ml:window.__ml||null}}"""
 
 with sync_playwright() as p:
     b = p.chromium.launch(executable_path=CHROME)
@@ -68,8 +68,15 @@ with sync_playwright() as p:
     check('links: Google Maps opens on the city\'s own coordinates', hrefs and f"center={e['lat']:.4f},{e['lon']:.4f}" in hrefs[0] and 'api=1' in hrefs[0], hrefs[:1])
     check('links: the article, the subreddit and the housing page are the ones in data/places.js; all open in a new tab',
           hrefs[1:] == ['https://en.wikipedia.org/wiki/Chicago', 'https://www.reddit.com/r/chicago/', 'https://www.zillow.com/chicago-il/rentals/'] and all(l[1] == '_blank' and 'noopener' in l[2] for l in chi['links']), hrefs)
-    check('photo: shown with its author, licence and a link to its page; the author\'s name cannot carry markup', chi['fig'] and 'A. &lt;b&gt;Walker' in chi['fig'] and 'CC BY-SA 4.0' in chi['fig'] and 'commons.wikimedia.org/wiki/File:Chicago_skyline.jpg' in chi['fig'], chi['fig'])
-    check('real map: drawn on the city at a zoom that shows what is around it, with a pin; the wheel does not zoom', chi['map'] and len(chi['ml']['made']) == 1 and chi['ml']['made'][0]['center'] == [e['lon'], e['lat']] and chi['ml']['made'][0]['zoom'] == 8 and chi['ml']['made'][0]['scrollZoom'] is False and chi['ml']['markers'] == [[e['lon'], e['lat']]], chi['ml'])
+    check('photo: credited with its author, its licence (linked) and its page on Commons; the author\'s name cannot carry markup', chi['fig'] and 'A. &lt;b&gt;Walker' in chi['fig'] and 'href="https://creativecommons.org/licenses/by-sa/4.0/"' in chi['fig'] and 'commons.wikimedia.org/wiki/File:Chicago_skyline.jpg' in chi['fig'], chi['fig'])
+    check('photo: tapping it opens the place\'s Wikipedia article', chi['art'] == 'https://en.wikipedia.org/wiki/Chicago', chi['art'])
+    fs = pg.evaluate("""()=>{const f=document.querySelector('.mapfig'),b=[...f.parentNode.querySelectorAll('button')];const out={};
+      const btns=_rmap._ctl[0].querySelectorAll('button'); out.labels=[...btns].map(x=>x.getAttribute('aria-label'));
+      btns[1].click(); out.on=[f.classList.contains('full'),document.body.classList.contains('map-full'),__ml.made[0].full];
+      document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true})); out.off=[f.classList.contains('full'),document.body.classList.contains('map-full'),__ml.made[0].full,ui.open];
+      btns[0].click(); out.eased=__ml.made[0].eased; return out}""")
+    check('real map: full screen gives it the whole screen and one-finger moves; Escape leaves full screen, not the place', fs['labels'] == ['Back to Chicago', 'Full screen'] and fs['on'] == [True, True, True] and fs['off'] == [False, False, False, True] and fs['eased'] == 1, fs)
+    check('real map: drawn on the city with a pin; the same two-finger rule and hint as the page\'s own map', chi['map'] and len(chi['ml']['made']) == 1 and chi['ml']['made'][0]['center'] == [e['lon'], e['lat']] and chi['ml']['made'][0]['zoom'] == 8 and chi['ml']['made'][0]['coop'] is True and chi['ml']['made'][0]['hint'] == 'Two fingers to move the map' and chi['ml']['markers'] == [[e['lon'], e['lat']]], chi['ml'])
     again = pg.evaluate("()=>{const s=document.querySelector('.see');refreshAll();return new Promise(r=>setTimeout(()=>r({same:document.querySelector('.see')===s,made:__ml.made.length,removed:__ml.removed}),500))}")
     check('the block is kept while the page redraws around it: no second map, no second download', again == {'same': True, 'made': 1, 'removed': 0}, again)
     pg.evaluate(OPEN, 'city:Amsterdam'); ams = pg.evaluate(SEE)

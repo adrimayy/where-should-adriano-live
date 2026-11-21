@@ -1691,7 +1691,6 @@ th {
 .pchip[data-lv='1'] { background: var(--tint); color: var(--fg); border-color: transparent; }
 .pchip[data-lv='2'] { background: var(--accent); color: #fff; border-color: transparent; font-weight: 600; }
 .pfoot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
-.pfab { display: none; }
 @media (min-width: 1180px) {
   .wrap { max-width: 1400px; }
   .wrap > :not(.work, .topbar) { width: 100%; max-width: 1120px; margin-inline: auto; }
@@ -1704,10 +1703,6 @@ th {
     padding-bottom: max(18px, env(safe-area-inset-bottom)); }
   .ppanel.open { transform: none; visibility: visible; }
   .pclose { display: inline-flex; }
-  .pfab { display: inline-flex; align-items: center; position: fixed; z-index: 30; right: max(14px, env(safe-area-inset-right));
-    bottom: max(14px, env(safe-area-inset-bottom)); padding: 10px 16px; border-radius: 999px; background: var(--accent); color: #fff;
-    border: 0; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); font-weight: 600; }
-  body.sheet-open .pfab { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { .ppanel { transition: none; } }
 
@@ -1759,7 +1754,7 @@ th {
 
 /* ---------- the quiz is its own screen: nothing else on the page while it is open ---------- */
 body:has(#quizPanel:not([hidden])) .wrap > :not(.topbar, #quizPanel),
-body:has(#quizPanel:not([hidden])) .pfab { display: none !important; }
+body:has(#quizPanel:not([hidden])) .bar { display: none !important; }
 body:has(#quizPanel:not([hidden])) #quizPanel { margin-top: 4vh; min-height: min(640px, 80vh); }
 /* once there are results, the landing card steps aside: retake is in the results header */
 body:has(#resPanel:not([hidden])) #start { display: none; }
@@ -1830,7 +1825,6 @@ button, .opt, .pill, .lchip, .pchip { transition: transform 0.08s, opacity 0.08s
   .why5 { flex: none; white-space: nowrap; }
   .hero1 .chips5 { flex-wrap: wrap; }
   .rw .row { row-gap: 4px; padding-block: 10px; }
-  .pfab { padding: 9px 14px; font-size: 13.5px; }
 }
 
 /* ---------- v59: a long list of answers (kinds of work) in two tidy columns; the stay-or-go tabs ---------- */
@@ -1850,8 +1844,7 @@ button, .opt, .pill, .lchip, .pchip { transition: transform 0.08s, opacity 0.08s
 /* The map, the ranking, the details and every settings box come with the take (body.took: the quiz finished, a saved
    take, or a shared link). Until then the page is the first card and the quiz. */
 body:not(.took) .work,
-body:not(.took) details.after,
-body:not(.took) .pfab { display: none !important; }
+body:not(.took) details.after { display: none !important; }
 body:not(.took) .hero { margin-top: 6vh; padding-block: 34px; }
 /* an unmarked button at the foot of the page */
 .pagefoot { display: flex; justify-content: flex-end; }
@@ -1879,7 +1872,6 @@ body:not(.took) .hero { margin-top: 6vh; padding-block: 34px; }
 .listpane[hidden] { display: none; }
 @media (max-width: 640px) {
   #mapSec, .after { order: 0; }
-  #resPanel #toMap { display: inline-flex; }
   .resrow h2 { font-size: 23px; }
 }
 @media (min-width: 1180px) {
@@ -1888,18 +1880,9 @@ body:not(.took) .hero { margin-top: 6vh; padding-block: 34px; }
   .split { display: grid; grid-template-columns: minmax(340px, 440px) minmax(0, 1fr); align-items: start; }
   /* the map stays in view while the list (or a place's details) scrolls beside it */
   #mapSec { position: sticky; top: 64px; }
-  #resPanel #toMap { display: none; }
 }
 /* above the list: cities or countries, a search box, and the filters folded under their name */
 .listpane .rankhead { align-items: center; justify-content: flex-start; }
-.rankhead #search { flex: 1 1 150px; min-width: 0; min-height: 40px; padding: 6px 14px; border: 1px solid var(--line); border-radius: 999px;
-  background: var(--panel); color: var(--fg); font: inherit; font-size: 14.5px; }
-.filt > summary { list-style: none; display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 4px 12px;
-  border: 1px solid var(--line); border-radius: 999px; font-size: 13.5px; color: var(--muted); cursor: pointer; user-select: none; }
-.filt > summary::-webkit-details-marker { display: none; }
-.filt > summary b { color: var(--bg); background: var(--fg); border-radius: 999px; padding: 0 6px; font-weight: 600; }
-.filt[open] > summary svg { transform: rotate(180deg); }
-.filt .pills { margin-top: 10px; }
 #rankmeta:empty { display: none; }
 /* rows: number, name, score at the end of the line, then one line of why in words */
 .rw .row:not(.hero1) { grid-template-columns: 30px minmax(0, 1fr) auto; grid-template-areas: 'n nm sc' '. why why'; row-gap: 3px; align-items: center;
@@ -1939,12 +1922,6 @@ button.brand { background: none; border: 0; padding: 0; min-height: 0; color: in
 /* quiz: on a phone the buttons stay in reach under a long question (30 languages), and Next looks like the next step */
 @media (max-width: 640px) {
   #quizPanel .qnav { position: sticky; bottom: 0; z-index: 2; background: var(--panel); margin-inline: -4px; padding: 10px 4px max(10px, env(safe-area-inset-bottom)); }
-}
-/* the priorities button sits in the middle on small screens, clear of the scores and hearts at the end of each row */
-@media (max-width: 1179px) {
-  .pfab { right: auto; left: 50%; transform: translateX(-50%); }
-  .pfab:active { transform: translateX(-50%) scale(0.97); }
-  .wrap { padding-bottom: 76px; }
 }
 /* thumb-sized targets on touch screens */
 @media (pointer: coarse) {
@@ -2001,3 +1978,85 @@ button.brand { background: none; border: 0; padding: 0; min-height: 0; color: in
   .rmap { height: 220px; }
 }
 .seenote { margin: 0; font-size: 11.5px; }
+
+/* ---------- v66: one place for every control ---------- */
+/* The panel: what to show, where, the "only show" filters, what matters. Left column on a wide screen; a sheet on a
+   narrower one. */
+.ctlsec, .filt, .prio { display: flex; flex-direction: column; gap: 8px; }
+.ppanel > * + * { border-top: 1px solid var(--line); padding-top: 14px; }
+.ppanel > .phead + *, .ppanel > [hidden] + *, .ppanel > .pdone { border-top: 0; padding-top: 0; }
+.ppanel .seg { display: flex; flex-wrap: wrap; width: 100%; }
+.ppanel .seg button { flex: 1 1 auto; min-height: 38px; }
+.ppanel .scopebar { flex-direction: column; align-items: stretch; gap: 8px; }
+.ppanel .scopebar .seg button { padding: 6px 10px; font-size: 14px; }
+.ppanel .pills { margin: 0; gap: 8px; }
+/* in the panel each filter is its own chip, so a row of them wraps instead of running off the side */
+.ppanel .pgroup { display: flex; flex-wrap: wrap; gap: 6px; max-width: 100%; border: 0; border-radius: 0; overflow: visible; }
+.ppanel .pill { min-height: 32px; padding: 4px 10px; font-size: 13px; border: 1px solid var(--line); border-radius: 999px; }
+.ppanel .pill[aria-pressed='true'] { border-color: transparent; }
+.pdone { display: none; }
+.sheetbg { position: fixed; inset: 0; z-index: 39; background: rgba(0, 0, 0, 0.35); }
+.sheetbg[hidden] { display: none; }
+/* The bar: find, Filters, list or map, cities or countries */
+.bar { display: flex; flex-direction: column; gap: 8px; }
+.barrow { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.searchhome { flex: 1 1 auto; min-width: 0; }
+.searchbox { position: relative; display: flex; align-items: center; }
+.searchbox .sico { position: absolute; left: 12px; display: inline-flex; color: var(--muted); pointer-events: none; }
+[dir='rtl'] .searchbox .sico { left: auto; right: 12px; }
+.searchbox input { width: 100%; min-height: 42px; padding: 6px 14px; padding-inline-start: 38px; border: 1px solid var(--line); border-radius: 999px;
+  background: var(--panel); color: var(--fg); font: inherit; font-size: 16px; }
+.searchbox input::-webkit-search-cancel-button { -webkit-appearance: none; }
+.sugg { position: absolute; top: calc(100% + 6px); left: 0; right: 0; z-index: 30; margin: 0; padding: 6px; list-style: none; background: var(--panel);
+  border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18); max-height: min(60vh, 340px); overflow: auto; }
+.sugg[hidden] { display: none; }
+.sugg li { display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 6px 10px; border-radius: 10px; cursor: pointer; }
+.sugg li[aria-selected='true'], .sugg li[data-i]:hover { background: var(--tint); }
+.sugg li.none { color: var(--muted); cursor: default; }
+.sugg .snm { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+.sugg .snm small { font-weight: 400; color: var(--muted); }
+.ctlbtn { display: inline-flex; align-items: center; gap: 6px; flex: 0 0 auto; min-height: 42px; padding: 6px 14px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--panel); color: var(--fg); font-weight: 600; white-space: nowrap; }
+.ctlbtn b { min-width: 20px; padding: 0 6px; border-radius: 999px; background: var(--accent); color: #fff; font-size: 12px; text-align: center; }
+.barrow .seg { display: flex; }
+.barrow .seg button { min-height: 38px; }
+#kindBar { margin-inline-start: auto; }
+@media (min-width: 1180px) {
+  .bar { display: none; }
+  /* the find box sits on the map, as on most maps */
+  .mapbox .searchbox { position: absolute; z-index: 5; top: 10px; left: 10px; width: min(300px, calc(100% - 76px)); }
+  .mapbox .searchbox input { border-color: transparent; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16); }
+  .mapbox .sugg { max-height: 300px; }
+  /* the panel is a column here: tighter chips, so more of what matters shows without scrolling it */
+  .ppanel .pills { gap: 6px; }
+  .ppanel .pgroup { gap: 5px; }
+  .ppanel .pill { min-height: 30px; padding: 3px 9px; font-size: 12.5px; }
+}
+@media (max-width: 1179px) {
+  .bar { position: sticky; top: calc(54px + env(safe-area-inset-top, 0px)); z-index: 15; margin-inline: calc(-1 * max(14px, env(safe-area-inset-left, 0px)));
+    padding: 8px max(14px, env(safe-area-inset-left, 0px)) 10px; background: var(--bg); border-bottom: 0.5px solid var(--line); }
+  #kindHome { display: none; }
+  .ppanel { max-height: 86vh; max-height: 86dvh; }
+  .pdone { display: block; position: sticky; bottom: 0; z-index: 1; margin: 4px -16px 0; padding: 10px 16px 2px; background: var(--panel); box-shadow: 0 -8px 16px -10px rgba(0, 0, 0, 0.25); }
+  .pdone button { width: 100%; min-height: 46px; }
+  /* List or map, one at a time. The map that is not showing keeps its width (it measures itself) and takes no room. */
+  .split { position: relative; }
+  .split[data-pane='list'] #mapSec { position: absolute; top: 0; left: 0; right: 0; height: 0; overflow: hidden; visibility: hidden; pointer-events: none; }
+  .split[data-pane='map'] { gap: 0; }
+  .split[data-pane='map'] #listPane, .split[data-pane='map'] #mapSec > .rankhead { display: none; }
+  /* A place's details open over the page, which stays where it was underneath */
+  #detail:not([hidden]) { position: fixed; inset: 0; z-index: 45; margin: 0; border-radius: 0; overflow-y: auto; overscroll-behavior: contain;
+    padding-bottom: max(18px, env(safe-area-inset-bottom)); }
+  #detail .dnav { top: -18px; border-radius: 0; padding-top: max(4px, env(safe-area-inset-top, 0px)); }
+  body.place-open { overflow: hidden; }
+}
+@media print { .bar, .sheetbg { display: none !important; } }
+/* the photo opens the article; the real map can take the whole screen */
+.photo .pimg { display: block; }
+.photo .pimg:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+.rmctl button { display: flex; align-items: center; justify-content: center; color: #333; }
+.mapfig.full { position: fixed; inset: 0; z-index: 70; display: flex; flex-direction: column; margin: 0; background: var(--bg); }
+.mapfig.full .rmap { flex: 1 1 auto; height: auto; border-radius: 0; }
+.mapfig.full figcaption { border-radius: 0; padding-bottom: max(4px, env(safe-area-inset-bottom)); }
+.mapfig.full .maplibregl-ctrl-top-right { top: env(safe-area-inset-top, 0px); }
+body.map-full { overflow: hidden; }

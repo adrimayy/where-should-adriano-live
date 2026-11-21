@@ -529,7 +529,7 @@ function swingPair(anchor, type, val, lo, far = 0.15) {
 // the Spanish on the page is Mexico's: a decimal point, a comma for thousands
 const numLoc = () => (LANG === 'es' ? 'es-MX' : LANG);
 const nfmt = (x, d = 0) => x.toLocaleString(numLoc(), { maximumFractionDigits: d, minimumFractionDigits: 0 });
-const hm = h => Math.floor(h) + ':' + String(Math.round((h % 1) * 60)).padStart(2, '0');
+const hm = h => hmOf(h).join(':');
 const usd = v => (v < 0 ? '−$' : '$') + nfmt(Math.abs(v));
 // One figure for two places, in everyday words (the sw* strings). kind: a factor, or 'payjob' (money left on typical
 // pay for the person's kind of work) or 'cost' (prices with rent). '' when both places read the same.
