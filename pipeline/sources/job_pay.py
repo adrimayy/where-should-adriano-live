@@ -3,7 +3,7 @@
 Two published tables, each kept in pipeline/input with its source and how it was read:
   ilostat_earnings_by_occupation.txt   119 countries: mean monthly earnings of employees by ISCO-08 major group
                                        (ILOSTAT), latest year from 2020 on
-  oews_2025_metro_pay.txt              109 US metro areas: annual mean wage by occupation group (BLS OEWS, May 2025)
+  oews_2025_metro_pay.txt              124 US metro areas: annual mean wage by occupation group (BLS OEWS, May 2025)
 The page (js/07-quiz.js, JOBS) maps each kind of work in the quiz to one ISCO-08 group and one OEWS column.
 Every line carries a check value, so a miscopied figure stops the build."""
 import math, pathlib, re, statistics

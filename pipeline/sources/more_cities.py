@@ -83,8 +83,7 @@ def dist(a, b):
     return 2 * R * math.asin(math.sqrt(h))
 
 
-# ---------- BEA Regional Price Parities, 2023 (input/bea_rpp_2023.txt): metro -> (all items, housing rents), US = 100 ----------
-_RPP = {r[0]: (float(r[1]), float(r[2])) for r in _rows('bea_rpp_2023.txt')}
+# ---------- how BEA and the Census name a metro: by its main cities, e.g. "New York-Newark-Jersey City, NY-NJ" ----------
 _BEA_ALIAS = {'New York City': 'New York-Newark', 'Washington DC': 'Washington-Arlington', 'Honolulu': 'Urban Honolulu',
               'Boise': 'Boise City', 'Sarasota': 'North Port-Sarasota', 'Daytona Beach': 'Deltona-Daytona',
               'Fort Walton Beach': 'Crestview-Fort Walton', 'Steubenville': 'Weirton-Steubenville', 'New London': 'Norwich-New London',
@@ -95,18 +94,15 @@ _BEA_ALIAS = {'New York City': 'New York-Newark', 'Washington DC': 'Washington-A
               'Hilton Head': 'Hilton Head Island'}
 
 
-def _bea_name(name):
-    """The BEA metro a US metro in the atlas corresponds to (same main city, same state), or None.
-    BEA's 2023 figures use the 2020 metro boundaries, so metros created in the 2023 revision have no match."""
+def _bea_name(name, keys):
+    """The entry in keys (BEA metro titles) a US metro in the atlas corresponds to (same main city, same state), or None.
+    Used for BEA tables that still come by title; the price parities below are matched by code."""
     import re
     st = US_METROS[name][0]
     base = _BEA_ALIAS.get(name) or re.sub(r' [A-Z]{2}$', '', name)
-    hits = [k for k in _RPP if k.startswith(base) and st in k.split(', ')[-1].split('-')
+    hits = [k for k in keys if k.startswith(base) and st in k.split(', ')[-1].split('-')
             and (name in _BEA_ALIAS or k.split(',')[0].split('-')[0].strip() == base)]
     return hits[0] if len(hits) == 1 else None
-
-
-BEA_RPP = {n: _RPP[b] for n in US_METROS for b in [_bea_name(n)] if b}
 
 
 # ---------- Census ACS by metro (input/acs_2025_metros.txt: rent, earnings and means of transport 2025; commute, income, vacancy 2024) ----------
@@ -134,3 +130,9 @@ def _acs_name(name):
 ACS = {n: _ACS[a] for n in US_METROS for a in [_acs_name(n)] if a}
 # atlas US metro -> Census CBSA code (the key used by the EPA, BLS LAUS, Census population and county files)
 CBSA = {n: _CBSA[a] for n in US_METROS for a in [_acs_name(n)] if a}
+
+# ---------- BEA Regional Price Parities, 2024 (input/bea_rpp_2024.txt): metro -> (all items, housing rents), US = 100 ----------
+# Matched by Census CBSA code: BEA's code for a metropolitan area is its CBSA code. Puerto Rico's four metros and one
+# micropolitan area (Lebanon NH) are not in BEA's table.
+_RPP = {r[0]: (float(r[2]), float(r[3])) for r in _rows('bea_rpp_2024.txt')}
+BEA_RPP = {n: _RPP[str(CBSA[n])] for n in US_METROS if n in CBSA and str(CBSA[n]) in _RPP}

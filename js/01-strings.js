@@ -1309,13 +1309,12 @@ const SRC = {
   unpop: 'https://en.wikipedia.org/wiki/List_of_countries_and_dependencies_by_population_(United_Nations)',
   temps: 'https://en.wikipedia.org/wiki/List_of_cities_by_average_temperature',
   noaacr: 'https://www.currentresults.com/Weather/US/average-city-temperatures-in-july.php',
-  bearpp: 'https://www.bea.gov/sites/default/files/2024-12/rpp1224.pdf',
+  bearpp: 'https://apps.bea.gov/regional/zip/MARPP.zip',
   acs24: 'https://data.census.gov/table/ACSDP1Y2024.DP03',
   ctt: 'https://climatestotravel.com/temperatures/united-states',
   pres24: 'https://wikiwand.com/en/articles/2024_US_Presidential_Election',
   cmhc: 'https://www.central1.com/wp-content/uploads/2025/12/ECON_COMMENTARY_Rent-Dec2025.pdf',
-  sblink:
-    'https://www.startupsg.gov.sg/public/inline-images/Startup_Blink_Global_Startup_Ecosystem_Index_2025_web.pdf',
+  sblink: 'https://lp.startupblink.com/report/',
   uhc: 'https://data.worldbank.org/indicator/SH.UHC.SRVS.CV.XD',
   uhc2: 'https://statisticsoftheworld.com/indicators?id=WHO.UHC_INDEX',
   ncol: 'https://www.numbeo.com/cost-of-living/rankings.jsp?title=2026',
@@ -1363,8 +1362,7 @@ const RAWU = {
   temps: 'https://en.wikipedia.org/wiki/List_of_cities_by_average_temperature',
   pres24: 'https://wikiwand.com/en/articles/2024_US_Presidential_Election',
   cmhc: 'https://www.central1.com/wp-content/uploads/2025/12/ECON_COMMENTARY_Rent-Dec2025.pdf',
-  sblink:
-    'https://www.startupsg.gov.sg/public/inline-images/Startup_Blink_Global_Startup_Ecosystem_Index_2025_web.pdf',
+  sblink: 'https://lp.startupblink.com/report/',
   walk: 'https://www.walkscore.com/cities-and-neighborhoods/',
   censusins: 'https://www.census.gov/library/publications/2026/demo/p60-291.html',
   coneval:
@@ -1375,6 +1373,7 @@ const RAWU = {
   fh: 'https://ourworldindata.org/grapher/civil-liberties-score-fh',
   hom: 'https://dataunodc.un.org/dp-intentional-homicide-victims',
   fbi: 'https://wiki.krisyotam.com/content/wikipedia_en_all_nopic_2026-03/United_States_cities_by_crime_rate',
+  ei26s: 'https://www.internations.org/expat-insider/2026/ease-of-settling-in-2026',
   ei25: 'https://assets.in-cdn.net/expat-insider/2025/ease-of-settling-in-2025',
   ei25h:
     'https://www.iamexpat.nl/expat-info/dutch-news/the-netherlands-named-among-best-countries-work-international',
@@ -1449,13 +1448,13 @@ const RAWL = {
     'county24',
   ],
   sblink: [
-    'StartupBlink 2025 tech ecosystem, global city rank',
-    'StartupBlink 2025 ecosistema tech, lugar mundial de la ciudad',
+    'StartupBlink 2026 tech ecosystem, global city rank',
+    'StartupBlink 2026 ecosistema tech, lugar mundial de la ciudad',
     'sblink',
   ],
   sblinknyc: [
-    'StartupBlink 2025, New York (commuting range)',
-    'StartupBlink 2025, Nueva York (a distancia de traslado)',
+    'StartupBlink 2026, New York (commuting range)',
+    'StartupBlink 2026, Nueva York (a distancia de traslado)',
     'sblink',
   ],
   walk: ['Walk Score / Transit Score (city)', 'Walk Score / Transit Score (ciudad)', 'walk'],
@@ -1476,6 +1475,7 @@ const RAWL = {
   hom: ['UNODC homicides per 100k (latest year)', 'Homicidios por 100 mil, UNODC (último año)', 'hom'],
   fbi: ['FBI 2024 homicides per 100k', 'Homicidios por 100 mil, FBI 2024', 'fbi'],
   nqols: ['Numbeo safety index', 'Índice de seguridad de Numbeo', 'nqol'],
+  ei26s: ['Expat Insider 2026, ease of settling in', 'Expat Insider 2026, facilidad para adaptarse', 'ei26s'],
   ei25s: ['Expat Insider 2025, ease of settling in', 'Expat Insider 2025, facilidad para adaptarse', 'ei25'],
   ei24f: ['Expat Insider 2024, finding friends', 'Expat Insider 2024, hacer amigos', 'nl24'],
   eicity24s: [
@@ -1563,8 +1563,8 @@ const RAWL = {
     'temps',
   ],
   rpp: [
-    'BEA regional price parity 2023 (US = 100; rent level in brackets), converted to Numbeo’s cost-of-living scale',
-    'Paridad regional de precios del BEA 2023 (EE. UU. = 100; nivel de alquileres entre paréntesis), convertida a la escala de costo de vida de Numbeo',
+    'BEA regional price parity 2024 (US = 100; rent level in brackets), converted to Numbeo’s cost-of-living scale',
+    'Paridad regional de precios del BEA 2024 (EE. UU. = 100; nivel de alquileres entre paréntesis), convertida a la escala de costo de vida de Numbeo',
     'bearpp',
   ],
   acspay: [
@@ -1693,7 +1693,7 @@ const ROWS = {
     ],
     [
       'Tech job market (when your field is tech or software)',
-      `The general job market averaged with the city’s rank in the ${A('sblink', 'StartupBlink Global Startup Ecosystem Index 2025')}, which ranks 1,000 cities on startups, scale-ups, investment and tech business activity. Top 10 = 5, 11–30 = 4, 31–75 = 3, 76–200 = 2, lower or unranked = 1. A country uses its best-ranked city. It measures the tech ecosystem, not job postings, so treat it as a strong signal, not a count of openings.`,
+      `The general job market averaged with the city’s rank in the ${A('sblink', 'StartupBlink Global Startup Ecosystem Index 2026')}, which ranks 1,556 cities on startups, scale-ups, investment and tech business activity. Top 10 = 5, 11–30 = 4, 31–75 = 3, 76–200 = 2, lower or unranked = 1. A country uses its best-ranked city. It measures the tech ecosystem, not job postings, so treat it as a strong signal, not a count of openings.`,
     ],
     [
       'Jobs in other specific fields',
@@ -1782,7 +1782,7 @@ const ROWS = {
     ],
     [
       'Mercado laboral tech (si tu campo es tecnología o software)',
-      `El mercado laboral general promediado con el lugar de la ciudad en el ${A('sblink', 'Índice Global de Ecosistemas de Startups de StartupBlink 2025')}, que clasifica 1,000 ciudades por startups, empresas en crecimiento, inversión y actividad tech. Top 10 = 5, 11–30 = 4, 31–75 = 3, 76–200 = 2, más abajo o sin lugar = 1. Un país usa su ciudad mejor clasificada. Mide el ecosistema tech, no vacantes publicadas, así que tómalo como una señal fuerte, no como un conteo de empleos.`,
+      `El mercado laboral general promediado con el lugar de la ciudad en el ${A('sblink', 'Índice Global de Ecosistemas de Startups de StartupBlink 2026')}, que clasifica 1,556 ciudades por startups, empresas en crecimiento, inversión y actividad tech. Top 10 = 5, 11–30 = 4, 31–75 = 3, 76–200 = 2, más abajo o sin lugar = 1. Un país usa su ciudad mejor clasificada. Mide el ecosistema tech, no vacantes publicadas, así que tómalo como una señal fuerte, no como un conteo de empleos.`,
     ],
     [
       'Empleos en otros campos específicos',

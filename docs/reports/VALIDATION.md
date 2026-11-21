@@ -4,18 +4,18 @@ Made by `tests/validate_sources.py`. Every check predicts places whose real valu
 
 ## 1. BEA price parities on Numbeo's cost scale
 
-27 US cities have both a BEA regional price parity (2023) and a Numbeo cost-of-living-plus-rent index. Fit: ln(index) = -6.47 + 2.29 ln(RPP), R² = 0.72. Leaving each city out in turn, the predicted band is off by 0.26 on average.
+27 US cities have both a BEA regional price parity (2023) and a Numbeo cost-of-living-plus-rent index. Fit: ln(index) = -7.31 + 2.47 ln(RPP), R² = 0.71. Leaving each city out in turn, the predicted band is off by 0.26 on average.
 
-The calibration cities cover RPP 94.4–118.2. Most small metros are cheaper than that, so the fit was also tested in the direction it would be extrapolated: trained on the more expensive cities, used on the cheaper ones.
+The calibration cities cover RPP 94.7–115.6. Most small metros are cheaper than that, so the fit was also tested in the direction it would be extrapolated: trained on the more expensive cities, used on the cheaper ones.
 
 | Trained on | Tested on | Extrapolating: bias (index points) | band error | Held flat at the edge: bias | band error |
 |---|---|---|---|---|---|
-| top 18 | bottom 9 | -5.2 | 0.51 | +1.0 | 0.23 |
-| top 14 | bottom 13 | -6.8 | 0.62 | +1.8 | 0.27 |
-| top 10 | bottom 17 | -0.3 | 0.34 | +10.2 | 0.69 |
+| top 18 | bottom 9 | -7.6 | 0.67 | -1.2 | 0.24 |
+| top 14 | bottom 13 | -5.9 | 0.56 | +3.0 | 0.28 |
+| top 10 | bottom 17 | +1.1 | 0.31 | +10.3 | 0.70 |
 
 Extrapolating downward makes cheap cities look cheaper than they are in the two splits closest to the real use. Holding the conversion flat below the calibration range is closer and nearly unbiased there; it fails only when the calibration set is cut to the ten most expensive cities, which is not the real case.
-**Rule used:** the fit inside the range (121 metros); below it, the value at the edge of the range, shown as "or less" (224 metros). That is a ceiling on cost: it can understate how affordable a small metro is, never overstate it.
+**Rule used:** the fit inside the range (148 metros); below it, the value at the edge of the range, shown as "or less" (211 metros). That is a ceiling on cost: it can understate how affordable a small metro is, never overstate it.
 
 ### BEA income per person as money left after rent: tested, not used
 
@@ -39,9 +39,9 @@ Inside one country the gap-filling model predicts close to the national city ave
 | Commute | mean travel time to work | 27 | 0.70 | 0.53 | 0.69 | used (363 metros) |
 | Housing availability | rental vacancy rate | 28 | 0.66 | 0.52 | 0.86 | used inside the calibrated range (298 metros) |
 | Car dependence | share driving alone | 28 | 0.06 | 0.51 | 0.44 | **not used** |
-| Money left after rent | earnings, rent, BEA prices, converted one by one | 27 | | 0.36 | 0.49 | used inside the calibrated ranges (82 metros) |
+| Money left after rent | earnings, rent, BEA prices, converted one by one | 27 | | 0.35 | 0.49 | used inside the calibrated ranges (95 metros) |
 
-**Money left after rent.** Census earnings track Numbeo's salaries (correlation 0.74) and Census rents track Numbeo's rents (0.80), but a single regression of the final figure on earnings and rent does poorly, because the figure is a difference of two large, correlated amounts and small errors in each dominate it. Converting salary, rent and prices separately and then applying the atlas's formula keeps each conversion where it is strong. Trained on the 14 higher-rent cities and applied to the 13 cheaper ones without limits, it overstates money left by $1,037 a month on average, so it is applied only to metros whose earnings, rent and price level all lie inside the calibrated ranges. The rest stay filled in.
+**Money left after rent.** Census earnings track Numbeo's salaries (correlation 0.74) and Census rents track Numbeo's rents (0.80), but a single regression of the final figure on earnings and rent does poorly, because the figure is a difference of two large, correlated amounts and small errors in each dominate it. Converting salary, rent and prices separately and then applying the atlas's formula keeps each conversion where it is strong. Trained on the 14 higher-rent cities and applied to the 13 cheaper ones without limits, it overstates money left by $906 a month on average, so it is applied only to metros whose earnings, rent and price level all lie inside the calibrated ranges. The rest stay filled in.
 
 **Car dependence.** The share of workers who drive alone has no relationship with the Numbeo traffic CO₂ index the atlas scores. Among large US metros the two do not measure the same thing, so the Census figure is not substituted. This is also a caution about the Numbeo measure, which is why it is now averaged with the ITDP Atlas wherever ITDP covers the city.
 

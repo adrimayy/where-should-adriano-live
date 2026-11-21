@@ -1,4 +1,4 @@
-"""Jobs: metro GDP and population, ILO unemployment (overall, ages 15-24, informal share), StartupBlink 2025 city ranks.
+"""Jobs: metro GDP and population, ILO unemployment (overall, ages 15-24, informal share), StartupBlink 2026 city ranks.
 Every number is copied from the source named in its comment."""
 
 # ---------- metro economies (Wikipedia "List of cities by GDP", March 2026 snapshot; nominal US$ bn, metro population, year) ----------
@@ -57,22 +57,70 @@ YOUTH_T = "Albania: 25.1; Austria: 11.7; Belarus: 10.1; Belgium: 16.8; Bosnia an
 # informal employment, % of all jobs (ILOSTAT via Wikipedia "List of countries by informal employment rate"): low unemployment means little where most work is informal
 INFORMAL_T = "Niger: 98.49; Burundi: 98.31; Chad: 96.92; DR Congo: 96.76; Benin: 96.35; Madagascar: 96.08; Mozambique: 95.67; Mali: 95.42; Uganda: 95.15; Guinea-Bissau: 94.77; Sudan: 94.41; Burkina Faso: 93.76; Tanzania: 93.58; Nigeria: 93.18; Sierra Leone: 93.11; Togo: 92.34; Angola: 92.21; Ivory Coast: 92.13; Haiti: 91.61; Laos: 90.49; Liberia: 89.66; Cambodia: 89.41; Mauritania: 89.36; Senegal: 89.24; Lesotho: 89.14; India: 88.36; Zimbabwe: 88.07; Cameroon: 87.10; Malawi: 87.08; Kenya: 86.49; Afghanistan: 86.13; Republic of the Congo: 85.28; Ethiopia: 85.21; Pakistan: 84.34; Rwanda: 84.27; Bangladesh: 84.19; Gambia: 84.13; Bolivia: 83.88; Zambia: 83.83; Guatemala: 83.19; Honduras: 82.61; Somalia: 82.49; Nicaragua: 81.79; Nepal: 81.56; Indonesia: 81.19; Myanmar: 80.96; Timor-Leste: 80.59; Ghana: 78.05; Yemen: 77.41; Botswana: 75.58; Vanuatu: 72.40; Peru: 72.07; Egypt: 71.33; Ecuador: 68.64; Vietnam: 67.66; Iraq: 67.64; Paraguay: 67.31; Sri Lanka: 67.04; El Salvador: 66.50; Tajikistan: 64.58; Thailand: 63.33; Kyrgyzstan: 58.76; Panama: 58.69; Venezuela: 58.34; Colombia: 56.14; Namibia: 55.76; Georgia: 55.63; Mexico: 55.53; Lebanon: 55.45; Jordan: 55.12; Dominican Republic: 54.70; Jamaica: 54.64; Eswatini: 53.30; Moldova: 52.22; Suriname: 52.11; Argentina: 51.58; Guyana: 51.17; Djibouti: 50.52; Palestine: 48.48; Armenia: 47.88; Fiji: 45.70; Mongolia: 41.94; Costa Rica: 37.38; Tunisia: 36.91; Brazil: 36.50; South Africa: 34.90; Uruguay: 28.55; Brunei: 28.48; Turkey: 27.71; Chile: 27.46; South Korea: 26.62; Bosnia and Herzegovina: 19.67; Russia: 19.33; Bahamas: 18.36; Serbia: 17.81; North Macedonia: 11.09; Poland: 8.62; United Kingdom: 6.51; Portugal: 4.73; Slovakia: 4.37; Greece: 3.58; Italy: 3.42; Lithuania: 3.20; France: 3.15; Sweden: 2.83; Denmark: 2.82; Netherlands: 2.63; Germany: 2.49; Estonia: 2.40; Czech Republic: 2.26; Romania: 2.21; Spain: 2.20; Finland: 2.19; Latvia: 2.17; Iceland: 1.97; Luxembourg: 1.93; Ireland: 1.90; Cyprus: 1.68; Norway: 1.43; Belgium: 1.37; Austria: 1.33; Hungary: 1.31; Bulgaria: 1.20; Croatia: 1.17; Switzerland: 1.14; Slovenia: 0.70"
 
-# ---------- tech job market (used when the field is tech/software): StartupBlink Global Startup Ecosystem Index 2025, global city rank of 1,000 ----------
-# A city outside the top 1,000 gets the lowest band; commuter towns use New York's rank, like the job market.
-SBLINK = {'New York City': 2, 'San Francisco': 1, 'Seattle': 15, 'Boston': 6, 'Washington DC': 22, 'Chicago': 19, 'Pittsburgh': 67, 'Denver': 35,
- 'Los Angeles': 4, 'San Diego': 25, 'Austin': 16, 'Atlanta': 32, 'Raleigh': 45, 'Houston': 52, 'Miami': 28, 'Phoenix': 53, 'Toronto': 21, 'Vancouver': 39,
- 'Montreal': 46, 'Mexico City': 58, 'Bogotá': 62, 'São Paulo': 23, 'Buenos Aires': 77, 'Santiago': 75, 'London': 3, 'Cambridge UK': 71, 'Edinburgh': 123,
- 'Dublin': 55, 'Amsterdam': 26, 'Berlin': 14, 'Munich': 36, 'Paris': 8, 'Zurich': 57, 'Vienna': 74, 'Copenhagen': 48, 'Stockholm': 24, 'Oslo': 66,
- 'Helsinki': 43, 'Tallinn': 49, 'Prague': 85, 'Warsaw': 91, 'Madrid': 51, 'Barcelona': 33, 'Lisbon': 87, 'Milan': 56, 'Istanbul': 50, 'Tel Aviv': 9,
- 'Dubai': 44, 'Taipei': 54, 'Tokyo': 13, 'Seoul': 20, 'Singapore': 12, 'Hong Kong': 37, 'Shanghai': 7, 'Shenzhen': 17, 'Beijing': 5, 'Bengaluru': 10,
- 'Sydney': 31, 'Melbourne': 42, 'Moscow': 34, 'Medellín': 145, 'Kuala Lumpur': 73, 'Lagos': 76, 'Philadelphia': 38, 'Minneapolis': 47, 'Portland': 59,
- 'Ottawa': 86, 'Valencia': 158, 'Manchester': 78, 'Hamburg': 83, 'Lima': 182, 'Dallas': 27, 'Nashville': 80, 'Salt Lake City': 40, 'Baltimore': 82,
- 'Sacramento': 97, 'Charlotte': 93, 'Calgary': 92, 'Brussels': 64, 'Lyon': 125, 'Rotterdam': 163, 'Bristol': 120, 'Bangkok': 81,
- 'Geneva': 124, 'Montevideo': 227, 'Rome': 150, 'Athens': 117, 'Auckland': 115, 'Cape Town': 138, 'Nairobi': 107, 'Guadalajara': 220, 'Accra': 243,
- 'Kigali': 461, 'Ho Chi Minh City': 110, 'Porto': 171, 'Utrecht': 172, 'Frankfurt': 133, 'Kraków': 184, 'Ljubljana': 267, 'Brisbane': 111,
- 'Monterrey': 183, 'Quebec City': 144, 'Rio de Janeiro': 147, 'Quito': 376, 'Córdoba (Argentina)': 213, 'Budapest': 141, 'Glasgow': 205,
- 'Gothenburg': 136, 'Osaka': 146, 'Manila': 112, 'Bern': 289, 'Querétaro': 656, 'San José (Costa Rica)': 388, 'Panama City': 422, 'Málaga': 310,
- 'Wellington': 276, 'Mérida': 995, 'Buffalo': 201, 'Rochester': 222, 'Syracuse': 335, 'Albany': 350, 'Binghamton': 854, 'Puebla': 329, 'Cancún': 826, 'Seville': 311, 'Bilbao': 293}
+# ---------- tech job market (used when the field is tech/software): StartupBlink Global Startup Ecosystem Index 2026, global city rank of 1,556 ----------
+# Read 20 Nov 2026 from each city's own page on startupblink.com (https://www.startupblink.com/startup-ecosystem/<city>,
+# the "position" shown there), for every atlas city that has a page: 483 cities. A city without a page is not in the
+# ranking and gets the lowest band; commuter towns use New York's rank, like the job market. Sorted by rank.
+SBLINK = {
+ 'San Francisco': 1, 'New York City': 2, 'London': 3, 'Los Angeles': 4, 'Boston': 5, 'Beijing': 6, 'Tel Aviv': 7, 'Shanghai': 8, 'Paris': 9,
+ 'Singapore': 10, 'Delhi': 11, 'Bengaluru': 12, 'Tokyo': 13, 'Austin': 14, 'Berlin': 15, 'Seattle': 16, 'Chicago': 17, 'Toronto': 18, 'Mumbai': 19,
+ 'Seoul': 20, 'Washington DC': 21, 'Miami': 22, 'San Diego': 23, 'São Paulo': 24, 'Stockholm': 25, 'Shenzhen': 26, 'Amsterdam': 27, 'Dallas': 28,
+ 'Atlanta': 29, 'Sydney': 30, 'Denver': 31, 'Barcelona': 32, 'Jakarta': 33, 'Melbourne': 34, 'Hong Kong': 35, 'Salt Lake City': 36, 'Hangzhou': 37,
+ 'Philadelphia': 38, 'Taipei': 39, 'Munich': 40, 'Moscow': 41, 'Riyadh': 42, 'Vancouver': 43, 'Raleigh': 44, 'Istanbul': 45, 'Houston': 46,
+ 'Helsinki': 47, 'Dubai': 48, 'Montreal': 49, 'Phoenix': 50, 'Madrid': 51, 'Guangzhou': 52, 'Tallinn': 53, 'Milan': 54, 'Copenhagen': 55,
+ 'Portland': 56, 'Zurich': 57, 'Dublin': 58, 'Hyderabad': 59, 'Detroit': 60, 'Minneapolis': 61, 'Pune': 62, 'Mexico City': 63, 'Bogotá': 64,
+ 'Vilnius': 66, 'Las Vegas': 67, 'Pittsburgh': 68, 'Boulder': 69, 'Lagos': 70, 'Kuala Lumpur': 71, 'Santiago': 72, 'Chennai': 73, 'Kyiv': 74,
+ 'Brussels': 75, 'Bangkok': 76, 'Oslo': 77, 'Manchester': 78, 'Vienna': 79, 'Baltimore': 80, 'Boise': 81, 'Tampa': 82, 'Prague': 83, 'Nashville': 84,
+ 'Cambridge UK': 85, 'Buenos Aires': 86, 'Charlotte': 87, 'Warsaw': 88, 'Hamburg': 90, 'Orlando': 91, 'Lisbon': 92, 'Nanjing': 95, 'Ottawa': 96,
+ 'New Haven': 97, 'Ho Chi Minh City': 98, 'Cairo': 99, 'Indianapolis': 100, 'Sacramento': 101, 'Columbus': 102, 'Calgary': 105, 'Santa Barbara': 106,
+ 'Kansas City': 108, 'Brisbane': 109, 'Auckland': 110, 'Burlington': 111, 'Bucharest': 112, 'Cape Town': 114, 'Nairobi': 116, 'Sofia': 117,
+ 'Hanoi': 118, 'St. Louis': 119, 'Cleveland': 120, 'Manila': 121, 'Johannesburg': 122, 'Louisville': 123, 'Kyoto': 124, 'Cincinnati': 126,
+ 'Lyon': 128, 'Edinburgh': 129, 'Medellín': 130, 'Dhaka': 131, 'Athens': 134, 'Dover': 135, 'Chengdu': 136, 'Santa Cruz': 137, 'Rio de Janeiro': 138,
+ 'Kolkata': 139, 'Rome': 140, 'Gothenburg': 141, 'Buffalo': 142, 'Geneva': 143, 'Budapest': 144, 'Bristol': 145, 'Curitiba': 146, 'Osaka': 147,
+ 'Valencia': 150, 'Frankfurt': 151, 'Richmond': 152, 'Madison': 153, 'Milwaukee': 155, 'Wilmington NC': 156, 'Belo Horizonte': 157, 'Rotterdam': 158,
+ 'Quebec City': 159, 'Edmonton': 160, 'San Antonio': 161, 'Kraków': 165, 'Luxembourg': 167, 'Marseille': 168, 'Lahore': 169, 'Wuhan': 170,
+ 'Utrecht': 171, 'Abu Dhabi': 173, 'Karachi': 174, 'Carson City': 176, 'Hartford': 178, 'Birmingham': 179, 'Reykjavík': 180, 'Perth': 183,
+ 'Reno': 186, 'Changsha': 188, 'Brno': 190, 'Porto': 192, 'Surat': 193, 'Riga': 195, 'Porto Alegre': 196, 'Lima': 197, 'Monterrey': 198,
+ 'Yerevan': 199, 'Chongqing': 200, 'New Orleans': 201, 'Adelaide': 202, 'Greenville': 203, 'Jacksonville': 205, 'Ankara': 206, 'Glasgow': 207,
+ 'Columbia': 209, 'Charleston': 210, 'Belgrade': 211, 'Cali': 212, 'Albuquerque': 215, 'Lexington': 218, 'Oulu': 221, 'Rochester': 222,
+ 'Bratislava': 225, 'Montevideo': 226, 'Honolulu': 227, 'Córdoba (Argentina)': 228, 'Tashkent': 229, 'Colombo': 230, 'Bordeaux': 231,
+ 'Santa Rosa': 232, 'Providence': 236, 'Amman': 237, 'Omaha': 238, 'Zagreb': 242, 'Accra': 246, 'Florianópolis': 247, 'Tianjin': 248,
+ 'Oklahoma City': 249, 'Virginia Beach': 250, 'Halifax': 253, 'Bilbao': 254, 'Christchurch': 255, 'Memphis': 258, 'Fort Collins': 259,
+ 'Grand Rapids': 260, 'Sarasota': 261, 'Fukuoka': 267, 'Guadalajara': 269, 'San Juan': 270, 'Wellington': 274, 'Nicosia': 275, 'Springfield MA': 277,
+ 'Ljubljana': 282, 'Kampala': 285, 'Almaty': 291, 'Chattanooga': 293, 'Bend': 294, 'San Salvador': 297, 'Tbilisi': 298, 'Cheyenne': 301,
+ 'Bloomington IN': 302, "Xi'an": 303, 'Canberra': 306, 'Baku': 308, 'Bern': 309, 'Charlottesville': 311, 'Lafayette': 313, 'Tucson': 314,
+ 'Des Moines': 315, 'Nagoya': 316, 'Winnipeg': 317, 'Casablanca': 318, 'Málaga': 319, 'Colorado Springs': 321, 'Busan': 328, 'Tunis': 330,
+ 'Brasília': 331, 'Astana': 332, 'Santa Fe': 333, 'Syracuse': 335, 'Cluj-Napoca': 336, 'Seville': 338, 'Beirut': 341, 'Knoxville': 342,
+ 'Little Rock': 343, 'Spokane': 345, 'Saint Petersburg': 346, 'Tehran': 348, 'Albany': 350, 'Huntsville': 351, 'Midland': 356, 'Tulsa': 357,
+ 'Doha': 358, 'Quito': 359, 'Barranquilla': 363, 'Bozeman': 375, 'Pretoria': 377, 'Lviv': 378, 'Gainesville': 379, 'Lincoln': 380,
+ 'Panama City': 381, 'İzmir': 384, 'Minsk': 385, 'Dakar': 386, 'San José (Costa Rica)': 388, 'Bellingham': 392, 'Worcester': 394, 'Naples': 397,
+ 'Bergen': 398, 'Champaign': 400, 'Ithaca': 402, 'Puebla': 404, 'Fresno': 407, 'Wichita': 412, 'Greensboro': 415, 'Nassau': 417, 'Ames': 418,
+ 'Kuwait City': 420, 'Addis Ababa': 422, 'Kathmandu': 426, 'Ulaanbaatar': 427, 'Surabaya': 434, 'Fayetteville AR': 435, 'Canton': 436,
+ 'San Luis Obispo': 437, 'Thessaloniki': 443, 'Winston-Salem': 444, 'Tirana': 450, 'Lansing': 452, 'Dayton': 453, 'Recife': 455, 'Skopje': 457,
+ 'Iowa City': 460, 'Asheville': 462, 'Chișinău': 464, 'Luanda': 473, 'Saskatoon': 474, 'Peoria': 475, 'College Station': 476, 'Harrisburg': 478,
+ 'Anchorage': 479, 'Green Bay': 480, 'Akron': 481, 'Chihuahua': 485, 'Kigali': 487, 'Corvallis': 489, 'Baton Rouge': 497, 'Allentown': 503,
+ 'Yangon': 504, 'Sioux Falls': 505, 'Savannah': 508, 'Duluth': 512, 'Panama City FL': 513, 'Tallahassee': 514, 'Missoula': 517, 'Eugene': 523,
+ 'Kingston': 524, 'Windhoek': 525, 'Daytona Beach': 530, 'Fortaleza': 534, 'Phnom Penh': 536, 'Goiânia': 539, 'Vitória': 540, 'Sapporo': 545,
+ 'Bakersfield': 549, 'Da Nang': 554, 'Algiers': 557, 'Dar es Salaam': 563, 'Muscat': 564, 'Blacksburg': 566, 'Abidjan': 575, 'Fargo': 579,
+ 'Chiang Mai': 590, 'Umeå': 591, 'Casper': 596, 'Durban': 601, 'Salvador': 603, 'Denpasar': 607, 'Asunción': 608, 'Cedar Rapids': 609,
+ 'South Bend': 611, 'Pensacola': 617, 'Lusaka': 621, 'Kalamazoo': 623, 'Rosario': 629, 'Toledo': 630, 'Santo Domingo': 641, 'Caracas': 642,
+ 'Sarajevo': 643, 'Hiroshima': 646, 'Lawrence': 665, 'Fort Wayne': 668, 'Clarksville': 676, 'State College': 678, 'Kingston NY': 680,
+ 'Alexandria': 684, 'Guatemala City': 685, 'Stockton': 689, 'Novosibirsk': 692, 'Bishkek': 695, 'Palermo': 696, 'Athens GA': 699, 'Querétaro': 706,
+ 'Erie': 708, 'Hobart': 721, 'Roanoke': 722, 'Lubbock': 727, 'Hamilton': 731, 'Belém': 734, 'Huntington WV': 742, 'Mobile': 744, 'El Paso': 748,
+ 'Mendoza': 755, 'Chico': 770, 'Heraklion': 771, 'Rabat': 772, 'Traverse City': 782, 'Baghdad': 786, 'Kuopio': 788, 'Reading': 797, 'Harare': 799,
+ 'Myrtle Beach': 800, 'Moncton': 801, 'Guayaquil': 802, 'Mérida': 810, 'Lakeland': 812, 'Split': 821, 'Redding': 822, 'Douala': 828,
+ 'Montgomery': 832, 'Flagstaff': 834, 'Napa': 835, 'Binghamton': 854, 'Spartanburg': 855, 'Rapid City': 856, 'Logan': 862, 'Cotonou': 868,
+ 'Marrakesh': 871, 'Salinas': 873, 'Monroe LA': 877, 'Darwin': 883, 'Naha': 887, 'Flint': 888, 'Augusta': 890, 'Mombasa': 894, 'Morgantown': 896,
+ 'Mogadishu': 903, 'McAllen': 908, 'Cancún': 909, 'Concepción': 911, 'Modesto': 912, 'Davenport': 913, 'Harbin': 915, 'Evansville': 925,
+ 'Scranton': 928, 'Erbil': 932, 'Yaoundé': 937, 'Kennewick': 940, 'Harrisonburg': 951, 'La Paz': 959, 'Tijuana': 961, 'Santa Cruz de la Sierra': 966,
+ 'Medan': 972, 'Kunming': 985, 'Billings': 987, 'Bamako': 990, 'Poughkeepsie': 991, 'Grand Junction': 1032, 'Mansfield': 1038, 'Youngstown': 1040,
+ 'Shreveport': 1041, 'Jonesboro': 1061, 'Kinshasa': 1062, 'Waco': 1066, 'Prescott': 1068, 'Appleton': 1069, 'Corpus Christi': 1070, 'Ocala': 1076,
+ 'Waterloo': 1081, 'Wausau': 1083, 'Belize City': 1086, 'Antananarivo': 1088, 'Rockford': 1097, 'Florence AL': 1101, 'Atlantic City': 1102,
+ 'Bismarck': 1107, 'Gaborone': 1113, 'Salisbury': 1118, 'Grand Forks': 1123, 'Rostov-on-Don': 1133, 'Las Cruces': 1135, 'Bowling Green': 1139,
+ 'Joplin': 1145, 'Idaho Falls': 1159, 'Lomé': 1165, 'Paducah': 1181, 'Villahermosa': 1190, 'Manaus': 1199, 'Cairns': 1200, 'Hagerstown': 1202,
+ 'Kano': 1208, 'Tyler': 1273, 'Tegucigalpa': 1285, 'Maputo': 1291, 'Longview': 1304, 'Makassar': 1319, 'Podgorica': 1338, 'Khartoum': 1339,
+ 'Managua': 1345, 'Eau Claire': 1365, 'Bangor': 1369, 'San Miguel de Tucumán': 1386, 'San Angelo': 1407, 'Janesville': 1415, 'Walla Walla': 1422,
+ 'Mar del Plata': 1435, 'Fort Smith': 1456, 'Kenosha': 1467, 'Antofagasta': 1506, 'Tromsø': 1527, 'Kabul': 1529, 'Conakry': 1530}
 
 # ---------- cities added Nov 2026: Wikipedia "List of cities by GDP" (fetched 11 Nov 2026; nominal US$ bn, metro population, year) ----------
 METRO.update({'Delhi': (183.8, 32940000, 2023), 'Mumbai': (106.9, 21300000, 2023), 'Hyderabad': (60.7, 10800000, 2023), 'Chennai': (62.3, 11780000, 2023), 'Pune': (31.3, 7170000, 2023), 'Karachi': (39.4, 17650000, 2024), 'Lahore': (42.6, 14410000, 2024), 'Dhaka': (235.0, 24570000, 2025), 'Jakarta': (434.389, 29200000, 2024), 'Hanoi': (37.6, 5250000, 2023), 'Guangzhou': (449.424, 18902500, 2025), 'Chengdu': (327.045, 21474000, 2024), 'Hangzhou': (306.949, 12573000, 2024), 'Colombo': (5.1, 640000, 2024), 'Almaty': (61.406, 2625000, 2024), 'Tbilisi': (14.131, 1400000, 2023), 'Yerevan': (5.23, 1500000, 2018), 'Tashkent': (44, 5200000, 2025), 'Abu Dhabi': (160, 2300000, 2025), 'Doha': (105, 1930000, 2024), 'Riyadh': (438, 8600000, 2025), 'Muscat': (36.6, 1680000, 2024), 'Kuwait City': (84.8, 3350000, 2024), 'Amman': (15.4, 3030000, 2024), 'Cairo': (169, 29900000, 2025), 'Casablanca': (22.1, 3950000, 2024), 'Tunis': (11.8, 2510000, 2024), 'Johannesburg': (134.682, 8400042, 2022), 'Addis Ababa': (61.2, 5400000, 2023), 'Dar es Salaam': (10.4, 6450000, 2019), 'Abidjan': (27, 5600000, 2017), 'Bucharest': (79.977, 2327057, 2021), 'Sofia': (39.335, 1667314, 2021), 'Belgrade': (25.31, 1430000, 2021), 'Zagreb': (30.307, 1187450, 2022), 'Bratislava': (32.338, 723714, 2022), 'Vilnius': (42.170, 888712, 2024), 'Riga': (27.156, 993600, 2021), 'Kyiv': (27.5, 3475000, 2020), 'Cluj-Napoca': (14.75, 710284, 2021), 'Wrocław': (19.608, 670219, 2021), 'Brno': (31.944, 1184568, 2022), 'San Salvador': (7.3, 1120000, 2023), 'Santo Domingo': (37.5, 3520000, 2023), 'San Juan': (45.461, 1920000, 2021), 'Asunción': (31, 3510000, 2023), 'Guayaquil': (23.1, 3140000, 2023), 'Cali': (22.1, 2890000, 2023), 'Curitiba': (46.8, 3600000, 2023), 'Porto Alegre': (46.7, 4080000, 2023), 'Belo Horizonte': (51, 5340000, 2023), 'Brasília': (80, 3200000, 2025), 'Perth': (239, 2500000, 2025), 'Adelaide': (64.461, 1344368, 2019)})
