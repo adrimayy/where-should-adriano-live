@@ -29,8 +29,8 @@ function saveTake() {
   if (MODE === 'yours') store.set('take', JSON.stringify(takeState()));
 }
 // A link made before a factor existed doesn't carry a weight for it. Those weights take the values they had by default
-// when such links were made (Adriano's picks up to v57; the later, optional factors off), so an old link keeps showing
-// what its maker saw when Adriano changes his own picks.
+// when such links were made (the page's starting weights up to v57; the later, optional factors off), so an old link
+// keeps showing what its maker saw.
 const LINK_DEFAULTS = {
   pol: 1.25,
   home: 1,

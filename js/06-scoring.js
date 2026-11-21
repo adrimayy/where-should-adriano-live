@@ -1,12 +1,9 @@
 'use strict';
-// someone who knows Adriano can turn on his take and the comparison with it
-let KNOWS = store.get('knows', '') === '1';
-const vsAd = () => MODE === 'yours' && KNOWS;
 /* ---------------- scoring ---------------- */
 let gateHot = true,
   gateSmall = true,
   gateFar = true,
-  W = { ...PRESETS.mine },
+  W = { ...PRESETS.equal },
   gate = true,
   gateOpen = true,
   norm = true,
@@ -351,7 +348,7 @@ function scoreWith(e, pick) {
 }
 let SIM = { R: 0, top: {} };
 // The likely ranges take 120 recalculations of every place: by far the slowest thing the page does (seconds on a phone).
-// It is written as steps so it can run all at once (simulate: tests, Adriano's snapshot) or a few milliseconds at a time
+// It is written as steps so it can run all at once (simulate: tests) or a few milliseconds at a time
 // in the background (simulateSoon: every tap), with the same result either way.
 function* simSteps() {
   // 120 recalculations. Filled-in values take one of their 20 imputed draws per run (multiple imputation);
@@ -546,173 +543,11 @@ window.__atlas = {
     ents.forEach(e => Object.assign(e, evaluate(e), { lo: null }));
   },
   full: () => recompute(),
-  adFull: () => adFull(),
   sim: () => SIM,
   strings: () => ({ STR, QSTR, FSTR }),
 };
 function homesFromKeys(keys) {
   return (keys || []).map(k => byKey[k] || ents.find(x => x.name === k)).filter(e => e && e.hasGeo);
 }
-// Adriano's scores under his own settings, for the comparisons. Scores and verdicts are worked out on the spot. His
-// likely ranges (which order "Adriano's top 5" and the line in the hero) come from adSimSoon, in the background, from
-// the inputs frozen here: the visitor's settings can change underneath without disturbing that run.
-let AD_FULL = false,
-  AD_IN = null,
-  ADJOB = 0;
-function snapshotAdriano() {
-  const save = {
-    POLMODE,
-    W,
-    HOMES,
-    LANGMODE,
-    PERMMODE,
-    FIELD,
-    PAYJOB,
-    CLIMMODE,
-    gate,
-    gateOpen,
-    norm,
-    gateFar,
-    gateHot,
-    gateSmall,
-    useEst,
-    useImp,
-    REACH,
-    HAPPYMODE,
-    AGG,
-    NORMM,
-  };
-  W = { ...PRESETS.mine };
-  HOMES = homesFromKeys(ADRIANO_HOMES);
-  LANGMODE = 'both';
-  PERMMODE = 'usmx';
-  FIELD = 'tech';
-  PAYJOB = -1;
-  CLIMMODE = 'mild';
-  POLMODE = 'd';
-  gate = gateOpen = norm = gateFar = gateHot = gateSmall = true;
-  useEst = false;
-  useImp = true;
-  REACH = false;
-  HAPPYMODE = 'report';
-  AGG = 'mean';
-  NORMM = 'z';
-  applyHomes();
-  recompute(true);
-  ents.forEach(e => {
-    e.ad = { score: e.score, tier: e.tier, lo: null, hi: null, med: null };
-  });
-  // resolve() and computeStats() make new objects every time, so these stay as they are now
-  AD_IN = {
-    W,
-    STATS,
-    useME,
-    list: ents.filter(listable).map(e => ({ e, v: e.v, how: e.how, sd: e.sd, dr: e.dr, me: e.me })),
-  };
-  AD_FULL = false;
-  ADJOB++;
-  ({
-    POLMODE,
-    W,
-    HOMES,
-    LANGMODE,
-    PERMMODE,
-    FIELD,
-    PAYJOB,
-    CLIMMODE,
-    gate,
-    gateOpen,
-    norm,
-    gateFar,
-    gateHot,
-    gateSmall,
-    useEst,
-    useImp,
-    REACH,
-    HAPPYMODE,
-    AGG,
-    NORMM,
-  } = save);
-  applyHomes();
-  recompute(true);
-  carryRanges();
-}
-// The same 120 recalculations as simSteps, for Adriano's frozen inputs: his settings are z-scores and a weighted mean.
-function* adSimSteps(A) {
-  const R = 120,
-    rand = mulberry32(20261109),
-    gauss = () => {
-      const u = 1 - rand(),
-        v = rand();
-      return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
-    },
-    cl = x => Math.max(1, Math.min(5, x));
-  const score = pick => {
-    let t = 0,
-      sw = 0;
-    for (const f of FACTORS) {
-      const w = A.W[f.k];
-      if (!(w > 0)) continue;
-      const x = pick(f.k);
-      if (x == null) continue;
-      const st = A.STATS[f.k];
-      t += (w * (cl(3 + (warp(x) - st.m) / st.sd) - 1)) / 4;
-      sw += w;
-    }
-    return sw ? (t / sw) * 100 : 0;
-  };
-  const D = A.list.map(() => new Float32Array(R));
-  for (let r = 0; r < R; r++) {
-    if (r) yield;
-    A.list.forEach((o, i) => {
-      D[i][r] = score(k => {
-        const v = o.v[k];
-        if (v == null) return null;
-        if (o.how[k] === 'imp') {
-          const d = o.dr[k];
-          return d ? d[r % d.length] : cl(v + (o.sd[k] || 0) * gauss());
-        }
-        if (A.useME && o.how[k] === 'obs' && o.me[k]) return cl(v + o.me[k] * gauss());
-        return v;
-      });
-    });
-  }
-  const q = (a, p) => a[Math.min(a.length - 1, Math.max(0, Math.round(p * (a.length - 1))))];
-  A.list.forEach((o, i) => {
-    const s = Array.from(D[i]).sort((a, b) => a - b);
-    Object.assign(o.e.ad, {
-      lo: Math.round(q(s, 0.1)),
-      hi: Math.round(q(s, 0.9)),
-      med: Math.round(q(s, 0.5)),
-    });
-  });
-}
-// all at once (tests)
-function adFull() {
-  if (AD_FULL) return;
-  ADJOB++;
-  for (const _ of adSimSteps(AD_IN));
-  AD_FULL = true;
-}
-// in the background, the first time something that ranks places Adriano's way is on screen
-function adSimSoon() {
-  if (AD_FULL || adSimSoon.job === ADJOB) return;
-  const my = (adSimSoon.job = ADJOB),
-    it = adSimSteps(AD_IN);
-  const step = () => {
-    if (my !== ADJOB) return;
-    const t = performance.now();
-    let r;
-    do r = it.next();
-    while (!r.done && performance.now() - t < 8);
-    if (!r.done) return setTimeout(step, 0);
-    AD_FULL = true;
-    if (typeof heroNow === 'function') heroNow();
-    if (typeof renderVs === 'function' && document.body.classList.contains('adv')) renderVs();
-  };
-  setTimeout(step, 500);
-}
-HOMES = homesFromKeys(ADRIANO_HOMES);
 applyHomes();
 recompute(true);
-snapshotAdriano();

@@ -1,5 +1,5 @@
 """How much of the ranking is just national wealth? Correlates every city's score with its country's GDP per person
-(World Bank PPP, pipeline/sources/economy.py), for Adriano's take and for equal weights, and reports the share of the ranking that
+(World Bank PPP, pipeline/sources/economy.py), for the sample take (SAMPLE, js/07-quiz.js) and for equal weights, and reports the share of the ranking that
 wealth explains (R squared of score on log GDP per person). Run after changing data or code: python3 tests/wealth_bias.py"""
 import sys, math, pathlib, numpy as np
 from harness import sync_playwright, route, PAGE, CHROME
@@ -8,12 +8,14 @@ from sources.economy import GDPPC_T
 GDP = {a.strip(): float(b) for a, b in (p.split('|') for p in GDPPC_T.replace('\n', '').split(';'))}
 ALIAS = {'Czechia': 'Czech Republic', 'Türkiye': 'Turkey', "Côte d'Ivoire": 'Ivory Coast', 'Hong Kong SAR': 'Hong Kong', 'Bosnia and Herz.': 'Bosnia and Herzegovina', 'Central African Rep.': 'Central African Republic', 'Dem. Rep. Congo': 'DR Congo', 'Dominican Rep.': 'Dominican Republic', 'Eq. Guinea': 'Equatorial Guinea', 'Solomon Is.': 'Solomon Islands', 'Timor-Leste': 'East Timor', 'eSwatini': 'Eswatini'}
 def gdp(name): return GDP.get(name) or GDP.get(ALIAS.get(name, ''))
-JS = """(mode)=>{const A=window.__atlas;return A.ents().filter(e=>A.listable(e)).map(e=>({t:e.type,n:e.name,c:e.type==='city'?(e.countryEnt?e.countryEnt.name:(e.iso===702?'Singapore':'')):e.name,
-  s:mode==='ad'?e.ad.score:e.score}));}"""
+JS = """()=>{const A=window.__atlas;return A.ents().filter(e=>A.listable(e)).map(e=>({t:e.type,n:e.name,c:e.type==='city'?(e.countryEnt?e.countryEnt.name:(e.iso===702?'Singapore':'')):e.name,
+  s:e.score}));}"""
 with sync_playwright() as p:
     b = p.chromium.launch(executable_path=CHROME); pg = b.new_page(); pg.route('**/*', route)
     pg.goto('file://' + PAGE); pg.wait_for_timeout(800)
-    res = {'Adriano': pg.evaluate(JS, 'ad'), 'Everything equal': pg.evaluate(JS, 'cur')}
+    res = {'Everything equal': pg.evaluate(JS)}   # the page before a take: every factor counts the same
+    pg.evaluate("fillSample()"); pg.wait_for_timeout(300)
+    res['Sample take'] = pg.evaluate(JS)
     b.close()
 for label, rows in res.items():
     for t in ('city', 'country'):

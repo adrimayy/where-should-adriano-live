@@ -2,11 +2,6 @@
 /* ---------------- strings ---------------- */
 const STR = {
   en: {
-    knowDev: 'I know Adriano, who made this',
-    knowDevOff: 'Hide Adriano’s picks',
-    devNote:
-      'Adriano is a computer science student at Columbia who built this to decide where to live after graduating. His picks sit next to yours on the map, and your quiz results compare the two.',
-    modeYou1: 'Showing your priorities.',
     resTitle: 'Your best matches',
     yourTopC: 'Your top 5 countries',
     brand: 'Where should you live?',
@@ -15,15 +10,12 @@ const STR = {
     intro1:
       'Every country and ' +
       DATA.cities.length +
-      ' cities, scored on the same 25 things from published data. Answer about a dozen questions and the map ranks them for you.',
-    prioTitle: 'My top priorities',
+      ' cities, scored on the same 26 things from published data. Answer about a dozen questions and the map ranks them for you.',
     startQuiz: 'Take the 2-minute quiz',
-    skipQuiz: 'Just show the map',
     resume: 'Continue with my map',
     startNote: 'Nothing is sent anywhere. Your answers stay in this browser unless you share a link.',
     howRead: 'How to read the map',
     qOf: 'Question {n} of {t}',
-    heroNow: 'His top three right now: {x}.',
     sharpen: 'Answer the rest of the questions',
     doneLab: 'Done',
     doneTitle: 'Your map is ready',
@@ -59,7 +51,6 @@ const STR = {
     passIgnore: 'Do not count work permits',
     remove: 'Remove',
     back: 'Back',
-    skip: 'Skip the quiz',
     next: 'Next',
     finish: 'See my results',
     tagImp: 'filled in',
@@ -100,28 +91,15 @@ const STR = {
     home1: 'Where I live now',
     home2: 'Another place I call home (optional)',
     none: 'None',
-    vsEyebrow: 'Your results',
-    vsTitle: 'You vs Adriano',
-    matchLabel: 'how closely your ranking of cities matches Adriano’s',
+    resEyebrow: 'Your results',
     yourTop: 'Your top 5 cities',
-    adTop: 'Adriano’s top 5 cities',
-    bothLists: 'on both lists',
-    youMore: 'You rate these much higher',
-    adMore: 'Adriano rates these much higher',
     weighDiff: 'Where your priorities differ most',
-    youMoreW: 'You care more about',
-    adMoreW: 'Adriano cares more about',
-    noneBig: 'No big differences.',
     share: 'Copy link to my results',
     retake: 'Retake the quiz',
     toMap: 'Explore your map ↓',
     copied: 'Link copied. Anyone who opens it sees your take.',
     sharedView: 'You’re viewing a shared take. Retake the quiz to make your own.',
     mapTitle: 'The map',
-    adTake: 'Adriano’s take',
-    yourTake: 'Your take',
-    modeAd: 'Showing Adriano’s priorities.',
-    modeYou: 'Showing your priorities. Tap any place to compare with Adriano.',
     optsTitle: 'Map options and filters',
     colorBy: 'Color by',
     find: 'Find a place',
@@ -247,7 +225,6 @@ const STR = {
     gateSmallLabel:
       'Small places are near-dealbreakers when things happening counts double or more for you (metro area under 500,000 people): capped at Caution',
     presets: {
-      mine: 'Adriano’s priorities',
       quiz: 'From your quiz',
       career: 'Career first',
       balance: 'Balance and wellbeing',
@@ -259,7 +236,6 @@ const STR = {
       quant: 'Score, quantile breaks',
       limit: 'Main drawback (8 groups)',
       conf: 'Share of published data',
-      vs: 'You vs Adriano',
     },
     regions: {
       world: 'World',
@@ -293,8 +269,6 @@ const STR = {
     fromCenter: ' (from the country center)',
     backed:
       '{b} of {k} factors come from published data, official rules or a calculation; the rest are filled in or estimated, as marked.',
-    youScore: 'You',
-    adScore: 'Adriano',
     noData: 'no data',
     filteredOut: 'filtered out',
     noMajor: 'No major drawback',
@@ -304,8 +278,6 @@ const STR = {
     legendFiltered: 'Filtered out',
     poor: '1 poor',
     great: '5 great',
-    vsLegendLow: 'Adriano higher',
-    vsLegendHigh: 'you higher',
     howTitle: 'How the scores work, sources, and bias check',
     copyPrompt: 'Copy this link:',
     tagData: 'data',
@@ -341,7 +313,6 @@ const STR = {
     goalFactors: 'Fine-tune its {n} factors',
     undo: 'Undo',
     undone: 'Change undone.',
-    nowYours: 'Switched from {m} to Your take, starting from the same settings.',
     liveTop: 'Top 5 {t} now',
     seeCalc: 'See how it was calculated ↓',
     notApplicable: 'not applicable',
@@ -380,7 +351,7 @@ const STR = {
     permRoute: 'Route for a junior hire without that right',
     yes: 'yes',
     no: 'no',
-    routeEasy: 'open route (e.g. UK High Potential Individual visa, USMCA TN)',
+    routeEasy: 'open route (e.g. the Mercosur residence agreement)',
     routeSome: 'possible with an employer sponsor',
     routeHard: 'hard: depends on an employer sponsoring a junior hire',
     verified: 'rules checked 11 Nov 2026',
@@ -413,7 +384,6 @@ const STR = {
     effSlider: 'Slider share',
     effReal: 'Real influence',
     anyMin: 'any',
-    modeEq: 'Default priorities: every factor counts the same. Take the quiz to make the map yours.',
     fullQuiz: 'Longer quiz (20 questions)',
     qtip: 'Tip: people often think weather matters more than it does. A short trip to work and good friends matter more than people expect.',
     defaultsTitle: '{n} questions used a default',
@@ -457,14 +427,9 @@ const STR = {
     rangeKey: 'Bar: likely range from 120 recalculations · tick: the score · dashed line: 70, Strong fit.',
     choicesTitle: 'Judgment calls (you can change them)',
     choicesBody:
-      '<ul><li>Verdict lines: Strong fit at 70, Workable at 60, Caution at 48. They are judgment calls, not facts.</li><li>Dealbreakers: limited freedoms or war cap a place at Poor match; the highest crime, the hardest places to make friends, trips home over 18 hours and hot summers cap it at Caution. Each is a switch in the weights panel.</li><li>A Strong fit needs published figures for housing, jobs, healthcare, safety, freedom and money, and less than a fifth of its score filled in.</li><li>My own weights, heaviest first: car dependence, healthcare, job market, climate, commute, money after rent.</li><li>Scores show rounded to 5, because a 1-point gap is inside the measurement error.</li><li>The page opens on equal weights, so my priorities aren’t the default for you.</li></ul>',
+      '<ul><li>Verdict lines: Strong fit at 70, Workable at 60, Caution at 48. They are judgment calls, not facts.</li><li>Dealbreakers: limited freedoms or war cap a place at Poor match; the highest crime, the hardest places to make friends, trips home over 18 hours and hot summers cap it at Caution. Each is a switch in the weights panel.</li><li>A Strong fit needs published figures for housing, jobs, healthcare, safety, freedom and money, and less than a fifth of its score filled in.</li><li>Scores show rounded to 5, because a 1-point gap is inside the measurement error.</li></ul>',
   },
   es: {
-    knowDev: 'Conozco a Adriano, quien hizo esto',
-    knowDevOff: 'Ocultar lo de Adriano',
-    devNote:
-      'Adriano estudia ciencias de la computación en Columbia y creó esto para decidir dónde vivir al graduarse. Su versión aparece junto a la tuya en el mapa, y tus resultados del cuestionario comparan las dos.',
-    modeYou1: 'Con tus prioridades.',
     resTitle: 'Tus mejores opciones',
     yourTopC: 'Tus 5 países principales',
     brand: '¿Dónde deberías vivir?',
@@ -473,16 +438,13 @@ const STR = {
     intro1:
       'Todos los países y ' +
       DATA.cities.length +
-      ' ciudades, calificados en las mismas 25 cosas con datos publicados. Responde una docena de preguntas y el mapa los ordena para ti.',
-    prioTitle: 'Mis prioridades principales',
+      ' ciudades, calificados en las mismas 26 cosas con datos publicados. Responde una docena de preguntas y el mapa los ordena para ti.',
     startQuiz: 'Hacer el cuestionario de 2 minutos',
-    skipQuiz: 'Ver el mapa directamente',
     resume: 'Seguir con mi mapa',
     startNote:
       'No se envía nada. Tus respuestas se quedan en este navegador a menos que compartas un enlace.',
     howRead: 'Cómo leer el mapa',
     qOf: 'Pregunta {n} de {t}',
-    heroNow: 'Su top tres ahora mismo: {x}.',
     sharpen: 'Contestar el resto de las preguntas',
     doneLab: 'Listo',
     doneTitle: 'Tu mapa está listo',
@@ -519,7 +481,6 @@ const STR = {
     passIgnore: 'No contar los permisos de trabajo',
     remove: 'Quitar',
     back: 'Atrás',
-    skip: 'Saltar el cuestionario',
     next: 'Siguiente',
     finish: 'Ver mis resultados',
     tagImp: 'estimado',
@@ -560,28 +521,15 @@ const STR = {
     home1: 'Donde vivo ahora',
     home2: 'Otro lugar que es mi casa (opcional)',
     none: 'Ninguno',
-    vsEyebrow: 'Tus resultados',
-    vsTitle: 'Tú vs. Adriano',
-    matchLabel: 'qué tanto se parece tu ranking de ciudades al de Adriano',
+    resEyebrow: 'Tus resultados',
     yourTop: 'Tus 5 ciudades principales',
-    adTop: 'Las 5 de Adriano',
-    bothLists: 'en ambas listas',
-    youMore: 'Tú calificas mucho más alto',
-    adMore: 'Adriano califica mucho más alto',
     weighDiff: 'Donde más difieren sus prioridades',
-    youMoreW: 'A ti te importa más',
-    adMoreW: 'A Adriano le importa más',
-    noneBig: 'Sin grandes diferencias.',
     share: 'Copiar enlace a mis resultados',
     retake: 'Repetir el cuestionario',
     toMap: 'Explora tu mapa ↓',
     copied: 'Enlace copiado. Quien lo abra verá tu versión.',
     sharedView: 'Estás viendo una versión compartida. Repite el cuestionario para hacer la tuya.',
     mapTitle: 'El mapa',
-    adTake: 'Versión de Adriano',
-    yourTake: 'Tu versión',
-    modeAd: 'Con las prioridades de Adriano.',
-    modeYou: 'Con tus prioridades. Toca cualquier lugar para compararlo con Adriano.',
     optsTitle: 'Opciones del mapa y filtros',
     colorBy: 'Colorear por',
     find: 'Buscar un lugar',
@@ -708,7 +656,6 @@ const STR = {
     gateSmallLabel:
       'Los lugares pequeños casi descartan cuando que pasen cosas te cuenta el doble o más (área metropolitana de menos de 500 mil habitantes): se limitan a Con reservas',
     presets: {
-      mine: 'Prioridades de Adriano',
       quiz: 'Según tu cuestionario',
       career: 'Primero la carrera',
       balance: 'Equilibrio y bienestar',
@@ -720,7 +667,6 @@ const STR = {
       quant: 'Puntaje, cortes por cuantiles',
       limit: 'Principal desventaja (8 grupos)',
       conf: 'Cuánto se basa en datos',
-      vs: 'Tú vs. Adriano',
     },
     regions: {
       world: 'Mundo',
@@ -754,8 +700,6 @@ const STR = {
     fromCenter: ' (desde el centro del país)',
     backed:
       '{b} de {k} factores vienen de datos publicados, reglas oficiales o un cálculo; el resto se estima, como se indica.',
-    youScore: 'Tú',
-    adScore: 'Adriano',
     noData: 'sin datos',
     filteredOut: 'filtrado',
     noMajor: 'Sin desventaja importante',
@@ -765,8 +709,6 @@ const STR = {
     legendFiltered: 'Filtrado',
     poor: '1 malo',
     great: '5 excelente',
-    vsLegendLow: 'Adriano más alto',
-    vsLegendHigh: 'tú más alto',
     howTitle: 'Cómo funcionan los puntajes, fuentes y revisión de sesgos',
     copyPrompt: 'Copia este enlace:',
     tagData: 'datos',
@@ -803,7 +745,6 @@ const STR = {
     goalFactors: 'Ajustar sus {n} factores',
     undo: 'Deshacer',
     undone: 'Cambio deshecho.',
-    nowYours: 'Cambiaste de {m} a Tu versión, con los mismos ajustes de inicio.',
     liveTop: 'Top 5 de {t} ahora',
     seeCalc: 'Ver cómo se calculó ↓',
     notApplicable: 'no aplica',
@@ -842,7 +783,7 @@ const STR = {
     permRoute: 'Vía para un recién egresado sin ese derecho',
     yes: 'sí',
     no: 'no',
-    routeEasy: 'vía abierta (p. ej. visa High Potential Individual del Reino Unido, TN del T-MEC)',
+    routeEasy: 'vía abierta (p. ej. el acuerdo de residencia del Mercosur)',
     routeSome: 'posible con patrocinio de un empleador',
     routeHard: 'difícil: depende de que un empleador patrocine a alguien junior',
     verified: 'reglas revisadas el 11 de nov. de 2026',
@@ -875,8 +816,6 @@ const STR = {
     effSlider: 'Parte del control',
     effReal: 'Influencia real',
     anyMin: 'cualquiera',
-    modeEq:
-      'Prioridades por defecto: todos los factores cuentan igual. Haz el cuestionario para que el mapa sea tuyo.',
     fullQuiz: 'Cuestionario largo (20 preguntas)',
     qtip: 'Consejo: mucha gente cree que el clima importa más de lo que importa. Un viaje corto al trabajo y los buenos amigos importan más de lo que se piensa.',
     defaultsTitle: '{n} preguntas usaron un valor por defecto',
@@ -928,7 +867,7 @@ const STR = {
       'Barra: rango probable de 120 recálculos · marca: el puntaje · línea punteada: 70, Muy buena opción.',
     choicesTitle: 'Decisiones que tomé (y que puedes cambiar)',
     choicesBody:
-      '<ul><li>Líneas de veredicto: Muy buena opción desde 70, Viable desde 60, Con reservas desde 48. Son decisiones de criterio, no hechos.</li><li>Reglas de descarte: las libertades limitadas o la guerra limitan un lugar a Poca coincidencia; la delincuencia más alta, los lugares donde es más difícil hacer amigos, los viajes a casa de más de 18 horas y los veranos calurosos lo limitan a Con reservas. Cada una se puede apagar en el panel de pesos.</li><li>Una Muy buena opción necesita cifras publicadas de vivienda, empleo, salud, seguridad, libertad y dinero, y menos de una quinta parte de su puntaje estimada.</li><li>Mis propios pesos, del mayor al menor: dependencia del auto, salud, mercado laboral, clima, trayecto, dinero después de la renta.</li><li>Los puntajes se muestran redondeados al 5, porque una diferencia de 1 punto cabe dentro del error de medición.</li><li>La página abre con todo igual, para que mis prioridades no sean las tuyas por defecto.</li></ul>',
+      '<ul><li>Líneas de veredicto: Muy buena opción desde 70, Viable desde 60, Con reservas desde 48. Son decisiones de criterio, no hechos.</li><li>Reglas de descarte: las libertades limitadas o la guerra limitan un lugar a Poca coincidencia; la delincuencia más alta, los lugares donde es más difícil hacer amigos, los viajes a casa de más de 18 horas y los veranos calurosos lo limitan a Con reservas. Cada una se puede apagar en el panel de pesos.</li><li>Una Muy buena opción necesita cifras publicadas de vivienda, empleo, salud, seguridad, libertad y dinero, y menos de una quinta parte de su puntaje estimada.</li><li>Los puntajes se muestran redondeados al 5, porque una diferencia de 1 punto cabe dentro del error de medición.</li></ul>',
   },
 };
 const FSTR = {
@@ -1001,7 +940,7 @@ const QSTR = {
     ],
     perm: [
       'Which passports do you have?',
-      ['US and Mexican, like Adriano', 'US only', 'Mexican only', 'An EU passport', 'Other (ignore this)'],
+      ['US and Mexican', 'US only', 'Mexican only', 'An EU passport', 'Other (ignore this)'],
     ],
     lang: [
       'Which languages do you speak? (Well enough to talk to a doctor or rent a home.)',
@@ -1147,7 +1086,7 @@ const QSTR = {
     ],
     perm: [
       '¿Qué pasaportes tienes?',
-      ['Estadounidense y mexicano, como Adriano', 'Solo estadounidense', 'Solo mexicano', 'Uno de la UE', 'Otro (ignorar)'],
+      ['Estadounidense y mexicano', 'Solo estadounidense', 'Solo mexicano', 'Uno de la UE', 'Otro (ignorar)'],
     ],
     lang: [
       '¿Qué idiomas hablas? (Lo suficiente para hablar con un doctor o rentar una casa.)',
@@ -1331,7 +1270,6 @@ const SRC = {
   wps: 'https://giwps.georgetown.edu/wp-content/uploads/2025/10/WPS-Index-2025-Summary.pdf',
   eq: 'https://www.equaldex.com/equality-index',
   ntr: 'https://www.numbeo.com/traffic/rankings.jsp',
-  hpi: 'https://www.gov.uk/government/publications/high-potential-individual-visa-global-universities-list/high-potential-individual-visa-global-universities-list-2026',
 };
 const RAWU = {
   oews: 'https://www.bls.gov/news.release/archives/ocwage_05152026.htm',
@@ -1681,7 +1619,7 @@ const ROWS = {
     ['LGBTQ+ acceptance', `${A('eq', 'Equaldex Equality Index')} (167 countries)`],
     [
       'Work permit, language',
-      `Two parts, shown separately on each place: the legal right to work (citizenship or free movement), and the route for a junior hire without it. Rules checked 11 November 2026: the ${A('hpi', 'UK High Potential Individual list')} (Columbia is on the 2026 list, for degrees awarded 1 Nov 2026 to 31 Oct 2027); ${A('bluecard', 'EU Blue Card salary thresholds')} (Netherlands 2026: €4,754 a month for recent graduates); ${A('ibero', 'Spain’s two-year residence route to citizenship for Ibero-American nationals, including Mexicans')} (Civil Code art. 22); ${A('tn', 'USMCA TN professional visas')} for Mexican citizens (US job offer and, for most listed professions, a bachelor’s degree). US citizens abroad still file ${A('irs', 'US taxes')}. Languages: official languages.`,
+      `Two parts, shown separately on each place: the legal right to work (citizenship or free movement), and the route for a junior hire without it. The same rules apply to every passport, checked 11 November 2026: free-movement areas (EU/EEA and Switzerland, UK–Ireland, Australia–New Zealand, the Gulf states, the Eurasian Economic Union, Mercosur residence); routes for particular nationalities, such as ${A('tn', 'USMCA TN professional visas')} (a US job offer and, for most listed professions, a bachelor’s degree) and ${A('ibero', 'Spain’s two-year residence route to citizenship for Ibero-American nationals')} (Civil Code art. 22); and how open the ordinary work-visa route is, such as ${A('bluecard', 'EU Blue Card salary thresholds')} (Netherlands 2026: €4,754 a month for recent graduates). Routes that depend on your age or your university (working-holiday visas, the UK High Potential Individual visa) are not counted, because the quiz does not ask. US citizens abroad still file ${A('irs', 'US taxes')}. Languages: official languages.`,
     ],
     [
       'Winter daylight, trip home',
@@ -1770,7 +1708,7 @@ const ROWS = {
     ['Aceptación LGBTQ+', `${A('eq', 'Índice de Igualdad de Equaldex')} (167 países)`],
     [
       'Permiso de trabajo, idioma',
-      `Dos partes, que se muestran por separado en cada lugar: el derecho legal a trabajar (ciudadanía o libre circulación) y la vía para alguien recién egresado sin ese derecho. Reglas revisadas el 11 de noviembre de 2026: la ${A('hpi', 'lista High Potential Individual del Reino Unido')} (Columbia está en la lista 2026, para títulos del 1 de nov. de 2026 al 31 de oct. de 2027); los ${A('bluecard', 'umbrales de sueldo de la Tarjeta Azul de la UE')} (Países Bajos 2026: €4,754 al mes para recién egresados); la ${A('ibero', 'vía de dos años de residencia a la nacionalidad española para iberoamericanos, incluidos los mexicanos')} (art. 22 del Código Civil); las ${A('tn', 'visas TN del T-MEC')} para ciudadanos mexicanos (oferta de trabajo en EE. UU. y, en la mayoría de las profesiones, licenciatura). Los ciudadanos estadounidenses en el extranjero siguen declarando ${A('irs', 'impuestos en EE. UU.')}. Idiomas: idiomas oficiales.`,
+      `Dos partes, que se muestran por separado en cada lugar: el derecho legal a trabajar (ciudadanía o libre circulación) y la vía para alguien recién egresado sin ese derecho. Las mismas reglas valen para todos los pasaportes, revisadas el 11 de noviembre de 2026: zonas de libre circulación (UE/EEE y Suiza, Reino Unido–Irlanda, Australia–Nueva Zelanda, los países del Golfo, la Unión Económica Euroasiática, la residencia del Mercosur); vías para ciertas nacionalidades, como las ${A('tn', 'visas TN del T-MEC')} (oferta de trabajo en EE. UU. y, en la mayoría de las profesiones, licenciatura) y la ${A('ibero', 'vía de dos años de residencia a la nacionalidad española para iberoamericanos')} (art. 22 del Código Civil); y qué tan abierta es la vía normal de visa de trabajo, como los ${A('bluecard', 'umbrales de sueldo de la Tarjeta Azul de la UE')} (Países Bajos 2026: €4,754 al mes para recién egresados). Las vías que dependen de tu edad o de tu universidad (visas de vacaciones y trabajo, la visa High Potential Individual del Reino Unido) no se cuentan, porque el cuestionario no lo pregunta. Los ciudadanos estadounidenses en el extranjero siguen declarando ${A('irs', 'impuestos en EE. UU.')}. Idiomas: idiomas oficiales.`,
     ],
     [
       'Luz en invierno, viaje a casa',
@@ -1806,7 +1744,7 @@ const HOW = {
 <li>Working hours count part-time workers, so they describe how a country works rather than the hours of a particular job. The Penn World Table covers 123 countries; Mexico uses the OECD figure instead, and 35 more countries use ILO weekly hours, a different measure that leaves out holidays. The rest are filled in.</li>
 <li>Disaster risk is a national average: within a large country it varies a lot (a Gulf Coast city faces more than a Midwestern one), and the index doesn’t yet score heat waves or wildfires.</li>
 <li>The job market is measured in general, not for your field; national unemployment says little about one city.</li>
-<li>Wealth explains a lot: across cities, national GDP per person accounts for about 74% of the variation in Adriano’s scores (tests/wealth_bias.py). Richer places really do score better on most factors, but a ranking this tied to wealth also inherits whatever the sources miss about rich places.</li>
+<li>Wealth explains a lot: across cities, national GDP per person accounts for about 72% of the variation in scores when every factor counts the same (tests/wealth_bias.py). Richer places really do score better on most factors, but a ranking this tied to wealth also inherits whatever the sources miss about rich places.</li>
 <li>Women’s rights, LGBTQ+ acceptance and politics describe laws and national or county averages. They don’t predict how any one person will be treated, and they miss differences between neighborhoods, workplaces and families.</li>
 <li>Humidity, snowfall and future warming aren’t scored: no consistent source covering every city was found.</li>
 <li>Race and ethnicity, religion, disability, and family needs like schools aren't scored.</li></ul>`,
@@ -1825,7 +1763,7 @@ const HOW = {
 <li>Las horas de trabajo incluyen a quienes trabajan a tiempo parcial, así que describen cómo trabaja un país, no las horas de un empleo en particular. La Penn World Table cubre 123 países; México usa la cifra de la OCDE, y 35 países más usan las horas semanales de la OIT, otra medida que no descuenta vacaciones. El resto se estima.</li>
 <li>El riesgo de desastres es un promedio nacional: dentro de un país grande varía mucho (una ciudad en la costa del Golfo enfrenta más que una del Medio Oeste), y el índice aún no mide olas de calor ni incendios forestales.</li>
 <li>El mercado laboral se mide en general, no para tu campo; el desempleo nacional dice poco de una ciudad.</li>
-<li>La riqueza explica mucho: entre ciudades, el PIB por persona del país explica cerca del 74% de la variación de los puntajes de Adriano (tests/wealth_bias.py). Los lugares ricos sí califican mejor en la mayoría de los factores, pero un ranking tan ligado a la riqueza también hereda lo que las fuentes no ven de los lugares ricos.</li>
+<li>La riqueza explica mucho: entre ciudades, el PIB por persona del país explica cerca del 72% de la variación de los puntajes cuando todos los factores cuentan igual (tests/wealth_bias.py). Los lugares ricos sí califican mejor en la mayoría de los factores, pero un ranking tan ligado a la riqueza también hereda lo que las fuentes no ven de los lugares ricos.</li>
 <li>Los derechos de las mujeres, la aceptación LGBTQ+ y la política describen leyes y promedios nacionales o del condado. No predicen cómo van a tratar a una persona en particular, y no captan diferencias entre colonias, trabajos y familias.</li>
 <li>No se califican la humedad, la nieve ni el calentamiento futuro: no se encontró una fuente consistente para todas las ciudades.</li>
 <li>No se califican la raza y el origen étnico, la religión, la discapacidad ni necesidades familiares como escuelas.</li></ul>`,
@@ -1847,7 +1785,7 @@ const RTL = new Set(['ar']);
 function I18N(o) {
   for (const k in o.STR)
     if (typeof o.STR[k] === 'string')
-      o.STR[k] = o.STR[k].replace('' + DATA.cities.length + '', DATA.cities.length);
+      o.STR[k] = o.STR[k].replace('{NCITIES}', DATA.cities.length);
   STR[o.code] = o.STR;
   FSTR[o.code] = o.FSTR;
   QSTR[o.code] = o.QSTR;

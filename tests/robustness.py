@@ -1,4 +1,4 @@
-"""How robust is Adriano's ranking, and which method choice moves it most? (a variance-based sensitivity audit.)
+"""How robust is the ranking for the sample take (SAMPLE, js/07-quiz.js), and which method choice moves it most? (a variance-based sensitivity audit.)
 
 Five groups of choices vary at once in every run:
   weights      every weight x a random factor between about 0.5x and 2x (log-normal), each factor dropped with 15% probability
@@ -37,9 +37,9 @@ JS = r"""(N)=>{
 }"""
 with sync_playwright() as p:
     b = p.chromium.launch(executable_path=CHROME); pg = b.new_page(); pg.route('**/*', route)
-    pg.goto('file://' + PAGE); pg.wait_for_timeout(800); pg.click('#skipQuiz'); pg.wait_for_timeout(300); pg.wait_for_function("()=>document.documentElement.dataset.sim==='done'")
+    pg.goto('file://' + PAGE); pg.wait_for_timeout(800); pg.evaluate('fillSample()'); pg.wait_for_timeout(300); pg.wait_for_function("()=>document.documentElement.dataset.sim==='done'")
     out = pg.evaluate(JS, N)
-    print(f"{2*N} runs with every choice varied. City, share of runs in the top 10, typical rank, rank with Adriano's settings")
+    print(f"{2*N} runs with every choice varied. City, share of runs in the top 10, typical rank, rank with the sample take as it is")
     for r in out['rows']:
         print(f"{r['n']:<18} {r['t10']*100:5.1f}%  {r['med']:>4}  {r['base']:>4}")
     G = out['G']

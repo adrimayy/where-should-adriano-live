@@ -7,35 +7,29 @@
     WANT_LANG = params.get('l');
     if (STR[WANT_LANG]) LANG = WANT_LANG;
   }
-  // a returning visitor's main action is their own map; the quiz becomes a quiet link
-  if (store.get('take', null)) {
-    $('resumeTake').hidden = false;
-    $('startQuiz').hidden = true;
-    $('retakeHero').hidden = false;
-  }
   RANKBY = store.get('rankBy', 'lo');
   if (params.get('t')) {
     try {
       loadTake(dec(params.get('t')));
       applyHomes();
       recompute(true);
-      $('vsPanel').hidden = false;
+      $('resPanel').hidden = false;
       setTimeout(() => toast(L('sharedView')), 60);
     } catch (e) {}
   } else {
-    const view = store.get('view', 'neutral');
-    if (view === 'adriano' && KNOWS) setAdriano();
-    else if (view === 'yours' && store.get('take', null)) {
+    // a returning visitor's own take comes back (their main action is their map; the quiz becomes a quiet link).
+    // Anyone else starts with the quiz: nothing is scored on screen before there is a take.
+    setNeutral();
+    if (store.get('take', null)) {
       try {
         loadTake(JSON.parse(store.get('take', 'null')));
       } catch (e) {
         setNeutral();
       }
-    } else setNeutral();
+    }
     applyHomes();
   }
   applyLang();
-  devUI();
   refreshAll();
   document.documentElement.classList.add('ready'); // the page is drawn: the loading wheel goes
 })();
@@ -43,8 +37,7 @@
 getWorld()
   .then(fs => {
     bindCountries(fs);
-    snapshotAdriano();
-    heroNow();
+    applyHomes(); // some countries only get a position from their outline: distances from home need it
     setTimeout(loadStates, 300);
     const openDot = d => {
       const n = [...CLUSTER.values()].filter(x => x === d).length;

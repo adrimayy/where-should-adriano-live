@@ -1,8 +1,8 @@
 'use strict';
 /* ---------------- language and passport ---------------- */
-let LANGMODE = 'both',
-  PERMMODE = 'usmx',
-  FIELD = 'tech',
+let LANGMODE = 'en',
+  PERMMODE = 'P:',
+  FIELD = 'general',
   CLIMMODE = 'mild',
   POLMODE = 'd',
   // the person's kind of work (an index into JOBS; -1 = not said), set by the quiz's job question
@@ -234,8 +234,6 @@ const ES_US_CITY = {
   Austin: 3,
 };
 const ES_NEAR = { 620: 2, 76: 2, 380: 2 };
-const PERM_US = { 484: 3, 724: 2, 36: 4, 554: 4, 372: 3, 124: 4, 826: 4 };
-const PERM_MX = { 840: 2, 36: 2, 372: 2, 554: 3, 124: 4, 826: 4, 484: 5, 724: 3 };
 const isoOf = e => (e.type === 'city' ? e.iso : e.id);
 function engScore(e) {
   const n = isoOf(e);
@@ -393,7 +391,7 @@ function passCode(ps, res) {
   if (!r.length)
     for (const [c, v] of Object.entries(LEGACY_PM))
       if (v.length === s.length && [...v].sort((a, b) => a - b).every((x, i) => x === s[i])) return c;
-  // no passports given means none, never Adriano's (an empty 'P:' reads back as [])
+  // no passports given means none (an empty 'P:' reads back as [])
   return 'P:' + s.join(',') + (r.length ? ';R:' + r.join(',') : '');
 }
 function permRule(n, ps) {
@@ -412,22 +410,17 @@ function permRule(n, ps) {
         best = l;
         why = r;
       }
-    const t = p === 840 ? PERM_US : p === 484 ? PERM_MX : null;
-    if (t && t[n] != null && t[n] > best) {
-      best = t[n];
-      why = '';
-    }
   }
   return [best, why];
 }
+// Every passport goes through the same published rules (WORK, from pipeline/sources/work_rights.py). Routes that depend
+// on something the quiz doesn't ask (age, for working-holiday visas; the university, for the UK's High Potential
+// Individual visa) are not counted for anyone.
 function permFor(e, m) {
-  const b = e.base.perm;
-  if (b == null) return null;
+  if (e.base.perm == null) return null;
   const n = isoOf(e);
   if (resSpec(m).includes(+n)) return 5; // allowed to work there already
-  if (!LEGACY_PM[m] && m !== 'eu') return permRule(n, passSpec(m))[0];
-  if (m === 'us') return PERM_US[n] ?? b;
-  if (m === 'mx') return PERM_MX[n] ?? b;
+  // "an EU passport" in answers saved before the passport picker: which country isn't known
   if (m === 'eu') return EU.has(n) ? 5 : (PERM_EU[n] ?? 2);
-  return b;
+  return permRule(n, passSpec(m))[0];
 }

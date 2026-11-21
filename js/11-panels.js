@@ -290,9 +290,7 @@ function detail(e) {
   }
   setTimeout(sec);
   const drag = e.lim === 'none' ? L('noDrag') : fmt(L('drag'), { x: FD(e.lim).toLowerCase() });
-  const big = vsAd()
-    ? `<div style="display:flex;gap:16px;align-items:flex-end"><div><span class="lab" style="color:var(--you)">${L('youScore')}</span><div class="big">${r5(e.score)}</div></div><div><span class="lab">${L('adScore')}</span><div class="big" style="font-size:28px;color:var(--muted)">${r5(e.ad.score)}</div></div></div>`
-    : `<div class="big">${r5(e.score)}<small>/100</small></div>`;
+  const big = `<div class="big">${r5(e.score)}<small>/100</small></div>`;
   const rangeLine = `<div class="calc-only"><div class="drange">${rbar(e)}</div><p class="mono muted">${fmt(L('rangeLine'), { lo: e.lo, hi: e.hi, rlo: e.rlo, rhi: e.rhi, n: e.rn })} · ${fmt(L('probLine'), { f: pct(e.pFit), t: pct(e.pTop) })}${e.impShare > 0.005 ? ' · ' + fmt(L('impShare'), { p: Math.round(e.impShare * 100) }) : ''}</p><p class="meta">${L('roundNote')} <button class="ghost linkbtn" id="toCalc">${L('seeCalc')}</button></p></div>`;
   const mins = Math.round((e.dayH % 1) * 60);
   D.innerHTML = `<div class="dhead"><div style="display:flex;flex-direction:column;gap:6px;min-width:0"><span class="eyebrow">${e.type === 'city' ? L('city') + ' · ' + countryOf(e) : L('country')}${e.est ? ' · ' + L('estimated') : ''}</span><h2 style="font-size:24px">${dn(e)}</h2><div class="toggles">${chip(e.tier)}<button class="chipbtn" id="cmpBtn">${ui.cmp.includes(e) ? L('removeCmp') : L('addCmp')}</button></div></div>${big}</div>
@@ -354,7 +352,6 @@ function detail(e) {
           v = parseFloat(inp.value);
         if (v > 0) TRIPS[k] = v;
         else delete TRIPS[k];
-        becomeYours();
         applyHomes();
         refreshAll();
         saveTake();
@@ -465,10 +462,6 @@ function renderCmp() {
         e => `<span class="cell">${chip(e.tier)}<b class="mono" style="font-size:14px">${e.score}</b></span>`
       )
       .join('');
-  if (vsAd())
-    h +=
-      `<span class="meta">${L('adScore')}</span>` +
-      ui.cmp.map(e => `<span class="cell mono muted">${e.ad.score}</span>`).join('');
   FACTORS.forEach(f => {
     const vals = ui.cmp.map(e => e.sc[f.k]),
       best = Math.max(...vals.map(v => (v == null ? -1 : v)));
@@ -544,7 +537,7 @@ function list() {
     return `<button class="heart" data-heart="${e.key}" aria-pressed="${on}" aria-label="${L(on ? 'removeCmp' : 'addCmp')}: ${dn(e)}" title="${L(on ? 'removeCmp' : 'addCmp')}">${IC('heart', 18)}</button>`;
   };
   const place = e =>
-    `<b>${dn(e)}</b>${e.type === 'city' ? ` <span class="muted">${countryOf(e)}</span>` : ''}${vsAd() ? `<span class="ad">${L('adScore')} ${r5(e.ad.score)}</span>` : ''}`;
+    `<b>${dn(e)}</b>${e.type === 'city' ? ` <span class="muted">${countryOf(e)}</span>` : ''}`;
   const drawback = e => (e.lim === 'none' ? L('noMajor') : FD(e.lim));
   const tip = e => `${L('tiers')[e.tier]} · ${fmt(L('probLine'), { f: pct(e.pFit), t: pct(e.pTop) })}`;
   // the best match gets a card; the rest are rows. Searching or the factor table show plain rows.
@@ -616,7 +609,6 @@ function prioUI() {
       (b.onclick = () => {
         const k = b.dataset.k,
           lv = (+b.dataset.lv + 1) % 3;
-        becomeYours();
         W[k] = [0, 1, 2][lv];
         $('preset').value = 'custom';
         if ($('w-' + k)) {
@@ -630,7 +622,6 @@ function prioUI() {
       })
   );
   $('preset2').onclick = () => {
-    becomeYours();
     W = { ...(QUIZW || PRESETS.equal) };
     weightsUI();
     refreshAll();
@@ -650,7 +641,7 @@ function setAdv(on) {
   document.body.classList.toggle('adv', on);
   store.set('adv', on);
   $('advBtn').textContent = L(on ? 'advHide' : 'advShow');
-  if (typeof renderVs === 'function' && !$('vsPanel').hidden) renderVs();
+  if (typeof renderResults === 'function' && !$('resPanel').hidden) renderResults();
   $('advBtn').setAttribute('aria-pressed', on);
   if (!on && ui.view === 'profile') {
     ui.view = 'score';
@@ -698,7 +689,7 @@ function scopeUI() {
         scopeUI();
         scopeView();
         filtersChanged();
-        renderVs();
+        renderResults();
         renderLive();
       })
   );
@@ -823,7 +814,6 @@ function weightsUI() {
   Object.keys(GOALS).forEach(g => {
     const el = $('g-' + g);
     el.oninput = ev => {
-      becomeYours();
       setGoalShare(g, +ev.target.value / 100);
       $('preset').value = 'custom';
       goalShares();
@@ -838,7 +828,6 @@ function weightsUI() {
   FACTORS.forEach(f => {
     const el = $('w-' + f.k);
     el.oninput = ev => {
-      becomeYours();
       W[f.k] = +ev.target.value;
       $('o-' + f.k).textContent = fmtW(W[f.k]);
       $('preset').value = 'custom';
@@ -851,10 +840,10 @@ function weightsUI() {
     };
   });
   $('preset').innerHTML = Object.entries(L('presets'))
-    .filter(([k]) => (k !== 'quiz' || QUIZW) && (k !== 'mine' || KNOWS))
+    .filter(([k]) => k !== 'quiz' || QUIZW)
     .map(([k, v]) => `<option value="${k}" ${k === 'custom' ? 'hidden' : ''}>${v}</option>`)
     .join('');
-  $('preset').value = MODE === 'adriano' ? 'mine' : 'custom';
+  $('preset').value = 'custom';
   $('useCont').checked = useCont;
   $('useME').checked = useME;
   $('lasts').checked = LASTS;
@@ -883,7 +872,6 @@ function weightsUI() {
   swap('home1', HOMES[0] ? HOMES[0].key : '');
   swap('home2', HOMES[1] ? HOMES[1].key : '');
   $('home1').onchange = $('home2').onchange = () => {
-    becomeYours();
     HOMES = homesFromKeys([$('home1').value, $('home2').value].filter(Boolean));
     applyHomes();
     refreshAll();
@@ -934,6 +922,12 @@ function snapState() {
 }
 function trackState() {
   if (_restoring) return;
+  // undo starts with the first take: there is nothing to go back to before it
+  if (MODE !== 'yours') {
+    HIST.length = 0;
+    _lastState = null;
+    return;
+  }
   const cur = snapState();
   if (_lastState && cur !== _lastState) {
     HIST.push(_lastState);
@@ -1009,12 +1003,14 @@ function renderLive() {
     .slice(0, 5);
   el.innerHTML = `<span class="lab">${fmt(L('liveTop'), { t: L(ui.rankType === 'city' ? 'cities' : 'countries').toLowerCase() })}</span><ol>${rows.map(e => `<li><span>${sym(e.tier)}${dn(e)} <span class="mono muted">${r5(e.score)}</span></span></li>`).join('')}</ol>`;
 }
+// Before there is a take (the quiz finished, a saved take, or a shared link) nothing is scored on screen. Underneath,
+// every factor counts the same and nothing is known about the person.
 function setNeutral() {
   MODE = 'neutral';
   W = { ...PRESETS.equal, perm: 0, lang: 0, fam: 0, pol: 0 };
   HOMES = [];
   LANGMODE = 'en';
-  PERMMODE = 'usmx';
+  PERMMODE = 'P:';
   FIELD = 'general';
   PAYJOB = -1;
   CLIMMODE = 'mild';
@@ -1026,42 +1022,12 @@ function setNeutral() {
   HAPPYMODE = 'report';
   LASTS = false;
 }
-function startNeutral() {
-  setNeutral();
-  store.set('view', 'neutral');
-  applyHomes();
-  weightsUI();
-  refreshAll();
-}
-function becomeYours() {
-  if (MODE === 'yours') return;
-  if (MODE === 'neutral') {
-    MODE = 'yours';
-    syncMode();
-    return;
-  }
-  gtoast(fmt(L('nowYours'), { m: L('adTake') }), true);
-  MODE = 'yours';
-  LANGMODE = 'both';
-  PERMMODE = 'usmx';
-  FIELD = 'tech';
-  PAYJOB = -1;
-  CLIMMODE = 'mild';
-  POLMODE = 'd';
-  syncMode();
-}
+// the map, the ranking and the settings appear with the take (body.took, css/atlas.css); the first card follows it too
 function syncMode() {
-  $('mAdriano').setAttribute('aria-pressed', MODE === 'adriano');
-  $('mYours').setAttribute('aria-pressed', MODE !== 'adriano');
-  $('modeBar').hidden = !KNOWS;
-  $('modeNote').textContent =
-    MODE === 'adriano' ? L('modeAd') : MODE === 'neutral' ? L('modeEq') : L(KNOWS ? 'modeYou' : 'modeYou1');
-  const vsOpt = $('colorBy').querySelector('option[value="vs"]');
-  if (vsOpt) vsOpt.hidden = !vsAd();
-  if (!vsAd() && ui.colorBy === 'vs') {
-    ui.colorBy = 'tier';
-    $('colorBy').value = 'tier';
-  }
+  const took = MODE === 'yours';
+  document.body.classList.toggle('took', took);
+  $('startQuiz').hidden = took;
+  $('resumeTake').hidden = $('retakeHero').hidden = !took;
 }
 let _rq = 0,
   _fast = true;
@@ -1093,7 +1059,7 @@ function afterSim() {
   detail(ui.sel);
   if (adv) {
     renderCmp();
-    renderVs();
+    renderResults();
     renderEff();
   }
   renderUnsure();
@@ -1111,7 +1077,7 @@ function refreshAll(fast) {
   list();
   detail(ui.sel);
   renderCmp();
-  renderVs();
+  renderResults();
   renderEff();
   renderLive();
   renderUnsure();
@@ -1189,7 +1155,7 @@ function filtersChanged() {
   list();
 }
 function selectsUI() {
-  // fewer ways to color the map: verdict, score, main drawback, you vs Adriano, or one factor
+  // fewer ways to color the map: verdict, score, main drawback, or one factor
   if (ui.colorBy === 'quant' || ui.colorBy === 'conf') ui.colorBy = 'tier';
   const co = $('colorBy');
   co.innerHTML =
@@ -1230,25 +1196,7 @@ function impSection() {
   <p>${L('marTitle')}</p><div class="biastable"><table><thead><tr><th>${L('impFactor')}</th><th>${L('marMiss')}</th><th>${L('marGdp')}</th><th>${L('marPop')}</th><th>AUC</th></tr></thead><tbody>${marRows}</tbody></table></div>
   <div class="biastable"><table><thead><tr><th>${L('impFactor')}</th><th>${L('impCountries')}</th><th>${L('impCities')}</th></tr></thead><tbody>${ks.map(k => `<tr><td>${FL(k)}</td><td>${cell(ac[k])}</td><td>${cell(ai[k])}</td></tr>`).join('')}</tbody></table></div><p>${L('impNote')}</p>`;
 }
-// one concrete line in the hero, from the live ranking: something only this page can say
-function heroNow() {
-  const el = $('heroNow');
-  if (!el) return;
-  if (KNOWS) adSimSoon(); // his ranges arrive from the background; this line is redrawn when they do
-  const top = ents
-    .filter(e => e.type === 'city' && listable(e) && e.ad)
-    .sort(byAdRank)
-    .slice(0, 3)
-    .map(dn);
-  let x = top.join(', ');
-  try {
-    x = new Intl.ListFormat(LANG, { type: 'conjunction' }).format(top);
-  } catch (err) {}
-  el.textContent = KNOWS && top.length ? fmt(L('heroNow'), { x }) : '';
-  el.hidden = !el.textContent;
-}
 function applyLang() {
-  heroNow();
   document.documentElement.lang = LANG;
   document.documentElement.dir = RTL.has(LANG) ? 'rtl' : 'ltr';
   document.title = L('brand');
@@ -1259,15 +1207,6 @@ function applyLang() {
   document.querySelectorAll('[data-th]').forEach(el => {
     el.innerHTML = L(el.dataset.th);
   });
-  // "My top priorities": read off Adriano's weights (2.5 and up), so the box can't drift from what the scores use.
-  // The number is the place by weight; factors that weigh the same share it.
-  const mine = PRESETS.mine,
-    tops = FACTORS.map(f => f.k)
-      .filter(k => mine[k] >= 2.5)
-      .sort((a, b) => mine[b] - mine[a]);
-  $('prio').innerHTML = tops
-    .map(k => `<span><b>${1 + tops.filter(x => mine[x] > mine[k]).length}</b>${FL(k)}</span>`)
-    .join('');
   $('howInner').innerHTML =
     (HOW[LANG] ? '' : `<p class="meta"><i>${L('howEnglish')}</i></p>`) +
     HOW[BASE_LANG()] +
@@ -1307,6 +1246,6 @@ function applyLang() {
   list();
   detail(ui.sel);
   renderCmp();
-  renderVs();
+  renderResults();
   if (zoom) $('maphint').textContent = touch ? L('hintTouch') : L('hintMouse');
 }

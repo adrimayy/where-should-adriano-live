@@ -372,10 +372,6 @@ function colorFor(e) {
     const c = QBR.filter(b => e.score > b).length;
     return ramp(c / 4);
   }
-  if (ui.colorBy === 'vs') {
-    const d = Math.max(-15, Math.min(15, e.score - e.ad.score)) / 15;
-    return d < 0 ? d3.interpolateRgb('#c9d1d7', '#cf3f3f')(-d) : d3.interpolateRgb('#c9d1d7', '#7a5af0')(d);
-  }
   const v = e.sc[ui.colorBy.slice(2)];
   return v == null ? st.off : ramp((v - 1) / 4);
 }
@@ -968,8 +964,6 @@ function legend() {
     h = GROUPS.map(
       g => `<span><span class="sw" style="background:${GROUPCOL[g]}"></span>${L('groups')[g]}</span>`
     ).join('');
-  else if (ui.colorBy === 'vs')
-    h = `<span class="ramp">${L('vsLegendLow')}<span class="bar" style="background:linear-gradient(90deg,#cf3f3f,#c9d1d7,#7a5af0)"></span>${L('vsLegendHigh')}</span>`;
   else {
     const lab =
       ui.colorBy === 'score'
@@ -1025,9 +1019,7 @@ function pcard() {
   }
   P.hidden = false;
   // a short sheet, like a map app: name, verdict and score, one line of why; everything else lives in Details
-  const vs = vsAd()
-    ? `<span class="sc2">${L('youScore')} ${r5(e.score)} · ${L('adScore')} ${r5(e.ad.score)}</span>`
-    : `<span class="sc2">${r5(e.score)}<small>/100</small></span>`;
+  const vs = `<span class="sc2">${r5(e.score)}<small>/100</small></span>`;
   P.innerHTML = `<div class="pchead"><span class="nm">${dn(e)}</span><button id="pcX" class="pcx" aria-label="Close">${IC('x', 14, 2.6)}</button></div><div class="pcrow">${chip(e.tier)}${vs}</div><p class="pcwhy">${whyShort(e)}</p><div class="acts"><button id="pcDet" class="tinted">${L('details')}</button><button id="pcCmp">${ui.cmp.includes(e) ? L('removeCmp') : L('addCmp')}</button></div>`;
   $('pcDet').onclick = () => $('detailSec').scrollIntoView({ block: 'start' });
   $('pcCmp').onclick = () => toggleCmp(e);
@@ -1040,7 +1032,7 @@ function pcard() {
 function showTip(ev, e) {
   if (touch) return;
   const box = $('mapbox').getBoundingClientRect();
-  tip.innerHTML = `<b>${dn(e)}</b>${e.type === 'city' ? ' · ' + countryOf(e) : ''}<br>${L('tiers')[e.tier]} · ${r5(e.score)}${e.lo != null ? ` <span class="muted">(${e.lo}–${e.hi})</span>` : ''}${vsAd() ? ` · ${L('adScore')} ${r5(e.ad.score)}` : ''}<br><span class="muted">${fmt(L('probLine'), { f: pct(e.pFit), t: pct(e.pTop) })}</span>${passes(e) ? '' : ` · <span class="muted">${L('filteredOut')}</span>`}<br><span class="muted">${e.lim === 'none' ? L('noMajor') : FD(e.lim)}</span>`;
+  tip.innerHTML = `<b>${dn(e)}</b>${e.type === 'city' ? ' · ' + countryOf(e) : ''}<br>${L('tiers')[e.tier]} · ${r5(e.score)}${e.lo != null ? ` <span class="muted">(${e.lo}–${e.hi})</span>` : ''}<br><span class="muted">${fmt(L('probLine'), { f: pct(e.pFit), t: pct(e.pTop) })}</span>${passes(e) ? '' : ` · <span class="muted">${L('filteredOut')}</span>`}<br><span class="muted">${e.lim === 'none' ? L('noMajor') : FD(e.lim)}</span>`;
   let x = ev.clientX - box.left + 14,
     y = ev.clientY - box.top + 14;
   if (x > box.width - 260) x = ev.clientX - box.left - 260;

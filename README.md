@@ -1,10 +1,10 @@
 # Where should you live?
 
-An interactive map that scores every country and 744 cities (every US metro area and major world cities) on 25 factors (healthcare, housing, jobs, climate, safety,
+An interactive map that scores every country and 744 cities (every US metro area and major world cities) on 26 factors (healthcare, housing, jobs, climate, safety,
 freedom, clean air, corruption, working hours, disaster risk and more), using published data from sources like the WHO, the UN, the FBI, Numbeo and the World Happiness Report.
 A short quiz that branches on your answers (about a dozen questions) re-weights everything for you: any languages you speak, any passports you hold, any home city. Interface in English,
-Spanish, Portuguese, French, German, Chinese, Hindi and Arabic. It started as Adriano's own search; people who know him
-can turn on his picks to compare.
+Spanish, Portuguese, French, German, Chinese, Hindi and Arabic. Nothing is scored on screen until you
+answer the quiz (or open a saved or shared take).
 
 **To use it:** visit the GitHub Pages site, or open `index.html` in any browser (it also works straight from your disk).
 
@@ -18,7 +18,7 @@ data/lakes-hires.js Detailed lakes for the zoomed-in map, loaded on demand. Also
 js/                 The page's code, one file per part, run in name order:
                     00 setup, 01 strings (English and Spanish), 02 factors and presets, 03 geography,
                     04 language and passport, 05 places, 06 scoring and the 120 recalculations, 07 quiz,
-                    08 you vs Adriano, 09 take/save, 10 map, 11 panels (ranking, details, weights), 12 events, 13 startup.
+                    08 your results, 09 take/save, 10 map, 11 panels (ranking, details, weights), 12 events, 13 startup.
   i18n/             Extra interface languages (pt, fr, de, zh, hi, ar), loaded only when chosen. English and Spanish
                     live in js/01-strings.js. Check a translation with python3 tests/i18n_check.py.
 
@@ -51,7 +51,7 @@ Working files (`build/`, `dist/`) are not part of the repository. Code is format
 - **Add a city:** add a row to `pipeline/input/cities_added.json` and its numbers to `pipeline/sources/`, then
   `python3 build.py`. Missing numbers are estimated automatically and marked on the page.
 - **How strict a score is:** the thresholds in `pipeline/bands.py`, then `python3 build.py`.
-- **Adriano's weights:** `mine:` in `PRESETS` in `js/02-factors.js`.
+- **The sample take** (the tests' fixed case): `SAMPLE` in `js/07-quiz.js`.
 - **Wording (English or Spanish):** `js/01-strings.js`, then `python3 tests/spanish_review.py` to refresh the review sheet.
 - **Wording in another language:** `js/i18n/<code>.js`, then `python3 tests/i18n_check.py`. To add a language, copy one of
   those files, translate it, and add the code to `UI_LANGS` in `js/01-strings.js`.
@@ -73,7 +73,7 @@ Working files (`build/`, `dist/`) are not part of the repository. Code is format
 python3 tests/test_page.py      # clicks through the quiz, map and language switch on desktop and mobile
 python3 tests/test_numbers.py   # checks specific numbers (money after rent, bands, rounding, rules)
 python3 tests/test_gestures.py  # pinch and pan keep the map under your fingers
-python3 tests/profiles.py       # top 10 for Adriano and three very different people
+python3 tests/profiles.py       # top 10 for the sample take and three very different people
 python3 tests/validate_sources.py   # held-out checks on the Nov 2026 sources; writes docs/reports/VALIDATION.md
 python3 tests/robustness.py     # sensitivity: weights, cut-offs, rescaling, combining and gap-filling varied together (Sobol indices)
 python3 tests/overlap.py        # which factors move together; writes docs/reports/OVERLAP.md

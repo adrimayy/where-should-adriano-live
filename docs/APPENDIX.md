@@ -9,8 +9,8 @@ The short version is in [METHODS.md](METHODS.md). This file has the statistics, 
    values move in a straight line between cut-offs. The page shows whole bands and uses the exact values (a setting can switch
    back to whole bands). Where several sources exist, their values are averaged.
 2. **Gaps are filled, tested, and drawn 20 times** (`pipeline/fill_gaps.py`, details below).
-3. **Weights.** The score out of 100 is the weighted average of a place's values. Weights come from Adriano's priorities,
-   equal weights (the page's starting view), or the quiz. Factors sit under three goals: growth (jobs, money after rent,
+3. **Weights.** The score out of 100 is the weighted average of a place's values. Weights come from the quiz and can be
+   changed afterwards; nothing is scored on screen before there is a take. Factors sit under three goals: growth (jobs, money after rent,
    work permit, language), happiness (life satisfaction, welcoming, things happening, climate, daylight, distance from home,
    women's rights, LGBTQ+, US politics) and efficiency and security (housing availability, commute, car dependence,
    healthcare, safety, freedom). Optional settings: rescale every factor to the same average and spread (z-score, default)
@@ -30,7 +30,7 @@ The short version is in [METHODS.md](METHODS.md). This file has the statistics, 
      filled-in safety value that is more likely than not the lowest), hot summers (hottest month averaging 27 °C or
      more, unless the person chose hot weather), and, only when things happening counts double or more for the person,
      metro areas under 500,000 people. A weight alone can't say "not a village": with things happening at the maximum
-     weight, towns of 120,000 to 230,000 people still reached Adriano's top 14 on commutes, rent and housing.
+     weight, towns of 120,000 to 230,000 people still reached the sample take's top 14 on commutes, rent and housing.
    - A place can only be a Strong fit if housing, jobs, healthcare, safety, freedom and money after rent all have published
      figures there and filled-in values make up less than a fifth of its score.
    - Within a verdict, places sort by the low end of their likely range (cautious) or, if chosen, the middle (best guess).
@@ -90,8 +90,15 @@ The page shows two parts for each place: the legal right to work (citizenship or
 junior hire without that right. No published data measures how often employers sponsor junior hires, so the route is a
 rule-based judgment, marked as official rules.
 
-- UK High Potential Individual visa: the 2026 global universities list (published 1 Nov 2026, updated 4 Nov 2026) includes
-  Columbia and covers degrees awarded 1 Nov 2026 to 31 Oct 2027. gov.uk HPI list.
+- Every passport goes through the same rules (`pipeline/sources/work_rights.py`): free-movement areas, routes for
+  particular nationalities, and how open the ordinary work-visa route is. Until v62, US and Mexican passports used
+  hand-made tables instead, which counted routes that depend on age (working-holiday visas for Australia, New Zealand
+  and Canada) or on the university (the UK's High Potential Individual visa, open to recent graduates of about 50 listed
+  universities). The quiz asks neither, so those routes are not counted for anyone. For a US or Mexican passport that
+  moves 19 countries by one level: Canada and the UK 4 → 3 (Australia and New Zealand too, for a US passport); eleven
+  places that were 3 by judgment alone (Argentina, Chile, Colombia, Costa Rica, Ecuador, Kosovo, Panama, Peru, Portugal,
+  Taiwan, Uruguay) → 2, the ordinary employer-sponsored route; the UAE 2 → 3 and Switzerland 1 → 2; and for a Mexican
+  passport alone the US, Ireland and Australia 2 → 3.
 - EU Blue Card: Netherlands 2026 thresholds €5,942 a month, €4,754 for recent graduates (Staatscourant via eubluecard.nl).
   Other EU countries' 2026 thresholds were not verified this round.
 - Spain: two years of legal residence before applying for citizenship for Ibero-American nationals, Mexicans included,
@@ -163,7 +170,7 @@ driven by US cities that get the national welcoming score).
 
 Changes made because of overlap:
 - Housing, cost and purchasing power were merged into **money left after rent**. Housing now measures only availability.
-  Adriano's weights moved with it: money after rent 1.25 → 1.75, housing 1.5 → 1.
+  The sample take's weights moved with it: money after rent 1.25 → 1.75, housing 1.5 → 1.
 - Metro GDP counts once in the job market, not twice, because metro size also drives "things happening".
 - Life satisfaction already partly reflects income, health and freedom. Healthcare, freedom and log GDP per person explain
   61% of its variation across countries, so the priorities panel offers a "beyond income, health and freedom" version: the
@@ -180,34 +187,35 @@ generator. `simulate()` runs it all at once (tests); `simulateSoon()` runs about
 change of weights cancels a run in progress. Both give identical output (checked field by field for all 919 places). Until
 a run finishes, a place keeps its last range shifted by its change in score (`carryRanges`): a range's width comes from
 how well a place is measured, not from the weights, so the order on screen rarely moves when the new ranges land, and the
-list is only redrawn if it did. Adriano's own ranges, used to order "his top three", come from a second background run
-over inputs frozen when his snapshot is taken (`adSimSteps`), also identical to a full simulation under his settings.
+list is only redrawn if it did.
 
 ## Sensitivity
 
 `tests/robustness.py` varies five groups of choices together, 1,792 runs: weights (×0.5 to ×2, 15% chance of dropping a
 factor), cut-offs (all values bent by a power between 1/1.2 and 1.2, equivalent to moving every cut-off by about ±10%;
 the cut-offs themselves are fixed at build time), rescaling (z-score vs min-max), combining (average vs geometric mean) and
-gap-filling (on/off). Variance-weighted over Adriano's top 15, the share of rank variation each explains (first-order /
-total):
+gap-filling (on/off). Variance-weighted over the sample take's top 15 (run 21 Nov 2026), the share of rank variation each
+explains (first-order / total):
 
 | Choice | Alone | With interactions |
 |---|---|---|
-| Weights | 0.49 | 0.81 |
-| Gap-filling on/off | 0.10 | 0.34 |
-| Combining | 0.05 | 0.09 |
-| Cut-offs | 0.01 | 0.03 |
-| Rescaling | 0.00 | 0.02 |
+| Gap-filling on/off | 0.44 | 0.51 |
+| Weights | 0.31 | 0.45 |
+| Rescaling | 0.02 | 0.07 |
+| Combining | 0.00 | 0.10 |
+| Cut-offs | 0.00 | 0.01 |
 
-Weights decide most of the order. Gap-filling matters for places with thin data (Bilbao, the Long Island towns); the
-geometric mean moves car-dependent places (Los Angeles, San Francisco). Share of runs in the top 10: Amsterdam 91%,
-Madrid 84%, Valencia 82%, Barcelona 63%, New York 61%, London 59%.
+Gap-filling leads because of one city. Reykjavík has no published pay, rent or commute figures, so its rank swings by
+hundreds of places when filled-in values are switched off (0.88 of its variation); the page already ranks such places
+after well-measured ones with the same verdict. For the other fourteen cities weights decide most of the order (0.3 to
+1.0 alone), and the geometric mean moves the Dutch cities (Amsterdam, Rotterdam, Utrecht: 0.4 to 0.5 with interactions).
+Share of runs in the top 10: Valencia 78%, Madrid 77%, Amsterdam 74%, Barcelona 56%, Rotterdam 47%, Utrecht 45%.
 
 ## Does wealth drive the ranking?
 
-`tests/wealth_bias.py`: across cities, national GDP per person explains 74% of the variation in Adriano's scores (r = 0.86)
-and 72% with equal weights (74% and 75% before clean air, corruption, working hours and disaster risk were added). Each
-doubling of GDP per person is worth about 6.5 points. Richer places do score better on most
+`tests/wealth_bias.py` (21 Nov 2026): across cities, national GDP per person explains 72% of the variation in scores when
+every factor counts the same (r = 0.85) and 76% for the sample take (r = 0.87). Each
+doubling of GDP per person is worth about 6.3 points. Richer places do score better on most
 measured factors, but a ranking this tied to wealth also inherits what the sources miss about rich places: the next section.
 
 ## Cheap and high-scoring: what might the data be missing?
@@ -295,12 +303,16 @@ What the quiz does with that:
   "could live without" scales the weights that answer sets (×1.6 or ×0.3).
 - Answers without a natural order are shuffled, with "other / doesn't matter" kept last.
 - Every question that was not asked or not answered shows its default on the results screen (with the calculations on),
-  where it can be answered. Unanswered, languages default to the browser's and passports to none.
+  where it can be answered. Unanswered, languages default to the browser's and passports to none (those two, and the
+  home bases, are picked from lists, so they are changed by retaking the quiz).
+- Nothing is scored on screen before there is a take: the quiz finished, a saved take in this browser, or a shared
+  link. Until then the page is one card with the question and the quiz button; there is no map to skip to. "Close"
+  inside the quiz changes nothing: it goes back to the results there were, or to the first card.
 - Every place lookup (home bases, passports) uses the same searchable list.
 - After the quiz, the answers live in the "What matters to you" panel next to the results: each factor is off, counts
   (weight 1) or ★ counts double (2), so a change shows up in the ranking straight away. Sliders remain for finer weights.
 - By default the page shows only the results: scores, chips, map and ranking. "Show how the scores are calculated"
-  brings back the likely ranges, legends, the factor table, the comparison with Adriano, the sliders and the method notes.
+  brings back the likely ranges, legends, the factor table, the sliders and the method notes.
 - Filters ("Only show": region, cost band, big cities of about 1.5 million or more, can work freely) never change a score;
   they hide places. Ties: places in a row with the same displayed score share a rank, shown as "=2".
 - A note before the first question: people tend to overweight weather and short visits and underweight commutes and
@@ -366,8 +378,8 @@ What the quiz does with that:
   hand, and the pay-by-work adjustment now answers the common version of that question inside the ranking.
 - **A fix found on the way:** world regions were looked up by country number, but stored under zero-padded codes
   ("076"), so 20 countries (Brazil, Argentina, Belgium, Austria, Australia and others) never counted as "same region"
-  for cultural familiarity, and their country rows dropped out of the region filter. For Adriano's take 18 of 919 places
-  move by one point (San Francisco 60 → 59); his top ten are unchanged.
+  for cultural familiarity, and their country rows dropped out of the region filter. For the sample take 18 of 919 places
+  move by one point (San Francisco 60 → 59); its top ten are unchanged.
 
 ### Two factors worked out from the map
 
@@ -389,8 +401,8 @@ What the quiz does with that:
 
 ## How the 744 cities were chosen, and what's under-covered
 
-The list started from places Adriano has lived, visited or considered, then added the largest tech hubs, capitals and
-large Spanish-speaking cities, the Long Island towns near his family, and the major upstate New York cities. In November
+The list started from a few dozen hand-picked places, then added the largest tech hubs, capitals and
+large Spanish-speaking cities, the Long Island towns, and the major upstate New York cities. In November
 2026, 59 more were added from those with Numbeo city figures (large cities in South Asia, the Gulf, Africa, Central Asia,
 Eastern Europe, Latin America and Australia).
 
@@ -483,7 +495,7 @@ they miss differences between neighborhoods, workplaces and families. The politi
   as unranked; 108 of the newly found cities are in the world's top 300 (Delhi 11, Mumbai 19, Jakarta 33, Hangzhou 37,
   Detroit 60, Boulder 69). For the 126 cities ranked in both years the middle change is 4 places.
 - **BLS metro wages** for the 15 metros that gained pay and rent figures from the new price parities (122 in all).
-- Effect on Adriano's take: 400 of 919 places move by a point or more, 20 by three or more. His top five go from
+- Effect on the sample take: 400 of 919 places move by a point or more, 20 by three or more. Its top five go from
   Amsterdam, Reykjavík, Madrid, Valencia, Barcelona to Reykjavík, Amsterdam, Madrid, Utrecht, Rotterdam. Utrecht and
   Rotterdam rise because the Netherlands is 23rd of 31 for settling in, which is not in the bottom band, so they are no
   longer held back by the friends dealbreaker that Amsterdam, with its own city figure, never met.

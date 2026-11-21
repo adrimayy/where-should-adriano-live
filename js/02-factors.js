@@ -40,35 +40,6 @@ const FL = k => FS(k)[0],
   FD = k => FS(k)[1];
 const PRESETS = {
   // money left after rent covers rent; housing is only about availability
-  mine: {
-    // from Adriano's own run of the quiz on 19 Nov 2026 (the v56 questions; every one that applied, answered)
-    home: 2.5,
-    jobs: 2.5,
-    hlth: 3,
-    commute: 2.5,
-    move: 2.5,
-    happy: 0.5,
-    cult: 2.5,
-    open: 1.5,
-    pay: 2.5,
-    hours: 2.5,
-    clim: 0.75,
-    day: 2,
-    sea: 1,
-    air: 1.5,
-    risk: 1.5,
-    free: 1.125,
-    safe: 2.5,
-    honest: 1.125,
-    women: 2.5,
-    lgbt: 1.5,
-    pol: 1.5,
-    perm: 1,
-    lang: 1.25,
-    fam: 1,
-    tz: 1,
-    kin: 0.75,
-  },
   career: {
     pol: 0,
     home: 1.5,
@@ -242,12 +213,6 @@ const EST_ONLY = new Set();
 const lo_ = e => (RANKBY === 'mid' ? (e.med != null ? e.med : e.score) : e.lo != null ? e.lo : e.score);
 // and within a verdict, places with published data on what matters come before places that lean on filled-in values
 const byRank = (a, b) => TR[a.tier] - TR[b.tier] || a.thin - b.thin || lo_(b) - lo_(a) || b.score - a.score;
-const byAdRank = (a, b) =>
-  TR[a.ad.tier] - TR[b.ad.tier] ||
-  (RANKBY === 'mid'
-    ? (b.ad.med ?? b.ad.score) - (a.ad.med ?? a.ad.score)
-    : (b.ad.lo ?? b.ad.score) - (a.ad.lo ?? a.ad.score)) ||
-  b.ad.score - a.ad.score;
 const CUT = { fit: 70, ok: 60, caution: 48 };
 const CATS = [...FACTORS.map(f => f.k), 'none'];
 const CATPAL = [

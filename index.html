@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Where Should You Live?</title>
-<meta name="description" content="Every country and hundreds of cities scored on twenty-five factors from published data. Take a short quiz to get your own map.">
+<meta name="description" content="Every country and hundreds of cities scored on twenty-six factors from published data. Take a short quiz to get your own map.">
 <meta property="og:title" content="Where Should You Live?">
 <meta property="og:description" content="Take a short quiz and get a map of where you’d fit best, from published data.">
 <!-- the loading wheel: styled here, not in the stylesheet, so it is on screen before anything else has arrived -->
@@ -32,34 +32,25 @@ html.ready #boot{display:none}
   <section class="panel hero" id="start">
     <h1 data-t="h1"></h1>
     <p class="lede" data-th="intro1"></p>
-    <!-- one main action: take the quiz, or continue a saved map; one quiet alternative -->
-    <div class="cta"><button class="primary" id="resumeTake" hidden data-t="resume"></button><button class="primary" id="startQuiz" data-t="startQuiz"></button><button class="ghost" id="skipQuiz" data-t="skipQuiz"></button><button class="ghost" id="retakeHero" hidden data-t="retake"></button></div>
-    <p class="meta" id="devNote" data-th="devNote" hidden></p>
-    <p class="now" id="heroNow"></p>
-    <button class="linkbtn" id="knowDev"></button>
+    <!-- one action: take the quiz (or, with a saved take, continue it). Nothing is scored on screen before that. -->
+    <div class="cta"><button class="primary" id="resumeTake" hidden data-t="resume"></button><button class="primary" id="startQuiz" data-t="startQuiz"></button><button class="ghost" id="retakeHero" hidden data-t="retake"></button></div>
+    <p class="meta" data-t="startNote"></p>
   </section>
 
   <section class="panel" id="quizPanel" hidden aria-live="polite">
     <div class="qwrap" id="qwrap"></div>
   </section>
 
-  <section class="panel" id="vsPanel" hidden>
+  <section class="panel" id="resPanel" hidden>
     <div class="dhead">
-      <div style="display:flex;flex-direction:column;gap:4px"><span class="eyebrow calc-only" data-t="vsEyebrow"></span><h2 id="vsTitle"></h2></div>
-      <div class="match calc-only" id="vsMatch"><span class="big" id="matchPct">0%</span><span class="meta" data-t="matchLabel"></span></div>
+      <div style="display:flex;flex-direction:column;gap:4px"><span class="eyebrow calc-only" data-t="resEyebrow"></span><h2 id="resHead"></h2></div>
     </div>
-    <div class="vs calc-only" id="vsLists"></div>
-    <div class="diffs calc-only" id="vsDiffs"></div>
-    <div id="vsDefaults" class="calc-only"></div>
+    <div class="tops calc-only" id="resLists"></div>
+    <div id="resDefaults" class="calc-only"></div>
     <div class="toast" id="toast" role="status"></div>
     <p class="meta unsure" id="unsureNote" role="status" hidden></p>
     <p class="meta" data-t="startNote"></p>
     <div class="toggles"><button class="primary" id="shareTake" data-t="share"></button><button id="retake" data-t="retake"></button><button class="ghost" id="tradeBtn" data-t="tradeBtn"></button><button class="ghost" id="fullQuiz" data-t="sharpen"></button><button class="ghost" id="toMap" data-t="toMap"></button></div>
-  </section>
-
-  <section class="modebar" id="modeBar" hidden>
-    <div class="seg" role="group" aria-label="Whose take"><button id="mYours" aria-pressed="true" data-t="yourTake"></button><button id="mAdriano" aria-pressed="false" data-t="adTake"></button></div>
-    <p class="sr" id="modeNote" aria-live="polite"></p>
   </section>
 
   <!-- the workspace: what matters (left, sticky; a bottom sheet on phones) next to the map and ranking it changes -->
@@ -159,12 +150,12 @@ html.ready #boot{display:none}
   </div>
   </div>
 
-  <details class="box after calc-only"><summary><span data-t="prioTitle"></span></summary><div class="inner"><div class="prio" id="prio"></div></div></details>
   <details class="box after choices calc-only"><summary><span data-t="choicesTitle"></span></summary><div class="inner" data-th="choicesBody"></div></details>
   <details class="box after calc-only">
     <summary><span data-t="howTitle"></span></summary>
     <div class="inner foot" id="howInner"></div>
   </details>
+  <footer class="pagefoot"><button type="button" class="quiet" id="fillBtn" tabindex="-1" aria-hidden="true"></button></footer>
 </div>
 
 <button class="pfab" id="pfab" aria-controls="ppanel" aria-expanded="false"></button>
@@ -181,7 +172,7 @@ html.ready #boot{display:none}
 <script defer src="js/05-entities.js"></script>
 <script defer src="js/06-scoring.js"></script>
 <script defer src="js/07-quiz.js"></script>
-<script defer src="js/08-you-vs-adriano.js"></script>
+<script defer src="js/08-results.js"></script>
 <script defer src="js/09-take-save.js"></script>
 <script defer src="js/10-map.js"></script>
 <script defer src="js/11-panels.js"></script>
