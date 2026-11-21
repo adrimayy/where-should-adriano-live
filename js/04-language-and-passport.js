@@ -4,7 +4,9 @@ let LANGMODE = 'both',
   PERMMODE = 'usmx',
   FIELD = 'tech',
   CLIMMODE = 'mild',
-  POLMODE = 'd';
+  POLMODE = 'd',
+  // typical pay for the person's kind of work as a share of average pay (1 = average); set by the quiz's job question
+  PAYLVL = 1;
 const POLM = DATA.pol || {},
   TMEAN = DATA.tmean || {},
   THOT = DATA.thot || {};
@@ -64,8 +66,65 @@ function fieldJobs(e) {
   const v = +e.fields[i];
   return v > 0 ? v : null;
 }
+// ---- money left after rent, for the person's kind of work ----
+// The published figure is for an average salary. A cook and a software developer pay the same rent, so with typical pay
+// at a share r of average (PAYLVL) the figure becomes (r × pay − rent) ÷ prices. It is judged against the same cut-offs,
+// scaled by r (what is left as a share of that paycheck): (pay − rent ÷ r) ÷ prices against $3,000 / 2,000 / 1,200 / 500.
+// Only places with separate pay and rent figures can be re-worked; the rest keep their published score.
+const MONEY_KNOTS = [
+  [500, 1.5],
+  [1200, 2.5],
+  [2000, 3.5],
+  [3000, 4.5],
+];
+// the same ladder as pipeline/bands.py b_money: straight lines through the cut-offs, held between 1 and 5
+function moneyScore(x) {
+  const K = MONEY_KNOTS;
+  let i = 0;
+  while (i < K.length - 2 && x >= K[i + 1][0]) i++;
+  const c = K[i][1] + ((K[i + 1][1] - K[i][1]) * (x - K[i][0])) / (K[i + 1][0] - K[i][0]);
+  return Math.round(Math.max(1, Math.min(5, c)) * 100) / 100;
+}
+let CMONEY = null;
+// [money left on average pay, rent], both a month and in New York prices. A country: the mean of its cities with
+// Numbeo figures, which is how its published figure is made (pipeline/score_published.py).
+function moneyParts(e) {
+  if (e.type === 'city') {
+    const m = MONEYD[e.name];
+    return m ? [(m[0] - m[1]) / (m[2] / 100), m[1] / (m[2] / 100)] : null;
+  }
+  if (!CMONEY) {
+    CMONEY = {};
+    ents.forEach(c => {
+      const m = c.type === 'city' ? MONEYD[c.name] : null;
+      if (!m || m[3] === 'acs') return;
+      const t = (CMONEY[+c.iso] = CMONEY[+c.iso] || [0, 0, 0]);
+      t[0] += (m[0] - m[1]) / (m[2] / 100);
+      t[1] += m[1] / (m[2] / 100);
+      t[2]++;
+    });
+  }
+  const t = CMONEY[+e.id];
+  return t ? [t[0] / t[2], t[1] / t[2]] : null;
+}
+// dollars a month left after rent on typical pay for that work (New York prices); null without pay and rent figures
+function moneyLeftAt(e, r) {
+  let p = moneyParts(e);
+  // a city scored with its country's figure moves with its country
+  if (!p && e.type === 'city' && e.countryEnt && !(RAWD['city:' + e.name] || {}).pay)
+    p = moneyParts(e.countryEnt);
+  return p ? r * p[0] - (1 - r) * p[1] : null;
+}
 function payFor(e, f) {
+  e.payAdj = false;
   if (f === 'remote') return e.cost || e.base.pay;
+  if (PAYLVL !== 1 && e.base.pay != null) {
+    const x = moneyLeftAt(e, PAYLVL);
+    if (x != null) {
+      e.payAdj = true;
+      return moneyScore(x / PAYLVL);
+    }
+  }
   return e.base.pay;
 }
 const EU = new Set([

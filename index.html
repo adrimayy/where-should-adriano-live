@@ -66,6 +66,7 @@ html.ready #boot{display:none}
   <div class="work" id="work">
   <aside class="ppanel" id="ppanel"></aside>
   <div class="workmain">
+  <div class="scopebar" id="scopeBar" hidden></div>
   <div class="pills" id="pills" role="group"></div>
   <section style="display:flex;flex-direction:column;gap:12px" id="mapSec">
     <div class="rankhead">
@@ -116,12 +117,6 @@ html.ready #boot{display:none}
       <div class="cmp"><div class="cmpgrid" id="cmp"></div></div>
     </section>
   </div>
-
-  <details class="box after" id="offerPanel">
-    <summary><span data-t="offerTitle"></span></summary><div class="inner"><p class="meta" data-t="offerIntro"></p>
-    <div id="offerRows" style="display:flex;flex-direction:column;gap:8px"></div>
-    <div id="offerOut"></div>
-  </div></details>
 
   <details class="box after calc-only" id="weightsBox">
     <summary><span data-t="weightsTitle"></span></summary>

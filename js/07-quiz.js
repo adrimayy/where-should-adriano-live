@@ -14,6 +14,39 @@ const WORKM = ['local', 'remote', 'student', 'retired', 'unknown'];
 const workIs = (...v) => v.includes(typeof ANS.work === 'number' ? WORKM[ANS.work] : 'unknown');
 const withKids = () => ANS.who === 2;
 const homeKnown = () => HOMEKEYS.some(k => byKey[k]);
+// the country the person lives in now (their first home base), as a number; null when they haven't said
+const homeIso = () => {
+  const e = HOMEKEYS.map(k => byKey[k]).find(Boolean);
+  return e ? +isoOf(e) : null;
+};
+// ---- kinds of work ----
+// [id, how the job market is judged (see fieldJobs), typical pay a year in US dollars]. Pay is the annual mean wage of the
+// occupation group in the US Bureau of Labor Statistics' Occupational Employment and Wage Statistics, May 2025
+// (released 15 May 2026; all occupations: $69,770). Only the ratio to the all-occupations mean is used (PAYLVL).
+const ALLPAY = 69770;
+const JOBS = [
+  ['food', 'general', 37150], // food preparation and serving related
+  ['store', 'general', 37310], // retail salespersons
+  ['trades', 'general', 64370], // construction and extraction + installation, maintenance and repair, weighted by employment
+  ['drive', 'general', 49850], // transportation and material moving
+  ['factory', 'general', 51600], // production
+  ['clean', 'general', 40880], // building and grounds cleaning and maintenance
+  ['beauty', 'general', 41070], // personal care and service
+  ['care', 'general', 40800], // healthcare support
+  ['medical', 'health', 108700], // healthcare practitioners and technical
+  ['teach', 'general', 67540], // educational instruction and library
+  ['office', 'general', 51560], // office and administrative support
+  ['tech', 'tech', 115680], // computer and mathematical + architecture and engineering, weighted by employment
+  ['biz', 'finance', 95230], // business and financial operations
+  ['art', 'creative', 79790], // arts, design, entertainment, sports and media
+  ['sci', 'academia', 94600], // life, physical and social science
+  ['farm', 'general', 41510], // farming, fishing and forestry
+  ['guard', 'general', 60720], // protective service
+  ['other', 'general', ALLPAY],
+];
+// the job question before the list above (answers saved up to v58)
+const OLD_FIELDS = ['tech', 'finance', 'health', 'creative', 'academia', 'general', 'remote'];
+const jobShare = a => (typeof a.job === 'number' && JOBS[a.job] ? JOBS[a.job][2] / ALLPAY : 1);
 // "what would you miss most": each area of life covers one or two factors. Marked "most" (2), its follow-up is asked in
 // the short quiz; marked "could live without" (1), it gets a low weight and its follow-up is never asked.
 const TOP = {
@@ -54,6 +87,18 @@ function topW(v) {
 // a: the area of life a follow-up belongs to (see TOP). core: asked in the short quiz. show: asked at all.
 const QUIZ = [
   { id: 'where', picker: 'where', w: [], core: true },
+  // Stay or go: the map covers the world, but not everyone is thinking of leaving their country. The answer decides which
+  // places are listed first (tabs above the results show the others); it changes no score. c: the title names the country.
+  {
+    id: 'scope',
+    w: [{}, {}, {}],
+    mk: 'scope',
+    m: ['stay', 'go', 'any'],
+    // asked when the map has cities in that country to choose between
+    show: () => homeIso() != null && ents.some(e => e.type === 'city' && listable(e) && +isoOf(e) === homeIso()),
+    core: true,
+    c: 1,
+  },
   {
     id: 'perm',
     picker: 'perm',
@@ -62,7 +107,8 @@ const QUIZ = [
     w: [{ perm: 1 }, { perm: 1 }, { perm: 1 }, { perm: 1 }, { perm: 0 }],
     mk: 'perm',
     m: ['usmx', 'us', 'mx', 'eu', 'usmx'],
-    core: true,
+    // staying in the country you live in: the right to work there is taken as given (modesFromQuiz), so it can wait
+    core: () => ANS.scope !== 0,
   },
   {
     id: 'lang',
@@ -84,17 +130,8 @@ const QUIZ = [
   { id: 'who', w: [{}, {}, {}], mk: 'who', m: ['solo', 'pair', 'kids'], core: true },
   { id: 'partner', w: [{}, {}], show: () => ANS.who === 1 || ANS.who === 2, core: true },
   { id: 'top', picker: 'top', w: [], core: true },
-  {
-    id: 'field',
-    nominal: 1,
-    fixed: 2,
-    hide: () => (typeof ANS.work === 'number' ? [6] : []), // "fully remote" is covered by the work question
-    w: [{}, {}, {}, {}, {}, {}, { jobs: 0 }],
-    mk: 'field',
-    m: ['tech', 'finance', 'health', 'creative', 'academia', 'general', 'remote'],
-    show: () => workIs('local', 'unknown'),
-    core: true,
-  },
+  // every kind of work, in everyday words and a fixed order (a long list is easier to scan when it doesn't move)
+  { id: 'job', w: JOBS.map(() => ({})), show: () => workIs('local', 'unknown'), core: true },
   {
     id: 'jobs',
     a: 'jobs',
@@ -177,6 +214,8 @@ let ANS = {},
   QSTEP = 0,
   HOMEKEYS = [];
 const qText = id => (QSTR[LANG] || {})[id] || QSTR.en[id];
+// a question that names the person's country: {c} becomes its name
+const qFill = (q, t) => (q.c && homeIso() != null && byIso[homeIso()] ? fmt(t, { c: dn(byIso[homeIso()]) }) : t);
 const QBASE = { ...PRESETS.equal, pol: 0, happy: 0.5, women: 0.75, lgbt: 0.75 };
 // "picker" questions (languages, passports) take any number of answers; older saved answers are numbers and still work
 const picked = v => v && typeof v === 'object';
@@ -205,6 +244,8 @@ function weightsFromQuiz(a) {
   });
   // answers from before city life had its own question: "a big, busy city" covered jobs and things happening together
   if (typeof a.jobs === 'number' && typeof a.cult !== 'number' && !t.cult) w.cult = SW[a.jobs] * 0.6;
+  // answers saved before the job list: "fully remote" in the old question switched the job market off
+  if (a.field === 6 && typeof a.job !== 'number' && typeof a.work !== 'number') w.jobs = 0;
   // a partner who needs a job there: the job market counts even when your own pay comes with you
   if (a.partner === 0 && (w.jobs || 0) < 1) w.jobs = 1;
   QUIZ.forEach(q => {
@@ -226,13 +267,27 @@ function modesFromQuiz(a) {
     sure: 'lo',
     work: 'unknown',
     who: 'solo',
+    scope: 'any',
+    payr: 1,
   };
   QUIZ.forEach(q => {
     if (q.mk && q.picker && picked(a[q.id])) o[q.mk] = pickerMode(q, a[q.id]);
     else if (q.mk && typeof a[q.id] === 'number') o[q.mk] = q.m[a[q.id]];
   });
+  if (typeof a.job === 'number' && JOBS[a.job]) {
+    o.field = JOBS[a.job][1];
+    o.payr = jobShare(a);
+  } else if (typeof a.field === 'number' && OLD_FIELDS[a.field]) o.field = OLD_FIELDS[a.field];
   // pay that comes from elsewhere (remote work, a pension, a student budget): what counts is what things cost there
-  if (['remote', 'retired', 'student'].includes(o.work)) o.field = 'remote';
+  if (['remote', 'retired', 'student'].includes(o.work)) {
+    o.field = 'remote';
+    o.payr = 1;
+  }
+  // staying where you live now and no passport named: you are taken to be allowed to work there
+  if (o.scope === 'stay' && !picked(a.perm)) {
+    const h = ((picked(a.where) && a.where.keys) || []).map(k => byKey[k]).find(Boolean);
+    if (h) o.perm = passCode([+isoOf(h)]);
+  }
   return o;
 }
 // a trailing example in brackets becomes a quieter second line: "Which languages could you live in?" / "Enough to…"
@@ -463,6 +518,14 @@ function qSwing(k) {
   }
   const S = SWING[k];
   if (!S) return '';
+  const usd = v => (v < 0 ? '−$' : '$') + nfmt(Math.abs(v));
+  // money left after rent on typical pay for the person's kind of work (rounded to $10), where pay and rent are both known
+  const r = jobShare(ANS);
+  if (k === 'pay' && r !== 1) {
+    const val = e => (MONEYD[e.name] ? Math.round(moneyLeftAt(e, r) / 10) * 10 : null),
+      pr = swingPair(refCity && val(refCity) != null ? refCity : null, 'city', val, 0);
+    if (pr) return line('swPayJob', pr[0], pr[1], usd(val(pr[0])), usd(val(pr[1])));
+  }
   for (const g of S.g) {
     const type = g.t || (refCity && swingVal(refCity, k, g.s) != null ? 'city' : 'country'),
       anchor = type === 'city' ? refCity : refCountry,
@@ -475,7 +538,6 @@ function qSwing(k) {
       y = val(B);
     if (k === 'commute') return line('swCommute', A, B, nfmt(x), nfmt(y), { h: nfmt(Math.round((Math.abs(x - y) * 2 * 230) / 60 / 5) * 5) });
     if (k === 'hours') return line('swHours', A, B, nfmt(x), nfmt(y), { w: nfmt(Math.abs(x - y) / 40) });
-    const usd = v => (v < 0 ? '−$' : '$') + nfmt(Math.abs(v));
     if (k === 'pay') return line('swPay', A, B, usd(x), usd(y));
     const id = 'sw' + k[0].toUpperCase() + k.slice(1),
       d = k === 'cult' || k === 'air' || k === 'jobs' || k === 'safe' || k === 'home' ? 1 : 0;
@@ -540,13 +602,12 @@ function orderedPlaces(needGeo) {
 }
 // ---- place picker: search box, a short "Suggested" list, then every place A–Z with letter headers and a letter rail.
 // Suggested places also keep their alphabetical spot. The value lives in a hidden input.
-// Every place lookup on the page (home bases, passports, job offers) opens this same searchable sheet.
-// kind picks the list: 'place' = any city or country on the map, 'country' = every country (passports),
-// 'offer' = cities with pay and rent figures. empty = what the button says when nothing is chosen.
+// Every place lookup on the page (home bases, passports) opens this same searchable sheet.
+// kind picks the list: 'place' = any city or country on the map, 'country' = every country (passports).
+// empty = what the button says when nothing is chosen.
 const PICKERS = {
   place: () => ents.filter(e => listable(e) && e.hasGeo),
   country: () => ents.filter(e => e.type === 'country' && typeof e.id === 'number' && e.a2 && e.id !== 10), // no Antarctica
-  offer: () => ents.filter(e => e.type === 'city' && MONEYD[e.name]),
 };
 const placeLabel = (e, empty) =>
   e ? dn(e) + (e.type === 'city' && countryOf(e) ? ', ' + countryOf(e) : '') : empty || L('none');
@@ -618,7 +679,7 @@ function openPicker(id) {
       .join('');
   }
   $('hpSearch').value = '';
-  $('hpSearch').placeholder = L({ place: 'hpSearch', country: 'hpSearchC', offer: 'hpSearchO' }[kind]);
+  $('hpSearch').placeholder = L({ place: 'hpSearch', country: 'hpSearchC' }[kind]);
   $('hpCancel').textContent = L('cancel');
   render('');
   $('hpSearch').oninput = ev => render(ev.target.value);
@@ -700,14 +761,15 @@ function renderQuiz() {
   if (cur.picker) body = (n === 1 && !QMORE ? `<p class="meta qtip">${L('qtip')}</p>` : '') + pickerBody(cur);
   else {
     const q = cur,
-      [title, opts] = qText((q.alt && q.alt()) || q.id),
+      [title0, opts] = qText((q.alt && q.alt()) || q.id),
+      title = qFill(q, title0),
       hid = typeof q.hide === 'function' ? q.hide() : [],
       ord = (ORDER[q.id] || opts.map((o, i) => i)).filter(i => !hid.includes(i));
     // under the question: two real places and what they measure on this, in everyday units (or their 1-5 scores)
     const [head, sub] = splitTitle(title),
       exk = typeof q.ex === 'function' ? q.ex() : q.ex,
       ex = exk ? qSwing(exk) || qExample(exk === 'cost' ? 'pay' : exk) : '';
-    body = `${n === 1 && !QMORE ? `<p class="meta qtip">${L('qtip')}</p>` : ''}<div class="qtitle">${head}</div>${sub ? `<p class="meta qsub">${sub}</p>` : ''}${ex ? `<p class="meta qsub qex">${ex}</p>` : ''}<div class="opts">${ord.map(i => `<button class="opt" data-i="${i}" aria-pressed="${ANS[q.id] === i}"><span class="dot"></span><span>${opts[i]}</span></button>`).join('')}</div>`;
+    body = `${n === 1 && !QMORE ? `<p class="meta qtip">${L('qtip')}</p>` : ''}<div class="qtitle">${head}</div>${sub ? `<p class="meta qsub">${sub}</p>` : ''}${ex ? `<p class="meta qsub qex">${ex}</p>` : ''}<div class="opts${ord.length > 8 ? ' many' : ''}">${ord.map(i => `<button class="opt" data-i="${i}" aria-pressed="${ANS[q.id] === i}"><span class="dot"></span><span>${opts[i]}</span></button>`).join('')}</div>`;
   }
   Q.innerHTML = `<div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><span class="lab">${QSHORT && QSTEP <= QLIST.findIndex(q => q.id === 'top') ? fmt(L('qN'), { n }) : fmt(L('qOf'), { n, t: total })}</span><button class="ghost" id="qSkip">${QMORE ? L('doneMap') : L('skip')}</button></div>
   <div class="progress"><span style="width:${Math.round(((n - 1) / total) * 100)}%"></span></div>${body}<p class="qgot" id="qGot" role="status"></p>
@@ -834,7 +896,8 @@ function renderDefaults() {
           .join(', ') || '—';
   el.innerHTML = `<details class="box"><summary><span>${fmt(L('defaultsTitle'), { n: un.length })}</span></summary><div class="inner"><p class="meta">${L('defaultsNote')}</p>${un
     .map(q => {
-      const [t, opts] = qText(q.id);
+      const [t0, opts] = qText(q.id),
+        t = qFill(q, t0);
       return `<label class="field"><span class="meta">${t}</span><select data-q="${q.id}"><option value="">${L('keepDefault')}: ${defOf(q)}</option>${opts.map((o, i) => `<option value="${i}">${o}</option>`).join('')}</select></label>`;
     })
     .join('')}</div></details>`;
@@ -858,6 +921,8 @@ function applyQuizAnswers() {
   LANGMODE = md.lang;
   PERMMODE = md.perm;
   FIELD = md.field;
+  PAYLVL = md.payr;
+  ui.scope = { stay: 'home', go: 'away' }[md.scope] || 'all';
   CLIMMODE = md.clim;
   POLMODE = md.pol;
   REACH = md.reach === 'yes';
@@ -881,6 +946,7 @@ function finishQuiz() {
   applyHomes();
   weightsUI();
   refreshAll();
+  scopeView(false); // staying in your country: the map opens on it
   saveTake();
   renderDefaults();
   // first time through, say it's done and offer the rest; the results and the map are already underneath

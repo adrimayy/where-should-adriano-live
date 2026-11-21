@@ -63,6 +63,12 @@ How the method changed, and what it did to the top of Adriano's list.
   people are capped at Caution (a switch under the dealbreaker rules, saved with a take). For him that moves 29 small
   towns out of the way and New York from 112th to 19th; with default weights nothing changes.
   Region pills also move the map, replacing the separate row of map-view buttons in the plain view.
+- **A quiz anyone can fill in (v59):** every question and answer rewritten in short, plain words in all eight
+  languages. A new second question asks whether you want to stay in the country you live in; the results then open on
+  that country, with tabs for other countries and everywhere (no score changes). The job question lists 18 kinds of work,
+  from fast food, stores, trades, driving, cleaning, barbers and care work to offices, software and farm work, and money
+  left after rent is re-worked for typical pay in that work (US wage data, May 2025). The job-offer comparison is gone.
+  Adriano's take and old links are unchanged.
 - **Layout after the NYT "Where should you live" quiz (v52):** what matters to you sits beside the map and ranking (a
   sticky panel on wide screens, a bottom sheet behind a "Priorities" button on phones), one tap per factor: off, counts
   (weight 1), ★ counts double (2), read from and written to the same weights as the sliders, which stay under "Fine-tune".
