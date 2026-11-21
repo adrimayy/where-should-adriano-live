@@ -350,6 +350,14 @@ What the quiz does with that:
   and after. Closing returns to the same spot in the list. Until v64 a tap jumped to the map and the details sat
   below the whole ranking. The phone's Back button closes the details, and inside the quiz goes to the question
   before, instead of leaving the page (one history entry while either is open).
+- A place's details break the score into the page's eight groups of factors (v65): money, housing, jobs and
+  permits, climate and daylight, getting around, rights safety and healthcare, people and things to do, distance from
+  home. A group's line gives its share of this visitor's score (its weights over all the weights that count for the
+  place) and how the place does on it: the weighted mean of its factors on the 1-5 scale, which is the same sum the
+  score uses, so the groups add back to the score (`tests/test_place.py` checks this). The group that counts most comes
+  first. A tap opens the group's factors, each with its published figure, the source (linked), what the figure covers
+  (this city, its metro area, the whole country) and its year; a factor the page works out itself says how. Letter
+  grades and decimals of a point are left out: the data is not that exact.
 - The verdict colours are explained under the map in the plain view too.
 - A note before the first question: people tend to overweight weather and short visits and underweight commutes and
   friendships. An optional setting moves 30% of the climate and daylight weight to commute and making friends.
@@ -535,6 +543,40 @@ they miss differences between neighborhoods, workplaces and families. The politi
   Amsterdam, Reykjavík, Madrid, Valencia, Barcelona to Reykjavík, Amsterdam, Madrid, Utrecht, Rotterdam. Utrecht and
   Rotterdam rise because the Netherlands is 23rd of 31 for settling in, which is not in the bottom band, so they are no
   longer held back by the friends dealbreaker that Amsterdam, with its own city figure, never met.
+
+## Outside the page: photos, a real map, links (v65)
+
+None of this is scored. It is there so a person can look at a place the numbers point to.
+
+- **What is shown.** For a city: one photo, a map of the city and roughly an hour around it, and links. For a country:
+  a map fitted to its outline with the atlas's cities in it as dots, and links.
+- **Where it comes from.** Each city and country was matched to its Wikidata item by name and then checked against the
+  atlas's own coordinates (`pipeline/import_places.py`; {MATCHED} of {NCITIES} cities matched, all within 50 km, and the
+  report of odd matches was read by hand). From that item come the Wikipedia articles in the page's eight languages,
+  the city's subreddit where Wikidata records one, and one photo (Wikidata's "image" for the city, never its flag,
+  seal or locator map) with its author and licence from Wikimedia Commons. {PHOTOS} cities have a photo; the others had
+  none, or only one that was too small, a tall strip, or set aside when the photos were looked through
+  (`pipeline/input/photos_skipped.txt`). Collected {ASOF}.
+- **Links are exact or absent.** Google Maps opens on the place's own coordinates. Wikipedia opens the place's article,
+  in the page's language where one exists. A subreddit or a housing-listings page is shown only when that site itself
+  answered for that exact page when the data was collected; both Reddit and Zillow refuse automated checks from where
+  the data is built, so on {ASOF} neither has a button. `pipeline/import_places.py` records what it could and could not
+  check, and `pipeline/write_places.py` lets through only what was checked. Other countries' housing sites are not
+  covered. There are no search links.
+- **The real map** is drawn by MapLibre GL JS (version 5.24.1, the last that loads as a plain script) from OpenFreeMap's
+  tiles, which need no key. The world map of scores stays as it is: its job is colour by fit, and streets under it would
+  compete with that. The real map loads only when its box is about to scroll into view, does not take over the page's
+  scroll (the wheel and one finger scroll the page; two fingers and the buttons zoom), and takes itself away if the
+  library or the tiles do not arrive. Its credit is a line under the map, where it does not cover a map this small.
+- **Photos** load from Wikimedia Commons at a standard thumbnail width, with the author and licence under each as a
+  link to the file's page. A photo that fails to load takes its frame away. They sit below the page's own answer: a
+  skyline persuades more than it informs.
+- **Privacy.** The answers never leave the browser. Opening a place does ask other sites for things (the map library
+  from a CDN, tiles from OpenFreeMap, the photo from Wikimedia), so those sites can see which place was opened. The
+  page's first screen used to say "Nothing is sent anywhere"; it now says exactly what holds: the answers are not sent
+  anywhere. The block says where its pieces come from.
+- **Checked with the real network** by `tests/live_check.py`, which opens five places on a phone and a desktop and
+  saves what it sees. The other tests stub these sites.
 
 ## What couldn't be done, and why
 

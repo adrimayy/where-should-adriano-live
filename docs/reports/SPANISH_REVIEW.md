@@ -690,6 +690,15 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | marGdp | Wealth gap | Diferencia de riqueza | |
 | marPop | Size gap | Diferencia de tamaño | |
 | quantNote | Score, in fifths of all places: | Puntaje, en quintos de todos los lugares: | |
+| madeOf | What the score is made of | De qué está hecho el puntaje | |
+| gShare | {p}% of your score | {p} % de tu puntaje | |
+| seeT | See the place | Mira el lugar | |
+| lkMap | Open the map | Abrir el mapa | |
+| lkWiki | Read the article | Leer el artículo | |
+| lkReddit | What residents say | Lo que dicen quienes viven ahí | |
+| lkHomes | Homes for rent | Viviendas en renta | |
+| photo | Photo | Foto | |
+| mapAlt | Map of {p} and what is around it | Mapa de {p} y sus alrededores | |
 | probLine | Strong fit in {f} of recalculations · top 10 in {t} | Muy buena opción en {f} de los recálculos · top 10 en {t} | |
 | permRight | Legal right to work | Derecho legal a trabajar | |
 | permRoute | Route for a junior hire without that right | Vía para un recién egresado sin ese derecho | |

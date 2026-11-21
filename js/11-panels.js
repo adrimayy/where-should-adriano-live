@@ -152,19 +152,6 @@ const SRCMETA = {
   pwt: ['country', ''],
   wri: ['country', '2026'],
 };
-const UNITES = {
-  country: 'país',
-  city: 'ciudad',
-  metro: 'área metropolitana',
-  region: 'región',
-  'urban area': 'área urbana',
-  county: 'condado',
-  state: 'estado',
-  station: 'estación',
-  town: 'pueblo',
-  'city rent, national pay': 'renta de la ciudad, sueldo nacional',
-  'country (its cities)': 'país (sus ciudades)',
-};
 const barCol = v => (
   (v = Math.round(v)),
   v >= 4 ? '#2f9e5b' : v === 3 ? '#e9b02b' : v === 2 ? '#e57a3c' : '#cf3f3f'
@@ -233,7 +220,7 @@ function calcTable(e) {
               u = lb[2] && RAWU[lb[2]];
             const md = SRCMETA[key] || ['', ''],
               unit = natl ? 'country' : md[0],
-              ut = LANG === 'es' ? UNITES[unit] || unit : unit;
+              ut = L('units')[unit] || unit;
             return `<div>${u ? `<a href="${u}" target="_blank" rel="noopener">${lb[lang]}</a>` : lb[lang]}: <span class="mono">${r[1]}</span> → <b>${r[2]}</b>${r[3] != null && Math.abs(r[3] - r[2]) > 0.04 && useCont ? ` <span class="muted mono">(${r[3].toFixed(2)})</span>` : ''} <span class="muted">· ${ut}${md[1] ? ' · ' + md[1] : ''}</span></div>`;
           })
           .join('');
@@ -386,6 +373,345 @@ function factLines(e) {
     )
     .join('')}</ul>`;
 }
+// one factor's line: its name, a bar and its 1-5 value (or why it has none)
+function brow(e, f) {
+  const how = e.how[f.k];
+  if (how === 'imp') {
+    const m = e.v[f.k],
+      sd = e.sd[f.k];
+    return `<div class="brow"><span class="lbl">${FL(f.k)}${srcTag(e, f.k)}</span><span class="track"><span class="fill" style="width:${m * 20}%;background:${barCol(Math.round(m))};opacity:.55"></span></span><span class="v">≈${m.toFixed(1)}/5<span class="calc-only"> ±${sd.toFixed(1)}</span></span></div>`;
+  }
+  const v = e.sc[f.k];
+  if (v == null) {
+    const na = f.k === 'pol' && isoOf(e) !== 840;
+    return `<div class="brow" style="opacity:.6"><span class="lbl">${FL(f.k)}${na ? '' : srcTag(e, f.k)}</span><span class="track"></span><span class="v">${na ? L('notApplicable') : L('noData')}</span></div>`;
+  }
+  if (!(W[f.k] > 0) && (how === 'obs' || how === 'est')) {
+    return `<div class="brow" style="opacity:.45"><span class="lbl">${FL(f.k)}${srcTag(e, f.k)}</span><span class="track"><span class="fill" style="width:${v * 20}%;background:${barCol(v)}"></span></span><span class="v">${Math.round(v * 10) / 10}/5 · ${L('wOff')}</span></div>`;
+  }
+  const off = how !== 'obs' && how !== 'est';
+  return `<div class="brow${v <= 2 && !off ? ' weak' : ''}" style="${off ? 'opacity:.45' : ''}"><span class="lbl">${FL(f.k)}${srcTag(e, f.k)}</span><span class="track"><span class="fill" style="width:${v * 20}%;background:${barCol(v)}"></span></span><span class="v">${off ? L('notCounted') : Math.round(v * 10) / 10 + '/5'}</span></div>`;
+}
+// The published figure behind one factor for this place, in plain lines: the source (linked), the figure as published,
+// what it covers (this city, its metro area, the whole country) and its year. Factors the page works out itself say how.
+function figLines(e, k) {
+  const U = L('units'),
+    how = e.how[k],
+    out = [];
+  if (k === 'kin')
+    out.push(
+      e.kinWhy && e.kinWhy.length
+        ? fmt(L('kinSrc'), { x: e.kinWhy.map(n => dn(byIso[n] || { name: String(n) })).join(', ') })
+        : L('kinNone')
+    );
+  else if (k === 'day') {
+    if (e.hasGeo)
+      out.push(
+        fmt(L('calcDay'), {
+          h: Math.floor(e.dayH),
+          m: String(Math.round((e.dayH % 1) * 60)).padStart(2, '0'),
+        })
+      );
+  } else if (k === 'fam') {
+    if (e.flights && e.flights.length)
+      out.push(fmt(L('calcTrip'), { h: e.flights.map(x => Math.round(x)).join(' / ') }));
+  } else if (k === 'tz') {
+    if (e.gaps && e.gaps.length)
+      out.push(fmt(L('calcTz'), { h: e.gaps.map(x => +x.toFixed(1)).join(' / ') }));
+  } else if (k === 'sea') {
+    if (e.coast != null) out.push(fmt(L('calcSea'), { km: e.coast }));
+  } else if (k === 'perm' || k === 'lang') out.push(L('calcRule'));
+  else if (k === 'clim' && CLIMMODE !== 'mild') out.push(L('latitude'));
+  else if (!(k === 'pol' && isoOf(e) !== 840)) {
+    rawFor(e, k)
+      .concat(k === 'jobs' && FIELD === 'tech' && how !== 'est' ? rawFor(e, 'tech') : [])
+      .forEach(({ r, natl }) => {
+        const key = r[0].replace('*', ''),
+          lb = RAWL[key] || [key, key, null],
+          u = lb[2] && RAWU[lb[2]],
+          md = SRCMETA[key] || ['', ''],
+          unit = natl ? 'country' : md[0],
+          name = lb[LANG === 'es' ? 1 : 0];
+        out.push(
+          `${u ? `<a href="${u}" target="_blank" rel="noopener">${name}</a>` : name}: <span class="mono">${r[1]}</span><span class="muted">${unit ? ' · ' + (U[unit] || unit) : ''}${md[1] ? ' · ' + md[1] : ''}</span>`
+        );
+      });
+    if (how === 'imp') out.push(`<span class="muted">${L('figImp')}</span>`);
+    else if (how === 'est') out.push(`<span class="muted">${L('calcEst')}</span>`);
+  }
+  return out.length ? `<div class="gfig">${out.map(x => `<div>${x}</div>`).join('')}</div>` : '';
+}
+// ---- what the score is made of ----
+// The 26 factors under the page's eight groups, the group that counts most for this person first. A group is one
+// line: its name, how much of this person's score rests on it, and how the place does on it (the weighted mean of its
+// factors, the same sum the score uses). A tap opens the factors, each with the published figure behind it. A group
+// the person has opened stays open from place to place, so two places can be read side by side.
+function breakdown(e) {
+  const G = {};
+  let sw = 0;
+  FACTORS.forEach(f => {
+    const g = (G[GROUP[f.k]] = G[GROUP[f.k]] || { fs: [], w: 0, pts: 0 }),
+      on = e.v[f.k] != null && W[f.k] > 0;
+    g.fs.push(f);
+    if (on) {
+      g.w += W[f.k];
+      g.pts += (e.part && e.part[f.k]) || 0;
+      sw += W[f.k];
+    }
+  });
+  const order = GROUPS.filter(g => G[g]).sort((a, b) => G[b].w - G[a].w);
+  ui.gopen = ui.gopen || new Set();
+  return `<div class="grps"><span class="lab">${L('madeOf')}</span>${order
+    .map(g => {
+      const x = G[g],
+        share = sw ? x.w / sw : 0,
+        // points won out of the points this group could give, back on the page's 1-5 scale
+        v = x.w ? 1 + (4 * x.pts) / (share * 100) : null,
+        pc = Math.round(share * 100);
+      return `<details class="grp${x.w ? '' : ' off'}" data-g="${g}"${ui.gopen.has(g) ? ' open' : ''}><summary><span class="gname">${L('groups')[g]}<small>${x.w ? fmt(L('gShare'), { p: pc < 1 ? '<1' : pc }) : L('notCounted')}</small></span><span class="track">${v == null ? '' : `<span class="fill" style="width:${v * 20}%;background:${barCol(v)}"></span>`}</span><span class="v">${v == null ? '' : Math.round(v * 10) / 10 + '/5'}</span>${IC('chev', 18)}</summary><div class="gbody">${x.fs
+        .sort((a, b) => (W[b.k] || 0) - (W[a.k] || 0))
+        .map(f => brow(e, f) + figLines(e, f.k))
+        .join('')}</div></details>`;
+    })
+    .join('')}</div>`;
+}
+// ---- see the place: a photo, a real map, links out ----
+// Everything in this block comes from outside the page, so none of it is asked for until a place's details are open,
+// and each piece shows only when it has something exact to show. A link goes to this place's own page on the other
+// site or it is not there (data/places.js lists only pages that were checked); the photo and the map take themselves
+// away when they do not load. Nothing here is scored.
+let _plP = null,
+  _mlP = null,
+  _rmap = null;
+const placesData = () =>
+  (_plP =
+    _plP ||
+    (window.ATLAS_PLACES // the one-file copy carries it along
+      ? Promise.resolve(window.ATLAS_PLACES)
+      : loadScript('data/places.js').then(
+          () => window.ATLAS_PLACES || {},
+          () => ((_plP = null), {})
+        )));
+const escH = s => String(s).replace(/[&<>"']/g, c => '&#' + c.charCodeAt(0) + ';');
+const MAPLIB = [
+  'https://cdn.jsdelivr.net/npm/maplibre-gl@5.24.1/dist/maplibre-gl.js',
+  'https://unpkg.com/maplibre-gl@5.24.1/dist/maplibre-gl.js',
+];
+const TILESTYLE = 'https://tiles.openfreemap.org/styles/liberty';
+function mapLib() {
+  return (_mlP =
+    _mlP ||
+    (async () => {
+      for (const u of MAPLIB) {
+        const css = document.createElement('link');
+        css.rel = 'stylesheet';
+        css.href = u.replace(/\.js$/, '.css');
+        document.head.appendChild(css);
+        try {
+          await loadScript(u);
+          if (window.maplibregl) return window.maplibregl;
+        } catch (x) {}
+        css.remove();
+      }
+      _mlP = null; // a later place tries again: the connection may be back
+      throw new Error('no map library');
+    })());
+}
+// where a map of this place should look: a city and about an hour around it; a country's largest piece, edge to edge
+function geoView(e) {
+  if (e.type === 'city') return e.lat == null ? null : { lat: e.lat, lon: e.lon, zoom: 8 };
+  const f = (typeof features !== 'undefined' ? features : []).find(d => d._e === e);
+  if (!f) return null;
+  let big = f;
+  if (f.geometry.type === 'MultiPolygon') {
+    let ba = -1;
+    for (const c of f.geometry.coordinates) {
+      const p = { type: 'Feature', geometry: { type: 'Polygon', coordinates: c } },
+        a = d3.geoArea(p);
+      if (a > ba) ((ba = a), (big = p));
+    }
+  }
+  const [[w, s], [x, n]] = d3.geoBounds(big),
+    c = d3.geoCentroid(big),
+    span = Math.max(x >= w ? x - w : x + 360 - w, (n - s) * 1.7, 0.5);
+  return {
+    lat: c[1],
+    lon: c[0],
+    zoom: Math.max(2, Math.min(9, Math.floor(Math.log2(300 / span)))),
+    // across the date line a box would wrap the wrong way round: the centre and zoom do
+    box:
+      x >= w && n - s < 150
+        ? [
+            [w, s],
+            [x, n],
+          ]
+        : null,
+  };
+}
+function realMap(e, box) {
+  const v = geoView(e),
+    fig = box.parentNode; // the map and the line under it that says whose map it is
+  if (!v) return void (fig.hidden = true);
+  const start = () =>
+    mapLib()
+      .then(ml => {
+        if (!box.isConnected) return;
+        const touch = matchMedia('(pointer: coarse)').matches;
+        // the page keeps its own scroll: the wheel does not zoom and one finger does not drag; two fingers and the buttons do
+        const map = (_rmap = new ml.Map({
+          container: box,
+          style: TILESTYLE,
+          center: [v.lon, v.lat],
+          zoom: v.zoom,
+          attributionControl: false, // the credit is the line under the map: on a map this small the built-in one covers it
+          scrollZoom: false,
+          dragRotate: false,
+          pitchWithRotate: false,
+          touchPitch: false,
+          dragPan: !touch,
+        }));
+        if (map.touchZoomRotate) map.touchZoomRotate.disableRotation();
+        map.addControl(new ml.NavigationControl({ showCompass: false }), 'top-right');
+        if (v.box) map.fitBounds(v.box, { padding: 18, animate: false });
+        let drawn = false;
+        const quit = () => {
+          if (drawn) return;
+          try {
+            map.remove();
+          } catch (x) {}
+          if (_rmap === map) _rmap = null;
+          fig.hidden = true;
+        };
+        const t = setTimeout(quit, 12000);
+        map.on('error', quit); // before the first drawing, an error means the style or its tiles are not coming
+        map.on('load', () => {
+          drawn = true;
+          clearTimeout(t);
+          fig.classList.add('on');
+          if (e.type === 'city')
+            return void new ml.Marker({ color: '#0f766e' }).setLngLat([e.lon, e.lat]).addTo(map);
+          const cs = ents.filter(c => c.type === 'city' && c.iso === e.id && c.lat != null);
+          if (!cs.length) return;
+          map.addSource('pts', {
+            type: 'geojson',
+            data: {
+              type: 'FeatureCollection',
+              features: cs.map(c => ({
+                type: 'Feature',
+                properties: { key: c.key },
+                geometry: { type: 'Point', coordinates: [c.lon, c.lat] },
+              })),
+            },
+          });
+          map.addLayer({
+            id: 'pts',
+            type: 'circle',
+            source: 'pts',
+            paint: {
+              'circle-radius': 5,
+              'circle-color': '#0f766e',
+              'circle-stroke-color': '#fff',
+              'circle-stroke-width': 1.5,
+            },
+          });
+          map.on('click', 'pts', ev => openPlace(byKey[ev.features[0].properties.key]));
+          map.on('mouseenter', 'pts', () => (map.getCanvas().style.cursor = 'pointer'));
+          map.on('mouseleave', 'pts', () => (map.getCanvas().style.cursor = ''));
+        });
+      })
+      .catch(() => (fig.hidden = true));
+  // not before the box is about to be seen: someone who reads the verdict and goes back downloads nothing
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      es => {
+        if (es.some(x => x.isIntersecting)) {
+          io.disconnect();
+          start();
+        }
+      },
+      { rootMargin: '300px' }
+    );
+    io.observe(box);
+  } else start();
+}
+const outLink = (brand, label, url) =>
+  `<a href="${url}" target="_blank" rel="noopener"><small>${brand}</small><b>${label}</b></a>`;
+const commons = (file, w) =>
+  'https://commons.wikimedia.org/wiki/Special:FilePath/' + encodeURIComponent(file) + '?width=' + w;
+// The block is built once for a place and kept while the page redraws around it (a slider moved, the simulation done):
+// a map and a photo that reloaded on every redraw would flicker and download twice.
+function seePlace(e, slot) {
+  const old = $('detail')._see;
+  if (old && old.dataset.key === e.key && old.dataset.lang === LANG) {
+    slot.replaceWith(old);
+    if (_rmap) _rmap.resize();
+    return;
+  }
+  if (_rmap) {
+    try {
+      _rmap.remove();
+    } catch (x) {}
+    _rmap = null;
+  }
+  const v = geoView(e),
+    see = document.createElement('div');
+  see.className = 'see';
+  see.dataset.key = e.key;
+  see.dataset.lang = LANG;
+  see.innerHTML = `<span class="lab">${L('seeT')}</span><div class="seephoto"></div><figure class="mapfig"><div class="rmap" role="region" aria-label="${escH(fmt(L('mapAlt'), { p: dn(e) }))}"></div><figcaption><a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a> <a href="https://www.openmaptiles.org/" target="_blank" rel="noopener">© OpenMapTiles</a> Data from <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></figcaption></figure><div class="links">${
+    v
+      ? outLink(
+          'Google Maps',
+          L('lkMap'),
+          `https://www.google.com/maps/@?api=1&map_action=map&center=${(+v.lat).toFixed(4)},${(+v.lon).toFixed(4)}&zoom=${e.type === 'city' ? 11 : v.zoom + 1}`
+        )
+      : ''
+  }</div><p class="meta seenote">${L('seeNote')}</p>`;
+  slot.replaceWith(see);
+  $('detail')._see = see;
+  realMap(e, see.querySelector('.rmap'));
+  placesData().then(P => {
+    if (!see.isConnected && $('detail')._see !== see) return;
+    const d = e.type === 'city' ? (P.c || {})[e.name] : (P.n || {})[e.id];
+    if (!d) return;
+    const [, en, alt, sub, home, img, by, lic] = d,
+      links = see.querySelector('.links');
+    if (en) {
+      // the article in the page's language where there is one, else the English one
+      const t = alt && alt[LANG] != null ? alt[LANG] || en : null,
+        lang = LANG !== 'en' && t ? LANG : 'en';
+      links.insertAdjacentHTML(
+        'beforeend',
+        outLink(
+          'Wikipedia',
+          L('lkWiki'),
+          `https://${lang}.wikipedia.org/wiki/${encodeURIComponent((lang === 'en' ? en : t).replace(/ /g, '_'))}`
+        )
+      );
+    }
+    if (sub)
+      links.insertAdjacentHTML(
+        'beforeend',
+        outLink(
+          'Reddit · r/' + escH(sub),
+          L('lkReddit'),
+          `https://www.reddit.com/r/${encodeURIComponent(sub)}/`
+        )
+      );
+    if (home)
+      links.insertAdjacentHTML(
+        'beforeend',
+        outLink('Zillow', L('lkHomes'), `https://www.zillow.com/${home}/rentals/`)
+      );
+    if (img) {
+      const fig = document.createElement('figure');
+      fig.className = 'photo';
+      fig.innerHTML = `<img alt="${escH(dn(e))}" loading="lazy" decoding="async" src="${commons(img, 500)}" srcset="${commons(img, 500)} 500w, ${commons(img, 960)} 960w" sizes="(max-width: 700px) 100vw, 440px"><figcaption><a href="https://commons.wikimedia.org/wiki/File:${encodeURIComponent(img)}" target="_blank" rel="noopener">${L('photo')}: ${by ? escH(by) + ' · ' : ''}${escH(lic || '')} · Wikimedia Commons</a></figcaption>`;
+      fig.querySelector('img').onerror = () => fig.remove();
+      see.querySelector('.seephoto').appendChild(fig);
+    }
+  });
+}
 // A place's details take the list's place in its column (openPlace) and give it back (closePlace): the person never
 // leaves where they were. Until a place is opened the panel stays empty and out of the way.
 function detail(e) {
@@ -395,6 +721,14 @@ function detail(e) {
   $('listPane').hidden = on;
   if (!on) {
     D.innerHTML = '';
+    // the real map holds a drawing surface: give it back when the details close
+    if (_rmap) {
+      try {
+        _rmap.remove();
+      } catch (x) {}
+      _rmap = null;
+    }
+    D._see = null;
     return;
   }
   const drag = e.lim === 'none' ? L('noDrag') : fmt(L('drag'), { x: low(FD(e.lim)) });
@@ -430,25 +764,9 @@ function detail(e) {
         }${e.geoApprox ? L('fromCenter') : ''}</p>`
       : ''
   }
-  <div class="bars">${FACTORS.map(f => {
-    const how = e.how[f.k];
-    if (how === 'imp') {
-      const m = e.v[f.k],
-        sd = e.sd[f.k];
-      return `<div class="brow"><span class="lbl">${FL(f.k)}${srcTag(e, f.k)}</span><span class="track"><span class="fill" style="width:${m * 20}%;background:${barCol(Math.round(m))};opacity:.55"></span></span><span class="v">≈${m.toFixed(1)}/5<span class="calc-only"> ±${sd.toFixed(1)}</span></span></div>`;
-    }
-    const v = e.sc[f.k];
-    if (v == null) {
-      const na = f.k === 'pol' && isoOf(e) !== 840;
-      return `<div class="brow" style="opacity:.6"><span class="lbl">${FL(f.k)}${na ? '' : srcTag(e, f.k)}</span><span class="track"></span><span class="v">${na ? L('notApplicable') : L('noData')}</span></div>`;
-    }
-    if (!(W[f.k] > 0) && (how === 'obs' || how === 'est')) {
-      return `<div class="brow" style="opacity:.45"><span class="lbl">${FL(f.k)}${srcTag(e, f.k)}</span><span class="track"><span class="fill" style="width:${v * 20}%;background:${barCol(v)}"></span></span><span class="v">${Math.round(v * 10) / 10}/5 · ${L('wOff')}</span></div>`;
-    }
-    const off = how !== 'obs' && how !== 'est';
-    return `<div class="brow${v <= 2 && !off ? ' weak' : ''}" style="${off ? 'opacity:.45' : ''}"><span class="lbl">${FL(f.k)}${srcTag(e, f.k)}</span><span class="track"><span class="fill" style="width:${v * 20}%;background:${barCol(v)}"></span></span><span class="v">${off ? L('notCounted') : Math.round(v * 10) / 10 + '/5'}</span></div>`;
-  }).join('')}</div>
+  ${breakdown(e)}
   ${HOMES.length && e.hasGeo ? `<div class="field"><span class="lab">${L('tripTitle')}</span><div class="toggles">${HOMES.map((h, i) => (h === e ? '' : `<label class="meta" style="display:flex;gap:6px;align-items:center">${dn(h)} <input type="number" min="0" max="60" step="0.5" data-h="${h.key}" value="${TRIPS[e.key + '|' + h.key] || ''}" placeholder="${Math.round(e.flights[i])}" style="width:70px;font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--fg)"> h</label>`)).join('')}</div><p class="meta">${L('tripNote')}</p></div>` : ''}
+  <div id="seeSlot"></div>
   <div class="calc-only">${calcTable(e)}
   <p class="meta">${fmt(L('backed'), { b: e.backed, k: e.known })}</p></div>
   ${RACED[isoOf(e)] ? `<p class="meta">${fmt(L('raceInfo'), { r: RACED[isoOf(e)][0], i: RACED[isoOf(e)][1] })} <a href="${RAWU.wvsrace}" target="_blank" rel="noopener">KCL / WVS</a></p>` : ''}
@@ -460,8 +778,12 @@ function detail(e) {
     .map(q => `<li>${q}</li>`)
     .join('')}</ol></details>
   ${passSpec(PERMMODE).includes(840) && isoOf(e) !== 840 ? `<p class="meta">${L('taxNote')} <a href="https://www.irs.gov/individuals/international-taxpayers/us-citizens-and-resident-aliens-abroad" target="_blank" rel="noopener">IRS</a></p>` : ''}`;
+  seePlace(e, $('seeSlot'));
   $('cmpBtn').onclick = () => toggleCmp(e);
   $('dBack').onclick = () => closePlace();
+  D.querySelectorAll('details.grp').forEach(
+    d => (d.ontoggle = () => ui.gopen[d.open ? 'add' : 'delete'](d.dataset.g))
+  );
   D.querySelectorAll('.dstep[data-go]').forEach(
     b => (b.onclick = () => b.dataset.go && openPlace(byKey[b.dataset.go]))
   );

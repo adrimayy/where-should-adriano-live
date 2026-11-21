@@ -33,7 +33,8 @@ document.addEventListener('keydown', ev => {
     ev.altKey ||
     ev.ctrlKey ||
     ev.metaKey ||
-    /^(INPUT|SELECT|TEXTAREA)$/.test(ev.target.tagName)
+    /^(INPUT|SELECT|TEXTAREA)$/.test(ev.target.tagName) ||
+    (ev.target.closest && ev.target.closest('.rmap')) // inside the real map the arrows move the map
   )
     return;
   if (ev.key === 'Escape') return closePlace();
