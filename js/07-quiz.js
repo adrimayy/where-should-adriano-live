@@ -19,34 +19,8 @@ const homeIso = () => {
   const e = HOMEKEYS.map(k => byKey[k]).find(Boolean);
   return e ? +isoOf(e) : null;
 };
-// ---- kinds of work ----
-// [id, how the job market is judged (see fieldJobs), typical pay a year in US dollars]. Pay is the annual mean wage of the
-// occupation group in the US Bureau of Labor Statistics' Occupational Employment and Wage Statistics, May 2025
-// (released 15 May 2026; all occupations: $69,770). Only the ratio to the all-occupations mean is used (PAYLVL).
-const ALLPAY = 69770;
-const JOBS = [
-  ['food', 'general', 37150], // food preparation and serving related
-  ['store', 'general', 37310], // retail salespersons
-  ['trades', 'general', 64370], // construction and extraction + installation, maintenance and repair, weighted by employment
-  ['drive', 'general', 49850], // transportation and material moving
-  ['factory', 'general', 51600], // production
-  ['clean', 'general', 40880], // building and grounds cleaning and maintenance
-  ['beauty', 'general', 41070], // personal care and service
-  ['care', 'general', 40800], // healthcare support
-  ['medical', 'health', 108700], // healthcare practitioners and technical
-  ['teach', 'general', 67540], // educational instruction and library
-  ['office', 'general', 51560], // office and administrative support
-  ['tech', 'tech', 115680], // computer and mathematical + architecture and engineering, weighted by employment
-  ['biz', 'finance', 95230], // business and financial operations
-  ['art', 'creative', 79790], // arts, design, entertainment, sports and media
-  ['sci', 'academia', 94600], // life, physical and social science
-  ['farm', 'general', 41510], // farming, fishing and forestry
-  ['guard', 'general', 60720], // protective service
-  ['other', 'general', ALLPAY],
-];
-// the job question before the list above (answers saved up to v58)
+// the job question before the list of kinds of work (JOBS; answers saved up to v58)
 const OLD_FIELDS = ['tech', 'finance', 'health', 'creative', 'academia', 'general', 'remote'];
-const jobShare = a => (typeof a.job === 'number' && JOBS[a.job] ? JOBS[a.job][2] / ALLPAY : 1);
 // "what would you miss most": each area of life covers one or two factors. Marked "most" (2), its follow-up is asked in
 // the short quiz; marked "could live without" (1), it gets a low weight and its follow-up is never asked.
 const TOP = {
@@ -107,8 +81,7 @@ const QUIZ = [
     w: [{ perm: 1 }, { perm: 1 }, { perm: 1 }, { perm: 1 }, { perm: 0 }],
     mk: 'perm',
     m: ['usmx', 'us', 'mx', 'eu', 'usmx'],
-    // staying in the country you live in: the right to work there is taken as given (modesFromQuiz), so it can wait
-    core: () => ANS.scope !== 0,
+    core: true,
   },
   {
     id: 'lang',
@@ -224,7 +197,8 @@ function pickerW(q, v) {
   if (q.picker === 'where') return {};
   if (q.picker === 'top') return topW(v);
   if (q.picker === 'lang') return { lang: v.learn ? 0.25 : 1.25 };
-  return { perm: v.ignore || !(v.sel || []).length ? 0 : 1 };
+  // no passport named and no country to work in: work permits are left out, not guessed
+  return { perm: v.ignore || (!(v.sel || []).length && !v.here) ? 0 : 1 };
 }
 function pickerMode(q, v) {
   if (q.picker === 'lang') return langCode(v.sel || {});
@@ -268,7 +242,7 @@ function modesFromQuiz(a) {
     work: 'unknown',
     who: 'solo',
     scope: 'any',
-    payr: 1,
+    job: -1,
   };
   QUIZ.forEach(q => {
     if (q.mk && q.picker && picked(a[q.id])) o[q.mk] = pickerMode(q, a[q.id]);
@@ -276,17 +250,17 @@ function modesFromQuiz(a) {
   });
   if (typeof a.job === 'number' && JOBS[a.job]) {
     o.field = JOBS[a.job][1];
-    o.payr = jobShare(a);
+    o.job = a.job;
   } else if (typeof a.field === 'number' && OLD_FIELDS[a.field]) o.field = OLD_FIELDS[a.field];
   // pay that comes from elsewhere (remote work, a pension, a student budget): what counts is what things cost there
   if (['remote', 'retired', 'student'].includes(o.work)) {
     o.field = 'remote';
-    o.payr = 1;
+    o.job = -1;
   }
-  // staying where you live now and no passport named: you are taken to be allowed to work there
-  if (o.scope === 'stay' && !picked(a.perm)) {
+  // "I am allowed to work in the country where I live now", ticked on the passport question
+  if (picked(a.perm) && a.perm.here) {
     const h = ((picked(a.where) && a.where.keys) || []).map(k => byKey[k]).find(Boolean);
-    if (h) o.perm = passCode([+isoOf(h)]);
+    if (h) o.perm = passCode(a.perm.sel || [], [+isoOf(h)]);
   }
   return o;
 }
@@ -323,9 +297,12 @@ function pickerBody(q) {
     return `<div class="qtitle">${title}</div><p class="meta qsub">${L('langHint')}</p><div class="chips">${LANG_PICK.map(k => `<button class="lchip lv${lv(k)}" data-l="${k}" aria-pressed="${lv(k) > 0}" title="${lv(k) ? L(lab[lv(k)]) : ''}"><span lang="${k}">${LANG_NATIVE[k]}</span>${lv(k) === 1 ? `<small>${L('langSome')}</small>` : ''}</button>`).join('')}</div>
       <label class="check"><input type="checkbox" id="qLearn" ${v.learn ? 'checked' : ''}> ${L('langLearn')}</label>`;
   }
+  const hc = homeIso() != null ? byIso[homeIso()] : null,
+    quick = hc && !(v.sel || []).includes(+hc.id);
   return `<div class="qtitle">${title}</div><p class="meta qsub">${L('passHint')}</p>
-    <div class="chips">${(v.sel || []).map(n => `<button class="lchip lv2" data-p="${n}" aria-label="${L('remove')} ${dn(byIso[n] || { a2: '', name: n })}">${dn(byIso[n] || { a2: '', name: String(n) })} <span aria-hidden="true">×</span></button>`).join('')}</div>
+    <div class="chips">${(v.sel || []).map(n => `<button class="lchip lv2" data-p="${n}" aria-label="${L('remove')} ${dn(byIso[n] || { a2: '', name: n })}">${dn(byIso[n] || { a2: '', name: String(n) })} <span aria-hidden="true">×</span></button>`).join('')}${quick ? `<button class="lchip padd" data-padd="${hc.id}">+ ${dn(hc)}</button>` : ''}</div>
     <div class="field"><span class="lab">${L('passAdd')}</span>${homeSelect('qPass', '', 'country', L('passAddBtn'))}</div>
+    ${quick ? `<label class="check"><input type="checkbox" id="qHere" ${v.here ? 'checked' : ''}> ${fmt(L('passHere'), { c: dn(hc) })}</label>` : ''}
     <label class="check"><input type="checkbox" id="qIgnore" ${v.ignore ? 'checked' : ''}> ${L('passIgnore')}</label>`;
 }
 function wirePicker(q) {
@@ -370,6 +347,19 @@ function wirePicker(q) {
       if (n && !v.sel.includes(n)) v.sel.push(n);
       renderQuiz();
     };
+  Q.querySelectorAll('[data-padd]').forEach(
+    b =>
+      (b.onclick = () => {
+        const n = +b.dataset.padd;
+        if (n && !v.sel.includes(n)) v.sel.push(n);
+        v.here = false; // the passport says it
+        renderQuiz();
+      })
+  );
+  if ($('qHere'))
+    $('qHere').onchange = e => {
+      v.here = e.target.checked;
+    };
   if ($('qLearn'))
     $('qLearn').onchange = e => {
       v.learn = e.target.checked;
@@ -399,8 +389,7 @@ function qExample(k) {
   if (ref && sc(ref) == null && ref.type === 'city') ref = byIso[isoOf(ref)];
   const x = sc(ref);
   if (x == null) return '';
-  const rg = DATA.region || {},
-    reg = rg[isoOf(ref)];
+  const reg = REG[+isoOf(ref)];
   if (!reg) return '';
   // ties go to a place people know: for cities the bigger metro (things happening is metro size), for countries the one
   // with the most cities on the map
@@ -409,7 +398,7 @@ function qExample(k) {
   const known = e => (e.type === 'city' ? e.sc.cult || 0 : nCities[isoOf(e)] || 0);
   let best = null;
   for (const e of ents) {
-    if (e === ref || e.type !== ref.type || !listable(e) || rg[isoOf(e)] !== reg || sc(e) == null) continue;
+    if (e === ref || e.type !== ref.type || !listable(e) || REG[+isoOf(e)] !== reg || sc(e) == null) continue;
     if (!best || sc(e) > sc(best) || (sc(e) === sc(best) && known(e) > known(best))) best = e;
   }
   if (!best || sc(best) <= x) return fmt(L('qCmpTop'), { a: dn(ref), x });
@@ -520,9 +509,12 @@ function qSwing(k) {
   if (!S) return '';
   const usd = v => (v < 0 ? '−$' : '$') + nfmt(Math.abs(v));
   // money left after rent on typical pay for the person's kind of work (rounded to $10), where pay and rent are both known
-  const r = jobShare(ANS);
-  if (k === 'pay' && r !== 1) {
-    const val = e => (MONEYD[e.name] ? Math.round(moneyLeftAt(e, r) / 10) * 10 : null),
+  const jb = typeof ANS.job === 'number' ? ANS.job : -1;
+  if (k === 'pay' && JOBS[jb] && JOBS[jb][3]) {
+    const val = e => {
+      const sh = MONEYD[e.name] ? jobShare(e, jb) : null;
+      return sh ? Math.round(moneyLeftAt(e, sh.r) / 10) * 10 : null;
+    },
       pr = swingPair(refCity && val(refCity) != null ? refCity : null, 'city', val, 0);
     if (pr) return line('swPayJob', pr[0], pr[1], usd(val(pr[0])), usd(val(pr[1])));
   }
@@ -921,7 +913,7 @@ function applyQuizAnswers() {
   LANGMODE = md.lang;
   PERMMODE = md.perm;
   FIELD = md.field;
-  PAYLVL = md.payr;
+  PAYJOB = md.job;
   ui.scope = { stay: 'home', go: 'away' }[md.scope] || 'all';
   CLIMMODE = md.clim;
   POLMODE = md.pol;

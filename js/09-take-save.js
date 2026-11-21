@@ -10,7 +10,7 @@ function takeState() {
     pm: PERMMODE,
     pl: POLMODE,
     fd: FIELD,
-    py: PAYLVL,
+    jb: PAYJOB,
     cm: CLIMMODE,
     g: gate ? 1 : 0,
     o: gateOpen ? 1 : 0,
@@ -66,7 +66,6 @@ function loadTake(o) {
   PERMMODE = o.pm || 'us';
   POLMODE = o.pl || 'd';
   FIELD = o.fd || 'general';
-  PAYLVL = o.py > 0 ? +o.py : 1;
   CLIMMODE = o.cm || 'mild';
   gate = o.g !== 0;
   gateOpen = o.o !== 0;
@@ -78,6 +77,8 @@ function loadTake(o) {
   useImp = o.m !== 0;
   TRIPS = o.tr || {};
   ANS = o.a || {};
+  // the kind of work comes from the take; a take saved by v59 (which stored a pay level) has it in its quiz answers
+  PAYJOB = Number.isInteger(o.jb) && JOBS[o.jb] ? o.jb : o.py > 0 ? modesFromQuiz(ANS).job : -1;
   REACH = o.rc === 1;
   AGG = o.ag === 'geo' ? 'geo' : 'mean';
   QUIZW = Object.keys(ANS).length ? weightsFromQuiz(ANS) : null;

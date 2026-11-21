@@ -41,6 +41,9 @@ missing = [n for n in names if n not in GEO]
 assert not missing, f'no clock/coast figures (run pipeline/import_geo.py): {missing}'
 D['geo'] = {n: list(GEO[n]) for n in names}           # per city: UTC offset (standard time), km to the sea or a great lake
 D['a3'] = json.load(open(INPUT / 'a3.json'))          # three-letter -> number country codes, for the map outlines
+from sources import job_pay
+from sources.more_cities import CBSA
+D['jobpay'] = job_pay.tables(D['a3'], names, CBSA, {int(k): v[0] for k, v in D['countries'].items()}, {int(k): v for k, v in D['region'].items()})    # what each kind of work pays next to average pay: by country (ILOSTAT), by US metro (BLS)
 D['built'] = datetime.date.today().isoformat()
 D['lakes'] = json.load(open(INPUT / 'lakes_110m.json', encoding='utf8'))   # big lakes as water: the country outlines count them as land
 

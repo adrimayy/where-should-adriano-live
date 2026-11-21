@@ -69,6 +69,12 @@ How the method changed, and what it did to the top of Adriano's list.
   from fast food, stores, trades, driving, cleaning, barbers and care work to offices, software and farm work, and money
   left after rent is re-worked for typical pay in that work (US wage data, May 2025). The job-offer comparison is gone.
   Adriano's take and old links are unchanged.
+- **Nothing assumed (v60):** v59 used US pay ratios for every country and took anyone staying put to be allowed to work
+  there. Now what a kind of work pays comes from each place's own figures: BLS metro-area wages for 109 US metros,
+  ILOSTAT earnings by occupation for 110 countries, and a labelled estimate from nine similar countries for the 64 without
+  a table. The right to work is asked on the passport question (a one-tap suggestion and a switch), not assumed. Places
+  with no pay and rent figures of their own now move with their country instead of standing still. Also fixed: 20
+  countries with zero-padded codes never counted as "same region".
 - **Layout after the NYT "Where should you live" quiz (v52):** what matters to you sits beside the map and ranking (a
   sticky panel on wide screens, a bottom sheet behind a "Priorities" button on phones), one tap per factor: off, counts
   (weight 1), ★ counts double (2), read from and written to the same weights as the sliders, which stay under "Fine-tune".
