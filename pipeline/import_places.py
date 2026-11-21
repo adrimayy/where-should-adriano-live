@@ -79,10 +79,12 @@ STATE_NAME = dict(AL='Alabama', AK='Alaska', AZ='Arizona', AR='Arkansas', CA='Ca
                   UT='Utah', VT='Vermont', VA='Virginia', WA='Washington', WV='West Virginia', WI='Wisconsin', WY='Wyoming')
 # the atlas's short name -> the name to look up, where they differ
 ALIAS = {'Washington DC': 'Washington, D.C.', 'New York City': 'New York City'}
-# a description that opens by calling the item something around or inside the city, not the city ("county in California",
-# "international airport in Oman"). Only the opening counts: "city in Kyoto Prefecture" is the city.
-NOT_CITY = re.compile(r'^(?:the\s+)?(?:[\w-]+\s+){0,2}(province|county|region|prefecture|oblast|governorate|department|voivodeship|'
-                      r'canton|emirate|airport|university|college|station|stadium|district|zone|metropolitan area|urban area|state)\b', re.I)
+# a description whose first word says the item is an area or an institution with the city's name, not the city
+# ("county in California", "province of Thailand", "state of Mexico"). Only that opening: "county seat of Monroe
+# County", "prefecture-level city in Jiangsu" and "federated state, capital and largest city of Germany" are cities.
+NOT_CITY = re.compile(r'^(?:the\s+)?(province|county|region|prefecture|oblast|governorate|department|voivodeship|canton|emirate|'
+                      r'airport|university|college|station|stadium|district|zone|state|museum|neighbou?rhood|suburb)'
+                      r'\s+(?:of|in|on|at|and|for|within)\b', re.I)
 
 
 def fold(s):
@@ -256,11 +258,12 @@ def main():
     cache.write_text(json.dumps(dict(cand=cand, facts={k: [v[0], v[1], v[2], sorted(v[3])] for k, v in F.items()}), ensure_ascii=False), encoding='utf8')
 
     def choose(name, lat, lon, hits):
-        # Of the items with this name within 50 km of the atlas's point, the city is nearly always the one with exactly
-        # this name that at least five Wikipedias write about and whose description does not open as a province, a
-        # county or an airport. Failing that: one near the point that reads like a place (a state's or a county's
-        # middle is far from its main city), then the exact name, then the one more Wikipedias write about.
+        # Of the items with this name within 50 km of the atlas's point, the city is the one with exactly this name
+        # that at least five Wikipedias write about, is not a country, and is not described as a province, county or
+        # campus; of several, the one most Wikipedias write about. Where no item has exactly the name (the atlas
+        # says Puebla, Wikidata says Heroica Puebla de Zaragoza), the most written-about place within 15 km.
         want, ok = fold(clean(name)), []
+        state = STATE_NAME.get(STATES.get(name, ''), '\0')   # Texarkana is two cities; the atlas means the one in its state
         for rank, (q, label, desc) in enumerate(hits):
             f = F.get(q)
             if not f or f[0] is None:
@@ -269,8 +272,8 @@ def main():
             if d <= 50:
                 exact, known = fold(label) == want, f[2] >= 5
                 place = q in cqids or not NOT_CITY.search(desc)
-                ok.append((q, d, f[2], rank, (exact and known and place and q not in cqids, d <= 15 and known and place,
-                                              exact and known, f[2]), exact, q not in cqids))
+                ok.append((q, d, f[2], rank, (exact and known and place and q not in cqids, exact and known and place,
+                                              d <= 15 and known and place and q not in cqids, state in desc, f[2]), exact, q not in cqids))
         if not ok:
             return None
         return max(ok, key=lambda x: x[4]), ok

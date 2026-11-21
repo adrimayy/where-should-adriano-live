@@ -7,6 +7,8 @@ Hand-curated inputs to `build.py`. The page never reads these; it reads `data/at
 | `base.json` | The original curated data: every country and the first 108 cities, with notes in English and Spanish, coordinates, and hand estimates for fields of work. Published numbers are applied on top of it by `pipeline/score_published.py`. |
 | `cities_added.json` | Cities added later, one row each (format below). |
 | `a3.json` | Maps three-letter country codes to number codes, so the world map outlines line up with the data. |
+| `places.json` | For every city and country: its Wikidata item, Wikipedia articles, subreddit, and a photo with its author and licence. Collected by `pipeline/import_places.py`; `pipeline/write_places.py` turns it into `data/places.js`. Not scored. |
+| `photos_skipped.txt` | Cities whose photo was set aside by hand when the photos were looked through, one per line with the reason. |
 
 ## Adding a city
 
