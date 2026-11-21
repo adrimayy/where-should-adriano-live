@@ -185,8 +185,8 @@ function calcTable(e) {
             : L('kinNone'));
       if (k === 'day' && e.hasGeo)
         src = fmt(L('calcDay'), {
-          h: Math.floor(e.dayH),
-          m: String(Math.round((e.dayH % 1) * 60)).padStart(2, '0'),
+          h: hmOf(e.dayH)[0],
+          m: hmOf(e.dayH)[1],
         });
       else if (k === 'fam' && e.flights && e.flights.length)
         src = fmt(L('calcTrip'), { h: e.flights.map(x => Math.round(x)).join(' / ') });
@@ -408,8 +408,8 @@ function figLines(e, k) {
     if (e.hasGeo)
       out.push(
         fmt(L('calcDay'), {
-          h: Math.floor(e.dayH),
-          m: String(Math.round((e.dayH % 1) * 60)).padStart(2, '0'),
+          h: hmOf(e.dayH)[0],
+          m: hmOf(e.dayH)[1],
         })
       );
   } else if (k === 'fam') {
@@ -556,23 +556,66 @@ function realMap(e, box) {
     mapLib()
       .then(ml => {
         if (!box.isConnected) return;
-        const touch = matchMedia('(pointer: coarse)').matches;
-        // the page keeps its own scroll: the wheel does not zoom and one finger does not drag; two fingers and the buttons do
+        // The same rules as the page's own map, with the same hint when they are needed: one finger scrolls the page
+        // and two fingers move and pinch the map; the wheel scrolls the page and Ctrl or ⌘ + wheel zooms. A double tap
+        // zooms in. Full screen is the map's alone, so there one finger moves it.
         const map = (_rmap = new ml.Map({
           container: box,
           style: TILESTYLE,
           center: [v.lon, v.lat],
           zoom: v.zoom,
           attributionControl: false, // the credit is the line under the map: on a map this small the built-in one covers it
-          scrollZoom: false,
+          cooperativeGestures: true,
+          locale: {
+            'CooperativeGesturesHandler.MobileHelpText': L('hintTouch'),
+            'CooperativeGesturesHandler.WindowsHelpText': L('hintMouse'),
+            'CooperativeGesturesHandler.MacHelpText': L('hintMouse'),
+          },
           dragRotate: false,
           pitchWithRotate: false,
           touchPitch: false,
-          dragPan: !touch,
         }));
         if (map.touchZoomRotate) map.touchZoomRotate.disableRotation();
         map.addControl(new ml.NavigationControl({ showCompass: false }), 'top-right');
         if (v.box) map.fitBounds(v.box, { padding: 18, animate: false });
+        const home = () =>
+          v.box
+            ? map.fitBounds(v.box, { padding: 18 })
+            : map.easeTo({ center: [v.lon, v.lat], zoom: v.zoom });
+        const btn = (icon, label, fn) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.innerHTML = IC(icon, 18, 2);
+          b.title = label;
+          b.setAttribute('aria-label', label);
+          b.onclick = fn;
+          return b;
+        };
+        const onKey = ev => ev.key === 'Escape' && (ev.stopPropagation(), full(false));
+        const full = on => {
+          fig.classList.toggle('full', on);
+          document.body.classList.toggle('map-full', on);
+          if (map.cooperativeGestures) map.cooperativeGestures[on ? 'disable' : 'enable']();
+          fb.innerHTML = IC(on ? 'shrink' : 'expand', 18, 2);
+          fb.title = L(on ? 'mapSmall' : 'mapFull');
+          fb.setAttribute('aria-label', fb.title);
+          document[on ? 'addEventListener' : 'removeEventListener']('keydown', onKey, true);
+          map.resize();
+        };
+        const fb = btn('expand', L('mapFull'), () => full(!fig.classList.contains('full')));
+        map._leaveFull = () => full(false);
+        map.addControl(
+          {
+            onAdd() {
+              const d = document.createElement('div');
+              d.className = 'maplibregl-ctrl maplibregl-ctrl-group rmctl';
+              d.append(btn('reset', fmt(L('mapBack'), { p: dn(e) }), home), fb);
+              return d;
+            },
+            onRemove() {},
+          },
+          'top-right'
+        );
         let drawn = false;
         const quit = () => {
           if (drawn) return;
@@ -636,6 +679,13 @@ function realMap(e, box) {
 }
 const outLink = (brand, label, url) =>
   `<a href="${url}" target="_blank" rel="noopener"><small>${brand}</small><b>${label}</b></a>`;
+// a Creative Commons licence's own page, from its short name ("CC BY-SA 4.0", "CC BY 2.0 de", "CC0")
+function licenceUrl(lic) {
+  const m = /^CC[ -](BY(?:-(?:SA|ND|NC|NC-SA|NC-ND))?)[ -](\d\.\d)(?: ([a-z]{2}))?$/i.exec(lic || '');
+  if (m)
+    return `https://creativecommons.org/licenses/${m[1].toLowerCase()}/${m[2]}/${m[3] ? m[3].toLowerCase() + '/' : ''}`;
+  return /^CC0/i.test(lic || '') ? 'https://creativecommons.org/publicdomain/zero/1.0/' : '';
+}
 const commons = (file, w) =>
   'https://commons.wikimedia.org/wiki/Special:FilePath/' + encodeURIComponent(file) + '?width=' + w;
 // The block is built once for a place and kept while the page redraws around it (a slider moved, the simulation done):
@@ -649,6 +699,7 @@ function seePlace(e, slot) {
   }
   if (_rmap) {
     try {
+      if (_rmap._leaveFull) _rmap._leaveFull();
       _rmap.remove();
     } catch (x) {}
     _rmap = null;
@@ -676,19 +727,13 @@ function seePlace(e, slot) {
     if (!d) return;
     const [, en, alt, sub, home, img, by, lic] = d,
       links = see.querySelector('.links');
-    if (en) {
-      // the article in the page's language where there is one, else the English one
-      const t = alt && alt[LANG] != null ? alt[LANG] || en : null,
-        lang = LANG !== 'en' && t ? LANG : 'en';
-      links.insertAdjacentHTML(
-        'beforeend',
-        outLink(
-          'Wikipedia',
-          L('lkWiki'),
-          `https://${lang}.wikipedia.org/wiki/${encodeURIComponent((lang === 'en' ? en : t).replace(/ /g, '_'))}`
-        )
-      );
-    }
+    // the article in the page's language where there is one, else the English one
+    const t = alt && alt[LANG] != null ? alt[LANG] || en : null,
+      lang = LANG !== 'en' && t ? LANG : 'en',
+      wiki = en
+        ? `https://${lang}.wikipedia.org/wiki/${encodeURIComponent((lang === 'en' ? en : t).replace(/ /g, '_'))}`
+        : '';
+    if (wiki) links.insertAdjacentHTML('beforeend', outLink('Wikipedia', L('lkWiki'), wiki));
     if (sub)
       links.insertAdjacentHTML(
         'beforeend',
@@ -704,9 +749,18 @@ function seePlace(e, slot) {
         outLink('Zillow', L('lkHomes'), `https://www.zillow.com/${home}/rentals/`)
       );
     if (img) {
-      const fig = document.createElement('figure');
+      // The photo is the way into the article. The line under it is the credit: who made it, under which licence
+      // (linked where the licence has a page of its own), and its page on Wikimedia Commons, where both are set out.
+      const fig = document.createElement('figure'),
+        file = `https://commons.wikimedia.org/wiki/File:${encodeURIComponent(img)}`,
+        deed = licenceUrl(lic),
+        pic = `<img alt="${escH(dn(e))}" loading="lazy" decoding="async" src="${commons(img, 500)}" srcset="${commons(img, 500)} 500w, ${commons(img, 960)} 960w" sizes="(max-width: 700px) 100vw, 440px">`;
       fig.className = 'photo';
-      fig.innerHTML = `<img alt="${escH(dn(e))}" loading="lazy" decoding="async" src="${commons(img, 500)}" srcset="${commons(img, 500)} 500w, ${commons(img, 960)} 960w" sizes="(max-width: 700px) 100vw, 440px"><figcaption><a href="https://commons.wikimedia.org/wiki/File:${encodeURIComponent(img)}" target="_blank" rel="noopener">${L('photo')}: ${by ? escH(by) + ' · ' : ''}${escH(lic || '')} · Wikimedia Commons</a></figcaption>`;
+      fig.innerHTML =
+        (wiki
+          ? `<a class="pimg" href="${wiki}" target="_blank" rel="noopener" aria-label="${escH(L('lkWiki') + ': ' + dn(e))}">${pic}</a>`
+          : pic) +
+        `<figcaption>${L('photo')}: ${by ? escH(by) + ' · ' : ''}${lic ? (deed ? `<a href="${deed}" target="_blank" rel="noopener license">${escH(lic)}</a>` : escH(lic)) + ' · ' : ''}<a href="${file}" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>`;
       fig.querySelector('img').onerror = () => fig.remove();
       see.querySelector('.seephoto').appendChild(fig);
     }
@@ -718,12 +772,14 @@ function detail(e) {
   const D = $('detail'),
     on = !!e && ui.open;
   D.hidden = !on;
-  $('listPane').hidden = on;
+  // wide: the details take the list's column. Narrower: they open over the page, and the list stays where it is under them.
+  $('listPane').hidden = on && wideMQ.matches;
   if (!on) {
     D.innerHTML = '';
     // the real map holds a drawing surface: give it back when the details close
     if (_rmap) {
       try {
+        if (_rmap._leaveFull) _rmap._leaveFull();
         _rmap.remove();
       } catch (x) {}
       _rmap = null;
@@ -734,7 +790,6 @@ function detail(e) {
   const drag = e.lim === 'none' ? L('noDrag') : fmt(L('drag'), { x: low(FD(e.lim)) });
   const big = `<div class="big">${r5(e.score)}<small>/100</small></div>`;
   const rangeLine = `<div class="calc-only"><div class="drange">${rbar(e)}</div><p class="mono muted">${fmt(L('rangeLine'), { lo: e.lo, hi: e.hi, rlo: e.rlo, rhi: e.rhi, n: e.rn })} · ${fmt(L('probLine'), { f: pct(e.pFit), t: pct(e.pTop) })}${e.impShare > 0.005 ? ' · ' + fmt(L('impShare'), { p: Math.round(e.impShare * 100) }) : ''}</p><p class="meta">${L('roundNote')} <button class="ghost linkbtn" id="toCalc">${L('seeCalc')}</button></p></div>`;
-  const mins = Math.round((e.dayH % 1) * 60);
   // the five that matter most to the person; the rest come with the calculations
   const hf = homeFigures(e),
     vsHome = hf.length
@@ -747,12 +802,12 @@ function detail(e) {
       const p = at >= 0 ? byKey[ord[i]] : null;
       return `<button class="ghost dstep" data-go="${p ? p.key : ''}" ${p ? `aria-label="${dn(p)}" title="${dn(p)}"` : 'disabled aria-hidden="true"'}>${IC(ic, 20)}</button>`;
     };
-  D.innerHTML = `<div class="dnav"><button class="ghost" id="dBack">${IC('left', 18)}<span>${L('ranking')}</span></button><span class="dsteps">${at >= 0 ? `<span class="meta mono">${at + 1} / ${ord.length}</span>` : ''}${step(at - 1, 'left')}${step(at + 1, 'right')}</span></div>
+  D.innerHTML = `<div class="dnav"><button class="ghost" id="dBack">${IC('left', 18)}<span>${L(!wideMQ.matches && ui.pane === 'map' ? 'paneMap' : 'ranking')}</span></button><span class="dsteps">${at >= 0 ? `<span class="meta mono">${at + 1} / ${ord.length}</span>` : ''}${step(at - 1, 'left')}${step(at + 1, 'right')}</span></div>
   <div class="dhead"><div style="display:flex;flex-direction:column;gap:6px;min-width:0"><span class="eyebrow">${e.type === 'city' ? L('city') + ' · ' + countryOf(e) : L('country')}${e.est ? ' · ' + L('estimated') : ''}</span><h2 style="font-size:24px">${dn(e)}</h2><div class="toggles">${chip(e.tier)}<button class="chipbtn" id="cmpBtn">${ui.cmp.includes(e) ? L('removeCmp') : L('addCmp')}</button></div></div>${big}</div>
   ${rangeLine}<p style="font-weight:500">${whyLine(e)}${e.gated ? L('dealRule') : ''}</p>${factLines(e)}${vsHome}<p class="meta">${noteOf(e) || ''}</p>${e.natl ? `<p class="meta">${L('natlNote')}</p>` : ''}
   ${
     e.hasGeo
-      ? `<p class="mono muted">${fmt(L('shortest'), { h: Math.floor(e.dayH), m: String(mins).padStart(2, '0') })}${
+      ? `<p class="mono muted">${fmt(L('shortest'), { h: hmOf(e.dayH)[0], m: hmOf(e.dayH)[1] })}${
           HOMES.filter(h => h !== e).length
             ? ' · ' +
               HOMES.map((h, i) =>
@@ -956,20 +1011,12 @@ function whyChips(e, n) {
     .join('');
 }
 function list() {
-  const q = ($('search').value || '').trim().toLowerCase();
   // ranks are counted inside the stay-or-go tab that is open (best in your country is 1 there)
   const all = ents.filter(e => e.type === ui.rankType && listable(e) && inScope(e));
   let rows = all.filter(passes).sort((a, b) => byRank(a, b) || dn(a).localeCompare(dn(b)));
-  if (q)
-    rows = rows.filter(
-      e =>
-        dn(e).toLowerCase().includes(q) ||
-        e.name.toLowerCase().includes(q) ||
-        (e.type === 'city' && countryOf(e).toLowerCase().includes(q))
-    );
   // the first screenful: ten on a phone (the map comes after the list there), twenty beside the map
   const first = matchMedia('(max-width: 640px)').matches ? 10 : 20,
-    shown = ui.showAll || q ? rows : rows.slice(0, first);
+    shown = ui.showAll ? rows : rows.slice(0, first);
   const sortedAll = [...all].sort((a, b) => byRank(a, b) || dn(a).localeCompare(dn(b)));
   // a place's number is its position in the open tab, whatever is filtered out; details step through this order
   const rankOf = new Map(sortedAll.map((e, i) => [e, i + 1]));
@@ -983,7 +1030,7 @@ function list() {
   // The list is ordered by verdict, then well-measured places before thinly measured ones, then score. Where either
   // changes from one row to the next, a line says so: otherwise a 65 under a 60 looks like a mistake.
   const divider = (e, p) =>
-    !p || ui.view === 'profile' || q
+    !p || ui.view === 'profile'
       ? ''
       : p.tier !== e.tier
         ? `<div class="lgroup">${chip(e.tier)}</div>`
@@ -991,8 +1038,8 @@ function list() {
           ? `<div class="lgroup thin">${L('fewFigs')}</div>`
           : '';
   const tip = e => `${L('tiers')[e.tier]} · ${fmt(L('probLine'), { f: pct(e.pFit), t: pct(e.pTop) })}`;
-  // the best match gets a card; the rest are rows. Searching or the factor table show plain rows.
-  const hero = !q && ui.view !== 'profile' && shown[0] && shown[0] === sortedAll.find(passes);
+  // the best match gets a card; the rest are rows. The factor table shows plain rows.
+  const hero = ui.view !== 'profile' && shown[0] && shown[0] === sortedAll.find(passes);
   if (ui.view === 'profile') {
     $('list').innerHTML = profileTable(shown);
   } else
@@ -1006,7 +1053,7 @@ function list() {
               : `<div class="rw${ui.sel === e ? ' sel' : ''}"><button class="row" data-key="${e.key}" title="${tip(e)}"><span class="n">${rankOf.get(e)}</span><span class="nm">${place(e)}</span><span class="sc">${sym(e.tier)}<span class="sn">${r5(e.score)}</span>${rbar(e)}</span><span class="why">${rowWhy(e)}</span></button>${heart(e)}</div>`)
         )
         .join('') || `<p class="meta" style="padding:12px 6px">${L('nothing')}</p>`;
-  $('more').hidden = ui.showAll || !!q || rows.length <= first;
+  $('more').hidden = ui.showAll || rows.length <= first;
   $('rankmeta').textContent =
     rows.length < all.length ? fmt(L('rankmeta'), { n: rows.length, t: all.length }) : '';
   $('list').title = L('rangeKey');
@@ -1035,11 +1082,10 @@ const PLEVEL = w => (w >= 1.75 ? 2 : w > 0 ? 1 : 0);
 function prioUI() {
   const act = document.activeElement,
     focusK = act && act.classList && act.classList.contains('pchip') ? act.dataset.k : null;
-  const P = $('ppanel');
+  const P = $('prio');
   if (!P) return;
-  const n = FACTORS.filter(f => (W[f.k] || 0) > 0).length;
   P.innerHTML =
-    `<div class="phead"><h2>${L('ppHead')}</h2><button class="ghost pclose" id="pclose" aria-label="${L('ppClose')}">${IC('x', 18)}</button></div><p class="meta">${L('ppHow')}</p>` +
+    `<span class="lab">${L('ppHead')}</span><p class="meta">${L('ppHow')}</p>` +
     Object.entries(GOALS)
       .map(
         ([g, ks]) =>
@@ -1052,7 +1098,6 @@ function prioUI() {
       )
       .join('') +
     `<div class="pfoot"><button class="linkbtn" id="preset2">${L(QUIZW ? 'ppResetQuiz' : 'ppReset')}</button><button class="linkbtn" id="pfine">${L('ppFine')}</button></div>`;
-  $('pfab').textContent = fmt(L('ppFab'), { n });
   P.querySelectorAll('.pchip').forEach(
     b =>
       (b.onclick = () => {
@@ -1082,7 +1127,6 @@ function prioUI() {
     $('weightsBox').open = true;
     $('weightsBox').scrollIntoView({ block: 'start' });
   };
-  $('pclose').onclick = () => setSheet(false);
   if (focusK) $('ppanel').querySelector(`.pchip[data-k="${focusK}"]`)?.focus();
 }
 // How the scores are calculated (ranges, legends, method boxes, the calculation table): hidden unless asked for
@@ -1099,12 +1143,134 @@ function setAdv(on) {
     list();
   }
 }
-// on phones the panel is a bottom sheet behind the floating button
+// ---- one place for every control ----
+// The panel holds everything a person can change: cities or countries, where, the "only show" filters and what
+// matters. On a wide screen it is the left column, always open. On a narrower one it is a sheet behind the Filters
+// button in the bar, and the bar also carries the find box, list-or-map and cities-or-countries, so nothing has to be
+// scrolled to. The find box and the cities-or-countries switch are one element each, moved to where they belong.
+const wideMQ = matchMedia('(min-width: 1180px)');
 function setSheet(open) {
+  open = !!open && !wideMQ.matches;
   $('ppanel').classList.toggle('open', open);
-  $('pfab').setAttribute('aria-expanded', open);
+  $('ctlBtn').setAttribute('aria-expanded', open);
+  $('sheetBg').hidden = !open;
   document.body.classList.toggle('sheet-open', open);
-  if (open) $('ppanel').querySelector('.pchip')?.focus();
+  if (open) $('pclose').focus({ preventScroll: true });
+}
+function placeControls() {
+  const wide = wideMQ.matches;
+  if (wide) $('mapbox').insertBefore($('searchBox'), $('mapbox').firstChild);
+  else $('searchHome').appendChild($('searchBox'));
+  (wide ? $('kindHome') : $('kindBar')).appendChild($('kindSeg'));
+  if (wide) setSheet(false);
+}
+// the Filters button says how many filters are narrowing the list (priorities re-rank; they do not narrow)
+function ctlBadge() {
+  const f = ui.f,
+    n =
+      f.reg.size +
+      f.cost.size +
+      (f.big ? 1 : 0) +
+      (f.work ? 1 : 0) +
+      (!$('scopeBar').hidden && ui.scope !== 'all' ? 1 : 0);
+  $('ctlBtn').innerHTML =
+    `${IC('filter', 18, 2)}<span>${L('filters')}</span>${n ? `<b class="mono">${n}</b>` : ''}`;
+}
+// Too narrow for the list and the map side by side: they are two views of the same results behind one switch. The
+// list keeps its place while the map is looked at.
+function setPane(p) {
+  if (ui.pane === p) return;
+  if (ui.pane !== 'map') ui.listY = window.scrollY;
+  ui.pane = p;
+  $('split').dataset.pane = p;
+  press('vList', p === 'list');
+  press('vMap', p === 'map');
+  if (wideMQ.matches) return;
+  // the map opens right under the bar; the list comes back where it was left
+  const top =
+    $('split').getBoundingClientRect().top + window.scrollY - $('bar').getBoundingClientRect().bottom;
+  window.scrollTo({ top: p === 'map' ? Math.min(window.scrollY, top) : ui.listY || 0, behavior: 'instant' });
+}
+// ---- find a place ----
+// One find box: on the map on a wide screen, in the bar right above it on a phone. It suggests places as you type,
+// the best match first, and goes to the one picked: its details open and the map moves to it. It does not narrow
+// the list (the filters do that), so nothing vanishes while typing.
+const foldS = s =>
+  String(s)
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim();
+function suggest(q) {
+  q = foldS(q);
+  if (!q) return [];
+  const hit = e => {
+    let best = 9;
+    for (const n of [dn(e), e.name]) {
+      const f = foldS(n),
+        s =
+          f === q
+            ? 0
+            : f.startsWith(q)
+              ? 1
+              : f.split(/[\s,()-]+/).some(w => w.startsWith(q))
+                ? 2
+                : f.includes(q)
+                  ? 3
+                  : 9;
+      if (s < best) best = s;
+    }
+    return best;
+  };
+  return ents
+    .filter(listable)
+    .map(e => [hit(e), e])
+    .filter(x => x[0] < 9)
+    .sort((a, b) => a[0] - b[0] || byRank(a[1], b[1]) || dn(a[1]).localeCompare(dn(b[1])))
+    .slice(0, 7)
+    .map(x => x[1]);
+}
+const _sg = { list: [], at: -1 };
+function suggMark() {
+  $('sugg')
+    .querySelectorAll('li[data-i]')
+    .forEach(li => li.setAttribute('aria-selected', +li.dataset.i === _sg.at));
+  if (_sg.at >= 0) $('search').setAttribute('aria-activedescendant', 'sg' + _sg.at);
+  else $('search').removeAttribute('aria-activedescendant');
+}
+function suggUI() {
+  const inp = $('search'),
+    ul = $('sugg'),
+    open = !!inp.value.trim();
+  _sg.list = open ? suggest(inp.value) : [];
+  _sg.at = _sg.list.length ? 0 : -1;
+  ul.hidden = !open;
+  inp.setAttribute('aria-expanded', open);
+  ul.innerHTML = !open
+    ? ''
+    : _sg.list.length
+      ? _sg.list
+          .map(
+            (e, i) =>
+              `<li role="option" id="sg${i}" data-i="${i}">${sym(e.tier)}<span class="snm">${dn(e)} <small>${e.type === 'city' ? countryOf(e) : L('units').country}</small></span><b class="mono">${r5(e.score)}</b></li>`
+          )
+          .join('')
+      : `<li class="none">${L('noMatch')}</li>`;
+  suggMark();
+}
+function suggMove(d) {
+  if (!_sg.list.length) return;
+  _sg.at = (_sg.at + d + _sg.list.length) % _sg.list.length;
+  suggMark();
+}
+function goToPlace(e) {
+  if (!e) return;
+  $('search').value = '';
+  suggUI();
+  $('search').blur();
+  // the list and the "3 / 744" in the details follow the kind of place that was picked
+  if (e.type !== ui.rankType) $(e.type === 'city' ? 'rCities' : 'rCountries').click();
+  openPlace(e);
 }
 // Stay-or-go tabs above the results: the country the person lives in, other countries, or everywhere. Shown once we
 // know where they live and the map has cities there. Someone who wants to stay can open the other tab out of curiosity.
@@ -1117,6 +1283,7 @@ function scopeUI() {
     el.hidden = true;
     el.innerHTML = '';
     if (MODE === 'yours') ui.scope = 'all';
+    ctlBadge();
     return;
   }
   const tab = (v, label) => `<button data-s="${v}" aria-pressed="${ui.scope === v}">${label}</button>`;
@@ -1130,6 +1297,7 @@ function scopeUI() {
   el.innerHTML =
     `<span class="lab">${L('scopeLab')}</span><div class="seg" role="group" aria-label="${L('scopeLab')}">${tab('home', dn(h))}${tab('away', L('scopeAway'))}${tab('all', L('scopeAll'))}</div>` +
     (note ? `<p class="meta">${note}</p>` : '');
+  ctlBadge();
   el.querySelectorAll('[data-s]').forEach(
     b =>
       (b.onclick = () => {
@@ -1149,11 +1317,9 @@ function pillsUI() {
     pill = (grp, v, label, on) =>
       `<button class="pill" data-g="${grp}" data-v="${v}" aria-pressed="${on}">${label}</button>`;
   const any = f.reg.size || f.cost.size || f.big || f.work;
-  const nOn = f.reg.size + f.cost.size + (f.big ? 1 : 0) + (f.work ? 1 : 0);
   $('pills').setAttribute('aria-label', L('onlyShow'));
-  $('filtSum').innerHTML =
-    `<span>${L('onlyShow')}${nOn ? ` <b class="mono">${nOn}</b>` : ''}</span>${IC('chev', 16)}`;
-  if (nOn) $('filt').open = true;
+  $('filtSum').textContent = L('onlyShow');
+  ctlBadge();
   $('pills').innerHTML =
     `<span class="pgroup">${['eu', 'na', 'la', 'ap', 'af'].map(r => pill('reg', r, r === 'af' ? L('regAf') : L('regions')[r], f.reg.has(r))).join('')}</span>` +
     `<span class="pgroup" title="${L('costPills')}">${[1, 2, 3, 4].map(c => pill('cost', c, '$'.repeat(c), f.cost.has(c))).join('')}</span>` +
@@ -1246,7 +1412,11 @@ function openPlace(e) {
   ui.open = true;
   select(e, true);
   navOpen('place');
-  $('rankSec').scrollIntoView({ block: 'start', behavior: 'instant' });
+  // Wide: the details take the list's column, so its top comes into view. Narrower: they open over the page, which
+  // stays exactly where it was underneath.
+  if (wideMQ.matches) $('rankSec').scrollIntoView({ block: 'start', behavior: 'instant' });
+  else $('detail').scrollTop = 0;
+  document.body.classList.add('place-open');
   if ($('dBack')) $('dBack').focus({ preventScroll: true });
 }
 // Back to the list, at the spot the person left it. The place stays marked on the map.
@@ -1254,6 +1424,7 @@ function closePlace(fromHistory) {
   if (!ui.open) return;
   const key = ui.sel && ui.sel.key;
   ui.open = false;
+  document.body.classList.remove('place-open');
   detail(null);
   pcard();
   if (!fromHistory) navClose('place');
@@ -1613,9 +1784,6 @@ function renderEff() {
     .sort((a, b) => b.eff - a.eff);
   el.innerHTML = `<span class="lab">${L('effTitle')}</span><p class="meta">${fmt(L('effNote'), { t: low(L(ui.rankType === 'city' ? 'cities' : 'countries')) })}</p><div class="biastable"><table style="min-width:0"><thead><tr><th>${L('calcFactor')}</th><th>${L('effSlider')}</th><th>${L('effReal')}</th></tr></thead><tbody>${rows.map(r => `<tr><td>${FL(r.k)}</td><td class="mono">${pct(r.w)}</td><td class="mono">${Math.round(r.eff * 100)}%</td></tr>`).join('')}</tbody></table></div>`;
 }
-function showMap() {
-  $('mapSec').scrollIntoView({ block: 'start' });
-}
 function tierFilters() {
   $('tierFilters').innerHTML = TIERS.map(
     t =>
@@ -1674,6 +1842,12 @@ function selectsUI() {
     .forEach(b => (b.onclick = () => regionView(b.dataset.r, true)));
   $('search').placeholder = L('find');
   $('search').setAttribute('aria-label', L('find'));
+  $('sico').innerHTML = IC('search', 18, 2);
+  $('pclose').innerHTML = IC('x', 18);
+  $('pclose').setAttribute('aria-label', L('ppClose'));
+  $('kindSeg').setAttribute('aria-label', L('kindLab'));
+  $('paneSeg').setAttribute('aria-label', L('paneList') + ' / ' + L('paneMap'));
+  ctlBadge();
 }
 function impSection() {
   const M = DATA.meta || {},

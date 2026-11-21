@@ -21,7 +21,6 @@ document.body.classList.toggle('adv', !!store.get('adv', false));
 $('fullQuiz').onclick = () => sharpenQuiz();
 $('tradeBtn').onclick = () => startTrades();
 $('retake').onclick = () => startQuiz(false);
-$('toMap').onclick = showMap;
 $('toCmp').onclick = () => {
   if (ui.open) closePlace();
   $('cmpPanel').scrollIntoView({ block: 'start' });
@@ -248,18 +247,33 @@ $('cmpClear').onclick = () => {
   detail(ui.sel);
   pcard();
 };
-$('search').oninput = () => list();
-// the Find box filters the ranking as you type; Enter opens the best match (an exact name first, else the first starting with it)
+// the find box: suggestions as you type; arrows move through them, Enter or a tap goes to the place, Escape clears
+$('search').oninput = suggUI;
+$('search').onfocus = suggUI;
 $('search').onkeydown = e => {
-  if (e.key !== 'Enter') return;
-  const v = e.target.value.trim().toLowerCase();
-  if (!v) return;
-  const ok = ents.filter(x => listable(x));
-  const hit =
-    ok.find(x => dn(x).toLowerCase() === v || x.name.toLowerCase() === v) ||
-    ok.find(x => dn(x).toLowerCase().startsWith(v));
-  if (hit) openPlace(hit);
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+    e.preventDefault();
+    suggMove(e.key === 'ArrowDown' ? 1 : -1);
+  } else if (e.key === 'Enter') {
+    e.preventDefault(); // the details take the focus: without this the same key press would also press their Back button
+    goToPlace(_sg.list[_sg.at]);
+  } else if (e.key === 'Escape') {
+    e.target.value = '';
+    suggUI();
+  }
 };
+$('search').onblur = () =>
+  setTimeout(() => {
+    $('sugg').hidden = true;
+    $('search').setAttribute('aria-expanded', false);
+  }, 160);
+$('sugg').onmousedown = e => e.preventDefault(); // the box keeps the focus while a suggestion is tapped
+$('sugg').onclick = e => {
+  const li = e.target.closest('li[data-i]');
+  if (li) goToPlace(_sg.list[+li.dataset.i]);
+};
+$('vList').onclick = () => setPane('list');
+$('vMap').onclick = () => setPane('map');
 $('zin').onclick = () => zoom && zsel.transition().duration(300).call(zoom.scaleBy, 1.6);
 $('zout').onclick = () =>
   zoom &&
@@ -280,11 +294,15 @@ if (window.IntersectionObserver) {
       document.body.classList.toggle('past-hero', !en.isIntersecting)
     ).observe(h);
 } else document.body.classList.add('past-hero');
-// the priorities panel is a bottom sheet on phones: the floating button opens it, Escape or the close button shuts it
-$('pfab').onclick = () => setSheet(!$('ppanel').classList.contains('open'));
+// the panel is a sheet on narrower screens: the Filters button opens it; Escape, the close button, the button at its
+// foot or a tap outside shuts it
+$('ctlBtn').onclick = () => setSheet(!$('ppanel').classList.contains('open'));
+$('pclose').onclick = $('pdone').onclick = $('sheetBg').onclick = () => setSheet(false);
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && $('ppanel').classList.contains('open')) {
     setSheet(false);
-    $('pfab').focus();
+    $('ctlBtn').focus();
   }
 });
+placeControls();
+wideMQ.addEventListener('change', placeControls);

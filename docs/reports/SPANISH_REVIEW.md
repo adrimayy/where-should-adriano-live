@@ -513,7 +513,7 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | hpSearch | Search cities and countries | Buscar ciudades y países | |
 | hpSearchC | Search countries | Buscar países | |
 | cancel | Cancel | Cancelar | |
-| noMatch | No matches | Sin resultados | |
+| noMatch | No place by that name | Ningún lugar con ese nombre | |
 | kinSrc | shares a main language and/or region with {x} | comparte idioma principal y/o región con {x} | |
 | kinNone | no shared main language or region | sin idioma principal ni región en común | |
 | latitude | latitude | latitud | |
@@ -553,7 +553,6 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | yourTop | Your top 5 cities | Tus 5 ciudades principales | |
 | share | Copy link to my results | Copiar enlace a mis resultados | |
 | retake | Retake the quiz | Repetir el cuestionario | |
-| toMap | Explore your map ↓ | Explora tu mapa ↓ | |
 | copied | Link copied. Anyone who opens it sees your take. | Enlace copiado. Quien lo abra verá tu versión. | |
 | mapTitle | The map | El mapa | |
 | optsTitle | Map options and filters | Opciones del mapa y filtros | |
@@ -618,7 +617,6 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | ppReset | Reset | Restablecer | |
 | ppResetQuiz | Back to my quiz answers | Volver a mis respuestas | |
 | ppFine | Fine-tune with sliders | Ajustar con barras | |
-| ppFab | Priorities | Prioridades | |
 | ppClose | Close | Cerrar | |
 | topPick | Best match | Mejor opción | |
 | fewFigs | Less certain: over a fifth of the score is filled in | Menos seguro: más de una quinta parte del puntaje es estimada | |
@@ -699,6 +697,14 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | lkHomes | Homes for rent | Viviendas en renta | |
 | photo | Photo | Foto | |
 | mapAlt | Map of {p} and what is around it | Mapa de {p} y sus alrededores | |
+| filters | Filters | Filtros | |
+| kindLab | Show | Mostrar | |
+| paneList | List | Lista | |
+| paneMap | Map | Mapa | |
+| ctlDone | Show results | Ver resultados | |
+| mapFull | Full screen | Pantalla completa | |
+| mapSmall | Leave full screen | Salir de pantalla completa | |
+| mapBack | Back to {p} | Volver a {p} | |
 | probLine | Strong fit in {f} of recalculations · top 10 in {t} | Muy buena opción en {f} de los recálculos · top 10 en {t} | |
 | permRight | Legal right to work | Derecho legal a trabajar | |
 | permRoute | Route for a junior hire without that right | Vía para un recién egresado sin ese derecho | |

@@ -41,7 +41,7 @@ with sync_playwright() as p:
     b = p.chromium.launch(executable_path=CHROME); pg = b.new_page(); pg.route('**/*', route)
     pg.goto('file://' + PAGE); pg.wait_for_timeout(800)
     # before there is a take, nothing is scored on screen: the first card and the quiz button only
-    vis = "()=>['#work','#mapSec','#rankSec','#detail','#weightsBox','#pfab','#resPanel'].filter(s=>document.querySelector(s).getClientRects().length)"
+    vis = "()=>['#work','#mapSec','#rankSec','#detail','#weightsBox','#bar','#resPanel'].filter(s=>document.querySelector(s).getClientRects().length)"
     start = {'shown': pg.evaluate(vis), 'quiz': pg.is_visible('#startQuiz'), 'rows': pg.evaluate("()=>[...document.querySelectorAll('#list .row')].filter(r=>r.getClientRects().length).length")}
     pg.select_option('#langSel', 'fr'); pg.wait_for_timeout(600); fr = pg.inner_text('#start'); pg.select_option('#langSel', 'en'); pg.wait_for_timeout(300)
     pg.evaluate("fillSample()"); pg.wait_for_timeout(300)   # the fixed case: one filled-in set of answers (SAMPLE, js/07-quiz.js)

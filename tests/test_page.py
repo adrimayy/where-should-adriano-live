@@ -43,7 +43,8 @@ with sync_playwright() as p:
         assert pg.evaluate('scrollY') == 0, 'the results did not open at the top'
         pg.locator('#list .row').first.click(); pg.wait_for_timeout(800)
         pg.screenshot(path=f'{OUT}/{name}-4-details.png',full_page=False)
-        assert pg.is_visible('#detail') and not pg.is_visible('#list'), 'a row did not open its details'
+        # wide: the details take the list's column; narrower: they cover the page
+        assert pg.is_visible('#detail') and pg.evaluate("()=>{const r=$('detail').getBoundingClientRect();return ui.open&&(!$('list').getClientRects().length||(r.top<=0&&r.height>=innerHeight-1))}"), 'a row did not open its details'
         print(name,'details:',pg.inner_text('#detail h2'),'|',pg.inner_text('#detail .dsteps .meta'))
         pg.click('#dBack'); pg.wait_for_timeout(300)
         assert pg.is_visible('#list') and not pg.is_visible('#detail'), 'Back did not return to the list'

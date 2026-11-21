@@ -18,6 +18,8 @@ const ui = {
   // a place's details are open in the list's column; where on the page to go back to; the list's order, to step through
   open: false,
   backY: 0,
+  pane: 'list', // on screens too narrow for both: the list or the map
+  listY: 0,
   order: [],
   cmp: [],
   // quick filters above the map and ranking: world regions, cost bands ($ cheapest), big cities, can work freely
@@ -48,8 +50,9 @@ const costPill = e => (e.cost == null ? null : e.cost >= 4.5 ? 1 : e.cost >= 3.5
 // a narrow map: a phone, or the column beside the list on a wide screen (taller shape, bigger marks)
 const narrow = matchMedia('(max-width:640px), (min-width:1180px)').matches,
   touch = matchMedia('(pointer:coarse)').matches;
+// On a phone the map has a view of its own behind the List | Map switch, so it can be nearly as tall as it is wide.
 const VW = 960,
-  VH = narrow ? 720 : 500;
+  VH = matchMedia('(max-width:640px)').matches ? 1300 : narrow ? 720 : 500;
 // Land is drawn on a canvas from cached shapes (Path2D, projected once): a pan or zoom repaints the cached shapes at a new
 // scale instead of recomputing or re-laying-out thousands of SVG nodes.
 const svg = d3.select('#map'),
@@ -1239,14 +1242,14 @@ function focusOn(e) {
   $('mapbox').addEventListener(
     'wheel',
     e => {
-      if (!e.ctrlKey && !e.metaKey) show();
+      if (!e.ctrlKey && !e.metaKey && !e.target.closest('#searchBox')) show();
     },
     { passive: true }
   );
   $('mapbox').addEventListener(
     'touchmove',
     e => {
-      if (e.touches.length === 1) show();
+      if (e.touches.length === 1 && !e.target.closest('#searchBox')) show();
     },
     { passive: true }
   );

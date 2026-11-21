@@ -74,6 +74,7 @@ Working files (`build/`, `dist/`) are not part of the repository. Code is format
 ```
 python3 tests/test_page.py      # clicks through the quiz, results, a place's details and the language switch on desktop and mobile
 python3 tests/test_walk.py      # the visitor's path on a phone in all eight languages, the Back button, reload, reset, shared links
+python3 tests/test_controls.py  # one bar and one panel for every control; list or map; the find box; details open and close in place
 python3 tests/test_place.py     # a place's details: the score in eight groups adds back to the score; outside links, photo and real map (stubbed)
 python3 tests/live_check.py     # by hand, with the network open: the real map, a real photo, screenshots to look at
 python3 tests/test_numbers.py   # checks specific numbers (money after rent, bands, rounding, rules)
