@@ -79,9 +79,10 @@ STATE_NAME = dict(AL='Alabama', AK='Alaska', AZ='Arizona', AR='Arkansas', CA='Ca
                   UT='Utah', VT='Vermont', VA='Virginia', WA='Washington', WV='West Virginia', WI='Wisconsin', WY='Wyoming')
 # the atlas's short name -> the name to look up, where they differ
 ALIAS = {'Washington DC': 'Washington, D.C.', 'New York City': 'New York City'}
-# words in an item's description that say it is something around or inside the city, not the city
-NOT_CITY = re.compile(r'\b(province|county|region|prefecture|oblast|governorate|department|voivodeship|canton|emirate|airport|'
-                      r'university|college|station|stadium|district|metropolitan area|urban area|state)\b', re.I)
+# a description that opens by calling the item something around or inside the city, not the city ("county in California",
+# "international airport in Oman"). Only the opening counts: "city in Kyoto Prefecture" is the city.
+NOT_CITY = re.compile(r'^(?:the\s+)?(?:[\w-]+\s+){0,2}(province|county|region|prefecture|oblast|governorate|department|voivodeship|'
+                      r'canton|emirate|airport|university|college|station|stadium|district|zone|metropolitan area|urban area|state)\b', re.I)
 
 
 def fold(s):
@@ -242,17 +243,23 @@ def main():
     cqids = {v['q'] for v in out['countries'].values() if v['q']}
 
     # ---- cities: candidates by name, chosen by distance from the atlas's coordinates
-    cand = {}
+    cache = ROOT / 'build' / 'places_cache.json'
+    (ROOT / 'build').mkdir(exist_ok=True)
+    kept = json.loads(cache.read_text(encoding='utf8')) if cache.exists() and '--fresh' not in sys.argv else {}
+    cand = {k: [tuple(x) for x in v] for k, v in kept.get('cand', {}).items()}
     for name, lat, lon, iso in cities:
-        cand[name] = search(clean(name))
-        time.sleep(0.12)
-    F = facts([q for v in cand.values() for q, _, _ in v])
+        if name not in cand:
+            cand[name] = search(clean(name))
+            time.sleep(0.12)
+    F = {k: (v[0], v[1], v[2], set(v[3])) for k, v in kept.get('facts', {}).items()}
+    F.update(facts([q for v in cand.values() for q, _, _ in v if q not in F]))
+    cache.write_text(json.dumps(dict(cand=cand, facts={k: [v[0], v[1], v[2], sorted(v[3])] for k, v in F.items()}), ensure_ascii=False), encoding='utf8')
 
     def choose(name, lat, lon, hits):
-        # Of the items with this name within 50 km of the atlas's point: one near the point before one far from it
-        # (a county's or a state's middle is far from its main city), the exact name before a longer one (the city
-        # before its airport or university), a description that reads like a place to live before one that reads
-        # like a province or a campus, and then the one more Wikipedias write about.
+        # Of the items with this name within 50 km of the atlas's point, the city is nearly always the one with exactly
+        # this name that at least five Wikipedias write about and whose description does not open as a province, a
+        # county or an airport. Failing that: one near the point that reads like a place (a state's or a county's
+        # middle is far from its main city), then the exact name, then the one more Wikipedias write about.
         want, ok = fold(clean(name)), []
         for rank, (q, label, desc) in enumerate(hits):
             f = F.get(q)
@@ -260,7 +267,10 @@ def main():
                 continue
             d = km(lat, lon, f[0], f[1])
             if d <= 50:
-                ok.append((q, d, f[2], rank, (d <= 15, fold(label) == want, q not in cqids, not NOT_CITY.search(desc), f[2])))
+                exact, known = fold(label) == want, f[2] >= 5
+                place = q in cqids or not NOT_CITY.search(desc)
+                ok.append((q, d, f[2], rank, (exact and known and place and q not in cqids, d <= 15 and known and place,
+                                              exact and known, f[2]), exact, q not in cqids))
         if not ok:
             return None
         return max(ok, key=lambda x: x[4]), ok
@@ -278,12 +288,12 @@ def main():
             say('!! no match:', name, lat, lon, [c[0] for c in cand[name][:5]])
             out['cities'][name] = dict(q=None)
             continue
-        (q, d, sl, rank, key), narrow = got
+        (q, d, sl, rank, key, exact, notcountry), narrow = got
         if d > 15:
             say('? far from the atlas point:', name, q, f'{d:.0f} km')
-        if not key[1]:
+        if not exact:
             say('? no item with exactly this name near the point:', name, q)
-        if not key[2]:
+        if not notcountry:
             say('? matched the country itself:', name, q)
         out['cities'][name] = dict(q=q, km=round(d, 1), editions=sl)
 
