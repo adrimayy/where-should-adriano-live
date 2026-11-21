@@ -9,12 +9,12 @@ ROOT = pathlib.Path(__file__).resolve().parent
 page = (ROOT / 'index.html').read_text(encoding='utf8')
 safe = lambda s: re.sub(r'</(script)', r'<\\/\1', s, flags=re.I)   # an inlined script must not close its own tag
 
-page = page.replace('<link rel="stylesheet" href="css/atlas.css">',
-                    '<style>\n' + (ROOT / 'css/atlas.css').read_text(encoding='utf8') + '</style>')
+page = re.sub(r'<link rel="stylesheet" href="css/atlas\.css(\?v=\d+)?">',
+              lambda m: '<style>\n' + (ROOT / 'css/atlas.css').read_text(encoding='utf8') + '</style>', page)
 def inline(m):
     src = m.group(1)
     if src.startswith('http'): return f'<script src="{src}"></script>'          # inline code runs at once, so libraries load first
-    return '<script>\n' + safe((ROOT / src).read_text(encoding='utf8')) + '</script>'
+    return '<script>\n' + safe((ROOT / src.split('?')[0]).read_text(encoding='utf8')) + '</script>'   # ?v= is the release number
 page = re.sub(r'<script defer src="([^"]+)"></script>', inline, page)
 assert 'defer src=' not in page and 'href="css/' not in page
 # the extra interface languages normally load on demand from js/i18n/; in the one-file copy they ride along

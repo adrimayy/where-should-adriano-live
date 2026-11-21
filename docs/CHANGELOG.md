@@ -166,6 +166,9 @@ in `js/07-quiz.js`).
   Zillow refuses automated visits, so the addresses follow its rule and were checked on four cities, not one by
   one. Reddit refused every check of the cities' own subreddits (server, automated browser, home connection), so the
   Reddit button is a search for "moving to" the place, for every city and country.
+- **A new release now replaces the old one whole (v69):** the page's files had the same addresses in every release,
+  so a browser could keep last release's code for a while and run it under a new page, or show no change at all. Each
+  of the page's own files now carries the release number, so a new release is asked for fresh, all together.
 
 ## What held up
 

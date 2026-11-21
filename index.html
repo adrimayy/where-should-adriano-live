@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-v="69">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -19,7 +19,7 @@ html.ready #boot{display:none}
 // never leave the wheel up: it goes when the page is drawn (js/13-startup.js), on an error, or after 15 seconds
 (function(){var done=function(){document.documentElement.classList.add('ready')};window.addEventListener('error',done);setTimeout(done,15000)})();
 </script>
-<link rel="stylesheet" href="css/atlas.css">
+<link rel="stylesheet" href="css/atlas.css?v=69">
 </head>
 <body>
 <div id="boot" role="status" aria-label="Loading"><i></i></div>
@@ -178,24 +178,27 @@ html.ready #boot{display:none}
 
 <div class="sheetbg" id="sheetBg" hidden></div>
 <div class="gtoast" id="gtoast" role="status" hidden></div>
+<!-- Every file of the page's own carries the release number (?v=, and data-v on <html>), so a browser that kept
+     the last release's files asks for the new ones together instead of mixing old code with a new page. Bump all of
+     them on each release; tests/test_place.py checks they agree. -->
 <!-- Libraries, then the data (one file, made by build.py), then the page code in order. "defer" downloads them all at once and runs them in this order. -->
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
-<script defer src="data/atlas.js"></script>
-<script defer src="js/00-setup.js"></script>
-<script defer src="js/01-strings.js"></script>
-<script defer src="js/02-factors.js"></script>
-<script defer src="js/03-geography.js"></script>
-<script defer src="js/04-language-and-passport.js"></script>
-<script defer src="js/05-entities.js"></script>
-<script defer src="js/06-scoring.js"></script>
-<script defer src="js/07-quiz.js"></script>
-<script defer src="js/08-results.js"></script>
-<script defer src="js/09-take-save.js"></script>
-<script defer src="js/10-map.js"></script>
-<script defer src="js/11-panels.js"></script>
-<script defer src="js/12-events.js"></script>
-<script defer src="js/13-startup.js"></script>
+<script defer src="data/atlas.js?v=69"></script>
+<script defer src="js/00-setup.js?v=69"></script>
+<script defer src="js/01-strings.js?v=69"></script>
+<script defer src="js/02-factors.js?v=69"></script>
+<script defer src="js/03-geography.js?v=69"></script>
+<script defer src="js/04-language-and-passport.js?v=69"></script>
+<script defer src="js/05-entities.js?v=69"></script>
+<script defer src="js/06-scoring.js?v=69"></script>
+<script defer src="js/07-quiz.js?v=69"></script>
+<script defer src="js/08-results.js?v=69"></script>
+<script defer src="js/09-take-save.js?v=69"></script>
+<script defer src="js/10-map.js?v=69"></script>
+<script defer src="js/11-panels.js?v=69"></script>
+<script defer src="js/12-events.js?v=69"></script>
+<script defer src="js/13-startup.js?v=69"></script>
 <dialog id="hpDialog" class="hpdlg" aria-label="Choose a place"><div class="hptop"><input id="hpSearch" type="search" autocomplete="off" enterkeyhint="search"><button type="button" id="hpCancel" class="hpcancel"></button></div><div class="hpbody"><div id="hpList" class="hplist"></div><nav id="hpRail" class="hprail" aria-label="A–Z"></nav></div></dialog>
 </body>
 </html>

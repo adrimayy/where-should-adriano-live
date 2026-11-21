@@ -23,7 +23,7 @@ PNG = bytes.fromhex('89504e470d0a1a0a0000000d49484452000000010000000108060000001
 def routes(maplib=True):
     def rt(r):
         u = r.request.url
-        if u.endswith('data/places.js'): return r.fulfill(body='window.ATLAS_PLACES=' + json.dumps(STUB) + ';', content_type='application/javascript')
+        if 'data/places.js' in u: return r.fulfill(body='window.ATLAS_PLACES=' + json.dumps(STUB) + ';', content_type='application/javascript')
         if 'maplibre-gl' in u:
             if not maplib: return r.abort()
             return r.fulfill(body='' if u.endswith('.css') else ML, content_type='text/css' if u.endswith('.css') else 'application/javascript')
@@ -117,4 +117,11 @@ check('places: a housing page is listed only for a city in Zillow\'s own list, a
       all(RAW['cities'][k].get('zlist') and re.fullmatch(r'[a-z]+(-[a-z]+)*-[a-z]{2}', s) for k, s in homes.items()) and homes.get("Coeur d'Alene") == 'coeur-dalene-id' and homes.get('St. Louis') == 'saint-louis-mo' and homes.get('Chicago') == 'chicago-il' and homes.get('Washington DC') == 'washington-dc', (len(homes), homes.get("Coeur d'Alene")))
 ph = [v for v in P['c'].values() if len(v) > 5 and v[5]]
 check('places: every photo has a licence, and a file that is a picture', len(ph) > 400 and all(len(v) > 7 and v[7] and re.search(r'\.(jpe?g|png|webp)$', v[5], re.I) for v in ph), len(ph))
+# ---- every file of the page's own asks for the same release, and it is the newest one in the changelog
+html = (ROOT / 'index.html').read_text(encoding='utf8')
+ver = re.search(r'<html[^>]* data-v="(\d+)"', html).group(1)
+own = re.findall(r'(?:src|href)="((?:js|css|data)/[^"]+)"', html)
+log = max(int(v) for v in re.findall(r'\(v(\d+)\)', (ROOT / 'docs' / 'CHANGELOG.md').read_text(encoding='utf8')))
+check('release number: every file of the page\'s own carries it, and it is the newest release in the changelog',
+      len(own) >= 16 and all(u.endswith('?v=' + ver) for u in own) and int(ver) == log, (ver, log, [u for u in own if not u.endswith('?v=' + ver)][:3]))
 print(f"\n{len(fails)} failed" if fails else "\nall passed"); sys.exit(1 if fails else 0)
