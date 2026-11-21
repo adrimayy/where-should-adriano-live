@@ -48,7 +48,20 @@ with sync_playwright() as p:
     after = pg.evaluate(vis)
     same = pg.evaluate("()=>{const w=weightsFromQuiz(SAMPLE);return Object.keys(w).every(k=>w[k]===W[k])&&MODE==='yours'}")
     pg.wait_for_function("()=>document.documentElement.dataset.sim==='done'")   # the likely ranges are worked out in the background
-    r = pg.evaluate(JS); b.close()
+    r = pg.evaluate(JS)
+    # compared with where you live now: the sample's answers with New York City as home
+    vs = pg.evaluate("""()=>{ANS=JSON.parse(JSON.stringify(SAMPLE));ANS.where={keys:['city:New York City']};QMORE=true;finishQuiz();
+      const H=HOMES[0],cs=ents.filter(e=>e.type==='city'&&listable(e)&&e!==H),bad=[];let n=0;
+      cs.forEach(e=>homeFigures(e).forEach(x=>{n++;const A=byKey[x.a],B=byKey[x.b];
+        // the same kind of place on both sides, both named, and never against the page's own score for the factor
+        const w=X=>X.how&&X.how[x.k]==='obs'&&X.v[x.k]!=null?X.v[x.k]:null,D=w(A)!=null&&w(B)!=null?w(B)-w(A):0;
+        if(!A||!B||A===B||A.type!==B.type||!x.t.includes(dn(A))||!x.t.includes(dn(B))||(Math.abs(D)>=(ME[x.k]||0.25)&&!['day','sea'].includes(x.k)&&(D>0)!==x.good))bad.push(e.name+':'+x.k);}));
+      const ams=homeFigures(byKey['city:Amsterdam']);
+      select(byKey['city:Amsterdam'],false);
+      return {n,bad:bad.slice(0,5),nbad:bad.length,ams:ams.map(x=>[x.k,x.good,x.same,x.t]),self:homeFigures(H).length};}""")
+    pg.wait_for_timeout(300)
+    vs['shown'] = pg.evaluate("()=>[...document.querySelectorAll('#detail .vshome li')].filter(l=>l.getClientRects().length).length")
+    b.close()
 check('no rounded score crosses its verdict line', r['cross'] == 0, r['cross'])
 check('no Strong fit below 70', r['fitBad'] == 0)
 check('nothing is scored on screen before a take', start['shown'] == [] and start['rows'] == 0 and start['quiz'], start)
@@ -58,5 +71,13 @@ check('the sample take is what the quiz gives for its answers', same)
 check("Amsterdam is in the sample take's top 3", 'Amsterdam' in r['top3'], r['top3'])
 check('Austin politics averages state (R+13.7 -> 1) and Travis County (D+39.1 -> 5) to 3', r['austin'] == 3, r['austin'])
 check('every likely range is ordered', r['ranges'])
+# ---- compared with where you live now
+RAWC = lambda city: float(D['raw']['city:' + city]['commute'][0][1])
+com = next((x for x in vs['ams'] if x[0] == 'commute'), None)
+check('home comparison: the commute line carries both published figures (New York 43, Amsterdam 23) and says better',
+      com and str(round(RAWC('New York City'))) in com[3] and str(round(RAWC('Amsterdam'))) in com[3] and com[1] and not com[2], com)
+check('home comparison: healthcare is left out where the one figure and the whole score disagree', not any(x[0] == 'hlth' for x in vs['ams']), [x[0] for x in vs['ams']])
+check('home comparison: every line compares like with like and agrees with the factor score', vs['n'] > 3000 and vs['nbad'] == 0, (vs['n'], vs['bad']))
+check('home comparison: nothing for the home itself; five lines on screen in the plain view', vs['self'] == 0 and vs['shown'] == 5, (vs['self'], vs['shown']))
 check('probabilities are between 0 and 1', r['probs'])
 print(f"\n{len(fails)} failed" if fails else "\nall passed"); sys.exit(1 if fails else 0)

@@ -90,6 +90,11 @@ in `js/07-quiz.js`).
   some). The quiz's "Skip" is now "Close" and changes nothing. The sample take is now ranked like any visitor's, so
   Reykjavík (no published pay, rent or commute figures) comes after well-measured places with the same verdict, and its
   kind of work (tech) counts in pay: Amsterdam and Madrid lead, then Rotterdam, Valencia and Utrecht level.
+- **Compared with where you live now (v63):** a place's details now set its published figures next to the same
+  figures for the home given in the quiz, in plain sentences: "The trip to work takes about 43 minutes in New York City
+  and 23 in Amsterdam. In a year, that is about 155 hours of difference." Only like-for-like published figures; a gap
+  inside the measurement error is called about the same; and a figure that points the other way from the page's own
+  score for that factor is left out. No score changes.
 - **Layout after the NYT "Where should you live" quiz (v52):** what matters to you sits beside the map and ranking (a
   sticky panel on wide screens, a bottom sheet behind a "Priorities" button on phones), one tap per factor: off, counts
   (weight 1), ★ counts double (2), read from and written to the same weights as the sliders, which stay under "Fine-tune".

@@ -1863,3 +1863,12 @@ body:not(.took) .hero { margin-top: 6vh; padding-block: 34px; }
 .pagefoot { display: flex; justify-content: flex-end; }
 .pagefoot .quiet { width: 44px; height: 44px; min-height: 0; padding: 0; border: 0; background: none; box-shadow: none; opacity: 0; cursor: default; }
 @media print { .pagefoot { display: none; } }
+
+/* ---------- v63: compared with where you live now (place details) ---------- */
+.vshome { display: flex; flex-direction: column; gap: 4px; }
+.vshome .facts { margin-top: 2px; }
+.vshome .facts li { padding-inline-start: 1.3em; text-indent: -1.3em; line-height: 1.4; }
+.vshome .facts li.good::before { content: '+'; text-indent: 0; }
+.vshome .facts li.bad::before { content: '−'; text-indent: 0; }
+.vshome .facts li.same { color: var(--muted); }
+.vshome .facts li.same::before { content: '≈'; text-indent: 0; font-weight: 400; }

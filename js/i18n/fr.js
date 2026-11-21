@@ -187,6 +187,8 @@ I18N({
     swTz: 'Quand il est {t} à {h}, il est {x} à {a} et {y} à {b}.',
     swSea: 'Jusqu’à la mer ou un grand lac : environ {x} km depuis {a}, {y} km depuis {b}.',
     swCost: 'Prix, loyer compris, avec New York à 100 : {x} à {a}, {y} à {b}.',
+    vsHomeT: 'Par rapport à {a}',
+    vsHomeNote: 'Uniquement des chiffres publiés pour les deux lieux et mesurés de la même façon. Rien d’estimé.',
     qN: 'Question {n}',
     calcTz: '{h} h de décalage avec chez vous',
     calcSea: '{km} km de la mer ou d’un grand lac',

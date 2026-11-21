@@ -186,6 +186,8 @@ I18N({
     swTz: 'Wenn es in {h} {t} ist, ist es {x} in {a} und {y} in {b}.',
     swSea: 'Bis zum Meer oder einem großen See: etwa {x} km von {a}, {y} km von {b}.',
     swCost: 'Preise einschließlich Miete, New York = 100: {x} in {a}, {y} in {b}.',
+    vsHomeT: 'Im Vergleich zu {a}',
+    vsHomeNote: 'Nur Zahlen, die für beide Orte veröffentlicht und gleich gemessen sind. Nichts geschätzt.',
     qN: 'Frage {n}',
     calcTz: '{h} Std. Zeitunterschied zu zu Hause',
     calcSea: '{km} km bis zum Meer oder einem großen See',
