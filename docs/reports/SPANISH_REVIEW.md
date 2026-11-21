@@ -506,14 +506,10 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | eyebrow | Livability atlas · November 2026 | Atlas de habitabilidad · noviembre de 2026 | |
 | h1 | Where should you live? | ¿Dónde deberías vivir? | |
 | startQuiz | Take the 2-minute quiz | Hacer el cuestionario de 2 minutos | |
-| resume | Continue with my map | Seguir con mi mapa | |
 | howRead | How to read the map | Cómo leer el mapa | |
 | qOf | Question {n} of {t} | Pregunta {n} de {t} | |
-| sharpen | Answer the rest of the questions | Contestar el resto de las preguntas | |
 | doneLab | Done | Listo | |
-| doneTitle | Your map is ready | Tu mapa está listo | |
 | doneMore | Answer {m} more questions | Contestar {m} preguntas más | |
-| doneMap | See my map | Ver mi mapa | |
 | hpSearch | Search cities and countries | Buscar ciudades y países | |
 | hpSearchC | Search countries | Buscar países | |
 | cancel | Cancel | Cancelar | |
@@ -550,16 +546,11 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | tripTitle | Your real door-to-door trip time | Tu tiempo real de viaje puerta a puerta | |
 | feedback | Suggest a city or a correction | Sugiere una ciudad o una corrección | |
 | grpSuggested | Suggested | Sugeridos | |
-| grpCities | Cities | Ciudades | |
-| grpCountries | Countries | Países | |
-| homeQ | Where is home for you? | ¿Dónde está tu hogar? | |
 | qCmpTop | {a} gets {x} out of 5 for this. No place nearby is better. | {a} tiene {x} de 5 en esto. Ningún lugar cercano es mejor. | |
 | home1 | Where I live now | Donde vivo ahora | |
 | home2 | Another place I call home (optional) | Otro lugar que es mi casa (opcional) | |
 | none | None | Ninguno | |
-| resEyebrow | Your results | Tus resultados | |
 | yourTop | Your top 5 cities | Tus 5 ciudades principales | |
-| weighDiff | Where your priorities differ most | Donde más difieren sus prioridades | |
 | share | Copy link to my results | Copiar enlace a mis resultados | |
 | retake | Retake the quiz | Repetir el cuestionario | |
 | toMap | Explore your map ↓ | Explora tu mapa ↓ | |
@@ -568,7 +559,6 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | optsTitle | Map options and filters | Opciones del mapa y filtros | |
 | colorBy | Color by | Colorear por | |
 | find | Find a place | Buscar un lugar | |
-| findPh | Guadalajara | Guadalajara | |
 | layers | Show | Mostrar | |
 | countries | Countries | Países | |
 | cities | Cities | Ciudades | |
@@ -628,10 +618,10 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | ppReset | Reset | Restablecer | |
 | ppResetQuiz | Back to my quiz answers | Volver a mis respuestas | |
 | ppFine | Fine-tune with sliders | Ajustar con barras | |
-| ppFab | Priorities ({n}) | Prioridades ({n}) | |
+| ppFab | Priorities | Prioridades | |
 | ppClose | Close | Cerrar | |
 | topPick | Best match | Mejor opción | |
-| mainDrawback | Main drawback | Principal desventaja | |
+| fewFigs | Less certain: over a fifth of the score is filled in | Menos seguro: más de una quinta parte del puntaje es estimada | |
 | cmpAdded | {p} added to Compare ({n} of 3) | {p} se agregó a Comparar ({n} de 3) | |
 | cmpRemoved | {p} removed from Compare | {p} se quitó de Comparar | |
 | onlyShow | Only show | Mostrar solo | |
@@ -676,7 +666,6 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | calcW | Weight | Peso | |
 | calcPts | Points | Puntos | |
 | calcTotal | Total | Total | |
-| calcNatl | national figure | cifra nacional | |
 | calcImp | filled in by the model (measured error ±{sd}) | estimado por el modelo (error medido ±{sd}) | |
 | calcRule | official rules | reglas oficiales | |
 | calcDay | shortest day {h}h {m}m | día más corto {h} h {m} min | |
@@ -701,8 +690,6 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | marGdp | Wealth gap | Diferencia de riqueza | |
 | marPop | Size gap | Diferencia de tamaño | |
 | quantNote | Score, in fifths of all places: | Puntaje, en quintos de todos los lugares: | |
-| likelyRange | likely | probable | |
-| pFitShort | chance of Strong fit | probabilidad de Muy buena opción | |
 | probLine | Strong fit in {f} of recalculations · top 10 in {t} | Muy buena opción en {f} de los recálculos · top 10 en {t} | |
 | permRight | Legal right to work | Derecho legal a trabajar | |
 | permRoute | Route for a junior hire without that right | Vía para un recién egresado sin ese derecho | |

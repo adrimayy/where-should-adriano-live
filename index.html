@@ -25,15 +25,15 @@ html.ready #boot{display:none}
 <div id="boot" role="status" aria-label="Loading"><i></i></div>
 <div class="wrap">
   <div class="topbar">
-    <span class="brand" data-t="brand"></span>
+    <button type="button" class="brand" id="brand" data-t="brand"></button>
     <select id="langSel" class="langsel" aria-label="Language / Idioma"></select>
   </div>
 
   <section class="panel hero" id="start">
     <h1 data-t="h1"></h1>
     <p class="lede" data-th="intro1"></p>
-    <!-- one action: take the quiz (or, with a saved take, continue it). Nothing is scored on screen before that. -->
-    <div class="cta"><button class="primary" id="resumeTake" hidden data-t="resume"></button><button class="primary" id="startQuiz" data-t="startQuiz"></button><button class="ghost" id="retakeHero" hidden data-t="retake"></button></div>
+    <!-- one action: take the quiz. Nothing is scored on screen before that; a saved take opens straight on its results. -->
+    <div class="cta"><button class="primary" id="startQuiz" data-t="startQuiz"></button></div>
     <p class="meta" data-t="startNote"></p>
   </section>
 
@@ -41,25 +41,42 @@ html.ready #boot{display:none}
     <div class="qwrap" id="qwrap"></div>
   </section>
 
-  <section class="panel" id="resPanel" hidden>
-    <div class="dhead">
-      <div style="display:flex;flex-direction:column;gap:4px"><span class="eyebrow calc-only" data-t="resEyebrow"></span><h2 id="resHead"></h2></div>
-    </div>
-    <div class="tops calc-only" id="resLists"></div>
-    <div id="resDefaults" class="calc-only"></div>
-    <div class="toast" id="toast" role="status"></div>
-    <p class="meta unsure" id="unsureNote" role="status" hidden></p>
-    <p class="meta" data-t="startNote"></p>
-    <div class="toggles"><button class="primary" id="shareTake" data-t="share"></button><button id="retake" data-t="retake"></button><button class="ghost" id="tradeBtn" data-t="tradeBtn"></button><button class="ghost" id="fullQuiz" data-t="sharpen"></button><button class="ghost" id="toMap" data-t="toMap"></button></div>
-  </section>
-
-  <!-- the workspace: what matters (left, sticky; a bottom sheet on phones) next to the map and ranking it changes -->
+  <!-- the workspace: what matters (left, sticky; a bottom sheet on phones), the list of places, and the map beside it
+       on wide screens (below it on phones). A place's details open in the list's own column and close back to it. -->
   <div class="work" id="work">
   <aside class="ppanel" id="ppanel"></aside>
   <div class="workmain">
+    <!-- results: the answer comes first. A title and two quiet actions, then straight into the list. -->
+    <section class="reshead" id="resPanel" hidden>
+      <div class="resrow">
+        <h2 id="resHead"></h2>
+        <div class="resacts"><button class="ghost" id="shareTake" data-t="share"></button><button class="ghost" id="retake" data-t="retake"></button><button class="ghost" id="toMap" data-t="toMap"></button><button class="ghost" id="toCmp" hidden></button></div>
+      </div>
+      <div class="toast" id="toast" role="status"></div>
+      <p class="meta unsure" id="unsureNote" role="status" hidden></p>
+      <div class="tops calc-only" id="resLists"></div>
+      <div id="resDefaults" class="calc-only"></div>
+    </section>
   <div class="scopebar" id="scopeBar" hidden></div>
-  <div class="pills" id="pills" role="group"></div>
-  <section style="display:flex;flex-direction:column;gap:12px" id="mapSec">
+  <div class="split">
+  <section id="rankSec">
+    <div class="listpane" id="listPane">
+      <div class="rankhead">
+        <h2 class="sr" data-t="ranking"></h2>
+        <div class="seg" role="group"><button id="rCities" aria-pressed="true" data-t="cities"></button><button id="rCountries" aria-pressed="false" data-t="countries"></button></div>
+        <div class="seg calc-only" role="group"><button id="vScore" aria-pressed="true" data-t="viewScore"></button><button id="vProfile" aria-pressed="false" data-t="viewProfile"></button></div>
+        <input id="search" type="search" autocomplete="off" enterkeyhint="search">
+      </div>
+      <details class="filt" id="filt"><summary id="filtSum"></summary><div class="pills" id="pills" role="group"></div></details>
+      <p class="meta" id="rankmeta"></p>
+      <div class="list" id="list"></div>
+      <div class="listfoot"><button id="more" data-t="showAll"></button><button class="linkbtn" id="advBtn" aria-pressed="false"></button></div>
+      <!-- after the answer: how to make it more precise -->
+      <div class="sharpen" id="sharpen" hidden><p class="meta" id="sharpenNote"></p><div class="toggles"><button id="fullQuiz"></button><button class="ghost" id="tradeBtn" data-t="tradeBtn"></button></div></div>
+    </div>
+    <section class="panel" id="detail" hidden></section>
+  </section>
+  <section id="mapSec">
     <div class="rankhead">
       <div style="display:flex;flex-direction:column;gap:4px"><h2 data-t="mapTitle"></h2></div>
     </div>
@@ -68,7 +85,6 @@ html.ready #boot{display:none}
       <div class="inner">
         <div class="mapctl">
           <div class="field"><label class="lab" for="colorBy" data-t="colorBy"></label><select id="colorBy"></select></div>
-          <div class="field"><label class="lab" for="search" data-t="find"></label><input id="search" type="search" autocomplete="off" enterkeyhint="go"></div>
         </div>
         <div class="field"><span class="lab" data-t="layers"></span><div class="toggles"><button class="chipbtn" id="tCountries" aria-pressed="true" data-t="countries"></button><button class="chipbtn" id="tDots" aria-pressed="false" data-t="dotsOnly"></button><button class="chipbtn" id="tCities" aria-pressed="true" data-t="cities"></button><button class="chipbtn" id="tLabels" aria-pressed="true" data-t="cityNames"></button><button class="chipbtn" id="tOpac" aria-pressed="false" data-t="shadeOpac"></button></div><p class="meta" data-t="dotsNote"></p></div>
         <div class="field"><span class="lab" data-t="verdicts"></span><div class="toggles" id="tierFilters"></div></div>
@@ -87,27 +103,14 @@ html.ready #boot{display:none}
       <div class="pcard" id="pcard" hidden></div>
     </div>
     <details class="howread calc-only"><summary data-t="howRead"></summary><p class="meta" data-t="namesRule"></p></details>
-    <div class="legend calc-only" id="legend"></div>
+    <div class="legend" id="legend"></div>
   </section>
-
-  <section style="display:flex;flex-direction:column;gap:12px" id="rankSec">
-    <div class="rankhead">
-      <div style="display:flex;flex-direction:column;gap:4px"><h2 data-t="ranking"></h2><p class="meta" id="rankmeta"></p></div>
-      <div class="toggles"><div class="seg" role="group"><button id="rCities" aria-pressed="true" data-t="cities"></button><button id="rCountries" aria-pressed="false" data-t="countries"></button></div>
-      <div class="seg calc-only" role="group"><button id="vScore" aria-pressed="true" data-t="viewScore"></button><button id="vProfile" aria-pressed="false" data-t="viewProfile"></button></div>
-</div>
-    </div>
-    <div class="list" id="list"></div>
-    <div class="listfoot"><button id="more" data-t="showAll"></button><button class="linkbtn" id="advBtn" aria-pressed="false"></button></div>
-  </section>
-
-  <div class="grid2 after" id="detailSec">
-    <section class="panel" id="detail" aria-live="polite"></section>
-    <section class="panel" id="cmpPanel">
-      <div style="display:flex;justify-content:space-between;align-items:end;gap:10px;flex-wrap:wrap"><h2 data-t="compare"></h2><button id="cmpClear" data-t="clear"></button></div>
-      <div class="cmp"><div class="cmpgrid" id="cmp"></div></div>
-    </section>
   </div>
+
+  <section class="panel after" id="cmpPanel" hidden>
+    <div style="display:flex;justify-content:space-between;align-items:end;gap:10px;flex-wrap:wrap"><h2 data-t="compare"></h2><button id="cmpClear" data-t="clear"></button></div>
+    <div class="cmp"><div class="cmpgrid" id="cmp"></div></div>
+  </section>
 
   <details class="box after calc-only" id="weightsBox">
     <summary><span data-t="weightsTitle"></span></summary>

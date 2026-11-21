@@ -15,6 +15,10 @@ const ui = {
   must: new Set(),
   showAll: false,
   sel: null,
+  // a place's details are open in the list's column; where on the page to go back to; the list's order, to step through
+  open: false,
+  backY: 0,
+  order: [],
   cmp: [],
   // quick filters above the map and ranking: world regions, cost bands ($ cheapest), big cities, can work freely
   f: { reg: new Set(), cost: new Set(), big: false, work: false },
@@ -41,7 +45,8 @@ const REGPILL = {
 };
 // cost of living band (5 = cheapest, index 35 or less with New York = 100) as $ to $$$$
 const costPill = e => (e.cost == null ? null : e.cost >= 4.5 ? 1 : e.cost >= 3.5 ? 2 : e.cost >= 2.5 ? 3 : 4);
-const narrow = matchMedia('(max-width:640px)').matches,
+// a narrow map: a phone, or the column beside the list on a wide screen (taller shape, bigger marks)
+const narrow = matchMedia('(max-width:640px), (min-width:1180px)').matches,
   touch = matchMedia('(pointer:coarse)').matches;
 const VW = 960,
   VH = narrow ? 720 : 500;
@@ -345,13 +350,7 @@ function passes(e) {
   }
   return true;
 }
-// scores round to 5 without crossing a verdict line: 68 shows as 65 (Workable), never 70 next to a Workable chip
-const bandOf = x => (x >= CUT.fit ? 3 : x >= CUT.ok ? 2 : x >= CUT.caution ? 1 : 0);
-const r5 = x => {
-    const r = Math.round(x / 5) * 5;
-    return bandOf(r) === bandOf(x) ? r : Math.floor(x / 5) * 5;
-  },
-  pct = x => Math.round((x || 0) * 100) + '%';
+const pct = x => Math.round((x || 0) * 100) + '%';
 let QBR = null;
 function quantBreaks() {
   const v = ents
@@ -1013,7 +1012,8 @@ const chip = tier => `<span class="chip">${sym(tier)}${L('tiers')[tier]}</span>`
 function pcard() {
   const P = $('pcard'),
     e = ui.sel;
-  if (!e) {
+  // the short card is for a place picked on the map; with its full details open it would only repeat them
+  if (!e || ui.open) {
     P.hidden = true;
     return;
   }
@@ -1021,12 +1021,11 @@ function pcard() {
   // a short sheet, like a map app: name, verdict and score, one line of why; everything else lives in Details
   const vs = `<span class="sc2">${r5(e.score)}<small>/100</small></span>`;
   P.innerHTML = `<div class="pchead"><span class="nm">${dn(e)}</span><button id="pcX" class="pcx" aria-label="Close">${IC('x', 14, 2.6)}</button></div><div class="pcrow">${chip(e.tier)}${vs}</div><p class="pcwhy">${whyShort(e)}</p><div class="acts"><button id="pcDet" class="tinted">${L('details')}</button><button id="pcCmp">${ui.cmp.includes(e) ? L('removeCmp') : L('addCmp')}</button></div>`;
-  $('pcDet').onclick = () => $('detailSec').scrollIntoView({ block: 'start' });
+  $('pcDet').onclick = () => openPlace(e);
   $('pcCmp').onclick = () => toggleCmp(e);
   $('pcX').onclick = () => {
-    ui.sel = null;
-    paint();
-    detail(null);
+    if (ui.open) closePlace();
+    select(null);
   };
 }
 function showTip(ev, e) {

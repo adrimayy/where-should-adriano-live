@@ -17,12 +17,13 @@
       setTimeout(() => toast(L('sharedView')), 60);
     } catch (e) {}
   } else {
-    // a returning visitor's own take comes back (their main action is their map; the quiz becomes a quiet link).
+    // a returning visitor's own take opens straight on its results (retaking the quiz is a quiet link there).
     // Anyone else starts with the quiz: nothing is scored on screen before there is a take.
     setNeutral();
     if (store.get('take', null)) {
       try {
         loadTake(JSON.parse(store.get('take', 'null')));
+        $('resPanel').hidden = false;
       } catch (e) {
         setNeutral();
       }
@@ -63,8 +64,7 @@ getWorld()
       .on('keydown', (ev, d) => {
         if (ev.key === 'Enter' || ev.key === ' ') {
           ev.preventDefault();
-          select(d, true);
-          $('detailSec').scrollIntoView({ block: 'start' });
+          openPlace(d);
         }
       });
     gLabels

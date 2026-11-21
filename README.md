@@ -70,7 +70,8 @@ Working files (`build/`, `dist/`) are not part of the repository. Code is format
 ## Run the tests
 
 ```
-python3 tests/test_page.py      # clicks through the quiz, map and language switch on desktop and mobile
+python3 tests/test_page.py      # clicks through the quiz, results, a place's details and the language switch on desktop and mobile
+python3 tests/test_walk.py      # the visitor's path on a phone in all eight languages, the Back button, reload, reset, shared links
 python3 tests/test_numbers.py   # checks specific numbers (money after rent, bands, rounding, rules)
 python3 tests/test_gestures.py  # pinch and pan keep the map under your fingers
 python3 tests/profiles.py       # top 10 for the sample take and three very different people

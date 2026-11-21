@@ -1,22 +1,39 @@
 'use strict';
 /* ---------------- panels ---------------- */
 // the one-line version for the map sheet: two strengths and the main drawback
-function whyShort(e) {
-  const ks = FACTORS.filter(f => e.sc[f.k] != null && e.sc[f.k] >= 4 && W[f.k] > 0 && counts(e, f.k))
+// a label inside a sentence: lower case, except in German, where nouns keep their capital letter
+const low = s => (LANG === 'de' ? s : s.toLowerCase());
+// what this place does well among the things the person weighs (4 or 5 out of 5), most important first
+function strengths(e, n) {
+  return FACTORS.filter(f => e.sc[f.k] != null && e.sc[f.k] >= 4 && W[f.k] > 0 && counts(e, f.k))
     .sort((a, b) => W[b.k] - W[a.k] || e.sc[b.k] - e.sc[a.k])
-    .slice(0, 2)
-    .map(f => FL(f.k));
+    .slice(0, n)
+    .map(f => f.k);
+}
+function whyShort(e) {
+  const ks = strengths(e, 2).map(FL);
   const parts = [];
   if (ks.length) parts.push(fmt(L('whyGood'), { x: ks.join(', ') }));
   if (e.lim !== 'none') parts.push(fmt(L('whyBad'), { x: FD(e.lim) }));
   return parts.join(' · ') || L('whyNone');
+}
+// A ranking row's reasons at a glance: up to two strengths (+) and the main drawback (−), the way people list pros and
+// cons. Where the verdict sits below what the score alone would give, the reason follows in words.
+function rowWhy(e) {
+  const pro = strengths(e, 2).map(k => `<span class="why5 pro">+ ${FL(k)}</span>`),
+    con =
+      e.lim !== 'none' ? [`<span class="why5 con">− ${FD(e.lim)}${e.gated ? L('dealRule') : ''}</span>`] : [];
+  const cap = e.dataCap
+    ? `<span class="capnote">${e.dataCap[0] === 'share' ? L('capShare') : fmt(L('capData'), { x: e.dataCap.map(k => low(FL(k))).join(', ') })}</span>`
+    : '';
+  return (pro.concat(con).join('') || L('whyNone')) + cap;
 }
 function whyLine(e) {
   if (e.tier === 'nodata') return L('whyNoData');
   const ks = FACTORS.filter(f => e.sc[f.k] != null && e.sc[f.k] >= 4 && W[f.k] > 0 && counts(e, f.k))
     .sort((a, b) => W[b.k] - W[a.k] || e.sc[b.k] - e.sc[a.k])
     .slice(0, 3)
-    .map(f => FL(f.k).toLowerCase());
+    .map(f => low(FL(f.k)));
   const join = a => {
     try {
       return new Intl.ListFormat(LANG, { type: 'conjunction' }).format(a);
@@ -25,16 +42,15 @@ function whyLine(e) {
     }
   };
   const good = ks.length ? fmt(L('whyGood'), { x: join(ks) }) : L('whyNone');
-  const bad = e.lim !== 'none' ? ' ' + fmt(L('whyBad'), { x: FD(e.lim).toLowerCase() }) : '';
+  const bad = e.lim !== 'none' ? ' ' + fmt(L('whyBad'), { x: low(FD(e.lim)) }) : '';
   const cap = e.dataCap
     ? ' ' +
       (e.dataCap[0] === 'share'
         ? L('capShare')
-        : fmt(L('capData'), { x: join(e.dataCap.map(k => FL(k).toLowerCase())) }))
+        : fmt(L('capData'), { x: join(e.dataCap.map(k => low(FL(k)))) }))
     : '';
   const lk = e.likely
-    ? ' ' +
-      fmt(L('likelyCap'), { x: FL(e.lim).toLowerCase(), p: pct(pBelow(e, e.lim, e.lim === 'free' ? 2 : 1)) })
+    ? ' ' + fmt(L('likelyCap'), { x: low(FL(e.lim)), p: pct(pBelow(e, e.lim, e.lim === 'free' ? 2 : 1)) })
     : '';
   const fw = e.freeWhy ? ' ' + L(e.freeWhy === 'own' ? 'freeOwn' : 'freeLow') : '';
   // a dealbreaker can put a place below what its score says: say so, with the tier the score alone would give
@@ -46,14 +62,16 @@ function whyLine(e) {
         fmt(L('gatedNote'), {
           s: Math.round(e.score / 5) * 5,
           t: L('tiersShort')[raw],
-          x: FL(e.lim).toLowerCase(),
+          x: low(FL(e.lim)),
         })
       : '';
   return good + bad + cap + lk + gn + fw;
 }
 function srcTag(e, k) {
-  if (e.how && e.how[k] === 'imp') return `<span class="tag calc-only" style="color:var(--you)">${L('tagImp')}</span>`;
-  if (CALC.has(k) || (k === 'clim' && CLIMMODE !== 'mild')) return `<span class="tag calc-only">${L('tagCalc')}</span>`;
+  if (e.how && e.how[k] === 'imp')
+    return `<span class="tag calc-only" style="color:var(--you)">${L('tagImp')}</span>`;
+  if (CALC.has(k) || (k === 'clim' && CLIMMODE !== 'mild'))
+    return `<span class="tag calc-only">${L('tagCalc')}</span>`;
   if (backed(e, k)) return `<span class="tag calc-only">${L('tagData')}</span>`;
   return `<span class="tag calc-only" style="color:var(--muted)">${L('tagEst')}</span>`;
 }
@@ -185,7 +203,8 @@ function calcTable(e) {
         });
       else if (k === 'fam' && e.flights && e.flights.length)
         src = fmt(L('calcTrip'), { h: e.flights.map(x => Math.round(x)).join(' / ') });
-      else if (k === 'tz' && e.gaps && e.gaps.length) src = fmt(L('calcTz'), { h: e.gaps.map(x => +x.toFixed(1)).join(' / ') });
+      else if (k === 'tz' && e.gaps && e.gaps.length)
+        src = fmt(L('calcTz'), { h: e.gaps.map(x => +x.toFixed(1)).join(' / ') });
       else if (k === 'sea' && e.coast != null) src = fmt(L('calcSea'), { km: e.coast });
       else if (k === 'perm') {
         const v0 = e.sc.perm;
@@ -225,7 +244,10 @@ function calcTable(e) {
           // how the figure was re-worked for the person's kind of work, and where that pay level comes from
           const sh = jobShare(e),
             left = Math.round(moneyLeftAt(e, sh.r) / 10) * 10,
-            from = fmt(L('paySrc')[sh.src], { y: sh.y, u: RAWU[{ metro: 'oewsm', us: 'oews' }[sh.src] || 'ilopay'] });
+            from = fmt(L('paySrc')[sh.src], {
+              y: sh.y,
+              u: RAWU[{ metro: 'oewsm', us: 'oews' }[sh.src] || 'ilopay'],
+            });
           src += `<div class="muted">${fmt(L('payJobNote'), { p: Math.round(sh.r * 100), x: (left < 0 ? '−$' : '$') + Math.abs(left).toLocaleString('en-US'), s: from })}</div>`;
         }
         if (k === 'pay' && e.payMove != null)
@@ -345,7 +367,16 @@ function factLines(e) {
     else if (above >= 0.8) c.push({ k, good: false, p: above, s: above * (1 + W[k]) });
   });
   const by = (a, b) => b.s - a.s,
-    pick = c.filter(x => x.good).sort(by).slice(0, 2).concat(c.filter(x => !x.good).sort(by).slice(0, 1));
+    pick = c
+      .filter(x => x.good)
+      .sort(by)
+      .slice(0, 2)
+      .concat(
+        c
+          .filter(x => !x.good)
+          .sort(by)
+          .slice(0, 1)
+      );
   if (!pick.length) return '';
   const city = e.type === 'city';
   return `<ul class="facts">${pick
@@ -355,22 +386,18 @@ function factLines(e) {
     )
     .join('')}</ul>`;
 }
+// A place's details take the list's place in its column (openPlace) and give it back (closePlace): the person never
+// leaves where they were. Until a place is opened the panel stays empty and out of the way.
 function detail(e) {
-  const D = $('detail');
-  // empty panels stay out of the way: details appear when a place is picked, compare when something is added
-  const sec = () => {
-    $('detail').hidden = !ui.sel;
-    $('cmpPanel').hidden = !ui.cmp.length;
-    $('detailSec').hidden = !ui.sel && !ui.cmp.length;
-    $('detailSec').classList.toggle('one', !ui.sel || !ui.cmp.length);
-  };
-  if (!e) {
+  const D = $('detail'),
+    on = !!e && ui.open;
+  D.hidden = !on;
+  $('listPane').hidden = on;
+  if (!on) {
     D.innerHTML = '';
-    sec();
     return;
   }
-  setTimeout(sec);
-  const drag = e.lim === 'none' ? L('noDrag') : fmt(L('drag'), { x: FD(e.lim).toLowerCase() });
+  const drag = e.lim === 'none' ? L('noDrag') : fmt(L('drag'), { x: low(FD(e.lim)) });
   const big = `<div class="big">${r5(e.score)}<small>/100</small></div>`;
   const rangeLine = `<div class="calc-only"><div class="drange">${rbar(e)}</div><p class="mono muted">${fmt(L('rangeLine'), { lo: e.lo, hi: e.hi, rlo: e.rlo, rhi: e.rhi, n: e.rn })} · ${fmt(L('probLine'), { f: pct(e.pFit), t: pct(e.pTop) })}${e.impShare > 0.005 ? ' · ' + fmt(L('impShare'), { p: Math.round(e.impShare * 100) }) : ''}</p><p class="meta">${L('roundNote')} <button class="ghost linkbtn" id="toCalc">${L('seeCalc')}</button></p></div>`;
   const mins = Math.round((e.dayH % 1) * 60);
@@ -379,7 +406,15 @@ function detail(e) {
     vsHome = hf.length
       ? `<div class="vshome"><span class="lab">${fmt(L('vsHomeT'), { a: dn(HOMES[0]) })}</span><ul class="facts">${hf.map((x, i) => `<li class="${x.same ? 'same' : x.good ? 'good' : 'bad'}${i >= 5 ? ' calc-only' : ''}">${x.t}</li>`).join('')}</ul><p class="meta calc-only">${L('vsHomeNote')}</p></div>`
       : '';
-  D.innerHTML = `<div class="dhead"><div style="display:flex;flex-direction:column;gap:6px;min-width:0"><span class="eyebrow">${e.type === 'city' ? L('city') + ' · ' + countryOf(e) : L('country')}${e.est ? ' · ' + L('estimated') : ''}</span><h2 style="font-size:24px">${dn(e)}</h2><div class="toggles">${chip(e.tier)}<button class="chipbtn" id="cmpBtn">${ui.cmp.includes(e) ? L('removeCmp') : L('addCmp')}</button></div></div>${big}</div>
+  // back to the list, and a step to the place before or after in it, without going back first
+  const ord = ui.order || [],
+    at = ord.indexOf(e.key),
+    step = (i, ic) => {
+      const p = at >= 0 ? byKey[ord[i]] : null;
+      return `<button class="ghost dstep" data-go="${p ? p.key : ''}" ${p ? `aria-label="${dn(p)}" title="${dn(p)}"` : 'disabled aria-hidden="true"'}>${IC(ic, 20)}</button>`;
+    };
+  D.innerHTML = `<div class="dnav"><button class="ghost" id="dBack">${IC('left', 18)}<span>${L('ranking')}</span></button><span class="dsteps">${at >= 0 ? `<span class="meta mono">${at + 1} / ${ord.length}</span>` : ''}${step(at - 1, 'left')}${step(at + 1, 'right')}</span></div>
+  <div class="dhead"><div style="display:flex;flex-direction:column;gap:6px;min-width:0"><span class="eyebrow">${e.type === 'city' ? L('city') + ' · ' + countryOf(e) : L('country')}${e.est ? ' · ' + L('estimated') : ''}</span><h2 style="font-size:24px">${dn(e)}</h2><div class="toggles">${chip(e.tier)}<button class="chipbtn" id="cmpBtn">${ui.cmp.includes(e) ? L('removeCmp') : L('addCmp')}</button></div></div>${big}</div>
   ${rangeLine}<p style="font-weight:500">${whyLine(e)}${e.gated ? L('dealRule') : ''}</p>${factLines(e)}${vsHome}<p class="meta">${noteOf(e) || ''}</p>${e.natl ? `<p class="meta">${L('natlNote')}</p>` : ''}
   ${
     e.hasGeo
@@ -426,6 +461,10 @@ function detail(e) {
     .join('')}</ol></details>
   ${passSpec(PERMMODE).includes(840) && isoOf(e) !== 840 ? `<p class="meta">${L('taxNote')} <a href="https://www.irs.gov/individuals/international-taxpayers/us-citizens-and-resident-aliens-abroad" target="_blank" rel="noopener">IRS</a></p>` : ''}`;
   $('cmpBtn').onclick = () => toggleCmp(e);
+  $('dBack').onclick = () => closePlace();
+  D.querySelectorAll('.dstep[data-go]').forEach(
+    b => (b.onclick = () => b.dataset.go && openPlace(byKey[b.dataset.go]))
+  );
   $('toCalc').onclick = () => {
     const c = $('calcT');
     c.open = true;
@@ -468,7 +507,8 @@ const RQ = {
     pol: 'How much does local politics affect daily life here?',
     air: 'How often is the air bad here, and what do people do about it?',
     honest: 'Have you ever been asked for a bribe or a favour to get something done here?',
-    hours: 'How many hours does a normal full-time job really take here, and how much vacation do people get?',
+    hours:
+      'How many hours does a normal full-time job really take here, and how much vacation do people get?',
     risk: 'Which natural disasters actually hit this area, and how ready are buildings and services for them?',
   },
   es: {
@@ -493,7 +533,8 @@ const RQ = {
     pol: '¿Cuánto afecta la política local la vida diaria aquí?',
     air: '¿Qué tan seguido está mal el aire aquí y qué hace la gente al respecto?',
     honest: '¿Alguna vez te han pedido una mordida o un favor para resolver un trámite aquí?',
-    hours: '¿Cuántas horas toma de verdad un trabajo de tiempo completo aquí y cuántas vacaciones tiene la gente?',
+    hours:
+      '¿Cuántas horas toma de verdad un trabajo de tiempo completo aquí y cuántas vacaciones tiene la gente?',
     risk: '¿Qué desastres naturales pegan de verdad en esta zona y qué tan preparados están los edificios y servicios?',
   },
 };
@@ -525,8 +566,9 @@ function renderCmp() {
   const G = $('cmp');
   $('cmpClear').hidden = !ui.cmp.length;
   $('cmpPanel').hidden = !ui.cmp.length;
-  $('detailSec').hidden = !ui.sel && !ui.cmp.length;
-  $('detailSec').classList.toggle('one', !ui.sel || !ui.cmp.length);
+  // the hearts fill a table further down the page: a link to it sits with the other actions at the top
+  $('toCmp').hidden = !ui.cmp.length;
+  $('toCmp').textContent = `${L('compare')} (${ui.cmp.length}) ↓`;
   if (!ui.cmp.length) {
     G.innerHTML = '';
     return;
@@ -545,7 +587,8 @@ function renderCmp() {
     `<span class="meta">${L('overall')}</span>` +
     ui.cmp
       .map(
-        e => `<span class="cell">${chip(e.tier)}<b class="mono" style="font-size:14px">${e.score}</b></span>`
+        e =>
+          `<span class="cell">${chip(e.tier)}<b class="mono" style="font-size:14px">${r5(e.score)}</b></span>`
       )
       .join('');
   FACTORS.forEach(f => {
@@ -602,29 +645,29 @@ function list() {
         e.name.toLowerCase().includes(q) ||
         (e.type === 'city' && countryOf(e).toLowerCase().includes(q))
     );
-  const shown = ui.showAll || q ? rows : rows.slice(0, 20);
+  // the first screenful: ten on a phone (the map comes after the list there), twenty beside the map
+  const first = matchMedia('(max-width: 640px)').matches ? 10 : 20,
+    shown = ui.showAll || q ? rows : rows.slice(0, first);
   const sortedAll = [...all].sort((a, b) => byRank(a, b) || dn(a).localeCompare(dn(b)));
-  // places in a row with the same displayed score share a rank ("=2"): the order inside a tie is not meaningful
-  const rankLab = new Map();
-  sortedAll.forEach((e, i) => {
-    const p = sortedAll[i - 1];
-    if (p && r5(p.score) === r5(e.score)) {
-      const r = rankLab.get(p);
-      r.tie = true;
-      rankLab.set(e, r);
-    } else rankLab.set(e, { n: i + 1, tie: false });
-  });
-  const rankOf = e => {
-    const r = rankLab.get(e);
-    return r ? (r.tie ? '=' : '') + r.n : '';
-  };
+  // a place's number is its position in the open tab, whatever is filtered out; details step through this order
+  const rankOf = new Map(sortedAll.map((e, i) => [e, i + 1]));
+  ui.order = rows.map(e => e.key);
   const heart = e => {
     const on = ui.cmp.includes(e);
     return `<button class="heart" data-heart="${e.key}" aria-pressed="${on}" aria-label="${L(on ? 'removeCmp' : 'addCmp')}: ${dn(e)}" title="${L(on ? 'removeCmp' : 'addCmp')}">${IC('heart', 18)}</button>`;
   };
   const place = e =>
     `<b>${dn(e)}</b>${e.type === 'city' ? ` <span class="muted">${countryOf(e)}</span>` : ''}`;
-  const drawback = e => (e.lim === 'none' ? L('noMajor') : FD(e.lim));
+  // The list is ordered by verdict, then well-measured places before thinly measured ones, then score. Where either
+  // changes from one row to the next, a line says so: otherwise a 65 under a 60 looks like a mistake.
+  const divider = (e, p) =>
+    !p || ui.view === 'profile' || q
+      ? ''
+      : p.tier !== e.tier
+        ? `<div class="lgroup">${chip(e.tier)}</div>`
+        : e.thin && !p.thin
+          ? `<div class="lgroup thin">${L('fewFigs')}</div>`
+          : '';
   const tip = e => `${L('tiers')[e.tier]} · ${fmt(L('probLine'), { f: pct(e.pFit), t: pct(e.pTop) })}`;
   // the best match gets a card; the rest are rows. Searching or the factor table show plain rows.
   const hero = !q && ui.view !== 'profile' && shown[0] && shown[0] === sortedAll.find(passes);
@@ -633,25 +676,21 @@ function list() {
   } else
     $('list').innerHTML =
       shown
-        .map((e, i) =>
-          hero && i === 0
-            ? `<div class="rw top1${ui.sel === e ? ' sel' : ''}"><button class="row hero1" data-key="${e.key}" title="${tip(e)}"><span class="eyebrow">${L('topPick')}</span><span class="hname">${place(e)}</span><span class="hscore">${sym(e.tier)}<span class="sn">${r5(e.score)}</span><span class="meta">${L('tiers')[e.tier]}</span></span>${rbar(e)}<span class="chips5">${whyChips(e, 6)}</span><span class="why">${L('mainDrawback')}: ${drawback(e)}</span></button>${heart(e)}</div>`
-            : `<div class="rw${ui.sel === e ? ' sel' : ''}"><button class="row" data-key="${e.key}" title="${tip(e)}"><span class="n" title="${rankLab.get(e) && rankLab.get(e).tie ? L('tieTitle') : ''}">${rankOf(e)}</span><span class="nm">${place(e)}</span><span class="sc">${sym(e.tier)}<span class="sn">${r5(e.score)}</span>${rbar(e)}</span><span class="chips5">${whyChips(e, 4)}</span><span class="why">${drawback(e)}</span></button>${heart(e)}</div>`
+        .map(
+          (e, i) =>
+            divider(e, shown[i - 1]) +
+            (hero && i === 0
+              ? `<div class="rw top1${ui.sel === e ? ' sel' : ''}"><button class="row hero1" data-key="${e.key}" title="${tip(e)}"><span class="eyebrow">${L('topPick')}</span><span class="hname">${place(e)}</span><span class="hscore">${sym(e.tier)}<span class="sn">${r5(e.score)}</span><span class="meta">${L('tiers')[e.tier]}</span></span>${rbar(e)}<span class="chips5">${whyChips(e, 6)}</span><span class="why">${whyLine(e)}${e.gated ? L('dealRule') : ''}</span></button>${heart(e)}</div>`
+              : `<div class="rw${ui.sel === e ? ' sel' : ''}"><button class="row" data-key="${e.key}" title="${tip(e)}"><span class="n">${rankOf.get(e)}</span><span class="nm">${place(e)}</span><span class="sc">${sym(e.tier)}<span class="sn">${r5(e.score)}</span>${rbar(e)}</span><span class="why">${rowWhy(e)}</span></button>${heart(e)}</div>`)
         )
         .join('') || `<p class="meta" style="padding:12px 6px">${L('nothing')}</p>`;
-  $('more').hidden = ui.showAll || !!q || rows.length <= 20;
+  $('more').hidden = ui.showAll || !!q || rows.length <= first;
   $('rankmeta').textContent =
     rows.length < all.length ? fmt(L('rankmeta'), { n: rows.length, t: all.length }) : '';
   $('list').title = L('rangeKey');
   $('list')
     .querySelectorAll('.row,[data-key]')
-    .forEach(
-      b =>
-        (b.onclick = () => {
-          select(byKey[b.dataset.key], true);
-          $('mapSec').scrollIntoView({ block: 'start' });
-        })
-    );
+    .forEach(b => (b.onclick = () => openPlace(byKey[b.dataset.key])));
   // a heart puts the place in Compare (up to 3)
   $('list')
     .querySelectorAll('[data-heart]')
@@ -662,7 +701,9 @@ function list() {
           const e = byKey[b.dataset.heart],
             had = ui.cmp.includes(e);
           toggleCmp(e);
-          gtoast(had ? fmt(L('cmpRemoved'), { p: dn(e) }) : fmt(L('cmpAdded'), { p: dn(e), n: ui.cmp.length }));
+          gtoast(
+            had ? fmt(L('cmpRemoved'), { p: dn(e) }) : fmt(L('cmpAdded'), { p: dn(e), n: ui.cmp.length })
+          );
         })
     );
 }
@@ -786,9 +827,12 @@ function pillsUI() {
     pill = (grp, v, label, on) =>
       `<button class="pill" data-g="${grp}" data-v="${v}" aria-pressed="${on}">${label}</button>`;
   const any = f.reg.size || f.cost.size || f.big || f.work;
+  const nOn = f.reg.size + f.cost.size + (f.big ? 1 : 0) + (f.work ? 1 : 0);
   $('pills').setAttribute('aria-label', L('onlyShow'));
+  $('filtSum').innerHTML =
+    `<span>${L('onlyShow')}${nOn ? ` <b class="mono">${nOn}</b>` : ''}</span>${IC('chev', 16)}`;
+  if (nOn) $('filt').open = true;
   $('pills').innerHTML =
-    `<span class="lab">${L('onlyShow')}</span>` +
     `<span class="pgroup">${['eu', 'na', 'la', 'ap', 'af'].map(r => pill('reg', r, r === 'af' ? L('regAf') : L('regions')[r], f.reg.has(r))).join('')}</span>` +
     `<span class="pgroup" title="${L('costPills')}">${[1, 2, 3, 4].map(c => pill('cost', c, '$'.repeat(c), f.cost.has(c))).join('')}</span>` +
     `<span class="pgroup">${pill('big', 1, L('bigCities'), f.big)}${pill('work', 1, L('canWork'), f.work)}</span>` +
@@ -803,7 +847,11 @@ function pillsUI() {
           if (g === 'reg' || g === 'cost') f[g].has(v) ? f[g].delete(v) : f[g].add(v);
           else f[g] = !f[g];
           // a region filter also moves the map there (one region: that region; none or several: the default view)
-          if (g === 'reg') regionView(f.reg.size === 1 && REGIONS[[...f.reg][0]] ? [...f.reg][0] : f.reg.size ? 'world' : 'atlantic', true);
+          if (g === 'reg')
+            regionView(
+              f.reg.size === 1 && REGIONS[[...f.reg][0]] ? [...f.reg][0] : f.reg.size ? 'world' : 'atlantic',
+              true
+            );
           pillsUI();
           filtersChanged();
         })
@@ -838,10 +886,58 @@ function profileTable(rows) {
 }
 function select(e, focus) {
   ui.sel = e;
+  if (!e) ui.open = false;
   detail(e);
   paint();
   list();
   if (focus && e) focusOn(e);
+}
+// One entry in the browser's history while something is open on top of the page (a place's details, the quiz), so the
+// phone's Back button steps back inside the page instead of leaving it.
+const NAV = { skip: 0 };
+// the page puts the person back where they were itself (closePlace); the browser's own guess would fight it
+try {
+  history.scrollRestoration = 'manual';
+} catch (err) {}
+function navOpen(kind) {
+  try {
+    if (!history.state || history.state.atlas !== kind) history.pushState({ atlas: kind }, '');
+  } catch (err) {}
+}
+function navClose(kind) {
+  try {
+    if (history.state && history.state.atlas === kind) {
+      NAV.skip++;
+      history.back();
+    }
+  } catch (err) {}
+}
+window.addEventListener('popstate', () => {
+  if (NAV.skip > 0) return void NAV.skip--;
+  if (ui.open) closePlace(true);
+  else if (!$('quizPanel').hidden) quizBack();
+});
+// Open a place's details where the list is, remembering how far down the page the person was.
+function openPlace(e) {
+  if (!e) return;
+  if (!ui.open) ui.backY = window.scrollY;
+  ui.open = true;
+  select(e, true);
+  navOpen('place');
+  $('rankSec').scrollIntoView({ block: 'start', behavior: 'instant' });
+  if ($('dBack')) $('dBack').focus({ preventScroll: true });
+}
+// Back to the list, at the spot the person left it. The place stays marked on the map.
+function closePlace(fromHistory) {
+  if (!ui.open) return;
+  const key = ui.sel && ui.sel.key;
+  ui.open = false;
+  detail(null);
+  pcard();
+  if (!fromHistory) navClose('place');
+  window.scrollTo({ top: ui.backY || 0, behavior: 'instant' }); // a jump, not a glide through the whole list
+  const row = key && $('list').querySelector(`.row[data-key="${CSS.escape(key)}"]`);
+  if (row) row.focus({ preventScroll: true });
 }
 const fmtW = v => (+v).toFixed(2).replace(/\.?0+$/, '') + '×';
 const gsum = g => GOALS[g].reduce((a, k) => a + (W[k] || 0), 0);
@@ -1087,7 +1183,7 @@ function renderLive() {
     .filter(e => listable(e) && e.type === ui.rankType && passes(e))
     .sort(byRank)
     .slice(0, 5);
-  el.innerHTML = `<span class="lab">${fmt(L('liveTop'), { t: L(ui.rankType === 'city' ? 'cities' : 'countries').toLowerCase() })}</span><ol>${rows.map(e => `<li><span>${sym(e.tier)}${dn(e)} <span class="mono muted">${r5(e.score)}</span></span></li>`).join('')}</ol>`;
+  el.innerHTML = `<span class="lab">${fmt(L('liveTop'), { t: low(L(ui.rankType === 'city' ? 'cities' : 'countries')) })}</span><ol>${rows.map(e => `<li><span>${sym(e.tier)}${dn(e)} <span class="mono muted">${r5(e.score)}</span></span></li>`).join('')}</ol>`;
 }
 // Before there is a take (the quiz finished, a saved take, or a shared link) nothing is scored on screen. Underneath,
 // every factor counts the same and nothing is known about the person.
@@ -1112,8 +1208,6 @@ function setNeutral() {
 function syncMode() {
   const took = MODE === 'yours';
   document.body.classList.toggle('took', took);
-  $('startQuiz').hidden = took;
-  $('resumeTake').hidden = $('retakeHero').hidden = !took;
 }
 let _rq = 0,
   _fast = true;
@@ -1195,10 +1289,9 @@ function renderEff() {
       return { k: f.k, w: W[f.k] / tot, eff: c / vs };
     })
     .sort((a, b) => b.eff - a.eff);
-  el.innerHTML = `<span class="lab">${L('effTitle')}</span><p class="meta">${fmt(L('effNote'), { t: L(ui.rankType === 'city' ? 'cities' : 'countries').toLowerCase() })}</p><div class="biastable"><table style="min-width:0"><thead><tr><th>${L('calcFactor')}</th><th>${L('effSlider')}</th><th>${L('effReal')}</th></tr></thead><tbody>${rows.map(r => `<tr><td>${FL(r.k)}</td><td class="mono">${pct(r.w)}</td><td class="mono">${Math.round(r.eff * 100)}%</td></tr>`).join('')}</tbody></table></div>`;
+  el.innerHTML = `<span class="lab">${L('effTitle')}</span><p class="meta">${fmt(L('effNote'), { t: low(L(ui.rankType === 'city' ? 'cities' : 'countries')) })}</p><div class="biastable"><table style="min-width:0"><thead><tr><th>${L('calcFactor')}</th><th>${L('effSlider')}</th><th>${L('effReal')}</th></tr></thead><tbody>${rows.map(r => `<tr><td>${FL(r.k)}</td><td class="mono">${pct(r.w)}</td><td class="mono">${Math.round(r.eff * 100)}%</td></tr>`).join('')}</tbody></table></div>`;
 }
 function showMap() {
-  document.body.classList.add('engaged'); // past the first screen: the priorities button may show on phones
   $('mapSec').scrollIntoView({ block: 'start' });
 }
 function tierFilters() {
@@ -1257,7 +1350,8 @@ function selectsUI() {
   document
     .querySelectorAll('#regions button')
     .forEach(b => (b.onclick = () => regionView(b.dataset.r, true)));
-  $('search').placeholder = L('findPh');
+  $('search').placeholder = L('find');
+  $('search').setAttribute('aria-label', L('find'));
 }
 function impSection() {
   const M = DATA.meta || {},
@@ -1268,7 +1362,7 @@ function impSection() {
     o && isFinite(o.mae)
       ? `${Math.max(o.mae, o.mae_gaps || 0).toFixed(2)} <span class="muted">(n=${o.n})</span>`
       : '—';
-  const skip = (M.skip || []).map(k => FL(k).toLowerCase()).join(', ') || '—';
+  const skip = (M.skip || []).map(k => low(FL(k))).join(', ') || '—';
   const mar = M.mar || {},
     marRows = Object.entries(mar)
       .filter(([k]) => k !== 'cost')
