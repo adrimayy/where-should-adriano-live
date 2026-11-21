@@ -324,7 +324,7 @@ I18N({
     seeT: 'Den Ort ansehen',
     lkMap: 'Karte öffnen',
     lkWiki: 'Artikel lesen',
-    lkReddit: 'Was Einwohner sagen',
+    lkReddit: 'Diskussionen suchen',
     lkHomes: 'Mietwohnungen',
     photo: 'Foto',
     mapAlt: 'Karte von {p} und Umgebung',

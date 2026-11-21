@@ -323,7 +323,7 @@ I18N({
     seeT: 'Voir le lieu',
     lkMap: 'Ouvrir la carte',
     lkWiki: 'Lire l’article',
-    lkReddit: 'Ce que disent les habitants',
+    lkReddit: 'Chercher des discussions',
     lkHomes: 'Logements à louer',
     photo: 'Photo',
     mapAlt: 'Carte de {p} et de ses environs',

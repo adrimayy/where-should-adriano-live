@@ -693,7 +693,7 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | seeT | See the place | Mira el lugar | |
 | lkMap | Open the map | Abrir el mapa | |
 | lkWiki | Read the article | Leer el artículo | |
-| lkReddit | What residents say | Lo que dicen quienes viven ahí | |
+| lkReddit | Search discussions | Buscar conversaciones | |
 | lkHomes | Homes for rent | Viviendas en renta | |
 | photo | Photo | Foto | |
 | mapAlt | Map of {p} and what is around it | Mapa de {p} y sus alrededores | |

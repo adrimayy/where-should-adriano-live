@@ -4,9 +4,9 @@
 
 The page loads data/places.js only when someone opens a place. Only what was checked goes out:
   - a Wikipedia article: the article Wikidata lists for the place, in each of the page's languages that has one
-  - a subreddit: only when Reddit answered for it, it is public, not 18+ and has at least 200 members. Reddit
-    refuses automated checks from servers, so that check is pipeline/check_reddit.py, run from a home connection;
-    its result is pipeline/input/reddit_check.json. No result for a subreddit, no link.
+  - a subreddit: never. Reddit refuses every automated check (servers, automated browsers and a script on a home
+    connection alike), so none of the subreddits Wikidata records could be confirmed to exist. The page links to a
+    Reddit search for the place instead, which needs nothing from this file. The field stays in the row, empty.
   - a housing page (US cities, Zillow): Zillow refuses automated visits altogether, so its pages cannot be opened
     one by one. A city gets the link when it is in Zillow's own published list of cities under the same name and
     state (zlist in places.json), with the address built by Zillow's rule: lower case, hyphens for spaces,
@@ -45,9 +45,6 @@ def main():
     t = (ROOT / 'data' / 'atlas.js').read_text(encoding='utf8')
     A = json.loads(t[t.index('=') + 1:].rstrip().rstrip(';'))
     names = [c[0] for c in A['cities']]
-    f = INPUT / 'reddit_check.json'
-    RC = json.loads(f.read_text(encoding='utf8')).get('subs', {}) if f.exists() else {}
-    live = lambda r: bool(r) and r.get('status') == 200 and r.get('type') == 'public' and not r.get('over18') and (r.get('subscribers') or 0) >= 200
     out = dict(asof=P['asof'], c={}, n={})
     n = dict(article=0, sub=0, home=0, photo=0)
     for name in names:
@@ -55,7 +52,7 @@ def main():
         en, alt = articles(v)
         if not v.get('q') or not en:
             continue
-        sub = v['sub'] if v.get('sub') and live(RC.get(v['sub'])) else 0
+        sub = 0   # see above: no subreddit could be confirmed
         home = v['zslug'] if v.get('zlist') and v.get('zslug') else 0
         row = [v['q'], en, alt, sub, home]
         if v.get('img') and name not in skip:
