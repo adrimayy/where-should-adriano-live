@@ -8,21 +8,21 @@ it may be counting the same thing twice.
 Flagged pairs (|r| > 0.7):
 
 - **Women's rights and Honest institutions**: r = +0.90 (n = 736)
-- **Cost of living and Honest institutions**: r = -0.79 (n = 523)
+- **Cost of living and Honest institutions**: r = -0.79 (n = 537)
 - **Clean air and Honest institutions**: r = +0.79 (n = 498)
 - **Life satisfaction and Honest institutions**: r = +0.78 (n = 719)
+- **Money after rent and Honest institutions**: r = +0.77 (n = 273)
 - **Freedom and Honest institutions**: r = +0.77 (n = 740)
-- **Money after rent and Honest institutions**: r = +0.76 (n = 260)
 - **Life satisfaction and Women's rights**: r = +0.76 (n = 719)
 - **Healthcare and Women's rights**: r = +0.76 (n = 737)
-- **Life satisfaction and Cost of living**: r = -0.75 (n = 521)
+- **Life satisfaction and Cost of living**: r = -0.75 (n = 535)
 - **Life satisfaction and LGBTQ+**: r = +0.74 (n = 718)
 - **Life satisfaction and Clean air**: r = +0.74 (n = 494)
 - **Clean air and Time off**: r = +0.73 (n = 500)
 - **Freedom and LGBTQ+**: r = +0.72 (n = 739)
 - **Healthcare and Honest institutions**: r = +0.71 (n = 740)
-- **Women's rights and Cost of living**: r = -0.71 (n = 524)
-- **Cost of living and Clean air**: r = -0.70 (n = 399)
+- **Women's rights and Cost of living**: r = -0.71 (n = 538)
+- **Cost of living and Clean air**: r = -0.71 (n = 406)
 - **Honest institutions and Time off**: r = +0.70 (n = 730)
 
 Strongest ten pairs:
@@ -30,21 +30,21 @@ Strongest ten pairs:
 | Pair | r | n |
 |---|---|---|
 | Women's rights / Honest institutions | +0.90 | 736 |
-| Cost of living / Honest institutions | -0.79 | 523 |
+| Cost of living / Honest institutions | -0.79 | 537 |
 | Clean air / Honest institutions | +0.79 | 498 |
 | Life satisfaction / Honest institutions | +0.78 | 719 |
+| Money after rent / Honest institutions | +0.77 | 273 |
 | Freedom / Honest institutions | +0.77 | 740 |
-| Money after rent / Honest institutions | +0.76 | 260 |
 | Life satisfaction / Women's rights | +0.76 | 719 |
 | Healthcare / Women's rights | +0.76 | 737 |
-| Life satisfaction / Cost of living | -0.75 | 521 |
+| Life satisfaction / Cost of living | -0.75 | 535 |
 | Life satisfaction / LGBTQ+ | +0.74 | 718 |
 
 Principal components (share of all variation; the biggest loadings):
 
 - Component 1: 39% — Honest institutions +0.38, Women's rights +0.36, Life satisfaction +0.34, LGBTQ+ +0.33
-- Component 2: 12% — Low disaster risk +0.54, Welcoming -0.47, Car dependence +0.28, Job market -0.28
-- Component 3: 9% — Climate +0.42, Commute -0.42, Things happening +0.35, Low disaster risk -0.35
+- Component 2: 12% — Low disaster risk +0.55, Welcoming -0.50, Car dependence +0.27, Housing availability -0.27
+- Component 3: 9% — Climate +0.46, Commute -0.39, Things happening +0.35, LGBTQ+ +0.31
 
 ## Countries (174)
 
@@ -52,6 +52,7 @@ Flagged pairs (|r| > 0.7):
 
 - **Housing availability and Time off**: r = -0.82 (n = 22)
 - **Women's rights and Honest institutions**: r = +0.81 (n = 160)
+- **Welcoming and Housing availability**: r = +0.80 (n = 20)
 - **Money after rent and Honest institutions**: r = +0.79 (n = 131)
 - **Life satisfaction and Women's rights**: r = +0.78 (n = 140)
 - **Healthcare and Women's rights**: r = +0.77 (n = 162)
@@ -70,6 +71,7 @@ Strongest ten pairs:
 |---|---|---|
 | Housing availability / Time off | -0.82 | 22 |
 | Women's rights / Honest institutions | +0.81 | 160 |
+| Welcoming / Housing availability | +0.80 | 20 |
 | Money after rent / Honest institutions | +0.79 | 131 |
 | Life satisfaction / Women's rights | +0.78 | 140 |
 | Healthcare / Women's rights | +0.77 | 162 |
@@ -77,13 +79,12 @@ Strongest ten pairs:
 | Life satisfaction / Cost of living | -0.75 | 120 |
 | Life satisfaction / Honest institutions | +0.74 | 139 |
 | Cost of living / Honest institutions | -0.73 | 131 |
-| Healthcare / Life satisfaction | +0.72 | 140 |
 
 Principal components (share of all variation; the biggest loadings):
 
 - Component 1: 45% — Honest institutions +0.36, Women's rights +0.35, Healthcare +0.32, LGBTQ+ +0.31
-- Component 2: 11% — Low disaster risk -0.52, Safety -0.40, LGBTQ+ +0.34, Climate +0.31
-- Component 3: 8% — Low disaster risk -0.59, Job market +0.48, Healthcare +0.28, Climate -0.27
+- Component 2: 11% — Low disaster risk -0.53, Safety -0.40, LGBTQ+ +0.34, Climate +0.31
+- Component 3: 8% — Low disaster risk -0.58, Job market +0.50, Healthcare +0.28, Climate -0.27
 
 ## What was changed because of this
 

@@ -53,7 +53,7 @@ The short version is in [METHODS.md](METHODS.md). This file has the statistics, 
 | Climate | Hottest and coldest month mean temperatures (1991–2020 normals, counted twice) plus Numbeo Climate Index — `climate.py`, `numbeo.py` | station; city | 1991–2020; 2026 |
 | Commute | Numbeo commute time; LIRR train times for Long Island commuter towns — `numbeo.py`, `getting_around.py` | city; town | 2026 |
 | Car dependence | Numbeo traffic CO2, averaged with the ITDP Atlas of Sustainable City Transport for 309 cities (people near rapid transport, near healthcare and schools, near a protected bike lane, near a car-free place, and block density, banded at ≥50/30/15/5%, ≥85/75/60/40%, ≥50/25/10/2%, ≥75/60/40/20% and ≥100/85/70/55 blocks per km², then averaged into one score). Walk Score / Transit Score shown on US and Canadian city pages, not scored — `numbeo.py`, `itdp.py`, `getting_around.py` | city; urban area | 2026; 2025 |
-| Welcoming | InterNations Expat Insider (countries 2025, cities 2024); Gallup Migrant Acceptance Index only where no rank exists — `people.py` | country; city | 2025; 2024; 2016–17 |
+| Welcoming | InterNations Expat Insider (countries: the 2026 ranking of 31, else the 2025 ranking of 46; cities 2024); Gallup Migrant Acceptance Index only where no rank exists — `people.py` | country; city | 2026; 2025; 2024; 2016–17 |
 | Life satisfaction | World Happiness Report 2026; optional "beyond income, health and freedom" version (below) — `people.py` | country | 2026 |
 | Women's rights | Women, Peace and Security Index 2025/26 — `people.py` | country | 2025 |
 | LGBTQ+ acceptance | Equaldex Equality Index (fetched Nov 2026) — `people.py` | country | 2026 |
@@ -337,7 +337,7 @@ What the quiz does with that:
 - **Kinds of work.** The job question lists 18 kinds of work in everyday words, from restaurants and stores to trades,
   driving, care work, offices, software and farm work, in a fixed order. No further question is asked: what that work
   pays next to average pay is looked up for each place, from the closest published figure.
-  - **US metro areas (109):** the Bureau of Labor Statistics' Occupational Employment and Wage Statistics, May 2025
+  - **US metro areas (122):** the Bureau of Labor Statistics' Occupational Employment and Wage Statistics, May 2025
     (released 15 May 2026): the annual mean wage of the occupation group in that metro area ÷ the metro's mean for all
     occupations. Food service is 54% of average pay in the New York metro, 48% in San Francisco, 62% in Syracuse.
   - **The rest of the US:** the same table's national figures (food service 53%, retail sales 53%, personal care 59%,
@@ -355,11 +355,11 @@ What the quiz does with that:
   scoring (pay − rent ÷ r) ÷ prices against $3,000 / 2,000 / 1,200 / 500. At r = 1 this reproduces the published scores
   exactly (checked for all 165 cities and 88 countries with pay and rent figures). On food-service pay, a one-bedroom in
   the centre of New York costs more than the whole paycheck (about −$1,000 a month), while Syracuse leaves about $1,900.
-- **Places without pay and rent figures of their own** (483 of the 744 cities; their pay value is filled in) move with
+- **Places without pay and rent figures of their own** (470 of the 744 cities; their pay value is filled in) move with
   their country: by the amount the country's figure changes when it is re-worked for that work. v59 left them untouched,
-  which made every such place look better to lower-paid workers. Predicting each of the 260 cities that do have figures
-  from its country alone is off by 0.45 of a point (1 to 5 scale) for food service and 0.14 for computing; leaving them
-  untouched would be off by 1.31 and 0.45. The weak spot is the United States: 288 smaller metros share one filled-in
+  which made every such place look better to lower-paid workers. Predicting each of the 274 cities that do have figures
+  from its country alone is off by 0.50 of a point (1 to 5 scale) for food service and 0.13 for computing; leaving them
+  untouched would be off by 1.33 and 0.44. The weak spot is the United States: 275 smaller metros share one filled-in
   value, and among US metros with figures the same prediction is off by 0.9 of a point for lower-paid work, because rents
   differ so much from metro to metro. Their place page says the value was moved, and by how much.
 - **Removed:** the job-offer comparison (take-home pay in up to three cities). It asked for numbers few visitors have at
@@ -411,9 +411,10 @@ What the new cities have measured:
 - **Things happening:** metro population (Census 2024).
 - **Job market:** metro GDP for the 50 largest US metros (BEA 2024; BEA no longer publishes metro GDP for the rest).
 - **Politics:** the 2024 presidential margin of the metro's state, for all 50 states and DC.
-- **Cost of living** (used in place of pay for remote workers): BEA's 2023 regional price parity, converted to Numbeo's
-  scale. Inside the range covered by the 27 cities that have both, a log-log fit; below it, the cheapest calibrated level,
-  shown as "or less". Metros created in the 2023 boundary revision have no BEA figure.
+- **Cost of living** (used in place of pay for remote workers): BEA's 2024 regional price parity (released 19 Feb 2026), converted to
+  Numbeo's scale. Inside the range covered by the 27 cities that have both, a log-log fit; below it, the cheapest
+  calibrated level, shown as "or less". Metros are matched by Census code, which covers 386 of the 391 US metros (BEA
+  has no figure for Puerto Rico's metros or for one micropolitan area).
 - **Everything country-level** (healthcare, freedom, rights, happiness, safety where no city rate is published).
 
 - **Commute, housing availability and money after rent** for US metros: Census Bureau figures (ACS 2025: median earnings
@@ -466,6 +467,26 @@ same verdict. Country shading covers everywhere, and a dots-only map mode remove
 Women's rights, LGBTQ+ acceptance and politics describe laws and national or county averages: how a country's laws treat
 people, how its residents answer surveys, how neighbors voted. They don't predict how any one person will be treated, and
 they miss differences between neighborhoods, workplaces and families. The politics factor is off unless chosen in the quiz.
+
+## Sources refreshed on 20 Nov 2026 (v61)
+
+- **BEA regional price parities, 2023 → 2024** (released 19 Feb 2026; 2008–2023 revised). All 387 metropolitan areas
+  from BEA's MARPP table, now matched by Census code instead of by name: 386 atlas metros, 14 more than before. The mean
+  absolute change in the all-items figure is 1.6 index points. Cost of living from it now covers 359 metros (was 345),
+  and 95 metros (was 82) fall inside the calibrated range for money left after rent.
+- **InterNations Expat Insider, ease of settling in, 2025 → 2026** (published 23 July 2026): the full ranking of the 31
+  countries surveyed. The 2025 ranking (46 countries) stays for countries the 2026 edition left out. Only 25 of the 46
+  had been found for 2025, so this also fills gaps (the Netherlands, France, Italy, the United Kingdom, the United
+  States, Japan, Australia among them).
+- **StartupBlink Global Startup Ecosystem Index, 2025 → 2026** (1,556 cities): the rank shown on each city's own page,
+  for every atlas city that has one: 483 cities, up from 126. Before, an atlas city that had not been looked up counted
+  as unranked; 108 of the newly found cities are in the world's top 300 (Delhi 11, Mumbai 19, Jakarta 33, Hangzhou 37,
+  Detroit 60, Boulder 69). For the 126 cities ranked in both years the middle change is 4 places.
+- **BLS metro wages** for the 15 metros that gained pay and rent figures from the new price parities (122 in all).
+- Effect on Adriano's take: 400 of 919 places move by a point or more, 20 by three or more. His top five go from
+  Amsterdam, Reykjavík, Madrid, Valencia, Barcelona to Reykjavík, Amsterdam, Madrid, Utrecht, Rotterdam. Utrecht and
+  Rotterdam rise because the Netherlands is 23rd of 31 for settling in, which is not in the bottom band, so they are no
+  longer held back by the friends dealbreaker that Amsterdam, with its own city figure, never met.
 
 ## What couldn't be done, and why
 

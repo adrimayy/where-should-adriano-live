@@ -71,15 +71,15 @@ out += ['', 'Extrapolating downward makes cheap cities look cheaper than they ar
 # money left after rent from BEA income and prices: tested, not used
 import re
 from bands import b_money
-from sources.more_cities import _RPP, _bea_name
+from sources.more_cities import BEA_RPP, _bea_name
 _txt0 = (ROOT / 'data' / 'atlas.js').read_text()
 RAW = json.loads(_txt0[_txt0.index('{'):_txt0.rindex('}') + 1])['raw']
 pcpi = {l.split('|')[0]: float(l.strip().split('|')[1]) for l in open(ROOT / 'pipeline' / 'input' / 'bea_pcpi_2023.txt') if not l.startswith('#')}
 rows = []
 for n in US_METROS:
-    bn = _bea_name(n)
+    bn = _bea_name(n, pcpi)
     pay = [r for r in RAW.get('city:' + n, {}).get('pay', []) if r[0] in ('items', 'itemsn', 'nidx')]
-    if bn and pay: rows.append((pcpi[bn] / _RPP[bn][0] * 100, float(re.sub(r'[^0-9.]', '', pay[0][1].split('=')[-1]))))
+    if bn and pay and n in BEA_RPP: rows.append((pcpi[bn] / BEA_RPP[n][0] * 100, float(re.sub(r'[^0-9.]', '', pay[0][1].split('=')[-1]))))
 def loo_band(pts, const=False):
     e = []
     for i in range(len(pts)):

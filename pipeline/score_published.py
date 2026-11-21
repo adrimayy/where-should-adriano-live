@@ -157,6 +157,11 @@ for r_, n_ in enumerate(WPS_L, 1):
     i_ = iso(n_)
     if i_ is not None and i_ not in WPS_R: WPS_R[i_] = r_
 EI25 = {iso(k): v for k, v in EI25.items() if iso(k) is not None}
+_ei26 = {k: iso(k) for k in EI26}
+# Singapore is a city in the atlas, not a country: its rank is applied to the city below
+assert [k for k, v in _ei26.items() if v is None] == ['Singapore'] and len(EI26) == 31 and sorted(EI26.values()) == list(range(1, 32)), _ei26
+EI26_SG = EI26['Singapore']
+EI26 = {_ei26[k]: v for k, v in EI26.items() if _ei26[k] is not None}
 def nparse2(txt):
     o = {}
     for part in txt.split(';'):
@@ -265,7 +270,8 @@ for k, v in D['countries'].items():
     sf = avg([b_hom(RATES[n]) if n in RATES else 0, b_nsafe(NC_QOL[n][0]) if n in NC_QOL else 0, b_gallup(GAL[n]) if n in GAL else 0])
     if sf: s = setd(s, 'safe', sf); src.add('safe')
     # making friends / welcome: Expat Insider ranks first; Gallup migrant acceptance only where no Expat Insider rank exists
-    if n in EI25: op = b_rank(EI25[n], 46); rec(P, 'open', 'ei25s', f'#{EI25[n]}/46', op)
+    if n in EI26: op = b_rank(EI26[n], 31); rec(P, 'open', 'ei26s', f'#{EI26[n]}/31', op)
+    elif n in EI25: op = b_rank(EI25[n], 46); rec(P, 'open', 'ei25s', f'#{EI25[n]}/46', op)
     elif n in OPEN_X: r_, nn = OPEN_X[n]; op = b_rank(r_, nn); rec(P, 'open', 'ei24f', f'#{r_}/{nn}', op)
     elif n in MAI: op = b_mai(MAI[n]); rec(P, 'open', 'mai', fmtn(MAI[n]), op)
     else: op = 0
@@ -362,7 +368,9 @@ for c in D['cities']:
     s = setd(s, 'safe', sf if sf else int(s[4]))
     if sf: src.add('safe')
     # making friends: the city's own Expat Insider rank, else the country's
-    if name in OPEN_CITY:
+    if name == 'Singapore':
+        s = setd(s, 'open', b_rank(EI26_SG, 31)); src.add('open'); rec(P, 'open', 'ei26s', f'#{EI26_SG}/31', b_rank(EI26_SG, 31))
+    elif name in OPEN_CITY:
         r_, nn = OPEN_CITY[name]; s = setd(s, 'open', b_rank(r_, nn)); src.add('open'); rec(P, 'open', 'eicity24s', f'#{r_}/{nn}', b_rank(r_, nn))
     elif 'open' in csrc and name != 'Hong Kong': s = setd(s, 'open', cdig[9]); src.add('open')
     else: s = setd(s, 'open', 0)
@@ -440,10 +448,10 @@ for c in D['cities']:
         # metro GDP counts once (it overlaps with metro population, used for things happening; see tests/overlap.py)
         j = avg([b_gdp(gdp) if gdp else 0, b_unemp(lu[0]) if lu else 0, b_youth(YOUTH[n]) if n in YOUTH else 0, b_inf(INFORMAL[n]) if n in INFORMAL else 0]); s = setd(s, 'jobs', j); src.add('jobs')
     else: s = setd(s, 'jobs', 0)
-    # tech ecosystem (only counted when the field is tech): StartupBlink city rank, outside the top 1,000 = lowest band
+    # tech ecosystem (only counted when the field is tech): StartupBlink city rank of 1,556; a city not in the ranking = lowest band
     sb = SBLINK.get('New York City') if name in NYC_COMMUTER else SBLINK.get(name)
-    if sb: rec(P, 'tech', 'sblinknyc' if name in NYC_COMMUTER else 'sblink', f'#{sb}/1000', b_sblink(sb))
-    else: rec(P, 'tech', 'sblink', '>1000', 1)
+    if sb: rec(P, 'tech', 'sblinknyc' if name in NYC_COMMUTER else 'sblink', f'#{sb}/1556', b_sblink(sb))
+    else: rec(P, 'tech', 'sblink', 'not ranked', 1)
     # things happening: metro population (a proxy: bigger metros have more concerts, venues and events)
     pop = METRO.get(name, (None, None))[1] or POP_EXTRA.get(name)
     pk = 'pop'

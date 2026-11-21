@@ -169,9 +169,9 @@ function moneyLeftAt(e, r) {
 // a country figure without rent. They move with their country: the amount (on the 1-5 scale) by which the country's
 // figure changes when it is re-worked for the person's kind of work. A country without city figures takes the middle
 // shift of its world region's countries (three or more), else the world's.
-// Checked on the 260 cities that do have figures, each predicted from its country alone: off by 0.45 of a point for
-// food service, 0.26 for driving, 0.22 for office work, 0.14 for computing. Leaving such places untouched would be off
-// by 1.31, 0.60, 0.50 and 0.45, and would make every place without figures look better to lower-paid workers.
+// Checked on the 274 cities that do have figures, each predicted from its country alone: off by 0.50 of a point for
+// food service, 0.28 for driving, 0.24 for office work, 0.13 for computing. Leaving such places untouched would be off
+// by 1.33, 0.61, 0.50 and 0.44, and would make every place without figures look better to lower-paid workers.
 let PAYSHIFT = { job: null };
 function payShift(e) {
   if (PAYSHIFT.job !== PAYJOB) {

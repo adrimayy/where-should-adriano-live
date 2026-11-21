@@ -75,6 +75,9 @@ How the method changed, and what it did to the top of Adriano's list.
   a table. The right to work is asked on the passport question (a one-tap suggestion and a switch), not assumed. Places
   with no pay and rent figures of their own now move with their country instead of standing still. Also fixed: 20
   countries with zero-padded codes never counted as "same region".
+- **Three sources brought up to date (v61):** BEA price levels 2023 → 2024, Expat Insider ease of settling in 2025 → 2026
+  (all 31 countries), StartupBlink city ranks 2025 → 2026 (483 atlas cities ranked, up from 126). For Adriano: his top five
+  go from Amsterdam, Reykjavík, Madrid, Valencia, Barcelona to Reykjavík, Amsterdam, Madrid, Utrecht, Rotterdam.
 - **Layout after the NYT "Where should you live" quiz (v52):** what matters to you sits beside the map and ranking (a
   sticky panel on wide screens, a bottom sheet behind a "Priorities" button on phones), one tap per factor: off, counts
   (weight 1), ★ counts double (2), read from and written to the same weights as the sliders, which stay under "Fine-tune".

@@ -1,0 +1,392 @@
+# BEA Regional Price Parities by metropolitan area, 2024 (US = 100). Table MARPP, last updated 19 Feb 2026
+# (new statistics for 2024; 2008-2023 revised). File MARPP_MSA_2008_2024.csv inside
+# https://apps.bea.gov/regional/zip/MARPP.zip, read 20 Nov 2026: line 1 (RPPs: All items) and line 3 (RPPs: Services: Housing),
+# the 2024 column, rounded to one decimal. All 387 metropolitan statistical areas. GeoFIPS is the Census CBSA code.
+# CBSA code|the atlas's name for the metro, if it is in the atlas|all items|housing rents
+10180|Abilene|90.4|73.8
+10420|Akron|93.4|76.8
+10500|Albany GA|87.7|54.6
+10540|Albany OR|102.1|101.1
+10580|Albany|99.6|102.6
+10740|Albuquerque|95.5|89.2
+10780|Alexandria LA|85.7|53.7
+10900|Allentown|100.0|105.5
+11020|Altoona|89.5|55.0
+11100|Amarillo|91.8|78.4
+11180|Ames|88.8|69.2
+11200|Northampton|100.2|97.5
+11260|Anchorage|105.4|109.9
+11460|Ann Arbor|100.9|125.3
+11500|Anniston|85.9|54.7
+11540|Appleton|92.4|70.8
+11700|Asheville|96.5|93.4
+12020|Athens GA|93.3|76.8
+12060|Atlanta|100.1|111.0
+12100|Atlantic City|98.9|98.7
+12220|Auburn AL|87.9|62.1
+12260|Augusta|91.9|70.6
+12420|Austin|98.1|120.4
+12540|Bakersfield|100.9|90.3
+12580|Baltimore|104.5|118.2
+12620|Bangor|96.5|77.7
+12700|Barnstable|98.4|90.0
+12940|Baton Rouge|90.8|74.2
+12980|Battle Creek|90.5|61.0
+13020|Bay City|91.9|66.7
+13140|Beaumont|90.0|70.9
+13220|Beckley|88.4|52.2
+13380|Bellingham|103.3|112.9
+13460|Bend|103.6|110.0
+13740|Billings|93.5|77.4
+13780|Binghamton|92.9|69.7
+13820|Birmingham|91.6|71.9
+13900|Bismarck|91.0|84.0
+13980|Blacksburg|92.7|74.4
+14010|Bloomington IL|93.5|74.7
+14020|Bloomington IN|95.1|85.6
+14260|Boise|98.4|105.6
+14460|Boston|108.3|148.4
+14500|Boulder|105.2|157.0
+14540|Bowling Green|90.2|63.4
+14580|Bozeman|102.5|139.2
+14740|Bremerton|105.6|129.6
+14860|Bridgeport|106.9|150.5
+15180|Brownsville|86.0|57.7
+15260|Brunswick|87.7|56.3
+15380|Buffalo|95.8|81.0
+15500|Burlington NC|93.2|77.9
+15540|Burlington|100.9|103.8
+15940|Canton|89.4|58.1
+15980|Cape Coral|102.3|125.1
+16020|Cape Girardeau|86.1|56.4
+16180|Carson City|98.1|101.2
+16220|Casper|93.8|74.2
+16300|Cedar Rapids|89.0|71.4
+16540|Chambersburg|94.6|71.9
+16580|Champaign|92.7|71.6
+16620|Charleston WV|88.7|51.4
+16700|Charleston|101.0|119.8
+16740|Charlotte|97.3|97.6
+16820|Charlottesville|99.1|107.0
+16860|Chattanooga|91.5|76.6
+16940|Cheyenne|96.5|89.8
+16980|Chicago|103.6|112.0
+17020|Chico|101.2|91.9
+17140|Cincinnati|95.4|87.6
+17300|Clarksville|90.9|73.8
+17410|Cleveland|93.9|79.4
+17420|Cleveland TN|88.1|60.3
+17660|Coeur d'Alene|98.3|105.6
+17780|College Station|91.0|75.1
+17820|Colorado Springs|100.7|116.2
+17860|Columbia MO|89.4|69.2
+17900|Columbia|93.7|79.5
+17980|Columbus GA|89.3|61.2
+18020|Columbus IN|93.0|75.5
+18140|Columbus|95.5|87.9
+18580|Corpus Christi|92.7|84.9
+18700|Corvallis|104.0|114.4
+18880|Fort Walton Beach|97.0|94.9
+19100|Dallas|103.1|117.9
+19140|Dalton|89.8|63.3
+19300|Daphne|94.7|89.2
+19340|Davenport|89.1|68.3
+19430|Dayton|92.7|72.7
+19460|Decatur AL|87.2|58.1
+19500|Decatur IL|88.4|56.2
+19660|Daytona Beach|99.4|108.4
+19740|Denver|105.8|146.9
+19780|Des Moines|91.7|84.7
+19820|Detroit|100.3|94.7
+20020|Dothan|83.8|46.9
+20100|Dover|97.5|95.9
+20220|Dubuque|87.3|64.0
+20260|Duluth|88.8|71.1
+20500|Durham|97.6|98.9
+20580|Eagle Pass|83.8|53.7
+20740|Eau Claire|92.8|72.9
+20940|El Centro|95.2|66.3
+21060|Elizabethtown|90.6|66.7
+21140|Elkhart|90.3|64.3
+21300|Elmira|94.4|76.4
+21340|El Paso|89.9|71.2
+21420|Enid|84.3|51.4
+21500|Erie|91.0|56.8
+21660|Eugene|101.6|98.4
+21780|Evansville|91.5|66.7
+21820|Fairbanks|103.2|92.6
+22020|Fargo|90.9|81.1
+22140|Farmington|87.7|56.6
+22180|Fayetteville NC|92.0|73.1
+22220|Fayetteville AR|91.4|76.9
+22380|Flagstaff|100.3|109.0
+22420|Flint|93.0|74.0
+22500|Florence SC|86.8|52.4
+22520|Florence AL|84.8|47.7
+22540|Fond du Lac|91.6|67.3
+22660|Fort Collins|101.1|120.6
+22900|Fort Smith|85.9|53.4
+23060|Fort Wayne|92.6|72.3
+23420|Fresno|102.2|95.7
+23460|Gadsden|85.7|53.7
+23540|Gainesville|96.7|93.0
+23580|Gainesville GA|96.8|93.5
+23900|Gettysburg|95.4|73.9
+24020|Glens Falls|94.9|76.2
+24140|Goldsboro|88.5|57.7
+24220|Grand Forks|86.7|59.7
+24260|Grand Island|86.7|61.7
+24300|Grand Junction|95.5|86.4
+24340|Grand Rapids|95.5|86.6
+24420|Grants Pass|97.8|79.9
+24500|Great Falls|96.8|97.1
+24540|Greeley|100.2|112.6
+24580|Green Bay|93.1|74.7
+24660|Greensboro|92.9|74.5
+24780|Greenville NC|88.4|57.3
+24860|Greenville|93.3|76.8
+25060|Gulfport|90.0|67.9
+25180|Hagerstown|94.2|75.7
+25220|Hammond|84.5|48.2
+25260|Hanford|101.6|93.5
+25420|Harrisburg|98.7|96.3
+25500|Harrisonburg|94.9|82.3
+25540|Hartford|102.7|110.2
+25620|Hattiesburg|87.6|60.1
+25740|Helena|95.7|90.1
+25860|Hickory|88.5|59.6
+25940|Hilton Head|98.0|101.2
+25980|Hinesville|93.9|79.5
+26140|Homosassa Springs|93.5|78.4
+26300|Hot Springs|85.7|57.3
+26380|Houma|85.1|51.3
+26420|Houston|98.6|104.5
+26580|Huntington WV|88.4|51.3
+26620|Huntsville|93.1|77.9
+26820|Idaho Falls|94.4|84.0
+26900|Indianapolis|95.7|88.9
+26980|Iowa City|91.5|84.0
+27060|Ithaca|103.3|128.4
+27100|Jackson MI|91.8|67.1
+27140|Jackson|89.0|64.8
+27180|Jackson TN|85.5|56.6
+27260|Jacksonville|99.5|109.8
+27340|Jacksonville NC|92.1|72.1
+27500|Janesville|93.7|79.6
+27620|Jefferson City|88.0|62.1
+27740|Johnson City|87.9|63.2
+27780|Johnstown|85.9|42.3
+27860|Jonesboro|85.9|53.8
+27900|Joplin|85.7|54.0
+27980|Kahului|109.4|119.2
+28020|Kalamazoo|94.8|81.6
+28100|Kankakee|96.4|92.9
+28140|Kansas City|92.5|86.6
+28420|Kennewick|100.1|94.8
+28450|Kenosha|101.1|95.8
+28660|Killeen|91.1|77.9
+28700|Kingsport|86.4|56.5
+28740|Kingston NY|100.7|110.2
+28880|Poughkeepsie|109.4|115.8
+28940|Knoxville|92.6|82.8
+29020|Kokomo|89.6|59.3
+29100|La Crosse|91.8|69.4
+29180|Lafayette|87.2|58.8
+29200|Lafayette IN|93.4|76.4
+29340|Lake Charles|85.9|51.8
+29420|Lake Havasu City|94.1|79.8
+29460|Lakeland|97.1|95.9
+29540|Lancaster|98.3|93.8
+29620|Lansing|95.0|83.5
+29700|Laredo|87.0|59.7
+29740|Las Cruces|90.2|63.0
+29820|Las Vegas|100.2|115.5
+29940|Lawrence|90.2|71.6
+30020|Lawton|85.9|57.4
+30140||93.2|66.0
+30300|Lewiston|91.2|71.9
+30340|Lewiston ME|94.7|69.0
+30460|Lexington|92.9|77.1
+30500|Lexington Park|100.8|103.8
+30620|Lima OH|89.7|57.3
+30700|Lincoln|91.6|84.2
+30780|Little Rock|89.4|68.3
+30860|Logan|95.9|91.0
+30980|Longview|89.5|66.7
+31020|Longview WA|97.5|82.5
+31080|Los Angeles|113.6|170.4
+31140|Louisville|93.1|78.6
+31180|Lubbock|91.3|76.4
+31340|Lynchburg|89.4|63.9
+31420|Macon|88.5|58.9
+31540|Madison|97.3|99.7
+31700|Manchester NH|105.7|134.2
+31740|Manhattan KS|90.2|72.0
+31860|Mankato|91.0|79.9
+31900|Mansfield|88.9|54.9
+32580|McAllen|85.9|55.9
+32780|Medford|101.4|97.7
+32820|Memphis|92.2|79.8
+32900|Merced|98.3|78.6
+33100|Miami|114.2|155.6
+33140|Michigan City|91.7|68.5
+33220|Midland MI|91.9|66.7
+33260|Midland|95.8|101.5
+33340|Milwaukee|96.9|97.1
+33460|Minneapolis|104.8|111.8
+33500|Minot|87.0|63.2
+33540|Missoula|96.4|94.9
+33660|Mobile|88.1|60.1
+33700|Modesto|104.1|108.5
+33740|Monroe LA|83.6|42.8
+33780|Monroe MI|93.5|74.6
+33860|Montgomery|89.7|64.3
+34060|Morgantown|93.3|69.1
+34100|Morristown|86.4|59.0
+34580|Mount Vernon|102.4|108.2
+34620|Muncie|88.1|57.5
+34740|Muskegon|92.5|74.2
+34820|Myrtle Beach|93.6|83.1
+34900|Napa|112.6|197.4
+34940|Naples FL|103.2|129.4
+34980|Nashville|96.3|104.6
+35300|New Haven|104.6|124.3
+35380|New Orleans|92.6|86.0
+35620|New York City|112.6|148.6
+35660|Niles|92.4|71.6
+35840|Sarasota|102.4|128.0
+35980|New London|100.4|93.7
+36100|Ocala|95.2|86.2
+36220|Odessa TX|93.9|89.7
+36260|Ogden|100.3|117.9
+36420|Oklahoma City|90.4|73.9
+36500|Olympia|103.7|116.7
+36540|Omaha|91.9|86.4
+36740|Orlando|101.4|123.4
+36780|Oshkosh|92.9|74.4
+36980|Owensboro|88.6|55.7
+37100|Oxnard|110.5|171.1
+37140|Paducah|86.1|48.8
+37340|Palm Bay|100.0|111.7
+37460|Panama City FL|97.3|96.4
+37620|Parkersburg|87.1|45.9
+37860|Pensacola|97.7|98.8
+37900|Peoria|91.2|63.8
+37980|Philadelphia|102.6|113.1
+38060|Phoenix|103.3|121.2
+38240|Pinehurst|88.3|59.3
+38300|Pittsburgh|94.7|72.0
+38340|Pittsfield|95.1|73.5
+38540|Pocatello|88.9|66.4
+38860|Portland ME|101.9|105.2
+38900|Portland|105.4|125.1
+38940|Port St. Lucie|100.2|113.6
+39150|Prescott|98.3|98.8
+39300|Providence|101.8|103.9
+39340|Provo|98.2|104.1
+39380|Pueblo|91.8|71.3
+39460|Punta Gorda|100.5|113.3
+39540|Racine|96.0|92.0
+39580|Raleigh|98.2|103.5
+39660|Rapid City|89.2|72.6
+39740|Reading|97.1|85.4
+39820|Redding|100.7|89.4
+39900|Reno|101.0|123.5
+40060|Richmond|97.9|99.1
+40140|Riverside|106.4|129.3
+40220|Roanoke|93.6|78.5
+40340|Rochester MN|90.8|78.6
+40380|Rochester|97.0|87.5
+40420|Rockford|92.2|70.1
+40580|Rocky Mount|88.0|56.1
+40660|Rome GA|90.2|60.3
+40900|Sacramento|106.7|130.2
+40980|Saginaw|90.9|63.6
+41060|St. Cloud|87.6|65.1
+41100|St. George|97.3|98.1
+41140|St. Joseph|86.4|55.4
+41180|St. Louis|95.1|79.0
+41420|Salem|103.6|110.3
+41500|Salinas|109.0|145.7
+41540|Salisbury|95.6|87.2
+41620|Salt Lake City|100.9|123.3
+41660|San Angelo|92.5|81.4
+41700|San Antonio|94.7|94.6
+41740|San Diego|111.9|179.3
+41780|Sandusky|89.3|59.5
+41860|San Francisco|115.6|194.7
+41940|San Jose|110.4|211.9
+42020|San Luis Obispo|108.6|144.4
+42100|Santa Cruz|109.9|164.3
+42140|Santa Fe|98.8|108.0
+42200|Santa Barbara|108.8|151.4
+42220|Santa Rosa|107.8|139.6
+42340|Savannah|95.2|86.0
+42540|Scranton|93.6|67.0
+42660|Seattle|111.1|151.3
+42680|Vero Beach|98.3|101.6
+42700|Sebring|92.5|73.5
+43100|Sheboygan|94.0|80.5
+43300|Sherman|93.8|89.5
+43340|Shreveport|84.8|52.3
+43420|Sierra Vista|89.2|61.9
+43580|Sioux City|86.5|57.8
+43620|Sioux Falls|90.6|77.6
+43640|Slidell|92.7|85.4
+43780|South Bend|92.9|74.6
+43900|Spartanburg|91.1|68.0
+44060|Spokane|100.3|97.1
+44100|Springfield IL|92.7|71.6
+44140|Springfield MA|96.1|75.8
+44180|Springfield MO|88.6|65.6
+44220|Springfield OH|90.5|61.7
+44300|State College|96.8|85.7
+44420|Staunton|91.1|68.2
+44700|Stockton|105.1|115.6
+44940|Sumter|88.0|60.8
+45060|Syracuse|95.7|80.7
+45220|Tallahassee|93.9|78.5
+45300|Tampa|100.9|125.8
+45460|Terre Haute|87.8|51.9
+45500|Texarkana|84.0|49.9
+45780|Toledo|91.5|67.3
+45820|Topeka|88.8|65.0
+45900|Traverse City|93.4|78.1
+45940|Trenton|103.2|135.1
+46060|Tucson|96.9|91.8
+46140|Tulsa|89.2|68.2
+46220|Tuscaloosa|87.7|58.2
+46300|Twin Falls|92.1|73.8
+46340|Tyler|92.2|79.9
+46520|Honolulu|111.0|135.5
+46540|Utica|92.7|66.1
+46660|Valdosta|88.3|58.8
+46700|Vallejo|108.5|142.0
+47020|Victoria TX|89.8|69.3
+47220|Vineland|96.0|83.9
+47260|Virginia Beach|97.9|99.8
+47300|Visalia|99.8|84.1
+47380|Waco|92.6|83.5
+47460|Walla Walla|98.5|86.6
+47580|Warner Robins|93.8|79.2
+47900|Washington DC|108.9|151.1
+47930|Waterbury|99.8|89.1
+47940|Waterloo|87.1|63.1
+48060|Watertown NY|87.7|53.2
+48140|Wausau|92.7|71.5
+48260|Steubenville|89.0|52.4
+48300|Wenatchee|103.9|115.0
+48540|Wheeling|88.3|51.4
+48620|Wichita|88.9|66.2
+48660|Wichita Falls|89.5|68.2
+48680|The Villages|85.4|51.7
+48700|Williamsport|92.4|64.4
+48900|Wilmington NC|96.4|93.2
+49020|Winchester|96.5|90.0
+49180|Winston-Salem|92.0|71.4
+49340|Worcester|102.5|113.0
+49420|Yakima|95.5|72.6
+49620|York|96.0|79.8
+49660|Youngstown|87.4|53.4
+49700|Yuba City|104.2|108.3
+49740|Yuma|92.7|73.8
