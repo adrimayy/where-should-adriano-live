@@ -27,6 +27,7 @@ function setAdriano() {
   LANGMODE = 'both';
   PERMMODE = 'usmx';
   FIELD = 'tech';
+  PAYLVL = 1;
   CLIMMODE = 'mild';
   POLMODE = 'd';
   gate = gateOpen = norm = gateFar = gateHot = gateSmall = true;
@@ -324,7 +325,7 @@ $('zout').onclick = () =>
     .call(zoom.scaleBy, 1 / 1.6);
 $('zreset').onclick = () => {
   if (!zoom) return;
-  regionView(ui.region, true);
+  scopeView(true);
 };
 document.querySelectorAll('#regions button').forEach(b => (b.onclick = () => regionView(b.dataset.r, true)));
 // show the bar title only after the hero headline scrolls out of view

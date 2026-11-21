@@ -10,6 +10,7 @@ function takeState() {
     pm: PERMMODE,
     pl: POLMODE,
     fd: FIELD,
+    py: PAYLVL,
     cm: CLIMMODE,
     g: gate ? 1 : 0,
     o: gateOpen ? 1 : 0,
@@ -65,6 +66,7 @@ function loadTake(o) {
   PERMMODE = o.pm || 'us';
   POLMODE = o.pl || 'd';
   FIELD = o.fd || 'general';
+  PAYLVL = o.py > 0 ? +o.py : 1;
   CLIMMODE = o.cm || 'mild';
   gate = o.g !== 0;
   gateOpen = o.o !== 0;
@@ -79,6 +81,7 @@ function loadTake(o) {
   REACH = o.rc === 1;
   AGG = o.ag === 'geo' ? 'geo' : 'mean';
   QUIZW = Object.keys(ANS).length ? weightsFromQuiz(ANS) : null;
+  ui.scope = { stay: 'home', go: 'away' }[modesFromQuiz(ANS).scope] || 'all';
   MODE = 'yours';
 }
 const enc = o =>

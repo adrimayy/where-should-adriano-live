@@ -18,6 +18,15 @@ const ui = {
   cmp: [],
   // quick filters above the map and ranking: world regions, cost bands ($ cheapest), big cities, can work freely
   f: { reg: new Set(), cost: new Set(), big: false, work: false },
+  // stay-or-go tabs: 'all' places, only the 'home' country, or only places 'away' from it (set by the quiz, changed by a tap)
+  scope: 'all',
+};
+// The stay-or-go tabs are a view of the same scores: the country the person lives in (their first home base), or
+// everywhere else. They apply to the person's own take only.
+const scopeIso = () => (MODE === 'yours' && ui.scope !== 'all' && HOMES[0] ? +isoOf(HOMES[0]) : null);
+const inScope = e => {
+  const h = scopeIso();
+  return h == null || (+isoOf(e) === h) === (ui.scope === 'home');
 };
 // World Bank regions in five pills
 const REGPILL = {
@@ -267,8 +276,11 @@ function regionView(r, animate) {
   document
     .querySelectorAll('#regions button')
     .forEach(b => b.setAttribute('aria-pressed', b.dataset.r === r));
+  boxView(REGIONS[r], animate);
+}
+// fit the map to a box of [[west, south], [east, north]] in degrees; no box is the whole map
+function boxView(bb, animate) {
   if (!proj || !zoom) return;
-  const bb = REGIONS[r];
   let tr = d3.zoomIdentity;
   if (bb) {
     const ring = [];
@@ -289,6 +301,23 @@ function regionView(r, animate) {
   }
   goTo(tr, animate ? 650 : 0);
 }
+// the stay-or-go tabs move the map too: to the cities of the person's country, or back to the view it had
+function scopeView(animate = true) {
+  const h = scopeIso();
+  if (h == null || ui.scope !== 'home') return regionView(ui.region, animate);
+  const cs = ents.filter(e => e.type === 'city' && listable(e) && +isoOf(e) === h && e.hasGeo);
+  if (!cs.length) return;
+  const xs = cs.map(e => e.lon),
+    ys = cs.map(e => e.lat),
+    pad = 3;
+  boxView(
+    [
+      [Math.max(-179, Math.min(...xs) - pad), Math.max(-85, Math.min(...ys) - pad)],
+      [Math.min(179, Math.max(...xs) + pad), Math.min(85, Math.max(...ys) + pad)],
+    ],
+    animate
+  );
+}
 function fixWinding(f) {
   if (!f.geometry) return f;
   if (d3.geoArea(f) > 2 * Math.PI) {
@@ -301,6 +330,7 @@ function fixWinding(f) {
 }
 // A place below any minimum you set is out, whatever else it scores; the rest are ranked by weighted score
 function passes(e) {
+  if (!inScope(e)) return false;
   if (!ui.tiers.has(e.tier) || e.score < ui.minScore) return false;
   const f = ui.f;
   if (f.reg.size && !f.reg.has(REGPILL[(DATA.region || {})[isoOf(e)]])) return false;
@@ -1191,7 +1221,7 @@ function rebuild() {
   setupZoom();
   drawGeo();
   paint();
-  regionView(ui.region, false);
+  scopeView(false);
 }
 function focusOn(e) {
   if (!proj || !zoom) return;

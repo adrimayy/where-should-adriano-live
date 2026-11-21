@@ -37,7 +37,6 @@
   applyLang();
   devUI();
   refreshAll();
-  offersUI();
   document.documentElement.classList.add('ready'); // the page is drawn: the loading wheel goes
 })();
 

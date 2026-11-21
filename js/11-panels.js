@@ -220,6 +220,10 @@ function calcTable(e) {
         if (how === 'imp')
           src += `<div class="muted">${fmt(L('calcImp'), { sd: (e.sd[k] || 0).toFixed(1) })}${e.dr[k] ? ' · ' + fmt(L('calcDraws'), { d: e.dr[k].map(x => Math.round(x)).join('') }) : ''}</div>`;
         if (k === 'jobs' && e.hub) src += `<div class="muted">${fmt(L('hubNote'), { c: dn(e.hub) })}</div>`;
+        if (k === 'pay' && e.payAdj) {
+          const left = Math.round(moneyLeftAt(e, PAYLVL) / 10) * 10;
+          src += `<div class="muted">${fmt(L('payJobNote'), { p: Math.round(PAYLVL * 100), x: (left < 0 ? '−$' : '$') + Math.abs(left).toLocaleString('en-US'), u: RAWU.oews })}</div>`;
+        }
         if (how === 'est') src += `<div class="muted">${L('calcEst')}</div>`;
         if (!src) src = `<span class="muted">${L('calcNone')}</span>`;
       }
@@ -503,7 +507,8 @@ function whyChips(e, n) {
 }
 function list() {
   const q = ($('search').value || '').trim().toLowerCase();
-  const all = ents.filter(e => e.type === ui.rankType && listable(e));
+  // ranks are counted inside the stay-or-go tab that is open (best in your country is 1 there)
+  const all = ents.filter(e => e.type === ui.rankType && listable(e) && inScope(e));
   let rows = all.filter(passes).sort((a, b) => byRank(a, b) || dn(a).localeCompare(dn(b)));
   if (q)
     rows = rows.filter(
@@ -654,6 +659,43 @@ function setSheet(open) {
   $('pfab').setAttribute('aria-expanded', open);
   document.body.classList.toggle('sheet-open', open);
   if (open) $('ppanel').querySelector('.pchip')?.focus();
+}
+// Stay-or-go tabs above the results: the country the person lives in, other countries, or everywhere. Shown once we
+// know where they live and the map has cities there. Someone who wants to stay can open the other tab out of curiosity.
+function scopeUI() {
+  const el = $('scopeBar');
+  if (!el) return;
+  const h = MODE === 'yours' && HOMES[0] ? byIso[+isoOf(HOMES[0])] : null,
+    n = h ? ents.filter(e => e.type === 'city' && listable(e) && +isoOf(e) === +h.id).length : 0;
+  if (!n) {
+    el.hidden = true;
+    el.innerHTML = '';
+    if (MODE === 'yours') ui.scope = 'all';
+    return;
+  }
+  const tab = (v, label) => `<button data-s="${v}" aria-pressed="${ui.scope === v}">${label}</button>`;
+  const note =
+    ui.scope === 'home' && n < 5
+      ? fmt(L(n === 1 ? 'scopeFew1' : 'scopeFew'), { n, c: dn(h) })
+      : ui.scope === 'away' && ANS.scope === 0
+        ? fmt(L('scopeCurious'), { c: dn(h) })
+        : '';
+  el.hidden = false;
+  el.innerHTML =
+    `<span class="lab">${L('scopeLab')}</span><div class="seg" role="group" aria-label="${L('scopeLab')}">${tab('home', dn(h))}${tab('away', L('scopeAway'))}${tab('all', L('scopeAll'))}</div>` +
+    (note ? `<p class="meta">${note}</p>` : '');
+  el.querySelectorAll('[data-s]').forEach(
+    b =>
+      (b.onclick = () => {
+        if (ui.scope === b.dataset.s) return;
+        ui.scope = b.dataset.s;
+        scopeUI();
+        scopeView();
+        filtersChanged();
+        renderVs();
+        renderLive();
+      })
+  );
 }
 // "Only show" pills: narrow the map and ranking without changing a score
 function pillsUI() {
@@ -862,6 +904,7 @@ function snapState() {
     PERMMODE,
     POLMODE,
     FIELD,
+    PAYLVL,
     CLIMMODE,
     gate,
     gateOpen,
@@ -905,6 +948,7 @@ function undo() {
     PERMMODE,
     POLMODE,
     FIELD,
+    PAYLVL,
     CLIMMODE,
     gate,
     gateOpen,
@@ -966,6 +1010,7 @@ function setNeutral() {
   LANGMODE = 'en';
   PERMMODE = 'usmx';
   FIELD = 'general';
+  PAYLVL = 1;
   CLIMMODE = 'mild';
   POLMODE = 'd';
   gate = gateOpen = norm = gateFar = gateHot = gateSmall = true;
@@ -994,6 +1039,7 @@ function becomeYours() {
   LANGMODE = 'both';
   PERMMODE = 'usmx';
   FIELD = 'tech';
+  PAYLVL = 1;
   CLIMMODE = 'mild';
   POLMODE = 'd';
   syncMode();
@@ -1054,13 +1100,13 @@ function refreshAll(fast) {
   TOPSIG = topKeysNow();
   if (!fast) simulateSoon(afterSim);
   syncMode();
+  scopeUI();
   paint();
   list();
   detail(ui.sel);
   renderCmp();
   renderVs();
   renderEff();
-  renderOffers();
   renderLive();
   renderUnsure();
   prioUI();
@@ -1092,56 +1138,6 @@ function renderEff() {
     })
     .sort((a, b) => b.eff - a.eff);
   el.innerHTML = `<span class="lab">${L('effTitle')}</span><p class="meta">${fmt(L('effNote'), { t: L(ui.rankType === 'city' ? 'cities' : 'countries').toLowerCase() })}</p><div class="biastable"><table style="min-width:0"><thead><tr><th>${L('calcFactor')}</th><th>${L('effSlider')}</th><th>${L('effReal')}</th></tr></thead><tbody>${rows.map(r => `<tr><td>${FL(r.k)}</td><td class="mono">${pct(r.w)}</td><td class="mono">${Math.round(r.eff * 100)}%</td></tr>`).join('')}</tbody></table></div>`;
-}
-// Compare job offers on money left after tax and rent (take-home pay entered after tax), commute, and what differs most
-function offersUI() {
-  const el = $('offerRows');
-  if (!el) return;
-  const prev = [0, 1, 2].map(i => [$('of' + i)?.value || '', $('op' + i)?.value || '']);
-  el.innerHTML = [0, 1, 2]
-    .map(
-      i =>
-        `<div class="toggles">${homeSelect('of' + i, prev[i][0], 'offer', L('offerCity') + ' ' + (i + 1))}<label class="meta" style="display:flex;gap:6px;align-items:center">${L('offerPay')} <input type="number" id="op${i}" min="0" step="50" inputmode="numeric" style="width:110px;font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--fg)"></label></div>`
-    )
-    .join('');
-  [0, 1, 2].forEach(i => {
-    $('op' + i).value = prev[i][1];
-    $('of' + i).onchange = renderOffers;
-    $('op' + i).oninput = renderOffers;
-  });
-  renderOffers();
-}
-function renderOffers() {
-  const out = $('offerOut');
-  if (!out || !$('of0')) return;
-  const rows = [0, 1, 2]
-    .map(i => ({ e: byKey[$('of' + i).value], p: parseFloat($('op' + i).value) }))
-    .filter(r => r.e && r.p > 0);
-  if (!rows.length) {
-    out.innerHTML = `<p class="meta">${L('offerEmpty')}</p>`;
-    return;
-  }
-  const ks = FACTORS.filter(f => W[f.k] > 0 && f.k !== 'pay' && f.k !== 'commute')
-    .map(f => {
-      const v = rows.map(r => r.e.v[f.k]).filter(x => x != null);
-      return { k: f.k, sp: v.length > 1 ? Math.max(...v) - Math.min(...v) : 0 };
-    })
-    .filter(x => x.sp > 0)
-    .sort((a, b) => b.sp * W[b.k] - a.sp * W[a.k])
-    .slice(0, 3)
-    .map(x => x.k);
-  // prices compared to the person's home city when it has price data, otherwise New York
-  const h0 = HOMES.map(h => byKey[h.key] || h).find(h => h && h.type === 'city' && MONEYD[h.name]),
-    base = h0 || byKey['city:New York City'];
-  const money = n => (n < 0 ? '−' : '') + '$' + Math.abs(Math.round(n)).toLocaleString('en-US'),
-    v5 = v => (v != null ? Math.round(v * 10) / 10 + '/5' : '—');
-  out.innerHTML = `<div class="biastable"><table><thead><tr><th>${L('offerCity')}</th><th>${L('offerPay')}</th><th>${L('offerRent')}</th><th>${L('offerLeft')}</th><th>${fmt(L('offerNY'), { h: dn(base) })}</th><th>${FL('commute')}</th>${ks.map(k => `<th>${FL(k)}</th>`).join('')}<th>${L('offerVerdict')}</th></tr></thead><tbody>${rows
-    .map(({ e, p }) => {
-      const m = MONEYD[e.name],
-        left = p - m[1];
-      return `<tr><td>${dn(e)}</td><td class="mono">${money(p)}</td><td class="mono">${m[3] === 'items' ? '' : '≈'}${money(m[1])}</td><td class="mono">${money(left)}</td><td class="mono"><b>${money((left / (m[2] / 100)) * (MONEYD[base.name][2] / 100))}</b></td><td class="mono">${v5(e.v.commute)}</td>${ks.map(k => `<td class="mono">${v5(e.v[k])}</td>`).join('')}<td>${L('tiers')[e.tier]}</td></tr>`;
-    })
-    .join('')}</tbody></table></div><p class="meta">${L('offerNote')}</p>`;
 }
 function showMap() {
   document.body.classList.add('engaged'); // past the first screen: the priorities button may show on phones
@@ -1296,7 +1292,6 @@ function applyLang() {
   tierFilters();
   mustUI();
   syncMode();
-  offersUI();
   renderDefaults();
   if (!$('quizPanel').hidden) TRADE ? renderTrade() : renderQuiz();
   $('zin').innerHTML = IC('plus', 16);

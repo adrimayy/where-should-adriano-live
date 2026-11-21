@@ -66,7 +66,7 @@ function contOf(e, k, raw) {
     CALC.has(k) ||
     RULES.has(k) ||
     (k === 'clim' && CLIMMODE !== 'mild') ||
-    (k === 'pay' && FIELD === 'remote')
+    (k === 'pay' && (FIELD === 'remote' || e.payAdj))
   )
     return raw;
   const own = CONTV[e.type === 'city' ? 'city:' + e.name : 'c:' + e.id];
@@ -558,6 +558,7 @@ function snapshotAdriano() {
     LANGMODE,
     PERMMODE,
     FIELD,
+    PAYLVL,
     CLIMMODE,
     gate,
     gateOpen,
@@ -577,6 +578,7 @@ function snapshotAdriano() {
   LANGMODE = 'both';
   PERMMODE = 'usmx';
   FIELD = 'tech';
+  PAYLVL = 1;
   CLIMMODE = 'mild';
   POLMODE = 'd';
   gate = gateOpen = norm = gateFar = gateHot = gateSmall = true;
@@ -607,6 +609,7 @@ function snapshotAdriano() {
     LANGMODE,
     PERMMODE,
     FIELD,
+    PAYLVL,
     CLIMMODE,
     gate,
     gateOpen,
@@ -668,7 +671,11 @@ function* adSimSteps(A) {
   const q = (a, p) => a[Math.min(a.length - 1, Math.max(0, Math.round(p * (a.length - 1))))];
   A.list.forEach((o, i) => {
     const s = Array.from(D[i]).sort((a, b) => a - b);
-    Object.assign(o.e.ad, { lo: Math.round(q(s, 0.1)), hi: Math.round(q(s, 0.9)), med: Math.round(q(s, 0.5)) });
+    Object.assign(o.e.ad, {
+      lo: Math.round(q(s, 0.1)),
+      hi: Math.round(q(s, 0.9)),
+      med: Math.round(q(s, 0.5)),
+    });
   });
 }
 // all at once (tests)

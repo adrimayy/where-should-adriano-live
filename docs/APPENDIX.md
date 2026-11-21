@@ -132,8 +132,6 @@ rule-based judgment, marked as official rules.
   protections, and it switches off when you say freedom barely matters. War stays a dealbreaker for everyone. The page says
   so on the place, e.g. "Freedoms are limited here (scored as such), but not a dealbreaker for you: you hold this country's
   passport."
-- **Home city.** The job-offer comparison converts money left after rent into the prices of the person's home city, if
-  it's in the atlas, instead of always New York.
 
 ## Gap-filling
 
@@ -298,7 +296,7 @@ What the quiz does with that:
 - Answers without a natural order are shuffled, with "other / doesn't matter" kept last.
 - Every question that was not asked or not answered shows its default on the results screen (with the calculations on),
   where it can be answered. Unanswered, languages default to the browser's and passports to none.
-- Every place lookup (home bases, passports, job offers) uses the same searchable list.
+- Every place lookup (home bases, passports) uses the same searchable list.
 - After the quiz, the answers live in the "What matters to you" panel next to the results: each factor is off, counts
   (weight 1) or ★ counts double (2), so a change shows up in the ranking straight away. Sliders remain for finer weights.
 - By default the page shows only the results: scores, chips, map and ranking. "Show how the scores are calculated"
@@ -319,6 +317,37 @@ What the quiz does with that:
 - Fact lines on a place's page: up to two strengths and one weakness, only from published figures, only for factors you
   weigh, when the place is better (or weaker) than at least 80% of the same kind of place in the atlas with a published
   figure (at least 30 of them). Shown as a share rounded down to 5%, not as "the best", so the line stays true.
+
+### Plain words, stay or go, and kinds of work (v59)
+
+- **Plain words.** Every question and answer was rewritten in short, common words, one idea each, with no idioms and no
+  contractions, in all eight languages. Importance questions share one scale: not important, important, very important.
+  An example in brackets becomes a quieter second line. The scenes from v56 ("walking home alone at eleven") gave way to
+  the plain form ("to feel safe walking alone at night"): a scene helps recall, but it costs reading, and the page is
+  meant for anyone, including people reading in a second language.
+- **Stay or go.** The second question asks whether the person wants to stay in the country they live in now (asked when
+  the atlas has cities there). The answer changes no score. It sets which of three tabs above the results is open: that
+  country, other countries, or everywhere. Ranks are counted inside the open tab, the map moves to it, and someone who
+  wants to stay can open "Other countries" out of curiosity. Staying, with no passport named, the person is taken to be
+  allowed to work where they live, and the passport question waits for the longer quiz. Countries with fewer than five
+  cities in the atlas say so on the tab.
+- **Kinds of work.** The job question lists 18 kinds of work in everyday words, from restaurants and stores to trades,
+  driving, care work, offices, software and farm work, in a fixed order. Each has a typical pay level: the annual mean
+  wage of the occupation group in the US Bureau of Labor Statistics' Occupational Employment and Wage Statistics for
+  May 2025 (released 15 May 2026), as a share of the all-occupations mean of $69,770. Food service is 53%, retail sales
+  53%, personal care 59%, driving and warehouse work 71%, office work 74%, building trades 92%, teaching 97%, arts and
+  media 114%, business and finance 136%, computing and engineering 166%, medical practitioners 156%.
+- **Money left after rent, for that work.** Rent does not shrink with the paycheck. With pay at a share r of average,
+  the money left is (r × pay − rent) ÷ prices. It is scored against the same cut-offs scaled by r, which is the same as
+  scoring (pay − rent ÷ r) ÷ prices against $3,000 / 2,000 / 1,200 / 500. At r = 1 this reproduces the published scores
+  exactly (checked for all 165 cities and 88 countries with pay and rent figures). On food-service pay, a one-bedroom in
+  the centre of New York costs more than the whole paycheck (about −$1,000 a month), while Syracuse leaves about $1,400.
+  Limits, stated on the place's page: the ratios are US national figures, used everywhere as a rough guide; pay gaps
+  between kinds of work are narrower in some countries and wider in others, and minimum wages vary by state and city.
+  Places with no separate pay and rent figures keep their published score. Old links and Adriano's own take are
+  unchanged (pay level 1).
+- **Removed:** the job-offer comparison (take-home pay in up to three cities). It asked for numbers few visitors have at
+  hand, and the pay-by-work adjustment now answers the common version of that question inside the ranking.
 
 ### Two factors worked out from the map
 
@@ -422,7 +451,7 @@ they miss differences between neighborhoods, workplaces and families. The politi
 
 - **Occupation salaries and tax tables:** no consistent source for software-engineer pay by city, or
   national, state and city income tax for every country, was reachable. Money after rent uses Numbeo's average net salary
-  (already after tax); the offer tool asks for take-home pay.
+  (already after tax), scaled by kind of work with US national ratios (see "Kinds of work" under Quiz design).
 - **Bachelor's-degree share, venues per person, 5-year rent growth:** Census, Eurostat and Zillow downloads are
   blocked from this build environment, and no search-reachable table covered the cities.
 - **Software developers per metro, office counts and junior postings:** BLS OES tables weren't

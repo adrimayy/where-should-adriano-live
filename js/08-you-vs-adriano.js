@@ -23,12 +23,14 @@ function renderVs() {
   }
   const cs = ents.filter(e => e.type === 'city');
   // the plain view is a header for the map and ranking below; the comparison with Adriano comes with the calculations
-  $('vsTitle').textContent = document.body.classList.contains('adv') ? L(KNOWS ? 'vsTitle' : 'resTitle') : L('vsEyebrow');
+  $('vsTitle').textContent = document.body.classList.contains('adv')
+    ? L(KNOWS ? 'vsTitle' : 'resTitle')
+    : L('vsEyebrow');
   $('vsMatch').hidden = !KNOWS;
   if (!KNOWS) {
     const top = t =>
       ents
-        .filter(e => e.type === t && listable(e))
+        .filter(e => e.type === t && listable(e) && (t !== 'city' || inScope(e)))
         .sort(byRank)
         .slice(0, 5);
     const li = e =>
@@ -52,7 +54,7 @@ function renderVs() {
   );
   $('matchPct').textContent = Math.max(0, Math.round(r * 100)) + '%';
   if (document.body.classList.contains('adv')) adSimSoon(); // the lists are only on screen with the calculations
-  const yours = [...cs].sort(byRank).slice(0, 5),
+  const yours = cs.filter(inScope).sort(byRank).slice(0, 5),
     ad = [...cs].sort(byAdRank).slice(0, 5);
   const both = new Set(yours.filter(e => ad.includes(e)));
   const li = (e, s, tag) =>
