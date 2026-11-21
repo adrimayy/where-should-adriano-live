@@ -1,4 +1,4 @@
-/* Livability Atlas. One column: intro, quiz, you vs Adriano, map, ranking, details, settings. */
+/* Livability Atlas. One column: intro, quiz, your results, map, ranking, details, settings. */
 
 /* ---------- tokens ---------- */
 :root {
@@ -150,14 +150,10 @@ section,
 }
 
 .eyebrow,
-.lab,
-.shared {
+.lab {
   font-size: 13px;
   font-weight: 500;
   color: var(--muted);
-}
-.shared {
-  margin-left: 6px;
 }
 .muted {
   color: var(--muted);
@@ -172,16 +168,13 @@ section,
 .mono,
 .sc,
 .row .n,
-.row .ad,
 .brow .v,
 .calc,
 .prof,
 .wrow output,
 .range output,
-.match .big,
 .pcard .sc2,
-.vs li .s,
-.prio b,
+.tops li .s,
 th {
   font-variant-numeric: tabular-nums;
 }
@@ -583,12 +576,6 @@ details.sub[open] > summary::after,
   max-width: 34em;
   margin-inline: auto;
 }
-.hero .now {
-  margin: 0 auto;
-  max-width: 34em;
-  font-size: 15px;
-  color: var(--fg);
-}
 .cta {
   display: flex;
   gap: 10px;
@@ -614,28 +601,11 @@ details.sub[open] > summary::after,
   border-radius: 14px;
 }
 .hero .cta #fullQuiz,
-.hero .cta #skipQuiz,
 .hero .cta #retakeHero {
   background: transparent;
   color: var(--accent);
   min-height: 44px;
   font-weight: 500;
-}
-.prio {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-.prio span {
-  font-size: 12.5px;
-  background: var(--fill);
-  border-radius: 999px;
-  padding: 4px 10px;
-}
-.prio b {
-  font-weight: 500;
-  color: var(--accent);
-  margin-right: 5px;
 }
 
 /* ---------- quiz: a centered card ---------- */
@@ -888,59 +858,35 @@ button.lchip small {
   color: var(--accent);
 }
 
-/* ---------- you vs Adriano ---------- */
-.vs,
-.diffs {
+/* ---------- your results ---------- */
+.tops {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 14px;
 }
-.vs .col {
+.tops .col {
   display: flex;
   flex-direction: column;
   gap: 6px;
   min-width: 0;
 }
-.vs ol {
+.tops ol {
   margin: 0;
   padding-left: 22px;
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
-.vs li {
+.tops li {
   font-size: 14.5px;
 }
-.vs li .s {
+.tops li .s {
   font-size: 12px;
   color: var(--muted);
   margin-left: 6px;
 }
-.match {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-.match .big {
-  font-size: 44px;
-}
-.diffs ul {
-  margin: 0;
-  padding-left: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  font-size: 14px;
-}
 
 /* ---------- map ---------- */
-.modebar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 14px;
-  align-items: center;
-}
 .mapctl {
   display: flex;
   flex-wrap: wrap;
@@ -1453,11 +1399,6 @@ th {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.row .ad {
-  font-size: 11.5px;
-  color: var(--muted);
-  display: block;
-}
 .rng {
   display: block;
   font-size: 10.5px;
@@ -1695,7 +1636,6 @@ th {
   }
   .topbar,
   .hero,
-  .modebar,
   #mapOpts,
   #regions,
   .zoombtns,
@@ -1703,7 +1643,7 @@ th {
   .howread,
   .pcard,
   #quizPanel,
-  #vsPanel .toggles,
+  #resPanel .toggles,
   #more,
   #weightsBox,
   details.box:not([open]),
@@ -1822,7 +1762,7 @@ body:has(#quizPanel:not([hidden])) .wrap > :not(.topbar, #quizPanel),
 body:has(#quizPanel:not([hidden])) .pfab { display: none !important; }
 body:has(#quizPanel:not([hidden])) #quizPanel { margin-top: 4vh; min-height: min(640px, 80vh); }
 /* once there are results, the landing card steps aside: retake is in the results header */
-body:has(#vsPanel:not([hidden])) #start { display: none; }
+body:has(#resPanel:not([hidden])) #start { display: none; }
 /* feedback after each answer: the choice gets a check, "Got it" appears, the progress bar moves */
 .progress span { transition: width 0.45s ease; }
 .opt.chosen { background: var(--tint); border-color: var(--accent); }
@@ -1840,7 +1780,7 @@ body:not(.adv) .row .rbar { display: none !important; }
   .pgroup { max-width: 100%; overflow-x: auto; scrollbar-width: none; }
   .pgroup::-webkit-scrollbar { display: none; }
 }
-#vsPanel .toast:empty { display: none; }
+#resPanel .toast:empty { display: none; }
 /* the start-over button is deliberately quiet: last line of the method notes, behind the calculations switch */
 .linkbtn.wipe { font-size: 12px; color: var(--muted); }
 .linkbtn.wipe[data-armed] { color: #b3261e; }
@@ -1883,10 +1823,10 @@ button, .opt, .pill, .lchip, .pchip { transition: transform 0.08s, opacity 0.08s
 /* ---------- tidier on phones ---------- */
 @media (max-width: 640px) {
   /* results header: four actions in a 2 x 2 grid of equal buttons, not a column of links; the ranking is right below, so no jump link */
-  #vsPanel .toggles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  #vsPanel .toggles button { width: 100%; white-space: normal; line-height: 1.2; padding: 10px 8px; min-height: 44px; }
-  #vsPanel .toggles .ghost { background: var(--fill); color: var(--fg); }
-  #vsPanel #toMap { display: none; }
+  #resPanel .toggles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  #resPanel .toggles button { width: 100%; white-space: normal; line-height: 1.2; padding: 10px 8px; min-height: 44px; }
+  #resPanel .toggles .ghost { background: var(--fill); color: var(--fg); }
+  #resPanel #toMap { display: none; }
   /* ranking rows: name and country on one line, the reasons on one line you can swipe */
   .row .nm { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .row .chips5 { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
@@ -1895,7 +1835,7 @@ button, .opt, .pill, .lchip, .pchip { transition: transform 0.08s, opacity 0.08s
   .hero1 .chips5 { flex-wrap: wrap; }
   .rw .row { row-gap: 4px; padding-block: 10px; }
   /* the priorities button waits until there is a ranking to adjust: not over the first screen */
-  body:not(.engaged):not(:has(#vsPanel:not([hidden]))) .pfab { display: none; }
+  body:not(.engaged):not(:has(#resPanel:not([hidden]))) .pfab { display: none; }
   .pfab { padding: 9px 14px; font-size: 13.5px; }
 }
 
@@ -1911,3 +1851,15 @@ button, .opt, .pill, .lchip, .pchip { transition: transform 0.08s, opacity 0.08s
 @media (max-width: 640px) { .scopebar .seg { display: flex; width: 100%; } .scopebar .seg button { flex: 1 1 auto; padding: 6px 8px; font-size: 14px; } }
 /* v60: a one-tap suggestion on the passport question (the passport of the country you live in) */
 .lchip.padd { border-style: dashed; color: var(--muted); }
+
+/* ---------- v62: nothing is scored on screen before there is a take ---------- */
+/* The map, the ranking, the details and every settings box come with the take (body.took: the quiz finished, a saved
+   take, or a shared link). Until then the page is the first card and the quiz. */
+body:not(.took) .work,
+body:not(.took) details.after,
+body:not(.took) .pfab { display: none !important; }
+body:not(.took) .hero { margin-top: 6vh; padding-block: 34px; }
+/* an unmarked button at the foot of the page */
+.pagefoot { display: flex; justify-content: flex-end; }
+.pagefoot .quiet { width: 44px; height: 44px; min-height: 0; padding: 0; border: 0; background: none; box-shadow: none; opacity: 0; cursor: default; }
+@media print { .pagefoot { display: none; } }

@@ -76,7 +76,7 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 
 | English option | Opción en español | Suggestion |
 |---|---|---|
-| US and Mexican, like Adriano | Estadounidense y mexicano, como Adriano | |
+| US and Mexican | Estadounidense y mexicano | |
 | US only | Solo estadounidense | |
 | Mexican only | Solo mexicano | |
 | An EU passport | Uno de la UE | |
@@ -500,21 +500,15 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 
 | Key | English | Español | Suggestion |
 |---|---|---|---|
-| knowDev | I know Adriano, who made this | Conozco a Adriano, quien hizo esto | |
-| knowDevOff | Hide Adriano’s picks | Ocultar lo de Adriano | |
-| modeYou1 | Showing your priorities. | Con tus prioridades. | |
 | resTitle | Your best matches | Tus mejores opciones | |
 | yourTopC | Your top 5 countries | Tus 5 países principales | |
 | brand | Where should you live? | ¿Dónde deberías vivir? | |
 | eyebrow | Livability atlas · November 2026 | Atlas de habitabilidad · noviembre de 2026 | |
 | h1 | Where should you live? | ¿Dónde deberías vivir? | |
-| prioTitle | My top priorities | Mis prioridades principales | |
 | startQuiz | Take the 2-minute quiz | Hacer el cuestionario de 2 minutos | |
-| skipQuiz | Just show the map | Ver el mapa directamente | |
 | resume | Continue with my map | Seguir con mi mapa | |
 | howRead | How to read the map | Cómo leer el mapa | |
 | qOf | Question {n} of {t} | Pregunta {n} de {t} | |
-| heroNow | His top three right now: {x}. | Su top tres ahora mismo: {x}. | |
 | sharpen | Answer the rest of the questions | Contestar el resto de las preguntas | |
 | doneLab | Done | Listo | |
 | doneTitle | Your map is ready | Tu mapa está listo | |
@@ -538,7 +532,6 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | passIgnore | Do not count work permits | No contar los permisos de trabajo | |
 | remove | Remove | Quitar | |
 | back | Back | Atrás | |
-| skip | Skip the quiz | Saltar el cuestionario | |
 | next | Next | Siguiente | |
 | finish | See my results | Ver mis resultados | |
 | tagImp | filled in | estimado | |
@@ -564,26 +557,14 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | home1 | Where I live now | Donde vivo ahora | |
 | home2 | Another place I call home (optional) | Otro lugar que es mi casa (opcional) | |
 | none | None | Ninguno | |
-| vsEyebrow | Your results | Tus resultados | |
-| vsTitle | You vs Adriano | Tú vs. Adriano | |
-| matchLabel | how closely your ranking of cities matches Adriano’s | qué tanto se parece tu ranking de ciudades al de Adriano | |
+| resEyebrow | Your results | Tus resultados | |
 | yourTop | Your top 5 cities | Tus 5 ciudades principales | |
-| adTop | Adriano’s top 5 cities | Las 5 de Adriano | |
-| bothLists | on both lists | en ambas listas | |
-| youMore | You rate these much higher | Tú calificas mucho más alto | |
-| adMore | Adriano rates these much higher | Adriano califica mucho más alto | |
 | weighDiff | Where your priorities differ most | Donde más difieren sus prioridades | |
-| youMoreW | You care more about | A ti te importa más | |
-| adMoreW | Adriano cares more about | A Adriano le importa más | |
-| noneBig | No big differences. | Sin grandes diferencias. | |
 | share | Copy link to my results | Copiar enlace a mis resultados | |
 | retake | Retake the quiz | Repetir el cuestionario | |
 | toMap | Explore your map ↓ | Explora tu mapa ↓ | |
 | copied | Link copied. Anyone who opens it sees your take. | Enlace copiado. Quien lo abra verá tu versión. | |
 | mapTitle | The map | El mapa | |
-| adTake | Adriano’s take | Versión de Adriano | |
-| yourTake | Your take | Tu versión | |
-| modeAd | Showing Adriano’s priorities. | Con las prioridades de Adriano. | |
 | optsTitle | Map options and filters | Opciones del mapa y filtros | |
 | colorBy | Color by | Colorear por | |
 | find | Find a place | Buscar un lugar | |
@@ -674,8 +655,6 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | shortest | Shortest day {h}h {m}m | Día más corto: {h} h {m} min | |
 | flightTo | about {h}h to {p} | unas {h} h a {p} | |
 | fromCenter |  (from the country center) |  (desde el centro del país) | |
-| youScore | You | Tú | |
-| adScore | Adriano | Adriano | |
 | noData | no data | sin datos | |
 | filteredOut | filtered out | filtrado | |
 | noMajor | No major drawback | Sin desventaja importante | |
@@ -685,8 +664,6 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | legendFiltered | Filtered out | Filtrado | |
 | poor | 1 poor | 1 malo | |
 | great | 5 great | 5 excelente | |
-| vsLegendLow | Adriano higher | Adriano más alto | |
-| vsLegendHigh | you higher | tú más alto | |
 | howTitle | How the scores work, sources, and bias check | Cómo funcionan los puntajes, fuentes y revisión de sesgos | |
 | copyPrompt | Copy this link: | Copia este enlace: | |
 | tagData | data | datos | |
@@ -730,6 +707,7 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | permRoute | Route for a junior hire without that right | Vía para un recién egresado sin ese derecho | |
 | yes | yes | sí | |
 | no | no | no | |
+| routeEasy | open route (e.g. the Mercosur residence agreement) | vía abierta (p. ej. el acuerdo de residencia del Mercosur) | |
 | routeSome | possible with an employer sponsor | posible con patrocinio de un empleador | |
 | routeHard | hard: depends on an employer sponsoring a junior hire | difícil: depende de que un empleador patrocine a alguien junior | |
 | verified | rules checked 11 Nov 2026 | reglas revisadas el 11 de nov. de 2026 | |

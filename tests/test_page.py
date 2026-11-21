@@ -1,4 +1,4 @@
-"""Smoke test: takes the quiz, opens the comparison and map, switches language. Desktop English and mobile Spanish.
+"""Smoke test: takes the quiz, opens the results and map, switches language. Desktop English and mobile Spanish.
 Screenshots go to build/shots/. Run: python3 tests/test_page.py"""
 from harness import sync_playwright, route, PAGE, SHOTS, CHROME
 OUT = str(SHOTS)
@@ -12,6 +12,7 @@ with sync_playwright() as p:
         pg.on('console',lambda m,n=name: errs.append(f'{n} console {m.type}: {m.text}') if m.type=='error' else None)
         pg.goto('file://'+PAGE); pg.wait_for_timeout(800)
         pg.screenshot(path=f'{OUT}/{name}-1-start.png',full_page=False)
+        assert not pg.is_visible('#work') and not pg.is_visible('#list'), 'results are on screen before the quiz'
         pg.click('#startQuiz'); ex_seen=[]
         i=0
         # the short quiz: home, passports, languages, work, household, what matters most, then the follow-ups those
@@ -37,8 +38,9 @@ with sync_playwright() as p:
             pg.wait_for_timeout(300); i+=1
         assert ex_seen, 'no data comparison was shown under the questions after choosing a home'
         if pg.locator('#doneMap').count(): pg.screenshot(path=f'{OUT}/{name}-2-quizdone.png'); pg.click('#doneMap'); pg.wait_for_timeout(400)
-        print(name,'match',pg.inner_text('#matchPct'),'| vs hidden',pg.is_hidden('#vsPanel'),'| mode',pg.inner_text('#modeNote')[:60])
-        pg.screenshot(path=f'{OUT}/{name}-3-vs.png',full_page=False)
+        assert pg.is_visible('#resPanel') and pg.is_visible('#work'), 'no results after the quiz'
+        print(name,'results:',pg.inner_text('#resHead'),'| rows',pg.locator('#list .row').count())
+        pg.screenshot(path=f'{OUT}/{name}-3-results.png',full_page=False)
         pg.locator('#list .row').first.click(); pg.wait_for_timeout(800)
         pg.screenshot(path=f'{OUT}/{name}-4-map.png',full_page=False)
         print(name,'pcard:',pg.inner_text('#pcard').replace('\n',' ')[:120])

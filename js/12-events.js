@@ -20,75 +20,21 @@ $('advBtn').onclick = () => setAdv(!document.body.classList.contains('adv'));
 document.body.classList.toggle('adv', !!store.get('adv', false));
 $('fullQuiz').onclick = () => sharpenQuiz();
 $('tradeBtn').onclick = () => startTrades();
-function setAdriano() {
-  MODE = 'adriano';
-  W = { ...PRESETS.mine };
-  HOMES = homesFromKeys(ADRIANO_HOMES);
-  LANGMODE = 'both';
-  PERMMODE = 'usmx';
-  FIELD = 'tech';
-  PAYJOB = -1;
-  CLIMMODE = 'mild';
-  POLMODE = 'd';
-  gate = gateOpen = norm = gateFar = gateHot = gateSmall = true;
-  useEst = false;
-  useImp = true;
-  REACH = false;
-  HAPPYMODE = 'report';
-  LASTS = false;
-}
-$('skipQuiz').onclick = () => {
-  $('quizPanel').hidden = true;
-  if (MODE === 'adriano') startNeutral();
-  showMap();
-};
-function showAdriano() {
-  $('quizPanel').hidden = true;
-  setAdriano();
-  store.set('view', 'adriano');
-  applyHomes();
-  weightsUI();
-  refreshAll();
-}
-// "I know Adriano": adds his take next to yours, and the comparison after the quiz
-function setKnows(on) {
-  KNOWS = on;
-  store.set('knows', on ? '1' : '');
-  if (!on && MODE === 'adriano') startNeutral();
-  devUI();
-  weightsUI();
-  refreshAll();
-}
-function devUI() {
-  $('knowDev').textContent = L(KNOWS ? 'knowDevOff' : 'knowDev');
-  $('devNote').hidden = !KNOWS;
-  $('modeBar').hidden = !KNOWS;
-  heroNow();
-}
-$('knowDev').onclick = () => setKnows(!KNOWS);
 $('resumeTake').onclick = () => {
   try {
     loadTake(JSON.parse(store.get('take', 'null')));
     applyHomes();
     weightsUI();
     refreshAll();
-    $('vsPanel').hidden = false;
-    $('vsPanel').scrollIntoView({ block: 'start' });
+    $('resPanel').hidden = false;
+    $('resPanel').scrollIntoView({ block: 'start' });
   } catch (e) {}
 };
 $('retake').onclick = () => startQuiz(false);
 $('toMap').onclick = showMap;
-$('mAdriano').onclick = () => {
-  showAdriano();
-  $('vsPanel').hidden = true;
-};
 $('retakeHero').onclick = () => startQuiz();
-$('mYours').onclick = () => {
-  const s = store.get('take', null);
-  if (s) {
-    $('resumeTake').onclick();
-  } else if (MODE === 'adriano') startNeutral();
-};
+// the unmarked button at the foot of the page: one filled-in set of answers (SAMPLE, js/07-quiz.js)
+$('fillBtn').onclick = fillSample;
 $('shareTake').onclick = () => {
   const url = location.href.split('#')[0] + '#t=' + enc(takeState()) + (LANG !== 'en' ? '&l=' + LANG : '');
   const ok = () => toast(L('copied'));
@@ -157,75 +103,63 @@ $('preset').onchange = e => {
   const v = e.target.value;
   const src = v === 'quiz' ? QUIZW : PRESETS[v];
   if (!src) return;
-  if (v !== 'mine' || MODE === 'yours') becomeYours();
   W = { ...src };
   weightsUI();
-  $('preset').value = MODE === 'adriano' ? 'mine' : v;
+  $('preset').value = v;
   refreshAll();
   saveTake();
 };
 $('norm').onchange = e => {
-  becomeYours();
   norm = e.target.checked;
   refreshAll();
   saveTake();
 };
 $('useEst').onchange = e => {
-  becomeYours();
   useEst = e.target.checked;
   refreshAll();
   saveTake();
 };
 $('useImp').onchange = e => {
-  becomeYours();
   useImp = e.target.checked;
   refreshAll();
   saveTake();
 };
 $('gate').onchange = e => {
-  becomeYours();
   gate = e.target.checked;
   refreshAll();
   saveTake();
 };
 $('gateOpen').onchange = e => {
-  becomeYours();
   gateOpen = e.target.checked;
   refreshAll();
   saveTake();
 };
 $('gateFar').onchange = e => {
-  becomeYours();
   gateFar = e.target.checked;
   refreshAll();
   saveTake();
 };
 $('gateHot').onchange = e => {
-  becomeYours();
   gateHot = e.target.checked;
   refreshAll();
   saveTake();
 };
 $('gateSmall').onchange = e => {
-  becomeYours();
   gateSmall = e.target.checked;
   refreshAll();
   saveTake();
 };
 $('useCont').onchange = e => {
-  becomeYours();
   useCont = e.target.checked;
   refreshAll();
   saveTake();
 };
 $('useME').onchange = e => {
-  becomeYours();
   useME = e.target.checked;
   refreshAll();
   saveTake();
 };
 $('reach').onchange = e => {
-  becomeYours();
   REACH = e.target.checked;
   refreshAll();
   saveTake();
@@ -236,26 +170,22 @@ $('rankBy').onchange = e => {
   refreshAll();
 };
 $('aggSel').onchange = e => {
-  becomeYours();
   AGG = e.target.value;
   refreshAll();
   saveTake();
 };
 $('normM').onchange = e => {
-  becomeYours();
   NORMM = e.target.value;
   refreshAll();
   saveTake();
 };
 $('happyM').onchange = e => {
-  becomeYours();
   HAPPYMODE = e.target.value;
   refreshAll();
   saveTake();
 };
 // Shift 30% of the weather and daylight weight to the commute and making friends, which people tend to underweight
 $('lasts').onchange = e => {
-  becomeYours();
   const on = e.target.checked;
   if (on && !LASTS) {
     LASTS_D = (W.clim || 0) * 0.3 + (W.day || 0) * 0.3;

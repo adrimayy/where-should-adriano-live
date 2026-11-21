@@ -1,16 +1,6 @@
 'use strict';
 /* ---------------- geography ---------------- */
 let HOMES = [];
-const ADRIANO_HOMES = ['city:East Hampton', 'city:Tampico'];
-const FEATURED = [
-  'city:San Francisco',
-  'city:East Hampton',
-  'city:Southampton',
-  'city:Montauk',
-  'city:New York City',
-  'city:Madrid',
-  'city:Tampico',
-];
 function dayHours(lat) {
   const r = Math.PI / 180,
     phi = Math.abs(lat) * r,

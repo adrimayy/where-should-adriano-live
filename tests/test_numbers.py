@@ -27,24 +27,35 @@ check('factors with test error above 1.0 are never model-filled for countries', 
 imp_draws = [x for v in D['countries'].values() for x in (v[6] or {}).values() if len(x) > 2]
 check('every country gap has 20 imputed draws', imp_draws and all(len(x[2]) == 20 for x in imp_draws), len(imp_draws))
 # ---- the page
-JS = r"""()=>{const A=window.__atlas,L=A.ents().filter(e=>A.listable(e));A.adFull();const band=x=>x>=70?3:x>=60?2:x>=48?1:0;
+JS = r"""()=>{const A=window.__atlas,L=A.ents().filter(e=>A.listable(e));const band=x=>x>=70?3:x>=60?2:x>=48?1:0;
  const r5=x=>{const r=Math.round(x/5)*5;return band(r)===band(x)?r:Math.floor(x/5)*5;};
- const TR={fit:0,ok:1,caution:2,avoid:3,nodata:4};const cs=L.filter(e=>e.type==='city').sort((a,b)=>TR[a.ad.tier]-TR[b.ad.tier]||b.ad.lo-a.ad.lo);
+ const TR={fit:0,ok:1,caution:2,avoid:3,nodata:4};const cs=L.filter(e=>e.type==='city').sort((a,b)=>TR[a.tier]-TR[b.tier]||a.thin-b.thin||b.lo-a.lo||b.score-a.score);
  const by=n=>A.ents().find(e=>e.name===n);
  return {cross:L.filter(e=>band(r5(e.score))!==band(e.score)).length,
-  fitBad:L.filter(e=>e.ad.tier==='fit'&&e.ad.score<70).length,
+  fitBad:L.filter(e=>e.tier==='fit'&&e.score<70).length,
   top3:cs.slice(0,3).map(e=>e.name),
   austin:by('Austin').sc.pol, tampicoLo:by('Tampico').lo<=by('Tampico').score&&by('Tampico').score<=by('Tampico').hi+1,
   ranges:L.every(e=>e.lo<=e.hi), probs:L.every(e=>e.pFit>=0&&e.pFit<=1&&e.pTop>=0&&e.pTop<=1),
   likely:L.filter(e=>e.likely).map(e=>e.name).slice(0,5)};}"""
 with sync_playwright() as p:
     b = p.chromium.launch(executable_path=CHROME); pg = b.new_page(); pg.route('**/*', route)
-    pg.goto('file://' + PAGE); pg.wait_for_timeout(800); pg.click('#skipQuiz'); pg.wait_for_timeout(300)
+    pg.goto('file://' + PAGE); pg.wait_for_timeout(800)
+    # before there is a take, nothing is scored on screen: the first card and the quiz button only
+    vis = "()=>['#work','#mapSec','#rankSec','#detailSec','#weightsBox','#pfab','#resPanel'].filter(s=>document.querySelector(s).getClientRects().length)"
+    start = {'shown': pg.evaluate(vis), 'quiz': pg.is_visible('#startQuiz'), 'rows': pg.evaluate("()=>[...document.querySelectorAll('#list .row')].filter(r=>r.getClientRects().length).length")}
+    pg.select_option('#langSel', 'fr'); pg.wait_for_timeout(600); fr = pg.inner_text('#start'); pg.select_option('#langSel', 'en'); pg.wait_for_timeout(300)
+    pg.evaluate("fillSample()"); pg.wait_for_timeout(300)   # the fixed case: one filled-in set of answers (SAMPLE, js/07-quiz.js)
+    after = pg.evaluate(vis)
+    same = pg.evaluate("()=>{const w=weightsFromQuiz(SAMPLE);return Object.keys(w).every(k=>w[k]===W[k])&&MODE==='yours'}")
     pg.wait_for_function("()=>document.documentElement.dataset.sim==='done'")   # the likely ranges are worked out in the background
     r = pg.evaluate(JS); b.close()
 check('no rounded score crosses its verdict line', r['cross'] == 0, r['cross'])
 check('no Strong fit below 70', r['fitBad'] == 0)
-check("Amsterdam is in Adriano's top 3", 'Amsterdam' in r['top3'], r['top3'])
+check('nothing is scored on screen before a take', start['shown'] == [] and start['rows'] == 0 and start['quiz'], start)
+check('a translated first card has the number of cities filled in', '{' not in fr and str(len(D['cities'])) in fr, fr.replace('\n', ' ')[:90])
+check('the map, ranking and details appear with the take', all(x in after for x in ('#work', '#mapSec', '#rankSec', '#resPanel')), after)
+check('the sample take is what the quiz gives for its answers', same)
+check("Amsterdam is in the sample take's top 3", 'Amsterdam' in r['top3'], r['top3'])
 check('Austin politics averages state (R+13.7 -> 1) and Travis County (D+39.1 -> 5) to 3', r['austin'] == 3, r['austin'])
 check('every likely range is ordered', r['ranges'])
 check('probabilities are between 0 and 1', r['probs'])

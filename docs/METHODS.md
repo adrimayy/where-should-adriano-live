@@ -17,8 +17,8 @@ The values come from published sources: WHO, UN, FBI, Gallup, Transparency Inter
 Numbeo and others, each with its year and coverage (city, metro, state or country) shown on the place's page. The cut-offs
 that turn a figure into 1–5 are all in `pipeline/bands.py`.
 
-The score out of 100 is the weighted average of those values. The weights come from the quiz, from Adriano's own
-priorities, or start equal.
+The score out of 100 is the weighted average of those values. The weights come from the quiz; you can
+change any of them afterwards.
 
 ## Rules on top of the average
 

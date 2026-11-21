@@ -580,18 +580,6 @@ function renderUnsure() {
     ' ' +
     (flip ? fmt(L(flip.hi ? 'unsureHi' : 'unsureLo'), { f: FL(flip.k), p: dn(flip.e) }) + ' ' + L('unsureHint') : L('unsureHolds'));
 }
-function orderedPlaces(needGeo) {
-  const ok = e => listable(e) && (!needGeo || e.hasGeo),
-    az = (a, b) => dn(a).localeCompare(dn(b), LANG);
-  const feat = FEATURED.map(k => byKey[k]).filter(e => e && ok(e));
-  const cs = ents.filter(e => ok(e) && e.type === 'city' && !feat.includes(e)).sort(az),
-    co = ents.filter(e => ok(e) && e.type === 'country').sort(az);
-  return [
-    [L('grpSuggested'), feat],
-    [L('grpCities'), cs],
-    [L('grpCountries'), co],
-  ];
-}
 // ---- place picker: search box, a short "Suggested" list, then every place A–Z with letter headers and a letter rail.
 // Suggested places also keep their alphabetical spot. The value lives in a hidden input.
 // Every place lookup on the page (home bases, passports) opens this same searchable sheet.
@@ -620,7 +608,7 @@ function suggestedPlaces() {
     const r = (t.split('-')[1] || '').toUpperCase();
     if (r.length === 2) add(ents.find(e => e.type === 'country' && e.a2 === r));
   }
-  // the visitor's own passports and homes; until their answers apply, the page is showing Adriano's, so use the quiz's
+  // the visitor's own passports and homes; until their answers apply, the ones picked in the quiz so far
   const mine = MODE === 'yours';
   (mine ? passSpec(PERMMODE) : picked(ANS.perm) ? ANS.perm.sel || [] : []).forEach(n => add(byIso[n]));
   (mine ? HOMES.map(h => byKey[h.key]) : HOMEKEYS.map(k => byKey[k])).forEach(add);
@@ -763,7 +751,7 @@ function renderQuiz() {
       ex = exk ? qSwing(exk) || qExample(exk === 'cost' ? 'pay' : exk) : '';
     body = `${n === 1 && !QMORE ? `<p class="meta qtip">${L('qtip')}</p>` : ''}<div class="qtitle">${head}</div>${sub ? `<p class="meta qsub">${sub}</p>` : ''}${ex ? `<p class="meta qsub qex">${ex}</p>` : ''}<div class="opts${ord.length > 8 ? ' many' : ''}">${ord.map(i => `<button class="opt" data-i="${i}" aria-pressed="${ANS[q.id] === i}"><span class="dot"></span><span>${opts[i]}</span></button>`).join('')}</div>`;
   }
-  Q.innerHTML = `<div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><span class="lab">${QSHORT && QSTEP <= QLIST.findIndex(q => q.id === 'top') ? fmt(L('qN'), { n }) : fmt(L('qOf'), { n, t: total })}</span><button class="ghost" id="qSkip">${QMORE ? L('doneMap') : L('skip')}</button></div>
+  Q.innerHTML = `<div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><span class="lab">${QSHORT && QSTEP <= QLIST.findIndex(q => q.id === 'top') ? fmt(L('qN'), { n }) : fmt(L('qOf'), { n, t: total })}</span><button class="ghost" id="qSkip">${QMORE ? L('doneMap') : L('ppClose')}</button></div>
   <div class="progress"><span style="width:${Math.round(((n - 1) / total) * 100)}%"></span></div>${body}<p class="qgot" id="qGot" role="status"></p>
   <div class="qnav"><button id="qBack" ${n === 1 ? 'style="visibility:hidden" tabindex="-1" aria-hidden="true"' : ''}>${L('back')}</button><span class="toggles"><button class="ghost" id="qUnsure">${L('unsure')}</button>${answered(cur) ? `<button id="qNext" ${last ? 'class="primary"' : ''}>${last ? L('finish') : L('next')}</button>` : ''}</span></div>`;
   Q.querySelectorAll('.opt').forEach(
@@ -818,8 +806,14 @@ function renderQuiz() {
     };
   $('qSkip').onclick = () => {
     if (QMORE) return finishQuiz();
+    // closing an unfinished quiz changes nothing: back to the results there were, or to the start
     $('quizPanel').hidden = true;
-    if (MODE !== 'yours') showMap();
+    if (MODE === 'yours') {
+      ANS = QPREV || ANS;
+      HOMEKEYS = HOMES.map(h => h.key);
+      $('resPanel').hidden = false;
+    }
+    window.scrollTo({ top: 0 });
   };
 }
 // Shuffle once per person and keep that order on later visits, so the quiz doesn't rearrange itself
@@ -844,12 +838,15 @@ function sharpenQuiz() {
   if (!QLIST.length) return;
   QDONE = false;
   QMORE = true;
-  $('vsPanel').hidden = true;
+  $('resPanel').hidden = true;
   $('quizPanel').hidden = false;
   renderQuiz();
   $('quizPanel').scrollIntoView({ block: 'start' });
 }
+// the answers behind the results on screen, kept while the quiz is retaken in case it is closed half-way
+let QPREV = null;
 function startQuiz(full) {
+  QPREV = MODE === 'yours' ? ANS : null;
   ANS = {};
   QSTEP = 0;
   QDIR = 1;
@@ -873,9 +870,11 @@ function startQuiz(full) {
 }
 // Show what every unanswered question defaulted to, and let the person change it here
 function renderDefaults() {
-  const el = $('vsDefaults');
+  const el = $('resDefaults');
   if (!el) return;
-  const un = QUIZ.filter(q => !answered(q) && q.picker !== 'where' && q.picker !== 'top' && applies(q)); // home bases are set in the settings panel
+  // questions answered by picking from a list (homes, passports, languages, what matters most) are changed by retaking
+  // the quiz or in the settings panel: a short menu here could not hold their answers
+  const un = QUIZ.filter(q => !answered(q) && !q.picker && applies(q));
   if (!un.length) {
     el.innerHTML = '';
     return;
@@ -934,7 +933,6 @@ function finishQuiz() {
   HOMES = homesFromKeys(HOMEKEYS);
   gate = gateOpen = norm = true;
   MODE = 'yours';
-  store.set('view', 'yours');
   applyHomes();
   weightsUI();
   refreshAll();
@@ -944,10 +942,52 @@ function finishQuiz() {
   // first time through, say it's done and offer the rest; the results and the map are already underneath
   QDONE = !QMORE && moreLeft().length > 0;
   QMORE = false;
-  $('vsPanel').hidden = false;
+  $('resPanel').hidden = false;
   $('quizPanel').hidden = !QDONE;
   if (QDONE) renderDone();
-  $(QDONE ? 'quizPanel' : 'vsPanel').scrollIntoView({ block: 'start' });
+  $(QDONE ? 'quizPanel' : 'resPanel').scrollIntoView({ block: 'start' });
+}
+// One filled-in set of answers, put in by the unmarked button at the foot of the page: the whole quiz in one tap, for
+// checking the page from start to finish. The tests use it as their fixed case.
+const SAMPLE = {
+  where: { keys: ['city:East Hampton', 'city:Tampico'] },
+  perm: { sel: [484, 840] },
+  lang: { sel: { en: 2, es: 2 } },
+  work: 0,
+  who: 0,
+  top: { sel: { pay: 2, commute: 2, hours: 2, cult: 2 } },
+  job: JOBS.findIndex(j => j[0] === 'tech'),
+  jobs: 2,
+  reach: 1,
+  pay: 2,
+  home: 2,
+  move: 2,
+  commute: 2,
+  hours: 2,
+  cult: 2,
+  clim: 3,
+  day: 2,
+  sea: 1,
+  air: 1,
+  risk: 1,
+  open: 1,
+  fam: 1,
+  tz: 1,
+  kin: 1,
+  safe: 2,
+  hlth: 2,
+  free: 1,
+  women: 3,
+  lgbt: 2,
+  pol: 0,
+  weak: 0,
+  sure: 0,
+};
+function fillSample() {
+  ANS = JSON.parse(JSON.stringify(SAMPLE));
+  TRADE = null;
+  QMORE = true; // every question is answered: nothing more to offer
+  finishQuiz();
 }
 
 /* ---------------- trade-offs: "which city sounds better?" ---------------- */
@@ -1022,7 +1062,7 @@ function startTrades() {
   const qs = tradePairs();
   if (qs.length < 3) return toast(L('tradeNone'));
   TRADE = { qs, i: 0, ans: [], w0: { ...W }, tr0: ANS.tr || [], top0: topMatch() };
-  $('vsPanel').hidden = true;
+  $('resPanel').hidden = true;
   $('quizPanel').hidden = false;
   renderTrade();
   window.scrollTo({ top: 0 });
@@ -1117,6 +1157,6 @@ function closeTrades() {
   TRADE = null;
   QDONE = false;
   $('quizPanel').hidden = true;
-  $('vsPanel').hidden = false;
+  $('resPanel').hidden = false;
   window.scrollTo({ top: 0 });
 }
