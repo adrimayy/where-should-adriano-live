@@ -1,0 +1,99 @@
+[
+ {
+  "map": "mapfig on",
+  "img": [
+   389,
+   259,
+   "https://commons.wikimedia.org/wiki/Special:FilePath/2010-02-19_3000x2000_chicago_skyline.jpg?width=960"
+  ],
+  "cap": "Photo: J. Crocker · Attribution · Wikimedia Commons",
+  "links": [
+   "https://www.google.com/maps/@?api=1&map_action=map&center=41.8800,-87.6300&zoom=11",
+   "https://en.wikipedia.org/wiki/Chicago"
+  ],
+  "place": "city:Chicago",
+  "view": "phone"
+ },
+ {
+  "map": "mapfig on",
+  "img": [
+   389,
+   239,
+   "https://commons.wikimedia.org/wiki/Special:FilePath/Lisboa837.png?width=960"
+  ],
+  "cap": "Photo: Lacobrigo · CC BY-SA 4.0 · Wikimedia Commons",
+  "links": [
+   "https://www.google.com/maps/@?api=1&map_action=map&center=38.7200,-9.1400&zoom=11",
+   "https://en.wikipedia.org/wiki/Lisbon"
+  ],
+  "place": "city:Lisbon",
+  "view": "phone"
+ },
+ {
+  "map": "mapfig on",
+  "img": null,
+  "cap": null,
+  "links": [
+   "https://www.google.com/maps/@?api=1&map_action=map&center=40.3634,-3.5927&zoom=5",
+   "https://en.wikipedia.org/wiki/Spain"
+  ],
+  "place": "country:724",
+  "view": "phone"
+ },
+ {
+  "map": "mapfig on",
+  "img": null,
+  "cap": null,
+  "links": [
+   "https://www.google.com/maps/@?api=1&map_action=map&center=39.8774,-98.8353&zoom=3",
+   "https://en.wikipedia.org/wiki/United_States"
+  ],
+  "place": "country:840",
+  "view": "phone"
+ },
+ {
+  "map": "mapfig on",
+  "img": [
+   389,
+   288,
+   "https://commons.wikimedia.org/wiki/Special:FilePath/Old_Hook_Mill_in_East_Hampton_1.jpg?width=960"
+  ],
+  "cap": "Photo: Rhododendrites · CC BY-SA 4.0 · Wikimedia Commons",
+  "links": [
+   "https://www.google.com/maps/@?api=1&map_action=map&center=40.9600,-72.1800&zoom=11",
+   "https://en.wikipedia.org/wiki/East_Hampton%2C_New_York"
+  ],
+  "place": "city:East Hampton",
+  "view": "phone"
+ },
+ {
+  "map": "mapfig on",
+  "img": [
+   440,
+   293,
+   "https://commons.wikimedia.org/wiki/Special:FilePath/2010-02-19_3000x2000_chicago_skyline.jpg?width=500"
+  ],
+  "cap": "Photo: J. Crocker · Attribution · Wikimedia Commons",
+  "links": [
+   "https://www.google.com/maps/@?api=1&map_action=map&center=41.8800,-87.6300&zoom=11",
+   "https://en.wikipedia.org/wiki/Chicago"
+  ],
+  "place": "city:Chicago",
+  "view": "desktop"
+ },
+ {
+  "map": "mapfig on",
+  "img": [
+   440,
+   270,
+   "https://commons.wikimedia.org/wiki/Special:FilePath/Lisboa837.png?width=500"
+  ],
+  "cap": "Photo: Lacobrigo · CC BY-SA 4.0 · Wikimedia Commons",
+  "links": [
+   "https://www.google.com/maps/@?api=1&map_action=map&center=38.7200,-9.1400&zoom=11",
+   "https://en.wikipedia.org/wiki/Lisbon"
+  ],
+  "place": "city:Lisbon",
+  "view": "desktop"
+ }
+]
