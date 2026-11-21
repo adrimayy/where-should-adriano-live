@@ -27,7 +27,7 @@ function setAdriano() {
   LANGMODE = 'both';
   PERMMODE = 'usmx';
   FIELD = 'tech';
-  PAYLVL = 1;
+  PAYJOB = -1;
   CLIMMODE = 'mild';
   POLMODE = 'd';
   gate = gateOpen = norm = gateFar = gateHot = gateSmall = true;

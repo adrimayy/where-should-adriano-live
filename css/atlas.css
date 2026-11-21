@@ -1909,3 +1909,5 @@ button, .opt, .pill, .lchip, .pchip { transition: transform 0.08s, opacity 0.08s
 .scopebar .meta { flex-basis: 100%; margin: 0; }
 @media print { .scopebar { display: none !important; } }
 @media (max-width: 640px) { .scopebar .seg { display: flex; width: 100%; } .scopebar .seg button { flex: 1 1 auto; padding: 6px 8px; font-size: 14px; } }
+/* v60: a one-tap suggestion on the passport question (the passport of the country you live in) */
+.lchip.padd { border-style: dashed; color: var(--muted); }

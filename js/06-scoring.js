@@ -138,6 +138,15 @@ function resolve(e) {
     e.v[k] = null;
     e.how[k] = 'none';
   });
+  // pay for the person's kind of work, where the place has no pay and rent figures to re-work: it moves with its country
+  e.payMove = null;
+  if (PAYJOB >= 0 && FIELD !== 'remote' && !e.payAdj && e.v.pay != null && jobShare(e)) {
+    const d = payShift(e),
+      clip = x => Math.max(1, Math.min(5, x + d));
+    e.v.pay = clip(e.v.pay);
+    if (e.dr.pay) e.dr.pay = e.dr.pay.map(clip);
+    e.payMove = d;
+  }
   // tech/software: the job market is averaged with the city's tech-ecosystem rank
   const tb = FIELD === 'tech' ? techOf(e) : null;
   if (tb != null && e.how.jobs !== 'est') {
@@ -558,7 +567,7 @@ function snapshotAdriano() {
     LANGMODE,
     PERMMODE,
     FIELD,
-    PAYLVL,
+    PAYJOB,
     CLIMMODE,
     gate,
     gateOpen,
@@ -578,7 +587,7 @@ function snapshotAdriano() {
   LANGMODE = 'both';
   PERMMODE = 'usmx';
   FIELD = 'tech';
-  PAYLVL = 1;
+  PAYJOB = -1;
   CLIMMODE = 'mild';
   POLMODE = 'd';
   gate = gateOpen = norm = gateFar = gateHot = gateSmall = true;
@@ -609,7 +618,7 @@ function snapshotAdriano() {
     LANGMODE,
     PERMMODE,
     FIELD,
-    PAYLVL,
+    PAYJOB,
     CLIMMODE,
     gate,
     gateOpen,

@@ -5,8 +5,8 @@ let LANGMODE = 'both',
   FIELD = 'tech',
   CLIMMODE = 'mild',
   POLMODE = 'd',
-  // typical pay for the person's kind of work as a share of average pay (1 = average); set by the quiz's job question
-  PAYLVL = 1;
+  // the person's kind of work (an index into JOBS; -1 = not said), set by the quiz's job question
+  PAYJOB = -1;
 const POLM = DATA.pol || {},
   TMEAN = DATA.tmean || {},
   THOT = DATA.thot || {};
@@ -66,9 +66,59 @@ function fieldJobs(e) {
   const v = +e.fields[i];
   return v > 0 ? v : null;
 }
+// ---- kinds of work, and what each pays next to average pay ----
+// [id, how the job market is judged (see fieldJobs), US annual mean wage, ISCO-08 group(s)].
+// The wage is the occupation group's annual mean in the US Bureau of Labor Statistics' Occupational Employment and Wage
+// Statistics, May 2025 (released 15 May 2026; all occupations: $69,770). It is used for US places without metro figures.
+// The last entry points into a country's row of ILOSTAT figures (DATA.jobpay.c): 1 professionals, 2 technicians and
+// associate professionals, 3 clerical support, 4 service and sales, 5 craft and related trades, 6 plant and machine
+// operators, 7 elementary occupations. Two numbers: the mean of both.
+const ALLPAY = 69770;
+const JOBS = [
+  ['food', 'general', 37150, 4], // food preparation and serving related
+  ['store', 'general', 37310, 4], // retail salespersons
+  ['trades', 'general', 64370, 5], // construction and extraction + installation, maintenance and repair, weighted by employment
+  ['drive', 'general', 49850, 6], // transportation and material moving
+  ['factory', 'general', 51600, 6], // production
+  ['clean', 'general', 40880, 7], // building and grounds cleaning and maintenance
+  ['beauty', 'general', 41070, 4], // personal care and service
+  ['care', 'general', 40800, 4], // healthcare support
+  ['medical', 'health', 108700, 1], // healthcare practitioners and technical
+  ['teach', 'general', 67540, 1], // educational instruction and library
+  ['office', 'general', 51560, 3], // office and administrative support
+  ['tech', 'tech', 115680, 1], // computer and mathematical + architecture and engineering, weighted by employment
+  ['biz', 'finance', 95230, [1, 2]], // business and financial operations
+  ['art', 'creative', 79790, 1], // arts, design, entertainment, sports and media
+  ['sci', 'academia', 94600, 1], // life, physical and social science
+  ['farm', 'general', 41510, 7], // farming, fishing and forestry (hired farm work is an elementary occupation in ISCO-08)
+  ['guard', 'general', 60720, 4], // protective service
+  ['other', 'general', ALLPAY, 0],
+];
+// DATA.jobpay (pipeline/sources/job_pay.py): c = country -> [year, the seven ISCO groups per 1,000 of average pay]
+// (year 0: an estimate from nine similar countries); m = US city -> the 17 kinds of work above, from its metro area.
+const JOBPAY = DATA.jobpay || { c: {}, m: {} };
+// What the person's kind of work pays in this place, as a share of average pay there, from the closest published
+// figure: the US metro area, the US as a whole, the country, or (flagged) similar countries. null: nothing to go on.
+function jobShare(e, j = PAYJOB) {
+  const J = JOBS[j];
+  if (!J || !J[3]) return null;
+  const iso = +isoOf(e);
+  if (iso === 840) {
+    const m = e.type === 'city' ? JOBPAY.m[e.name] : null;
+    return m && m[j] > 0 ? { r: m[j] / 1000, src: 'metro' } : { r: J[2] / ALLPAY, src: 'us' };
+  }
+  const c = JOBPAY.c[iso];
+  if (!c) return null;
+  const xs = []
+    .concat(J[3])
+    .map(i => c[i])
+    .filter(x => x > 0);
+  if (!xs.length) return null;
+  return { r: xs.reduce((a, b) => a + b, 0) / xs.length / 1000, src: c[0] ? 'country' : 'est', y: c[0] };
+}
 // ---- money left after rent, for the person's kind of work ----
 // The published figure is for an average salary. A cook and a software developer pay the same rent, so with typical pay
-// at a share r of average (PAYLVL) the figure becomes (r × pay − rent) ÷ prices. It is judged against the same cut-offs,
+// at a share r of average the figure becomes (r × pay − rent) ÷ prices. It is judged against the same cut-offs,
 // scaled by r (what is left as a share of that paycheck): (pay − rent ÷ r) ÷ prices against $3,000 / 2,000 / 1,200 / 500.
 // Only places with separate pay and rent figures can be re-worked; the rest keep their published score.
 const MONEY_KNOTS = [
@@ -115,14 +165,41 @@ function moneyLeftAt(e, r) {
     p = moneyParts(e.countryEnt);
   return p ? r * p[0] - (1 - r) * p[1] : null;
 }
+// Most places have no pay and rent figures of their own: their pay value is filled in by the gap-filling model, or is
+// a country figure without rent. They move with their country: the amount (on the 1-5 scale) by which the country's
+// figure changes when it is re-worked for the person's kind of work. A country without city figures takes the middle
+// shift of its world region's countries (three or more), else the world's.
+// Checked on the 260 cities that do have figures, each predicted from its country alone: off by 0.45 of a point for
+// food service, 0.26 for driving, 0.22 for office work, 0.14 for computing. Leaving such places untouched would be off
+// by 1.31, 0.60, 0.50 and 0.45, and would make every place without figures look better to lower-paid workers.
+let PAYSHIFT = { job: null };
+function payShift(e) {
+  if (PAYSHIFT.job !== PAYJOB) {
+    const own = c => {
+      const sh = jobShare(c),
+        p = moneyParts(c);
+      return sh && p ? moneyScore((sh.r * p[0] - (1 - sh.r) * p[1]) / sh.r) - moneyScore(p[0]) : null;
+    };
+    const cs = ents.filter(c => c.type === 'country').map(c => [+c.id, own(c)]),
+      has = cs.filter(x => x[1] != null);
+    PAYSHIFT = { job: PAYJOB, by: {} };
+    for (const [id, d] of cs) {
+      const reg = has.filter(x => REG[x[0]] && REG[x[0]] === REG[id]).map(x => x[1]),
+        pool = reg.length >= 3 ? reg : has.map(x => x[1]);
+      PAYSHIFT.by[id] = d != null ? d : pool.length ? d3.median(pool) : 0;
+    }
+  }
+  return PAYSHIFT.by[+isoOf(e)] || 0;
+}
 function payFor(e, f) {
   e.payAdj = false;
   if (f === 'remote') return e.cost || e.base.pay;
-  if (PAYLVL !== 1 && e.base.pay != null) {
-    const x = moneyLeftAt(e, PAYLVL);
+  const sh = e.base.pay != null ? jobShare(e) : null;
+  if (sh) {
+    const x = moneyLeftAt(e, sh.r);
     if (x != null) {
       e.payAdj = true;
-      return moneyScore(x / PAYLVL);
+      return moneyScore(x / sh.r);
     }
   }
   return e.base.pay;
@@ -255,7 +332,9 @@ function langFor(e, m) {
 // "Where you're from" = the countries of your passports and home bases. 5 = one of those countries; 4 = shares a main
 // language and a world region with one; 3 = shares either; 1 = neither. A language is shared when it's a main language
 // of the origin country and widely used (level 4+) in the destination city. Regions: World Bank regions (pipeline/sources/economy.py).
-const REG = DATA.region || {};
+// world region by country number (the data file's keys are zero-padded: "076")
+const REG = {};
+for (const k in DATA.region || {}) REG[+k] = DATA.region[k];
 function mainLangs(n) {
   const c = byIso[n],
     o = [];
@@ -299,14 +378,23 @@ const LEGACY_PM = { usmx: [840, 484], us: [840], mx: [484] };
 function passSpec(m) {
   if (LEGACY_PM[m]) return LEGACY_PM[m].slice();
   if (m === 'eu') return [...EU];
-  if (typeof m === 'string' && m.startsWith('P:')) return m.slice(2).split(',').map(Number).filter(Boolean);
+  if (typeof m === 'string' && m.startsWith('P:'))
+    return m.slice(2).split(';')[0].split(',').map(Number).filter(Boolean);
   return [];
 }
-function passCode(ps) {
-  const s = [...new Set(ps)].sort((a, b) => a - b);
-  for (const [c, v] of Object.entries(LEGACY_PM))
-    if (v.length === s.length && [...v].sort((a, b) => a - b).every((x, i) => x === s[i])) return c;
-  return 'P:' + s.join(','); // no passports given means none, never Adriano's (an empty 'P:' reads back as [])
+// countries where the person may already work without holding the passport (a resident, a work permit): "P:484;R:840"
+function resSpec(m) {
+  const r = typeof m === 'string' ? /;R:([\d,]+)/.exec(m) : null;
+  return r ? r[1].split(',').map(Number).filter(Boolean) : [];
+}
+function passCode(ps, res) {
+  const s = [...new Set(ps)].sort((a, b) => a - b),
+    r = [...new Set(res || [])].filter(n => n && !s.includes(n));
+  if (!r.length)
+    for (const [c, v] of Object.entries(LEGACY_PM))
+      if (v.length === s.length && [...v].sort((a, b) => a - b).every((x, i) => x === s[i])) return c;
+  // no passports given means none, never Adriano's (an empty 'P:' reads back as [])
+  return 'P:' + s.join(',') + (r.length ? ';R:' + r.join(',') : '');
 }
 function permRule(n, ps) {
   n = +n;
@@ -336,6 +424,7 @@ function permFor(e, m) {
   const b = e.base.perm;
   if (b == null) return null;
   const n = isoOf(e);
+  if (resSpec(m).includes(+n)) return 5; // allowed to work there already
   if (!LEGACY_PM[m] && m !== 'eu') return permRule(n, passSpec(m))[0];
   if (m === 'us') return PERM_US[n] ?? b;
   if (m === 'mx') return PERM_MX[n] ?? b;

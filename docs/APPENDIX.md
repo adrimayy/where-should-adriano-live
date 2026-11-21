@@ -318,7 +318,7 @@ What the quiz does with that:
   weigh, when the place is better (or weaker) than at least 80% of the same kind of place in the atlas with a published
   figure (at least 30 of them). Shown as a share rounded down to 5%, not as "the best", so the line stays true.
 
-### Plain words, stay or go, and kinds of work (v59)
+### Plain words, stay or go, and kinds of work (v59, v60)
 
 - **Plain words.** Every question and answer was rewritten in short, common words, one idea each, with no idioms and no
   contractions, in all eight languages. Importance questions share one scale: not important, important, very important.
@@ -328,26 +328,46 @@ What the quiz does with that:
 - **Stay or go.** The second question asks whether the person wants to stay in the country they live in now (asked when
   the atlas has cities there). The answer changes no score. It sets which of three tabs above the results is open: that
   country, other countries, or everywhere. Ranks are counted inside the open tab, the map moves to it, and someone who
-  wants to stay can open "Other countries" out of curiosity. Staying, with no passport named, the person is taken to be
-  allowed to work where they live, and the passport question waits for the longer quiz. Countries with fewer than five
-  cities in the atlas say so on the tab.
+  wants to stay can open "Other countries" out of curiosity. Countries with fewer than five cities in the atlas say so
+  on the tab.
+- **The right to work is asked, never assumed.** The passport question offers the passport of the country the person
+  lives in as a one-tap suggestion, and a switch: "I am allowed to work in the country where I live now" (a resident,
+  a work permit). That country then counts as open to them; every other country is still judged by their passports.
+  Someone who names no passport and does not use the switch gets work permits left out of the score, not guessed.
 - **Kinds of work.** The job question lists 18 kinds of work in everyday words, from restaurants and stores to trades,
-  driving, care work, offices, software and farm work, in a fixed order. Each has a typical pay level: the annual mean
-  wage of the occupation group in the US Bureau of Labor Statistics' Occupational Employment and Wage Statistics for
-  May 2025 (released 15 May 2026), as a share of the all-occupations mean of $69,770. Food service is 53%, retail sales
-  53%, personal care 59%, driving and warehouse work 71%, office work 74%, building trades 92%, teaching 97%, arts and
-  media 114%, business and finance 136%, computing and engineering 166%, medical practitioners 156%.
+  driving, care work, offices, software and farm work, in a fixed order. No further question is asked: what that work
+  pays next to average pay is looked up for each place, from the closest published figure.
+  - **US metro areas (109):** the Bureau of Labor Statistics' Occupational Employment and Wage Statistics, May 2025
+    (released 15 May 2026): the annual mean wage of the occupation group in that metro area ÷ the metro's mean for all
+    occupations. Food service is 54% of average pay in the New York metro, 48% in San Francisco, 62% in Syracuse.
+  - **The rest of the US:** the same table's national figures (food service 53%, retail sales 53%, personal care 59%,
+    driving and warehouse work 71%, office work 74%, building trades 92%, teaching 97%, computing and engineering 166%).
+  - **110 other countries:** ILOSTAT's mean monthly earnings of employees by ISCO-08 major group, latest year from 2020
+    on (58 countries: 2025), ÷ the mean for all occupations. ISCO groups are broad: restaurant, store, hair and care
+    work are all "service and sales workers" (Mexico 84% of average pay, Germany 63%, United States 59%); teaching,
+    medicine, computing, science and the arts are all "professionals". Figures ILOSTAT flags as unreliable are left out.
+  - **64 countries without such a table** (Canada, Australia, Japan, China, South Korea and New Zealand among them): an
+    estimate, labelled as one on the place's page, from the nine countries with figures closest in income per person
+    (same world region preferred). Left-one-out over the 110 countries with figures, it is off by 16 points of average
+    pay on average; using the United States' figures everywhere, as v59 did, would be off by 22.
 - **Money left after rent, for that work.** Rent does not shrink with the paycheck. With pay at a share r of average,
   the money left is (r × pay − rent) ÷ prices. It is scored against the same cut-offs scaled by r, which is the same as
   scoring (pay − rent ÷ r) ÷ prices against $3,000 / 2,000 / 1,200 / 500. At r = 1 this reproduces the published scores
   exactly (checked for all 165 cities and 88 countries with pay and rent figures). On food-service pay, a one-bedroom in
-  the centre of New York costs more than the whole paycheck (about −$1,000 a month), while Syracuse leaves about $1,400.
-  Limits, stated on the place's page: the ratios are US national figures, used everywhere as a rough guide; pay gaps
-  between kinds of work are narrower in some countries and wider in others, and minimum wages vary by state and city.
-  Places with no separate pay and rent figures keep their published score. Old links and Adriano's own take are
-  unchanged (pay level 1).
+  the centre of New York costs more than the whole paycheck (about −$1,000 a month), while Syracuse leaves about $1,900.
+- **Places without pay and rent figures of their own** (483 of the 744 cities; their pay value is filled in) move with
+  their country: by the amount the country's figure changes when it is re-worked for that work. v59 left them untouched,
+  which made every such place look better to lower-paid workers. Predicting each of the 260 cities that do have figures
+  from its country alone is off by 0.45 of a point (1 to 5 scale) for food service and 0.14 for computing; leaving them
+  untouched would be off by 1.31 and 0.45. The weak spot is the United States: 288 smaller metros share one filled-in
+  value, and among US metros with figures the same prediction is off by 0.9 of a point for lower-paid work, because rents
+  differ so much from metro to metro. Their place page says the value was moved, and by how much.
 - **Removed:** the job-offer comparison (take-home pay in up to three cities). It asked for numbers few visitors have at
   hand, and the pay-by-work adjustment now answers the common version of that question inside the ranking.
+- **A fix found on the way:** world regions were looked up by country number, but stored under zero-padded codes
+  ("076"), so 20 countries (Brazil, Argentina, Belgium, Austria, Australia and others) never counted as "same region"
+  for cultural familiarity, and their country rows dropped out of the region filter. For Adriano's take 18 of 919 places
+  move by one point (San Francisco 60 → 59); his top ten are unchanged.
 
 ### Two factors worked out from the map
 
@@ -451,7 +471,7 @@ they miss differences between neighborhoods, workplaces and families. The politi
 
 - **Occupation salaries and tax tables:** no consistent source for software-engineer pay by city, or
   national, state and city income tax for every country, was reachable. Money after rent uses Numbeo's average net salary
-  (already after tax), scaled by kind of work with US national ratios (see "Kinds of work" under Quiz design).
+  (already after tax), scaled by kind of work with each place's own published ratio (see "Kinds of work" under Quiz design).
 - **Bachelor's-degree share, venues per person, 5-year rent growth:** Census, Eurostat and Zillow downloads are
   blocked from this build environment, and no search-reachable table covered the cities.
 - **Software developers per metro, office counts and junior postings:** BLS OES tables weren't

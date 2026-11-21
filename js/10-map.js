@@ -333,7 +333,7 @@ function passes(e) {
   if (!inScope(e)) return false;
   if (!ui.tiers.has(e.tier) || e.score < ui.minScore) return false;
   const f = ui.f;
-  if (f.reg.size && !f.reg.has(REGPILL[(DATA.region || {})[isoOf(e)]])) return false;
+  if (f.reg.size && !f.reg.has(REGPILL[REG[+isoOf(e)]])) return false;
   if (f.cost.size && !f.cost.has(costPill(e))) return false;
   // big city: metro of about 1.5 million or more (things happening is banded on metro population)
   if (f.big && e.type === 'city' && !((e.v.cult ?? 0) >= 2.75)) return false;

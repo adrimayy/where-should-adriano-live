@@ -636,6 +636,7 @@ Please mark anything that sounds unnatural, too formal, or Spain-specific, and s
 | scopeLab | Show places in | Mostrar lugares en | |
 | scopeAway | Other countries | Otros países | |
 | scopeAll | Everywhere | Todo el mundo | |
+| passHere | I am allowed to work in the country where I live now ({c}) | Tengo permiso para trabajar en el país donde vivo ahora ({c}) | |
 | swTz | When it is {t} in {h}, it is {x} in {a} and {y} in {b}. | Cuando son las {t} en {h}, son las {x} en {a} y las {y} en {b}. | |
 | swCost | Prices with rent (New York = 100): {x} in {a}, {y} in {b}. | Precios con renta (Nueva York = 100): {x} en {a}, {y} en {b}. | |
 | qN | Question {n} | Pregunta {n} | |

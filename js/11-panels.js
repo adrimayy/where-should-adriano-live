@@ -221,9 +221,14 @@ function calcTable(e) {
           src += `<div class="muted">${fmt(L('calcImp'), { sd: (e.sd[k] || 0).toFixed(1) })}${e.dr[k] ? ' · ' + fmt(L('calcDraws'), { d: e.dr[k].map(x => Math.round(x)).join('') }) : ''}</div>`;
         if (k === 'jobs' && e.hub) src += `<div class="muted">${fmt(L('hubNote'), { c: dn(e.hub) })}</div>`;
         if (k === 'pay' && e.payAdj) {
-          const left = Math.round(moneyLeftAt(e, PAYLVL) / 10) * 10;
-          src += `<div class="muted">${fmt(L('payJobNote'), { p: Math.round(PAYLVL * 100), x: (left < 0 ? '−$' : '$') + Math.abs(left).toLocaleString('en-US'), u: RAWU.oews })}</div>`;
+          // how the figure was re-worked for the person's kind of work, and where that pay level comes from
+          const sh = jobShare(e),
+            left = Math.round(moneyLeftAt(e, sh.r) / 10) * 10,
+            from = fmt(L('paySrc')[sh.src], { y: sh.y, u: RAWU[{ metro: 'oewsm', us: 'oews' }[sh.src] || 'ilopay'] });
+          src += `<div class="muted">${fmt(L('payJobNote'), { p: Math.round(sh.r * 100), x: (left < 0 ? '−$' : '$') + Math.abs(left).toLocaleString('en-US'), s: from })}</div>`;
         }
+        if (k === 'pay' && e.payMove != null)
+          src += `<div class="muted">${fmt(L('payJobMove'), { d: (e.payMove > 0 ? '+' : e.payMove < 0 ? '−' : '') + Math.abs(e.payMove).toFixed(1) })}</div>`;
         if (how === 'est') src += `<div class="muted">${L('calcEst')}</div>`;
         if (!src) src = `<span class="muted">${L('calcNone')}</span>`;
       }
@@ -904,7 +909,7 @@ function snapState() {
     PERMMODE,
     POLMODE,
     FIELD,
-    PAYLVL,
+    PAYJOB,
     CLIMMODE,
     gate,
     gateOpen,
@@ -948,7 +953,7 @@ function undo() {
     PERMMODE,
     POLMODE,
     FIELD,
-    PAYLVL,
+    PAYJOB,
     CLIMMODE,
     gate,
     gateOpen,
@@ -1010,7 +1015,7 @@ function setNeutral() {
   LANGMODE = 'en';
   PERMMODE = 'usmx';
   FIELD = 'general';
-  PAYLVL = 1;
+  PAYJOB = -1;
   CLIMMODE = 'mild';
   POLMODE = 'd';
   gate = gateOpen = norm = gateFar = gateHot = gateSmall = true;
@@ -1039,7 +1044,7 @@ function becomeYours() {
   LANGMODE = 'both';
   PERMMODE = 'usmx';
   FIELD = 'tech';
-  PAYLVL = 1;
+  PAYJOB = -1;
   CLIMMODE = 'mild';
   POLMODE = 'd';
   syncMode();
