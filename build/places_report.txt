@@ -1,0 +1,170 @@
+? took Q1342 (150 editions, 1 km) over the first hit Q235034 (58 editions, 3 km): Pittsburgh
+? took Q969850 (36 editions, 1 km) over the first hit Q1376559 (34 editions, 1 km): Stony Brook
+? took Q201785 (41 editions, 9 km) over the first hit Q2648016 (12 editions, 12 km): Bogotá
+? took Q170422 (54 editions, 8 km) over the first hit Q7522983 (15 editions, 8 km): Singapore
+? took Q37100 (161 editions, 0 km) over the first hit Q726917 (54 editions, 6 km): Auckland
+? far from the atlas point: Puebla Q79923 34 km
+? matched by full-text search: Cancún Q8969
+? took Q8969 (105 editions, 3 km) over the first hit Q36332183 (0 editions, 0 km): Cancún
+? took Q40435 (122 editions, 0 km) over the first hit Q681025 (35 editions, 14 km): Buffalo
+? took Q128069 (96 editions, 1 km) over the first hit Q617433 (48 editions, 2 km): Syracuse
+? took Q1474624 (46 editions, 1 km) over the first hit Q4176210 (26 editions, 3 km): Yerevan
+? far from the atlas point: Tashkent Q487585 45 km
+? took Q397826 (34 editions, 6 km) over the first hit Q31870753 (1 editions, 1 km): Aguadilla
+? took Q79728 (57 editions, 1 km) over the first hit Q540672 (34 editions, 1 km): Auburn AL
+? took Q54089 (53 editions, 6 km) over the first hit Q808535 (52 editions, 6 km): Barnstable
+? took Q192517 (88 editions, 2 km) over the first hit Q736674 (39 editions, 0 km): Boulder
+? took Q186702 (86 editions, 4 km) over the first hit Q1781384 (12 editions, 1 km): Chattanooga
+? matched by full-text search: Daphne Q79461
+? matched by full-text search: Kingston NY Q868660
+? took Q109690 (65 editions, 24 km) over the first hit Q499189 (62 editions, 0 km): Merced
+? far from the atlas point: Merced Q109690 24 km
+? matched by full-text search: Modesto Q204561
+? took Q195658 (48 editions, 8 km) over the first hit Q995533 (44 editions, 0 km): Monroe MI
+? took Q108137 (68 editions, 22 km) over the first hit Q60537 (61 editions, 1 km): Napa
+? far from the atlas point: Napa Q108137 22 km
+? took Q34863 (156 editions, 2 km) over the first hit Q3443498 (7 editions, 3 km): Oklahoma City
+? took Q488517 (56 editions, 32 km) over the first hit Q816809 (54 editions, 9 km): Palm Bay
+? far from the atlas point: Palm Bay Q488517 32 km
+? took Q485543 (47 editions, 38 km) over the first hit Q608207 (46 editions, 0 km): Sandusky
+? far from the atlas point: Sandusky Q485543 38 km
+? took Q49158 (91 editions, 4 km) over the first hit Q2809940 (9 editions, 3 km): Springfield MA
+? took Q3854 (156 editions, 0 km) over the first hit Q645043 (41 editions, 7 km): Bujumbura
+? took Q645492 (33 editions, 16 km) over the first hit Q2994115 (8 editions, 1 km): Kinshasa
+? far from the atlas point: Conakry Q3733 21 km
+? took Q905933 (34 editions, 7 km) over the first hit Q917406 (6 editions, 2 km): Niamey
+? took Q48945129 (13 editions, 3 km) over the first hit Q2496197 (11 editions, 2 km): Bishkek
+? took Q69772163 (21 editions, 3 km) over the first hit Q800161 (16 editions, 3 km): Ulaanbaatar
+? took Q52028 (92 editions, 0 km) over the first hit Q233588 (69 editions, 5 km): Chiang Mai
+? took Q633036 (64 editions, 2 km) over the first hit Q271737 (54 editions, 1 km): Nakhon Ratchasima
+? far from the atlas point: Minsk Q192959 29 km
+? took Q844825 (45 editions, 9 km) over the first hit Q3305250 (24 editions, 4 km): Podgorica
+? took Q44803 (93 editions, 1 km) over the first hit Q36307 (79 editions, 1 km): Salta
+? label differs: Stony Brook -> Stony Brook University Q969850
+? label differs: Bogotá -> El Dorado International Airport Q201785
+? label differs: Buenos Aires -> Buenos Aires train station Q4985538
+? country differs: Amsterdam Q727 atlas Netherlands wikidata ['Q55', 'Q596214']
+? label differs: Singapore -> 2010 Summer Youth Olympics Q170422
+? label differs: Kigali -> Kigali International Airport Q1322696
+? country differs: Utrecht Q803 atlas Netherlands wikidata ['Q55']
+? country differs: Rotterdam Q34370 atlas Netherlands wikidata ['Q55']
+? label differs: Cancún -> Cancun Q8969
+? label differs: Bangkok -> Dusit Thani Bangkok Q6673698
+? label differs: Yerevan -> Yerevan State University Q1474624
+? label differs: Tashkent -> Tashkent Region Q487585
+? label differs: Bucharest -> University of Bucharest Q608338
+? country differs: San Juan Q41211 atlas Puerto Rico wikidata ['Q30']
+? country differs: Aguadilla Q397826 atlas Puerto Rico wikidata ['Q30']
+? country differs: Arecibo Q640728 atlas Puerto Rico wikidata ['Q30']
+? label differs: Barnstable -> Barnstable County Q54089
+? photo passed over (looks like a map, flag or drawing): Charleston WV View across the Kanawha River of Charleston, the capital city of West Virginia LCCN2015631775.tif
+? label differs: Hilton Head -> Hilton Head Island Q1001134
+? label differs: Merced -> Merced County Q109690
+? label differs: Monroe MI -> Monroe County Q195658
+? label differs: Napa -> Napa County Q108137
+? photo passed over (looks like a map, flag or drawing): Omaha Compilation of images of Omaha, Nebraska, omahacollage.tif
+? label differs: Palm Bay -> Brevard County Q488517
+? country differs: Ponce Q864024 atlas Puerto Rico wikidata ['Q30']
+? label differs: Sandusky -> Sandusky County Q485543
+? label differs: Kinshasa -> N'Djili International Airport Q645492
+? label differs: Djibouti -> Djibouti-Ambouli International Airport Q620706
+? label differs: Bamako -> Bamako-Sénou International Airport Q721258
+? label differs: Marrakesh -> Marrakech Q101625
+? label differs: Niamey -> Diori Hamani International Airport Q905933
+? label differs: Niigata -> Niigata Prefecture Q132705
+? label differs: Bishkek -> Bishkek Central Mosque Q48945129
+? label differs: Ulaanbaatar -> Ulaanbaatar Book Fair Q69772163
+? label differs: Ashgabat -> Ashgabat International Airport Q1148527
+? label differs: Minsk -> Minsk region Q192959
+? label differs: Podgorica -> Podgorica Airport Q844825
+? label differs: Tromsø -> Tromsø Municipality Q26087
+? label differs: Toluca -> Toluca de Lerdo Q209034
+? label differs: Salta -> Salta Province Q44803
+? no English article: 010 Q10372207
+? photo passed over (small or an odd shape): Montreal Montreal-canada-parc-urban.jpg 874 461
+? photo passed over (small or an odd shape): Bern Bern_luftaufnahme.png 728 490
+? photo passed over (small or an odd shape): Stockholm Stockholm_gamlastan_etc.jpg 700 492
+? photo passed over (small or an odd shape): Oslo Oslo_newer_montage_2013.png 712 1016
+? photo passed over (small or an odd shape): Kuala Lumpur Kuala_Lumpur_with_Petronas_Towers.jpg 564 361
+? photo passed over (small or an odd shape): Ottawa Ottawa_Montage_2020.jpg 1153 2098
+? photo passed over (small or an odd shape): Wellington WellingtonPanorama.jpg 339 225
+? photo passed over (small or an odd shape): Bristol Bristol_landmarks_collage.png 378 541
+? photo passed over (small or an odd shape): Hyderabad Hyderabad_Montage_2020.jpg 442 757
+? photo passed over (small or an odd shape): Dhaka Dhaka_skyline1.jpg 794 256
+? photo passed over (small or an odd shape): Kuwait City LiberationTower.jpg 600 450
+? photo passed over (small or an odd shape): Belgrade Beograd_collage.jpg 1024 2048
+? photo passed over (small or an odd shape): Aguadilla View_of_Aguadilla_(Puerto_Rico).jpg 576 165
+? photo passed over (small or an odd shape): Albuquerque Albuquerque_Infobox_Photo.png 658 998
+? photo passed over (small or an odd shape): Arecibo Río_Grande_de_Arecibo.jpg 600 800
+? photo passed over (small or an odd shape): Bangor BangorME_Downtown.jpg 640 480
+? photo passed over (small or an odd shape): Bay City Midland_St._Bay_City,_West_Side.PNG 713 494
+? photo passed over (small or an odd shape): Brownsville Brownsville_Skyline.jpg 592 880
+? photo passed over (small or an odd shape): Brunswick BrunswickMontage1.png 535 680
+? photo passed over (small or an odd shape): Cedar Rapids Cedar_Rapids_skyline.jpg 700 241
+? photo passed over (small or an odd shape): Chico ChicoSquare.jpg 640 480
+? photo passed over (small or an odd shape): College Station TAMUcampus.jpg 699 477
+? photo passed over (small or an odd shape): Columbia MO CoMoSkyline3.jpg 1686 319
+? photo passed over (small or an odd shape): Dalton Community-3.jpg 882 250
+? photo passed over (small or an odd shape): Daphne Daphne_Alabama_City_Hall.jpg 783 481
+? photo passed over (small or an odd shape): Davenport Davenport,_Iowa_Montage.jpg 466 491
+? photo passed over (small or an odd shape): Dayton Montage_dayton_1.jpg 503 503
+? photo passed over (small or an odd shape): El Centro Imperial_County_Superior_Courthouse_El_Centro_Night.jpg 448 299
+? photo passed over (small or an odd shape): El Paso El_Paso_Skyline.jpg 760 570
+? photo passed over (small or an odd shape): Erie Eriesky2.jpg 1560 487
+? photo passed over (small or an odd shape): Evansville Evilleriverfront.jpg 600 400
+? photo passed over (small or an odd shape): Flagstaff Flagstaff_downtown_SFmtn.jpg 800 418
+? photo passed over (small or an odd shape): Fresno Downtown_Fresno_Night.png 960 384
+? photo passed over (small or an odd shape): Gainesville GA Hall_County_Georgia_Courthouse.jpg 672 441
+? photo passed over (small or an odd shape): Greenville Greenvillenightskyline.jpg 735 179
+? photo passed over (small or an odd shape): Hickory US-NC-Hickory_Union_Square.JPG 576 432
+? photo passed over (small or an odd shape): Jackson MI Downtown_Jackson,_Michigan.jpg 525 700
+? photo passed over (small or an odd shape): Jacksonville NC Jacksonville_NC_1904_Courthouse.jpg 552 404
+? photo passed over (small or an odd shape): Joplin DowntownJoplinMo.JPG 640 480
+? photo passed over (small or an odd shape): Kenosha Kenosha's_Lakefront.jpg 560 374
+? photo passed over (small or an odd shape): Killeen D_Avenue.JPG 640 480
+? photo passed over (small or an odd shape): Lafayette LafayetteCollage.jpg 503 503
+? photo passed over (small or an odd shape): Lakeland Downtownlakeland_fl.JPG 2280 537
+? photo passed over (small or an odd shape): Lansing 1_Lansing_Pan_cropped.jpg 1116 221
+? photo passed over (small or an odd shape): Muncie Muncie-city-hall-2005.jpg 550 412
+? photo passed over (small or an odd shape): Ogden Downtown_ogden.jpg 600 424
+? photo passed over (small or an odd shape): Parkersburg Boreman_view.jpg 892 410
+? photo passed over (small or an odd shape): Pocatello Downtown_Pocatello_Idaho_2004.jpg 600 431
+? photo passed over (small or an odd shape): Port St. Lucie Psl_golf_course.jpg 409 277
+? photo passed over (small or an odd shape): Riverside Riversidehomes.JPG 400 250
+? photo passed over (small or an odd shape): San Angelo Dwntwnsa.jpg 420 279
+? photo passed over (small or an odd shape): Santa Barbara Aerial-SantaBarbaraCA10-28-08.jpg 550 387
+? photo passed over (small or an odd shape): Sioux Falls Downtown_Sioux_Falls_61.jpg 640 480
+? photo passed over (small or an odd shape): South Bend City_of_South_Bend,_downtown_skyline.jpg 960 345
+? photo passed over (small or an odd shape): Sumter Downtown_Sumter_2010.jpg 432 279
+? photo passed over (small or an odd shape): Terre Haute TerreHaute-Downtown-lookingsouth.jpg 500 375
+? photo passed over (small or an odd shape): Twin Falls Downtowntwinfalls.JPG 667 500
+? photo passed over (small or an odd shape): Tyler Tyler_TX_Montage.jpg 816 1616
+? photo passed over (small or an odd shape): Waco WacoCity.jpg 551 1023
+? photo passed over (small or an odd shape): Wenatchee Wenatchee.jpg 1105 401
+? photo passed over (small or an odd shape): Douala Douala.JPG 415 272
+? photo passed over (small or an odd shape): Benghazi The_Old_Town,_Benghazi,_Libya.jpg 633 466
+? photo passed over (small or an odd shape): Harare Harare_skyline.jpg 800 442
+? photo passed over (small or an odd shape): Bulawayo Bulawayo_CBD.jpg 500 375
+? photo passed over (small or an odd shape): Chittagong Chittagong_collage.png 570 874
+? photo passed over (small or an odd shape): Dili Aussenministerium_und_Avenida_de_Portugal.jpg 720 540
+? photo passed over (small or an odd shape): Palembang Montage_of_Palembang.jpg 661 999
+? photo passed over (small or an odd shape): Erbil Citadel_(old_city)_of_Hewlêr_(Erbil).jpg 768 576
+? photo passed over (small or an odd shape): Ahvaz 1399011818071582320074684_زمین_نفس_می_کشد.jpg 800 490
+? photo passed over (small or an odd shape): Abha Abha1.jpg 300 300
+? photo passed over (small or an odd shape): Heraklion Panoramic_of_Heraklion.jpg 4488 1075
+? photo passed over (small or an odd shape): Sochi Сочи-коллаж1.jpg 1360 2483
+? photo passed over (small or an odd shape): Moncton Moncton_Montage_b.png 584 832
+? photo passed over (small or an odd shape): St. John's St_John's_Newfoundland_Collage.jpg 700 1078
+? photo passed over (small or an odd shape): Kingston PortofKingston.jpg 442 305
+? photo passed over (small or an odd shape): Rosario Montaje_Rosario_01.jpg 439 600
+? photo passed over (small or an odd shape): Goiânia Goiânia_Collage.png 600 800
+? photo passed over (small or an odd shape): Manaus Collage_Manaus.png 550 700
+? photo passed over (small or an odd shape): Antofagasta Montaje_de_Antofagasta.jpg 675 1167
+? photo passed over (small or an odd shape): La Serena Montaje_de_La_Serena.jpg 1023 2000
+? photo passed over (small or an odd shape): Georgetown St_George's_Cathedral.jpg 2609 640
+reddit: checked 0 of 482 (stopped early)
+zillow list City_zori_uc_sfrcondomfr_sm_month.csv 200 4937672
+zillow list City_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv 200 96149722
+zillow: in its list 384 · pages answered 0 (stopped early)
+cities 744: matched 744, English article 744, subreddit 482, photo 657
+contact sheets: 14 thumbnails that failed: 0
