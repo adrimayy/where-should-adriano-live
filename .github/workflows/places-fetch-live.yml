@@ -1,0 +1,23 @@
+name: live look
+on:
+  push:
+    branches: [places-fetch]
+permissions:
+  contents: write
+jobs:
+  look:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install playwright
+      - run: python3 tests/live_check.py build/live 2>&1 | tee build-live.log
+      - if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f build/live build-live.log || true
+          git commit -m "live look" || true
+          git push || true
