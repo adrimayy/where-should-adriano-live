@@ -632,7 +632,31 @@
 }
 },
 "Ann Arbor": {
-"q": null
+"artist": "Gsgeorge",
+"editions": 90,
+"h": 1272,
+"img": "Annarborskyline.jpg",
+"km": 0.7,
+"label": "Ann Arbor",
+"lic": "Public domain",
+"licurl": "",
+"q": "Q485172",
+"st": "MI",
+"sub": "AnnArbor",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/87/Annarborskyline.jpg/250px-Annarborskyline.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 3364,
+"wiki": {
+"ar": "آن آربر",
+"de": "Ann Arbor",
+"en": "Ann Arbor, Michigan",
+"es": "Ann Arbor",
+"fr": "Ann Arbor",
+"hi": "ऐन आर्बर",
+"pt": "Ann Arbor",
+"zh": "安娜堡"
+},
+"zlist": true,
+"zslug": "ann-arbor-mi"
 },
 "Anniston": {
 "artist": "Rivers Langley; SaveRivers",
@@ -1361,7 +1385,20 @@
 "zslug": "barnstable-ma"
 },
 "Barranquilla": {
-"q": null
+"editions": 103,
+"km": 1.5,
+"label": "Barranquilla",
+"q": "Q62823",
+"wiki": {
+"ar": "بارانكيا",
+"de": "Barranquilla",
+"en": "Barranquilla",
+"es": "Barranquilla",
+"fr": "Barranquilla",
+"hi": "बैरेंक्विला",
+"pt": "Barranquilla",
+"zh": "巴兰基亚"
+}
 },
 "Baton Rouge": {
 "artist": "Michael Maples, U.S. Army Corps of Engineers",
@@ -1777,7 +1814,28 @@
 }
 },
 "Berlin": {
-"q": null
+"artist": "Thomas Wolf, www.foto-tw.de",
+"editions": 335,
+"h": 2300,
+"img": "Cityscape_Berlin.jpg",
+"km": 1.2,
+"label": "Berlin",
+"lic": "CC BY-SA 3.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
+"q": "Q64",
+"sub": "berlin",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/83/Cityscape_Berlin.jpg/250px-Cityscape_Berlin.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 4496,
+"wiki": {
+"ar": "برلين",
+"de": "Berlin",
+"en": "Berlin",
+"es": "Berlín",
+"fr": "Berlin",
+"hi": "बर्लिन",
+"pt": "Berlim",
+"zh": "柏林"
+}
 },
 "Bern": {
 "artist": "de:Benutzer:Reaast",
@@ -2623,7 +2681,31 @@
 }
 },
 "Buffalo": {
-"q": null
+"artist": "Quintin Soloviev",
+"editions": 122,
+"h": 2268,
+"img": "Buffalo,_NY_skyline.jpg",
+"km": 0.4,
+"label": "Buffalo",
+"lic": "CC BY 4.0",
+"licurl": "https://creativecommons.org/licenses/by/4.0",
+"q": "Q40435",
+"st": "NY",
+"sub": "circlejerkbflo",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/14/Buffalo%2C_NY_skyline.jpg/250px-Buffalo%2C_NY_skyline.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 4032,
+"wiki": {
+"ar": "بوفالو (نيويورك)",
+"de": "Buffalo",
+"en": "Buffalo, New York",
+"es": "Búfalo (Nueva York)",
+"fr": "Buffalo (New York)",
+"hi": "बफ़ेलो, न्यूयॉर्क",
+"pt": "Buffalo",
+"zh": "水牛城"
+},
+"zlist": true,
+"zslug": "buffalo-ny"
 },
 "Bujumbura": {
 "editions": 156,
@@ -3318,7 +3400,28 @@
 }
 },
 "Chennai": {
-"q": null
+"artist": "Saiphani02",
+"editions": 163,
+"h": 2250,
+"img": "Ripon_Building_aerial_view.jpg",
+"km": 0.6,
+"label": "Chennai",
+"lic": "CC BY-SA 4.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
+"q": "Q1352",
+"sub": "chennai",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Ripon_Building_aerial_view.jpg/250px-Ripon_Building_aerial_view.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 4000,
+"wiki": {
+"ar": "تشيناي",
+"de": "Chennai",
+"en": "Chennai",
+"es": "Chennai",
+"fr": "Madras",
+"hi": "चेन्नई",
+"pt": "Chenai",
+"zh": "金奈"
+}
 },
 "Cheyenne": {
 "artist": "Cliff from Arlington, VA (Outside Washington DC), USA",
@@ -3370,7 +3473,32 @@
 }
 },
 "Chicago": {
-"q": null
+"artist": "J. Crocker",
+"editions": 279,
+"h": 2000,
+"img": "2010-02-19_3000x2000_chicago_skyline.jpg",
+"km": 0.3,
+"label": "Chicago",
+"lic": "Attribution",
+"licurl": "",
+"q": "Q1297",
+"rstat": 403,
+"st": "IL",
+"sub": "chicago",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0f/2010-02-19_3000x2000_chicago_skyline.jpg/250px-2010-02-19_3000x2000_chicago_skyline.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 3000,
+"wiki": {
+"ar": "شيكاغو",
+"de": "Chicago",
+"en": "Chicago",
+"es": "Chicago",
+"fr": "Chicago",
+"hi": "शिकागो",
+"pt": "Chicago",
+"zh": "芝加哥"
+},
+"zlist": true,
+"zslug": "chicago-il"
 },
 "Chico": {
 "artist": "Travisthurston",
@@ -4391,7 +4519,6 @@
 "lic": "CC BY 4.0",
 "licurl": "https://creativecommons.org/licenses/by/4.0",
 "q": "Q16554",
-"rstat": 403,
 "st": "CO",
 "sub": "Denver",
 "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3b/Denver%2C_Colorado_skyline_%28cropped%29.jpg/250px-Denver%2C_Colorado_skyline_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
@@ -5500,7 +5627,30 @@
 "zslug": "fond-du-lac-wi"
 },
 "Fort Collins": {
-"q": null
+"artist": "Wusel007",
+"editions": 72,
+"h": 2448,
+"img": "Fort_Collins_Historic_District.JPG",
+"km": 2.6,
+"label": "Fort Collins",
+"lic": "CC BY-SA 3.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
+"q": "Q490732",
+"st": "CO",
+"sub": "fortcollins",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/Fort_Collins_Historic_District.JPG/250px-Fort_Collins_Historic_District.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 3264,
+"wiki": {
+"ar": "فورت كولنز (كولورادو)",
+"de": "Fort Collins",
+"en": "Fort Collins, Colorado",
+"es": "Fort Collins (Colorado)",
+"fr": "Fort Collins",
+"pt": "Fort Collins",
+"zh": "科林斯堡 (科罗拉多州)"
+},
+"zlist": true,
+"zslug": "fort-collins-co"
 },
 "Fort Smith": {
 "artist": "Xltel at English Wikipedia",
@@ -5605,7 +5755,27 @@
 }
 },
 "Foshan": {
-"q": null
+"artist": "钉钉",
+"editions": 81,
+"h": 2871,
+"img": "Century_Lotus_Sports_Center_&_Fangta_seen_from_Dongping_Bridge.jpg",
+"km": 1.8,
+"label": "Foshan",
+"lic": "CC BY-SA 4.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
+"q": "Q34412",
+"sub": "Foshan",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5d/Century_Lotus_Sports_Center_%26_Fangta_seen_from_Dongping_Bridge.jpg/250px-Century_Lotus_Sports_Center_%26_Fangta_seen_from_Dongping_Bridge.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 3929,
+"wiki": {
+"ar": "فوشان",
+"de": "Foshan",
+"en": "Foshan",
+"es": "Foshan",
+"fr": "Foshan",
+"pt": "Foshan",
+"zh": "佛山市"
+}
 },
 "Frankfurt": {
 "artist": "Jörg Braukmann",
@@ -6426,7 +6596,28 @@
 }
 },
 "Hamburg": {
-"q": null
+"artist": "kallerna",
+"editions": 230,
+"h": 3440,
+"img": "Hamburg_view_St._Nikolai.jpg",
+"km": 0.7,
+"label": "Hamburg",
+"lic": "CC BY-SA 4.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
+"q": "Q1055",
+"sub": "hamburg",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/01/Hamburg_view_St._Nikolai.jpg/250px-Hamburg_view_St._Nikolai.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 5200,
+"wiki": {
+"ar": "هامبورغ",
+"de": "Hamburg",
+"en": "Hamburg",
+"es": "Hamburgo",
+"fr": "Hambourg",
+"hi": "हैम्बर्ग",
+"pt": "Hamburgo",
+"zh": "汉堡"
+}
 },
 "Hamilton": {
 "artist": "Nzwj",
@@ -7935,7 +8126,27 @@
 }
 },
 "Kigali": {
-"q": null
+"artist": "Adrien K",
+"editions": 165,
+"h": 2000,
+"img": "Kigali2018Cropped.jpg",
+"km": 6.3,
+"label": "Kigali",
+"lic": "CC BY 2.0",
+"licurl": "https://creativecommons.org/licenses/by/2.0",
+"q": "Q3859",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/83/Kigali2018Cropped.jpg/250px-Kigali2018Cropped.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 3000,
+"wiki": {
+"ar": "كيغالي",
+"de": "Kigali",
+"en": "Kigali",
+"es": "Kigali",
+"fr": "Kigali",
+"hi": "किगाली",
+"pt": "Quigali",
+"zh": "吉佳利"
+}
 },
 "Killeen": {
 "artist": "Victorenriqueagosto",
@@ -13139,7 +13350,28 @@
 }
 },
 "Riverhead": {
-"q": null
+"artist": "Kevin Shea",
+"editions": 26,
+"h": 2448,
+"img": "Long_Island_Green_Dome_establish_shot.jpg",
+"km": 6.4,
+"label": "Riverhead",
+"lic": "CC BY-SA 3.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
+"q": "Q1770518",
+"st": "NY",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/79/Long_Island_Green_Dome_establish_shot.jpg/250px-Long_Island_Green_Dome_establish_shot.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 3264,
+"wiki": {
+"de": "Riverhead",
+"en": "Riverhead, New York",
+"es": "Riverhead (Nueva York)",
+"fr": "Riverhead (New York)",
+"pt": "Riverhead (Nova Iorque)",
+"zh": "里弗黑德"
+},
+"zlist": true,
+"zslug": "riverhead-ny"
 },
 "Riverside": {
 "editions": 92,
@@ -13210,7 +13442,31 @@
 "zslug": "roanoke-va"
 },
 "Rochester": {
-"q": null
+"artist": "Patrick Ashley",
+"editions": 104,
+"h": 600,
+"img": "Downtown_Rochester,_NY_HDR_by_patrickashley.jpg",
+"km": 0.6,
+"label": "Rochester",
+"lic": "CC BY 2.0",
+"licurl": "https://creativecommons.org/licenses/by/2.0",
+"q": "Q49218",
+"st": "NY",
+"sub": "Rochester",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e9/Downtown_Rochester%2C_NY_HDR_by_patrickashley.jpg/250px-Downtown_Rochester%2C_NY_HDR_by_patrickashley.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 900,
+"wiki": {
+"ar": "روتشستر (نيويورك)",
+"de": "Rochester (New York)",
+"en": "Rochester, New York",
+"es": "Rochester (Nueva York)",
+"fr": "Rochester (New York)",
+"hi": "रोचेस्टर, न्यूयॉर्क",
+"pt": "Rochester (Nova Iorque)",
+"zh": "羅徹斯特 (紐約州)"
+},
+"zlist": true,
+"zslug": "rochester-ny"
 },
 "Rochester MN": {
 "artist": "Wikideas1",
@@ -15204,7 +15460,28 @@
 }
 },
 "Suzhou": {
-"q": null
+"artist": "铁头娃蛤蛤",
+"editions": 100,
+"h": 1150,
+"img": "东方之门1.jpg",
+"km": 2.8,
+"label": "Suzhou",
+"lic": "CC BY-SA 4.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/4.0",
+"q": "Q42622",
+"sub": "Suzhou",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8f/%E4%B8%9C%E6%96%B9%E4%B9%8B%E9%97%A81.jpg/250px-%E4%B8%9C%E6%96%B9%E4%B9%8B%E9%97%A81.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 1610,
+"wiki": {
+"ar": "سوجو (مدينة)",
+"de": "Suzhou (Jiangsu)",
+"en": "Suzhou",
+"es": "Suzhou",
+"fr": "Suzhou",
+"hi": "सूझोऊ",
+"pt": "Sucheu",
+"zh": "苏州市"
+}
 },
 "Sydney": {
 "artist": "W. Bulach",
@@ -15537,10 +15814,49 @@
 }
 },
 "Terre Haute": {
-"q": null
+"editions": 63,
+"km": 1.7,
+"label": "Terre Haute",
+"q": "Q492478",
+"st": "IN",
+"sub": "terrehaute",
+"wiki": {
+"ar": "تير هوت",
+"de": "Terre Haute (Indiana)",
+"en": "Terre Haute, Indiana",
+"es": "Terre Haute (Indiana)",
+"fr": "Terre Haute",
+"hi": "टेरे हौते, इंडियाना",
+"pt": "Terre Haute",
+"zh": "特雷霍特"
+},
+"zlist": true,
+"zslug": "terre-haute-in"
 },
 "Texarkana": {
-"q": null
+"artist": "No machine-readable author provided. Billy Hathorn assumed (based on copyright claims).",
+"editions": 50,
+"h": 3240,
+"img": "Municipal_building,_Texarkana,_TX_IMG_6411.jpg",
+"km": 1.8,
+"label": "Texarkana",
+"lic": "CC BY-SA 3.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
+"q": "Q844020",
+"st": "TX",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f1/Municipal_building%2C_Texarkana%2C_TX_IMG_6411.jpg/250px-Municipal_building%2C_Texarkana%2C_TX_IMG_6411.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 4320,
+"wiki": {
+"ar": "تيكساركانا (تكساس)",
+"de": "Texarkana (Texas)",
+"en": "Texarkana, Texas",
+"es": "Texarkana (Texas)",
+"fr": "Texarkana (Texas)",
+"pt": "Texarkana (Texas)",
+"zh": "特克萨卡纳 (得克萨斯州)"
+},
+"zlist": true,
+"zslug": "texarkana-tx"
 },
 "The Villages": {
 "artist": "Ebyabe",
@@ -16039,7 +16355,21 @@
 }
 },
 "Umeå": {
-"q": null
+"editions": 104,
+"km": 0.5,
+"label": "Umeå",
+"q": "Q25579",
+"sub": "umea",
+"wiki": {
+"ar": "أوميو",
+"de": "Umeå",
+"en": "Umeå",
+"es": "Umeå",
+"fr": "Umeå",
+"hi": "ऊमेओ",
+"pt": "Umeå",
+"zh": "于默奧"
+}
 },
 "Utica": {
 "artist": "Quintin Soloviev",
@@ -16213,7 +16543,28 @@
 }
 },
 "Vero Beach": {
-"q": null
+"artist": "Rockerchi379",
+"editions": 45,
+"h": 2592,
+"img": "Humiston_Beach-Vero_Beach.JPG",
+"km": 2.0,
+"label": "Vero Beach",
+"lic": "CC BY-SA 3.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
+"q": "Q969026",
+"st": "FL",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d1/Humiston_Beach-Vero_Beach.JPG/250px-Humiston_Beach-Vero_Beach.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 3456,
+"wiki": {
+"de": "Vero Beach",
+"en": "Vero Beach, Florida",
+"es": "Vero Beach (Florida)",
+"fr": "Vero Beach",
+"pt": "Vero Beach",
+"zh": "维罗海滩 (佛罗里达州)"
+},
+"zlist": true,
+"zslug": "vero-beach-fl"
 },
 "Victoria TX": {
 "artist": "Daniel Capilla",
@@ -16949,7 +17300,30 @@
 "zslug": "winston-salem-nc"
 },
 "Worcester": {
-"q": null
+"artist": "Terageorge",
+"editions": 88,
+"h": 1581,
+"img": "Downtown_Worcester,_Massachusetts.jpg",
+"km": 1.3,
+"label": "Worcester",
+"lic": "CC BY-SA 3.0",
+"licurl": "https://creativecommons.org/licenses/by-sa/3.0",
+"q": "Q49179",
+"st": "MA",
+"sub": "worcester",
+"thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/90/Downtown_Worcester%2C_Massachusetts.jpg/250px-Downtown_Worcester%2C_Massachusetts.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+"w": 3177,
+"wiki": {
+"ar": "ورسستر",
+"de": "Worcester (Massachusetts)",
+"en": "Worcester, Massachusetts",
+"es": "Worcester (Massachusetts)",
+"fr": "Worcester (Massachusetts)",
+"pt": "Worcester (Massachusetts)",
+"zh": "伍斯特 (马萨诸塞州)"
+},
+"zlist": true,
+"zslug": "worcester-ma"
 },
 "Wrocław": {
 "artist": "Hrs Poland",

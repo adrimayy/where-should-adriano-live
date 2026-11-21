@@ -551,16 +551,16 @@ None of this is scored. It is there so a person can look at a place the numbers 
 - **What is shown.** For a city: one photo, a map of the city and roughly an hour around it, and links. For a country:
   a map fitted to its outline with the atlas's cities in it as dots, and links.
 - **Where it comes from.** Each city and country was matched to its Wikidata item by name and then checked against the
-  atlas's own coordinates (`pipeline/import_places.py`; {MATCHED} of {NCITIES} cities matched, all within 50 km, and the
+  atlas's own coordinates (`pipeline/import_places.py`; all 744 cities matched, each within 50 km of the atlas's point, and the
   report of odd matches was read by hand). From that item come the Wikipedia articles in the page's eight languages,
   the city's subreddit where Wikidata records one, and one photo (Wikidata's "image" for the city, never its flag,
-  seal or locator map) with its author and licence from Wikimedia Commons. {PHOTOS} cities have a photo; the others had
+  seal or locator map) with its author and licence from Wikimedia Commons. 641 cities have a photo; the others had
   none, or only one that was too small, a tall strip, or set aside when the photos were looked through
-  (`pipeline/input/photos_skipped.txt`). Collected {ASOF}.
+  (`pipeline/input/photos_skipped.txt`). Collected 21 Nov 2026.
 - **Links are exact or absent.** Google Maps opens on the place's own coordinates. Wikipedia opens the place's article,
   in the page's language where one exists. A subreddit or a housing-listings page is shown only when that site itself
   answered for that exact page when the data was collected; both Reddit and Zillow refuse automated checks from where
-  the data is built, so on {ASOF} neither has a button. `pipeline/import_places.py` records what it could and could not
+  the data is built, so on 21 Nov 2026 neither has a button. `pipeline/import_places.py` records what it could and could not
   check, and `pipeline/write_places.py` lets through only what was checked. Other countries' housing sites are not
   covered. There are no search links.
 - **The real map** is drawn by MapLibre GL JS (version 5.24.1, the last that loads as a plain script) from OpenFreeMap's
