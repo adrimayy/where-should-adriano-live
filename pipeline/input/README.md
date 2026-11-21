@@ -8,7 +8,6 @@ Hand-curated inputs to `build.py`. The page never reads these; it reads `data/at
 | `cities_added.json` | Cities added later, one row each (format below). |
 | `a3.json` | Maps three-letter country codes to number codes, so the world map outlines line up with the data. |
 | `places.json` | For every city and country: its Wikidata item, Wikipedia articles, subreddit, and a photo with its author and licence. Collected by `pipeline/import_places.py`; `pipeline/write_places.py` turns it into `data/places.js`. Not scored. |
-| `reddit_check.json` | What Reddit answered for each city's subreddit (status, public or not, 18+, members), from `pipeline/check_reddit.py` run on a home connection. Absent until that has been run. |
 | `photos_skipped.txt` | Cities whose photo was set aside by hand when the photos were looked through, one per line with the reason. |
 
 ## Adding a city

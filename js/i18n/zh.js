@@ -301,7 +301,7 @@ I18N({
     seeT: '看看这个地方',
     lkMap: '打开地图',
     lkWiki: '阅读条目',
-    lkReddit: '当地居民怎么说',
+    lkReddit: '搜索讨论',
     lkHomes: '出租房源',
     photo: '照片',
     mapAlt: '{p}及周边地图',

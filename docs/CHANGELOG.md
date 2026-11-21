@@ -164,7 +164,8 @@ in `js/07-quiz.js`).
   "9:60". No score changes.
 - **Housing links (v67):** a "Homes for rent" button for the 395 US cities that are in Zillow's own list of cities.
   Zillow refuses automated visits, so the addresses follow its rule and were checked on four cities, not one by
-  one. The Reddit button waits for `pipeline/check_reddit.py`, which has to be run from a home connection.
+  one. Reddit refused every check of the cities' own subreddits (server, automated browser, home connection), so the
+  Reddit button is a search for "moving to" the place, for every city and country.
 
 ## What held up
 

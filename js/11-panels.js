@@ -677,6 +677,69 @@ function realMap(e, box) {
     io.observe(box);
   } else start();
 }
+// Reddit: a search, not a city's own subreddit. Reddit refuses every automated check (servers, automated browsers
+// and a script on a home connection alike), so no subreddit could be confirmed to exist; a search for people writing
+// about moving to the place always lands somewhere real. The place's English name, with the state spelled out where
+// the atlas needed one to tell two cities apart (Portland ME is "Portland Maine").
+const US_STATE = {
+  AL: 'Alabama',
+  AK: 'Alaska',
+  AZ: 'Arizona',
+  AR: 'Arkansas',
+  CA: 'California',
+  CO: 'Colorado',
+  CT: 'Connecticut',
+  DE: 'Delaware',
+  DC: 'DC',
+  FL: 'Florida',
+  GA: 'Georgia',
+  HI: 'Hawaii',
+  ID: 'Idaho',
+  IL: 'Illinois',
+  IN: 'Indiana',
+  IA: 'Iowa',
+  KS: 'Kansas',
+  KY: 'Kentucky',
+  LA: 'Louisiana',
+  ME: 'Maine',
+  MD: 'Maryland',
+  MA: 'Massachusetts',
+  MI: 'Michigan',
+  MN: 'Minnesota',
+  MS: 'Mississippi',
+  MO: 'Missouri',
+  MT: 'Montana',
+  NE: 'Nebraska',
+  NV: 'Nevada',
+  NH: 'New Hampshire',
+  NJ: 'New Jersey',
+  NM: 'New Mexico',
+  NY: 'New York',
+  NC: 'North Carolina',
+  ND: 'North Dakota',
+  OH: 'Ohio',
+  OK: 'Oklahoma',
+  OR: 'Oregon',
+  PA: 'Pennsylvania',
+  RI: 'Rhode Island',
+  SC: 'South Carolina',
+  SD: 'South Dakota',
+  TN: 'Tennessee',
+  TX: 'Texas',
+  UT: 'Utah',
+  VT: 'Vermont',
+  VA: 'Virginia',
+  WA: 'Washington',
+  WV: 'West Virginia',
+  WI: 'Wisconsin',
+  WY: 'Wyoming',
+};
+function redditSearch(e) {
+  const name = e.name
+    .replace(/\s*\((.*?)\)\s*$/, ' $1')
+    .replace(/ ([A-Z]{2})$/, (m, st) => ' ' + (US_STATE[st] || st));
+  return 'https://www.reddit.com/search/?q=' + encodeURIComponent('moving to ' + name);
+}
 const outLink = (brand, label, url) =>
   `<a href="${url}" target="_blank" rel="noopener"><small>${brand}</small><b>${label}</b></a>`;
 // a Creative Commons licence's own page, from its short name ("CC BY-SA 4.0", "CC BY 2.0 de", "CC0")
@@ -717,7 +780,7 @@ function seePlace(e, slot) {
           `https://www.google.com/maps/@?api=1&map_action=map&center=${(+v.lat).toFixed(4)},${(+v.lon).toFixed(4)}&zoom=${e.type === 'city' ? 11 : v.zoom + 1}`
         )
       : ''
-  }</div><p class="meta seenote">${L('seeNote')}</p>`;
+  }${outLink('Reddit', L('lkReddit'), redditSearch(e))}</div><p class="meta seenote">${L('seeNote')}</p>`;
   slot.replaceWith(see);
   $('detail')._see = see;
   realMap(e, see.querySelector('.rmap'));
@@ -725,7 +788,7 @@ function seePlace(e, slot) {
     if (!see.isConnected && $('detail')._see !== see) return;
     const d = e.type === 'city' ? (P.c || {})[e.name] : (P.n || {})[e.id];
     if (!d) return;
-    const [, en, alt, sub, home, img, by, lic] = d,
+    const [, en, alt, , home, img, by, lic] = d,
       links = see.querySelector('.links');
     // the article in the page's language where there is one, else the English one
     const t = alt && alt[LANG] != null ? alt[LANG] || en : null,
@@ -733,16 +796,12 @@ function seePlace(e, slot) {
       wiki = en
         ? `https://${lang}.wikipedia.org/wiki/${encodeURIComponent((lang === 'en' ? en : t).replace(/ /g, '_'))}`
         : '';
-    if (wiki) links.insertAdjacentHTML('beforeend', outLink('Wikipedia', L('lkWiki'), wiki));
-    if (sub)
-      links.insertAdjacentHTML(
-        'beforeend',
-        outLink(
-          'Reddit · r/' + escH(sub),
-          L('lkReddit'),
-          `https://www.reddit.com/r/${encodeURIComponent(sub)}/`
-        )
-      );
+    if (wiki) {
+      const first = links.querySelector('a[href*="google.com/maps"]');
+      first
+        ? first.insertAdjacentHTML('afterend', outLink('Wikipedia', L('lkWiki'), wiki))
+        : links.insertAdjacentHTML('afterbegin', outLink('Wikipedia', L('lkWiki'), wiki));
+    }
     if (home)
       links.insertAdjacentHTML(
         'beforeend',

@@ -570,11 +570,12 @@ None of this is scored. It is there so a person can look at a place the numbers 
   none, or only one that was too small, a tall strip, or set aside when the photos were looked through
   (`pipeline/input/photos_skipped.txt`). Collected 21 Nov 2026.
 - **Links go to the place's own page or are absent.** Google Maps opens on the place's own coordinates. Wikipedia
-  opens the place's article, in the page's language where one exists. There are no search links.
-  - **Reddit:** the subreddit Wikidata records for the city, shown only when Reddit itself answered for it: it
-    exists, is public, is not marked 18+ and has at least 200 members. Reddit refuses automated checks from servers
-    and from automated browsers, so the check is `pipeline/check_reddit.py`, run from a home connection; its result is
-    kept in `pipeline/input/reddit_check.json`. A subreddit with no result has no button.
+  opens the place's article, in the page's language where one exists. Reddit is the one search link.
+  - **Reddit:** a search for "moving to" and the place's English name, with the state spelled out where the atlas
+    needed one to tell two cities apart. The first plan was each city's own subreddit, shown only if Reddit confirmed
+    it. Reddit refused every check: from the server that builds the data, from the automated browser, and from a
+    script run on a home connection (403 each time). A subreddit that cannot be confirmed could be dead or private, so
+    by the owner's choice the button is a search instead, which always lands on something. It works for countries too.
   - **Housing (US cities, Zillow rentals):** Zillow refuses automated visits altogether (it let one page load, then
     answered "access denied"), so its 395 pages could not be opened one by one. A city has the button when it is in
     Zillow's own published list of cities under the same name and state, with the address built by Zillow's rule:

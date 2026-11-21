@@ -66,8 +66,10 @@ with sync_playwright() as p:
     pg.evaluate(OPEN, 'city:Chicago'); chi = pg.evaluate(SEE); e = pg.evaluate("()=>({lat:byKey['city:Chicago'].lat,lon:byKey['city:Chicago'].lon})")
     hrefs = [l[0] for l in chi['links']]
     check('links: Google Maps opens on the city\'s own coordinates', hrefs and f"center={e['lat']:.4f},{e['lon']:.4f}" in hrefs[0] and 'api=1' in hrefs[0], hrefs[:1])
-    check('links: the article, the subreddit and the housing page are the ones in data/places.js; all open in a new tab',
-          hrefs[1:] == ['https://en.wikipedia.org/wiki/Chicago', 'https://www.reddit.com/r/chicago/', 'https://www.zillow.com/chicago-il/rentals/'] and all(l[1] == '_blank' and 'noopener' in l[2] for l in chi['links']), hrefs)
+    check('links: Google Maps, the article, a Reddit search for the place, the housing page; all open in a new tab',
+          hrefs[1:] == ['https://en.wikipedia.org/wiki/Chicago', 'https://www.reddit.com/search/?q=moving%20to%20Chicago', 'https://www.zillow.com/chicago-il/rentals/'] and all(l[1] == '_blank' and 'noopener' in l[2] for l in chi['links']), hrefs)
+    rs = pg.evaluate("['city:Portland ME','city:Cambridge UK','city:San José (Costa Rica)','city:Washington DC','country:620'].map(k=>decodeURIComponent(redditSearch(byKey[k]).split('q=')[1]))")
+    check('Reddit: the search names the place in English, with the state spelled out where two cities share a name', rs == ['moving to Portland Maine', 'moving to Cambridge UK', 'moving to San José Costa Rica', 'moving to Washington DC', 'moving to Portugal'], rs)
     check('photo: credited with its author, its licence (linked) and its page on Commons; the author\'s name cannot carry markup', chi['fig'] and 'A. &lt;b&gt;Walker' in chi['fig'] and 'href="https://creativecommons.org/licenses/by-sa/4.0/"' in chi['fig'] and 'commons.wikimedia.org/wiki/File:Chicago_skyline.jpg' in chi['fig'], chi['fig'])
     check('photo: tapping it opens the place\'s Wikipedia article', chi['art'] == 'https://en.wikipedia.org/wiki/Chicago', chi['art'])
     fs = pg.evaluate("""()=>{const f=document.querySelector('.mapfig'),b=[...f.parentNode.querySelectorAll('button')];const out={};
@@ -80,7 +82,7 @@ with sync_playwright() as p:
     again = pg.evaluate("()=>{const s=document.querySelector('.see');refreshAll();return new Promise(r=>setTimeout(()=>r({same:document.querySelector('.see')===s,made:__ml.made.length,removed:__ml.removed}),500))}")
     check('the block is kept while the page redraws around it: no second map, no second download', again == {'same': True, 'made': 1, 'removed': 0}, again)
     pg.evaluate(OPEN, 'city:Amsterdam'); ams = pg.evaluate(SEE)
-    check('links: a place with no checked subreddit or housing page gets no button for them; no photo, no empty frame', [l[0].split('/')[2] for l in ams['links']] == ['www.google.com', 'en.wikipedia.org'] and ams['fig'] is None and ams['ml']['removed'] == 1, ams)
+    check('links: a place with no housing page gets no button for it; no photo, no empty frame', [l[0].split('/')[2] for l in ams['links']] == ['www.google.com', 'en.wikipedia.org', 'www.reddit.com'] and ams['fig'] is None and ams['ml']['removed'] == 1, ams)
     pg.evaluate(OPEN, 'city:Boston'); pg.wait_for_timeout(400); bos = pg.evaluate(SEE)
     check('photo: one that does not load takes its frame away', bos['fig'] is None, bos['fig'])
     pg.evaluate("()=>closePlace()"); pg.wait_for_timeout(100)
@@ -109,11 +111,7 @@ RAW = json.loads((ROOT / 'pipeline' / 'input' / 'places.json').read_text(encodin
 names = {c[0] for c in A['cities']}
 check('places: every entry is a place in the atlas, with a Wikidata id and an English article', set(P['c']) <= names and set(P['n']) <= {str(int(k)) for k in A['countries']} and all(re.fullmatch(r'Q\d+', v[0]) and v[1] for v in list(P['c'].values()) + list(P['n'].values())))
 check('places: nearly every city and country has its article', len(P['c']) >= len(names) - 5 and len(P['n']) >= len(A['countries']) - 3, (len(P['c']), len(P['n'])))
-RCF = ROOT / 'pipeline' / 'input' / 'reddit_check.json'
-RC = json.loads(RCF.read_text(encoding='utf8'))['subs'] if RCF.exists() else {}
-live = lambda r: bool(r) and r.get('status') == 200 and r.get('type') == 'public' and not r.get('over18') and (r.get('subscribers') or 0) >= 200
-check('places: a subreddit is listed only where Reddit itself answered for it (public, not 18+, 200 members or more)',
-      all(len(v) < 4 or not v[3] or live(RC.get(v[3])) for v in P['c'].values()))
+check('places: no subreddit is listed (none could be confirmed; the page searches Reddit instead)', all(len(v) < 4 or not v[3] for v in P['c'].values()))
 homes = {k: v[4] for k, v in P['c'].items() if len(v) > 4 and v[4]}
 check('places: a housing page is listed only for a city in Zillow\'s own list, at an address in Zillow\'s form',
       all(RAW['cities'][k].get('zlist') and re.fullmatch(r'[a-z]+(-[a-z]+)*-[a-z]{2}', s) for k, s in homes.items()) and homes.get("Coeur d'Alene") == 'coeur-dalene-id' and homes.get('St. Louis') == 'saint-louis-mo' and homes.get('Chicago') == 'chicago-il' and homes.get('Washington DC') == 'washington-dc', (len(homes), homes.get("Coeur d'Alene")))
