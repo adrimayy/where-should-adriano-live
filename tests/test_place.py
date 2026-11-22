@@ -40,6 +40,8 @@ with sync_playwright() as p:
     errs = []; pg.on('pageerror', lambda e: errs.append(str(e)))
     pg.goto('file://' + PAGE); pg.wait_for_timeout(800)
     pg.evaluate("()=>fillSample()"); pg.wait_for_function("()=>document.documentElement.dataset.sim==='done'")
+    # the page's own counts, for the facts file checked at the end
+    live = pg.evaluate("()=>({cities:DATA.cities.length,countries:Object.keys(DATA.countries).length,factors:FACTORS.length,groups:GROUPS.filter(g=>g!=='none').length,languages:Object.keys(UI_LANGS).length})")
     # ---- what the score is made of
     bd = pg.evaluate("""()=>{const out={n:0,bad:[],order:true,rows:true};
       const some=ents.filter(listable).sort(byRank).filter((e,i)=>i%9===0).slice(0,60);
@@ -124,4 +126,9 @@ own = re.findall(r'(?:src|href)="((?:js|css|data)/[^"]+)"', html)
 log = max(int(v) for v in re.findall(r'\(v(\d+)\)', (ROOT / 'docs' / 'CHANGELOG.md').read_text(encoding='utf8')))
 check('release number: every file of the page\'s own carries it, and it is the newest release in the changelog',
       len(own) >= 16 and all(u.endswith('?v=' + ver) for u in own) and int(ver) == log, (ver, log, [u for u in own if not u.endswith('?v=' + ver)][:3]))
+# ---- the counts the project publishes for pages elsewhere are the page's own, for this release
+facts = json.loads((ROOT / 'data' / 'facts.json').read_text(encoding='utf8'))
+check('facts file: its counts are the loaded page\'s own and its release is this one (run pipeline/write_facts.py)',
+      {k: facts.get(k) for k in live} == live and facts.get('release') == int(ver) and re.fullmatch(r'20\d\d-\d\d-\d\d', facts.get('updated') or '')
+      and set(facts) == set(live) | {'release', 'updated'}, (facts, live, ver))
 print(f"\n{len(fails)} failed" if fails else "\nall passed"); sys.exit(1 if fails else 0)
