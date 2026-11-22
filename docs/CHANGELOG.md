@@ -174,6 +174,11 @@ in `js/07-quiz.js`).
   out and the counts of cities, countries, factors, groups and languages, each read from the file the page itself
   uses and checked against the loaded page by the tests. A page elsewhere can fetch it and show the counts of the
   release that is live. Nothing on the atlas itself changes.
+- **Towns in the find box (v71):** the atlas scores whole US metros, so a town inside one (Cupertino, Tysons,
+  Bellevue, Lexington in Massachusetts) wasn't on the map and the find box didn't know it. It now knows 6,387 US
+  towns of 5,000 people or more (Census Bureau, ACS 2020-2024), each with its metro: typing one offers the metro,
+  and the metro's details open with a line saying which town led there and that the figures are for the whole
+  metro. A town that is already an atlas place keeps its own entry. No score changes.
 
 ## What held up
 

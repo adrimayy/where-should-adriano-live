@@ -862,7 +862,7 @@ function detail(e) {
       return `<button class="ghost dstep" data-go="${p ? p.key : ''}" ${p ? `aria-label="${dn(p)}" title="${dn(p)}"` : 'disabled aria-hidden="true"'}>${IC(ic, 20)}</button>`;
     };
   D.innerHTML = `<div class="dnav"><button class="ghost" id="dBack">${IC('left', 18)}<span>${L(!wideMQ.matches && ui.pane === 'map' ? 'paneMap' : 'ranking')}</span></button><span class="dsteps">${at >= 0 ? `<span class="meta mono">${at + 1} / ${ord.length}</span>` : ''}${step(at - 1, 'left')}${step(at + 1, 'right')}</span></div>
-  <div class="dhead"><div style="display:flex;flex-direction:column;gap:6px;min-width:0"><span class="eyebrow">${e.type === 'city' ? L('city') + ' · ' + countryOf(e) : L('country')}${e.est ? ' · ' + L('estimated') : ''}</span><h2 style="font-size:24px">${dn(e)}</h2><div class="toggles">${chip(e.tier)}<button class="chipbtn" id="cmpBtn">${ui.cmp.includes(e) ? L('removeCmp') : L('addCmp')}</button></div></div>${big}</div>
+  ${ui.via && ui.via.key === e.key ? `<p class="via">${escH(L('viaTown').replace('{t}', ui.via.town)).replace('{m}', dn(e))}</p>` : ''}<div class="dhead"><div style="display:flex;flex-direction:column;gap:6px;min-width:0"><span class="eyebrow">${e.type === 'city' ? L('city') + ' · ' + countryOf(e) : L('country')}${e.est ? ' · ' + L('estimated') : ''}</span><h2 style="font-size:24px">${dn(e)}</h2><div class="toggles">${chip(e.tier)}<button class="chipbtn" id="cmpBtn">${ui.cmp.includes(e) ? L('removeCmp') : L('addCmp')}</button></div></div>${big}</div>
   ${rangeLine}<p style="font-weight:500">${whyLine(e)}${e.gated ? L('dealRule') : ''}</p>${factLines(e)}${vsHome}<p class="meta">${noteOf(e) || ''}</p>${e.natl ? `<p class="meta">${L('natlNote')}</p>` : ''}
   ${
     e.hasGeo
@@ -1260,34 +1260,61 @@ const foldS = s =>
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
     .trim();
+// US towns the atlas doesn't score on their own (data/towns.js, loaded when the find box is first used): typing one
+// offers the metro it is in, after the atlas's own places with an equally good match.
+let _twP = null,
+  _towns = null;
+const townsData = () =>
+  (_twP =
+    _twP ||
+    (window.ATLAS_TOWNS
+      ? Promise.resolve(window.ATLAS_TOWNS)
+      : loadScript('data/towns.js?v=' + VER).then(
+          () => window.ATLAS_TOWNS,
+          () => null
+        )
+    ).then(d => {
+      if (!d) return (_twP = null);
+      _towns = d.t
+        .map(([n, st, m]) => ({ town: n, st, f: foldS(n), e: byKey['city:' + m] }))
+        .filter(t => t.e);
+      if ($('search').value.trim()) suggUI();
+    }));
+const matchLevel = (f, q) =>
+  f === q
+    ? 0
+    : f.startsWith(q)
+      ? 1
+      : f.split(/[\s,()-]+/).some(w => w.startsWith(q))
+        ? 2
+        : f.includes(q)
+          ? 3
+          : 9;
 function suggest(q) {
   q = foldS(q);
   if (!q) return [];
-  const hit = e => {
-    let best = 9;
-    for (const n of [dn(e), e.name]) {
-      const f = foldS(n),
-        s =
-          f === q
-            ? 0
-            : f.startsWith(q)
-              ? 1
-              : f.split(/[\s,()-]+/).some(w => w.startsWith(q))
-                ? 2
-                : f.includes(q)
-                  ? 3
-                  : 9;
-      if (s < best) best = s;
-    }
-    return best;
-  };
-  return ents
+  const hit = e => Math.min(...[dn(e), e.name].map(n => matchLevel(foldS(n), q)));
+  const own = ents
     .filter(listable)
-    .map(e => [hit(e), e])
-    .filter(x => x[0] < 9)
-    .sort((a, b) => a[0] - b[0] || byRank(a[1], b[1]) || dn(a[1]).localeCompare(dn(b[1])))
+    .map(e => [hit(e), 0, e])
+    .filter(x => x[0] < 9);
+  const towns = [];
+  if (_towns && q.length > 1)
+    for (let i = 0; i < _towns.length && towns.length < 40; i++) {
+      const t = _towns[i],
+        lv = matchLevel(t.f, q);
+      if (lv < 9 && listable(t.e)) towns.push([lv, 1, t, i]);
+    }
+  const rank = x => (x[1] ? -x[3] : 0); // towns: the larger first (the file is largest first)
+  return [...own, ...towns]
+    .sort(
+      (a, b) =>
+        a[0] - b[0] ||
+        a[1] - b[1] ||
+        (a[1] ? rank(b) - rank(a) : byRank(a[2], b[2]) || dn(a[2]).localeCompare(dn(b[2])))
+    )
     .slice(0, 7)
-    .map(x => x[1]);
+    .map(x => x[2]);
 }
 const _sg = { list: [], at: -1 };
 function suggMark() {
@@ -1309,10 +1336,13 @@ function suggUI() {
     ? ''
     : _sg.list.length
       ? _sg.list
-          .map(
-            (e, i) =>
-              `<li role="option" id="sg${i}" data-i="${i}">${sym(e.tier)}<span class="snm">${dn(e)} <small>${e.type === 'city' ? countryOf(e) : L('units').country}</small></span><b class="mono">${r5(e.score)}</b></li>`
-          )
+          .map((x, i) => {
+            const e = x.town ? x.e : x,
+              what = x.town
+                ? `${escH(x.town)}, ${x.st} <small>${L('townIn').replace('{m}', dn(e))}</small>`
+                : `${dn(e)} <small>${e.type === 'city' ? countryOf(e) : L('units').country}</small>`;
+            return `<li role="option" id="sg${i}" data-i="${i}">${sym(e.tier)}<span class="snm">${what}</span><b class="mono">${r5(e.score)}</b></li>`;
+          })
           .join('')
       : `<li class="none">${L('noMatch')}</li>`;
   suggMark();
@@ -1322,8 +1352,11 @@ function suggMove(d) {
   _sg.at = (_sg.at + d + _sg.list.length) % _sg.list.length;
   suggMark();
 }
-function goToPlace(e) {
-  if (!e) return;
+function goToPlace(x) {
+  if (!x) return;
+  // a town opens its metro, whose details then say which town led there
+  const e = x.town ? x.e : x;
+  ui.via = x.town ? { key: e.key, town: x.town + ', ' + x.st } : null;
   $('search').value = '';
   suggUI();
   $('search').blur();
@@ -1481,6 +1514,7 @@ function openPlace(e) {
 // Back to the list, at the spot the person left it. The place stays marked on the map.
 function closePlace(fromHistory) {
   if (!ui.open) return;
+  ui.via = null;
   const key = ui.sel && ui.sel.key;
   ui.open = false;
   document.body.classList.remove('place-open');

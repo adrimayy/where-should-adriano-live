@@ -107,6 +107,22 @@ with sync_playwright() as p:
     pg.set_viewport_size({'width': 1280, 'height': 860}); pg.wait_for_timeout(400)
     again = pg.evaluate("()=>[$('mapbox').contains($('search')),$('ppanel').contains($('rCities'))]")
     check('a window made narrower or wider moves the find box and the switch to where they belong', moved == [True, True, True] and again == [True, True], (moved, again))
+    # towns the atlas doesn't score on their own: the find box offers their metro, after the atlas's own places
+    pg.fill('#search', ''); pg.click('#search'); pg.fill('#search', 'cupertino'); pg.wait_for_timeout(600)
+    sg = pg.evaluate("()=>[...document.querySelectorAll('#sugg li')].map(l=>l.querySelector('.snm').textContent)")
+    pg.keyboard.press('Enter'); pg.wait_for_timeout(600)
+    tw = pg.evaluate("()=>[ui.sel.key,(document.querySelector('#detail .via')||{}).textContent||'']")
+    check('towns: typing Cupertino offers the San Jose metro; picking it opens San Jose and says Cupertino led there',
+          sg[:1] == ['Cupertino, CA in the San Jose metro'] and tw[0] == 'city:San Jose' and tw[1].startswith('Cupertino, CA is in the San Jose metro'), (sg, tw))
+    pg.evaluate("closePlace()"); pg.fill('#search', 'lexington'); pg.wait_for_timeout(300)
+    lx = pg.evaluate("()=>_sg.list.map(x=>x.town?x.town+', '+x.st+' > '+x.e.name:x.key)")
+    pg.fill('#search', 'east hampton'); pg.wait_for_timeout(300)
+    eh = pg.evaluate("()=>_sg.list.map(x=>x.town?x.town+', '+x.st:x.key)")
+    pg.keyboard.press('Enter'); pg.wait_for_timeout(500)
+    check('towns: the atlas\'s own place comes first and is never offered twice; a same-named town elsewhere follows with its metro',
+          lx[0] == 'city:Lexington' and 'Lexington, MA > Boston' in lx and not any('Fayette' in x for x in lx)
+          and eh[0] == 'city:East Hampton' and 'East Hampton, NY' not in eh and pg.evaluate("()=>!document.querySelector('#detail .via')"), (lx, eh))
+    pg.evaluate("closePlace()")
     check('no script errors on the wide screen', not errs, errs[:3])
     b.close()
 print(f"\n{len(fails)} failed" if fails else "\nall passed"); sys.exit(1 if fails else 0)
