@@ -169,6 +169,11 @@ in `js/07-quiz.js`).
 - **A new release now replaces the old one whole (v69):** the page's files had the same addresses in every release,
   so a browser could keep last release's code for a while and run it under a new page, or show no change at all. Each
   of the page's own files now carries the release number, so a new release is asked for fresh, all together.
+- **The atlas publishes its own counts (v70):** pages that describe the atlas wrote its numbers out by hand and fell
+  behind (one still said 23 factors and a 7-question quiz). `data/facts.json` now holds the release, the day it came
+  out and the counts of cities, countries, factors, groups and languages, each read from the file the page itself
+  uses and checked against the loaded page by the tests. A page elsewhere can fetch it and show the counts of the
+  release that is live. Nothing on the atlas itself changes.
 
 ## What held up
 

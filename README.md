@@ -16,6 +16,8 @@ css/atlas.css       How it looks.
 data/atlas.js       Every number the page shows, in one file. Made by build.py; don't edit by hand.
 data/lakes-hires.js Detailed lakes for the zoomed-in map, loaded on demand. Also made by build.py.
 data/places.js      Outside links and photo credits for a place's details, loaded when a place is opened. Also made by build.py.
+data/facts.json     The atlas's own counts (release, cities, countries, factors, groups, languages). The page doesn't
+                    read it; pages elsewhere that describe the atlas do. Made by pipeline/write_facts.py.
 js/                 The page's code, one file per part, run in name order:
                     00 setup, 01 strings (English and Spanish), 02 factors and presets, 03 geography,
                     04 language and passport, 05 places, 06 scoring and the 120 recalculations, 07 quiz,
@@ -64,7 +66,7 @@ Working files (`build/`, `dist/`) are not part of the repository. Code is format
   NUTS 2 boundaries from github.com/eurostat/Nuts2json (needs `shapely`).
 - **Car dependence (ITDP Atlas):** `pipeline/import_itdp.py` with the `atlas_cities_*.csv` files from atlas.itdp.org.
 - **Freedom House, UNODC homicides, ILO working hours:** `pipeline/import_world.py`.
-- **Each release:** raise the release number in `index.html` (`data-v` on `<html>` and every `?v=`) and add the release to `docs/CHANGELOG.md`. Browsers keep files by address, so the number is what makes them fetch the new ones. `tests/test_place.py` checks the two agree.
+- **Each release:** raise the release number in `index.html` (`data-v` on `<html>` and every `?v=`), add the release to `docs/CHANGELOG.md` and run `python3 pipeline/write_facts.py`. Browsers keep files by address, so the number is what makes them fetch the new ones. `data/facts.json` holds the atlas's own counts (release, cities, countries, factors, groups, languages) for pages elsewhere that describe it. `tests/test_place.py` checks all three agree.
 - **Outside links and photos:** `python3 pipeline/import_places.py` (needs the network; asks Wikidata and Wikimedia Commons, and writes a report of matches to look at), then `python3 pipeline/write_places.py`.
 - **Map lakes:** `pipeline/import_lakes.py` with Natural Earth's `ne_110m_lakes.geojson` and `ne_50m_lakes.geojson`.
 - Each importer's docstring lists the exact files and where to download them; each output file records the files' checksums.
@@ -76,7 +78,7 @@ Working files (`build/`, `dist/`) are not part of the repository. Code is format
 python3 tests/test_page.py      # clicks through the quiz, results, a place's details and the language switch on desktop and mobile
 python3 tests/test_walk.py      # the visitor's path on a phone in all eight languages, the Back button, reload, reset, shared links
 python3 tests/test_controls.py  # one bar and one panel for every control; list or map; the find box; details open and close in place
-python3 tests/test_place.py     # a place's details: the score in eight groups adds back to the score; outside links, photo and real map (stubbed)
+python3 tests/test_place.py     # a place's details: the score in eight groups adds back to the score; outside links, photo and real map (stubbed); the release number and data/facts.json
 python3 tests/live_check.py     # by hand, with the network open: the real map, a real photo, screenshots to look at
 python3 tests/test_numbers.py   # checks specific numbers (money after rent, bands, rounding, rules)
 python3 tests/test_gestures.py  # pinch and pan keep the map under your fingers
