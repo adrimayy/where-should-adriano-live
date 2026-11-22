@@ -249,7 +249,7 @@ $('cmpClear').onclick = () => {
 };
 // the find box: suggestions as you type; arrows move through them, Enter or a tap goes to the place, Escape clears
 $('search').oninput = suggUI;
-$('search').onfocus = suggUI;
+$('search').onfocus = () => (townsData(), suggUI());
 $('search').onkeydown = e => {
   if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
     e.preventDefault();

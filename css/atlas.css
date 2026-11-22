@@ -2015,6 +2015,8 @@ button.brand { background: none; border: 0; padding: 0; min-height: 0; color: in
 .sugg li.none { color: var(--muted); cursor: default; }
 .sugg .snm { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
 .sugg .snm small { font-weight: 400; color: var(--muted); }
+/* a town picked in the find box: its metro's details say so first (v71) */
+#detail .via { margin: 4px 0 10px; font-size: 13px; color: var(--muted); }
 .ctlbtn { display: inline-flex; align-items: center; gap: 6px; flex: 0 0 auto; min-height: 42px; padding: 6px 14px; border-radius: 999px;
   border: 1px solid var(--line); background: var(--panel); color: var(--fg); font-weight: 600; white-space: nowrap; }
 .ctlbtn b { min-width: 20px; padding: 0 6px; border-radius: 999px; background: var(--accent); color: #fff; font-size: 12px; text-align: center; }

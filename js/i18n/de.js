@@ -347,6 +347,8 @@ I18N({
     paneMap: 'Karte',
     ctlDone: 'Ergebnisse zeigen',
     noMatch: 'Kein Ort mit diesem Namen',
+    townIn: 'im Großraum {m}',
+    viaTown: '{t} liegt im Großraum {m}. Der Atlas bewertet den ganzen Großraum; diese Zahlen gelten für ihn insgesamt.',
     mapFull: 'Vollbild',
     mapSmall: 'Vollbild verlassen',
     mapBack: 'Zurück zu {p}',

@@ -1,6 +1,6 @@
 """Pack the site into one file for claude.ai, which needs everything inline:
 
-    python3 bundle.py     # index.html + css/ + data/atlas.js + js/ (+ js/i18n/, data/lakes-hires.js, data/places.js)  ->  dist/livability-atlas.html
+    python3 bundle.py     # index.html + css/ + data/atlas.js + js/ (+ js/i18n/, data/lakes-hires.js, data/places.js, data/towns.js)  ->  dist/livability-atlas.html
 
 GitHub Pages doesn't need this; it serves index.html and the files it points to."""
 import re, pathlib
@@ -22,6 +22,7 @@ i18n = ''.join('<script>\n' + safe(f.read_text(encoding='utf8')) + '</script>\n'
 # so do the detailed lakes, which the page otherwise loads from data/ when someone zooms in
 i18n += '<script>\n' + safe((ROOT / 'data' / 'lakes-hires.js').read_text(encoding='utf8')) + '</script>\n'
 i18n += '<script>\n' + safe((ROOT / 'data' / 'places.js').read_text(encoding='utf8')) + '</script>\n'
+i18n += '<script>\n' + safe((ROOT / 'data' / 'towns.js').read_text(encoding='utf8')) + '</script>\n'
 page = page.replace('</body>', i18n + '</body>', 1)
 
 # the claude.ai viewer supplies its own doctype/html/head/body skeleton

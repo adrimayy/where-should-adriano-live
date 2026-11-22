@@ -346,6 +346,8 @@ I18N({
     paneMap: 'Carte',
     ctlDone: 'Voir les résultats',
     noMatch: 'Aucun lieu de ce nom',
+    townIn: 'dans l’agglomération de {m}',
+    viaTown: '{t} fait partie de l’agglomération de {m}. L’atlas note l’agglomération entière : ces chiffres portent sur toute l’agglomération.',
     mapFull: 'Plein écran',
     mapSmall: 'Quitter le plein écran',
     mapBack: 'Revenir à {p}',

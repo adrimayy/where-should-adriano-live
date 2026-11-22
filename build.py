@@ -59,6 +59,8 @@ hi.write_text('// Lakes for the detailed map outlines (Natural Earth 1:50m). Mad
               'window.ATLAS_LAKES_HI=' + (INPUT / 'lakes_50m.json').read_text(encoding='utf8') + ';\n', encoding='utf8')
 # outside links and photo credits for a place's details: their own file, loaded when a place is opened
 run(ROOT / 'pipeline/write_places.py')
+# US towns the find box knows, each with its metro
+run(ROOT / 'pipeline/write_towns.py')
 # the atlas's own counts, for pages elsewhere that describe it
 run(ROOT / 'pipeline/write_facts.py')
 print(f"built: {len(D['cities'])} cities, {len(D['countries'])} countries; data/atlas.js {out.stat().st_size // 1024} KB")

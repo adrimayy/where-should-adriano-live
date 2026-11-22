@@ -346,6 +346,8 @@ I18N({
     paneMap: 'Mapa',
     ctlDone: 'Ver resultados',
     noMatch: 'Nenhum lugar com esse nome',
+    townIn: 'na região metropolitana de {m}',
+    viaTown: '{t} fica na região metropolitana de {m}. O atlas avalia a região inteira, então estes números são de toda ela.',
     mapFull: 'Tela cheia',
     mapSmall: 'Sair da tela cheia',
     mapBack: 'Voltar para {p}',

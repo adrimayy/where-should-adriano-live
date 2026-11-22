@@ -324,6 +324,8 @@ I18N({
     paneMap: '地图',
     ctlDone: '查看结果',
     noMatch: '没有这个名字的地方',
+    townIn: '属于{m}都市区',
+    viaTown: '{t}属于{m}都市区。本图集按整个都市区评分，以下数字针对整个都市区。',
     mapFull: '全屏',
     mapSmall: '退出全屏',
     mapBack: '回到{p}',
